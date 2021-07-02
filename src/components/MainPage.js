@@ -186,8 +186,7 @@ class MainPage extends Component {
   }
 
   async PostProductOutSave() {
-    /*
-    try {
+  
       var url =
         "abi/post/AddWayBill.ashx?CorpId=" +
         this.state.CorpId + "&Piece=" + this.state.Piece + "&OrderId=" + this.state.OrderId + "&Weight=" +  this.state.Weight +
@@ -202,9 +201,7 @@ class MainPage extends Component {
         mode: "cors",
       });
       console.log(response.json);
-    } catch {
-      alert("Sorun oluştu yeniden deneyin");
-    }*/
+    
   }
   async PostArticelsave() {
    
