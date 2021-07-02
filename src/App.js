@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   async LoginProccess() {
-    const response = await fetch("https://api.statu.space/token", {
+    const response = await fetch("https://api.recep.space/token", {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
@@ -29,7 +29,7 @@ class App extends Component {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": "https://api.statu.space/token",
+        "Access-Control-Allow-Origin": "https://api.recep.space/token",
       },
     });
     this.setState({ result: await response.json() });

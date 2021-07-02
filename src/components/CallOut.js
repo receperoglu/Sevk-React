@@ -55,7 +55,7 @@ export default function CallOut(props) {
                     {props.OneWayBill.map((w) => (
                       <tr key={w.id}>
                         <td>
-                          <b> </b> {w.Piece}{" "}
+                          <b> </b> {w.Piece} 
                         </td>
                         <td>{w.Weight} KG </td>
                         <td> {w.CreatedDate} </td>
@@ -64,7 +64,7 @@ export default function CallOut(props) {
                             onClick={() => this.GetWayBillPhoto(w.WayBillId)}
                           >
                         
-                            {w.WayBillId}{" "}
+                            {w.WayBillId} 
                           </span>
                         </td>
                       </tr>

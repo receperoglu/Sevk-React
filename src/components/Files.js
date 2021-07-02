@@ -11,7 +11,7 @@ export default function Files(props) {
 
  
 
-           <div style= {{ backgroundImage: `url(${"https://statu.space/abi/thumbs/"+f.Path})` }}
+           <div style= {{ backgroundImage: `url(${"https://recep.space/abi/thumbs/"+f.Path})` }}
 
 className="col-md-1 padd0 FileIco filepreview col-xs-2" > 
            </div>
