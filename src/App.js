@@ -61,8 +61,7 @@ class App extends Component {
 
     return (
       <div>
-        {showButton ? <Login /> : null}
-        {showButton ? null : <MainPage />}
+   <MainPage />
       
       </div>
     );
