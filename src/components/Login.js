@@ -15,7 +15,7 @@ class Login extends Component {
   }
 
   async LoginProccess() {
-    const response = await fetch("https://api.recep.space/token", {
+    const response = await fetch("https://api.bymomani.com/token", {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
@@ -27,7 +27,7 @@ class Login extends Component {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": "https://api.recep.space/token",
+        "Access-Control-Allow-Origin": "https://api.bymomanic.com/token",
       },
     });
     this.setState({ result: await response.json() });
