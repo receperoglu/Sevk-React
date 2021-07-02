@@ -207,7 +207,7 @@ class MainPage extends Component {
     }*/
   }
   async PostArticelsave() {
-    try {
+   
       var url =
         "abi/post/AddArticel.ashx?CorpId=" +
         this.state.CorpId +
@@ -221,18 +221,17 @@ class MainPage extends Component {
         cache: "no-cache",
         mode: "cors",
       });
+      let articelid=   response.json()
       this.setState({
-        Articelid: await response.json,
+        Articelid:articelid,
         IsNewProductShow: true,
         IsCreateArticelShow: false,
       });
-    } catch {
-      alert("Sorun oluştu yeniden deneyin");
-    }
+     
   }
 
   async PostOrdersave() {
-    try {
+   
       var url =
         "abi/post/AddOrder.ashx?ArticelId=" +
         this.state.Articelid +
@@ -252,13 +251,11 @@ class MainPage extends Component {
         cache: "no-cache",
         mode: "cors",
       });
-      console.log(await response);
+      console.log(  response.json());
       this.setState({ ProductNewLoading: false });
 
       this.GetOrders(this.state.Articelid, this.state.ArticelName);
-    } catch {
-      alert("Sorun oluştu yeniden deneyin");
-    }
+     
   }
   async PostOrderUpdate() {
     var url =
