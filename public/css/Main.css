@@ -1,0 +1,28 @@
+﻿.showchat {
+    border: 1px solid #0094ff;
+    width: 300px;
+    height: 350px;
+    border: 0px;
+    display: inline-block;
+    position: fixed;
+    bottom: 0px;
+    z-index: 999;
+    right: 10px;
+}
+
+.padd0 {
+    padding: 0px !important;
+}
+
+.DialogQuestion {
+    width: 300px;
+    position: fixed;
+    margin-left: 35%;
+    border: 1px solid #eae5e5;
+    padding: 20px;
+    margin-top: 10%;
+}
+.cwhite{
+
+    color:#fff !important;
+}

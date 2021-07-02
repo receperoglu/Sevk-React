@@ -1,0 +1,11 @@
+export declare const personaContainer = "personaContainer_536a24c5";
+export declare const hover = "hover_536a24c5";
+export declare const actionButton = "actionButton_536a24c5";
+export declare const personaContainerIsSelected = "personaContainerIsSelected_536a24c5";
+export declare const validationError = "validationError_536a24c5";
+export declare const itemContent = "itemContent_536a24c5";
+export declare const removeButton = "removeButton_536a24c5";
+export declare const expandButton = "expandButton_536a24c5";
+export declare const personaWrapper = "personaWrapper_536a24c5";
+export declare const personaDetails = "personaDetails_536a24c5";
+export declare const itemContainer = "itemContainer_536a24c5";
