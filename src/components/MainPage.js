@@ -186,6 +186,7 @@ class MainPage extends Component {
   }
 
   async PostProductOutSave() {
+    /*
     try {
       var url =
         "abi/post/AddWayBill.ashx?CorpId=" +
@@ -203,7 +204,7 @@ class MainPage extends Component {
       console.log(response.json);
     } catch {
       alert("Sorun oluştu yeniden deneyin");
-    }
+    }*/
   }
   async PostArticelsave() {
     try {
