@@ -30,6 +30,7 @@ class MainPage extends Component {
       Dimensions: "",
       OrderId: 0,
       Weight: 0,
+      CorpName:"",
       Color: "",
       TypeName: "",
       TypeId: 0,
@@ -37,7 +38,7 @@ class MainPage extends Component {
       LoopCount: 0,
       TotalOutPiece: 0,
       TotalOutWeight: 0,
-      Articelid: 0,
+      ArticelId: 0,
       SaleTypeId: 0,
 
       isShowWaybilllist: true,
@@ -194,7 +195,7 @@ class MainPage extends Component {
       "&SaleType=1&Comment=9&WayBillId=" +
       this.state.WayBillId +
       "&ArticelId=" +
-      this.state.Articelid;
+      this.state.ArticelId;
 
     const response = await fetch(url, {
       method: "POST",
@@ -219,7 +220,7 @@ class MainPage extends Component {
     });
     let articelid = response.json();
     this.setState({
-      Articelid: articelid,
+      ArticelId: articelid,
       IsNewProductShow: true,
       IsCreateArticelShow: false,
     });
@@ -228,7 +229,7 @@ class MainPage extends Component {
   async PostOrdersave() {
     var url =
       "abi/post/AddOrder.ashx?ArticelId=" +
-      this.state.Articelid +
+      this.state.ArticelId +
       "&ProductType=" +
       this.state.TypeId +
       "&Dimensions=" +
@@ -248,7 +249,7 @@ class MainPage extends Component {
     console.log(response.json());
     this.setState({ ProductNewLoading: false });
 
-    this.GetOrders(this.state.Articelid, this.state.ArticelName);
+    this.GetOrders(this.state.ArticelId, this.state.ArticelName,this.state.CorpName);
   }
   async PostOrderUpdate() {
     var url =
@@ -276,7 +277,7 @@ class MainPage extends Component {
     console.log(response.json());
     this.setState({ isShowProductEdit: false });
 
-    this.GetOrders(this.state.Articelid, this.state.ArticelName);
+    this.GetOrders(this.state.ArticelId, this.state.ArticelName,this.state.CorpName);
   }
 
   Closeproductmodal() {
@@ -348,13 +349,13 @@ class MainPage extends Component {
   }
 
   async GetWaybillPhoto(WaybillId) {}
-  async GetWaybillAsync(Articelid) {
+  async GetWaybillAsync(ArticelId) {
     this.setState({
       Waybill: [],
       isShow: true,
     });
     var WayBillUrl =
-      USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + Articelid;
+      USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId;
     const response = await fetch(WayBillUrl, {
       method: "POST",
       cache: "no-cache",
@@ -377,12 +378,12 @@ class MainPage extends Component {
     }
   }
 
-  async GetFilesAsync(Articelid) {
+  async GetFilesAsync(ArticelId) {
     this.setState({
       Files: [],
       isShowFiles: false,
     });
-    var url = USER_SERVICE_URL + "Pictures&Articelid=" + Articelid;
+    var url = USER_SERVICE_URL + "Pictures&ArticelId=" + ArticelId;
     const response = await fetch(url, {
       method: "POST",
       cache: "no-cache",
@@ -535,19 +536,21 @@ class MainPage extends Component {
     });
   }
 
-  async GetOrders(Articelid, CorpId, ArticelName) {
+  async GetOrders(ArticelId, CorpId, ArticelName,CorpName) {
     this.setState({
       isShow: true,
       CorpId: CorpId,
-      Articelid: Articelid,
+      ArticelId: ArticelId,
       isShowTopBar: true,
       isShowCallOut: false,
       ArticelName: ArticelName,
+      CorpName:CorpName
+
     });
 
-    this.GetWaybillAsync(Articelid);
+    this.GetWaybillAsync(ArticelId);
 
-    this.GetFilesAsync(Articelid);
+    this.GetFilesAsync(ArticelId);
 
     this.setState({
       Orders: [],
@@ -555,14 +558,14 @@ class MainPage extends Component {
     });
 
     if (this.state.ActiveArticel === 0) {
-      this.state.ActiveArticel = Articelid;
+      this.state.ActiveArticel = ArticelId;
     } else {
       var selectedId = "Articel" + this.state.ActiveArticel;
       document.getElementById(selectedId).classList.remove("ActiveArticelRow");
-      this.state.ActiveArticel = Articelid;
+      this.state.ActiveArticel = ArticelId;
     }
 
-    var Clicked = "Articel" + Articelid;
+    var Clicked = "Articel" + ArticelId;
     document.getElementById(Clicked).classList.add("ActiveArticelRow");
 
     document.getElementById("ArticelName").innerHTML = ArticelName;
@@ -571,7 +574,7 @@ class MainPage extends Component {
     document.getElementById("SecondScreen").classList.add("col-md-8");
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
-    var FullUrl = USER_SERVICE_URL + "Orders&Articelid=" + Articelid;
+    var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + ArticelId;
     const response = await fetch(FullUrl, {
       method: "POST",
       cache: "no-cache",
@@ -605,6 +608,8 @@ class MainPage extends Component {
           MenuStatu={this.state.MenuStatu}
           Corps={this.state.Corps}
           filterCorp={this.filterCorp}
+          ArticelId={this.state.ArticelId}
+          CorpName={this.state.CorpName}
         />
 
         <div
@@ -653,19 +658,20 @@ class MainPage extends Component {
                   className="ArticelRow"
                   id={this.state.Articel + a.id}
                   key={a.id}
+                  onClick={() =>
+                    this.GetOrders(a.id, a.CorpId, a.ArticelName,a.CustomerName)
+                  }
                 >
                   <td style={{ whiteSpace: "break-spaces" }}>
                     {a.CustomerName}
                   </td>
                   <td>
-                    <span className="Articelid">AT-{a.id}</span>
+                    <span className="ArticelId">AT-{a.id}</span>
                     {a.ArticelName}
                   </td>
                   <td>
                     <i
-                      onClick={() =>
-                        this.GetOrders(a.id, a.CorpId, a.ArticelName)
-                      }
+                     
                       className="Icon css-43 SearchIcon "
                     ></i>
                   </td>

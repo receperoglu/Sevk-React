@@ -2,6 +2,11 @@ import React from "react";
 import "../css/Table.css";
 
 export default function TopBar(props) {
+  const PrintNow=()=>{
+    var PrintUrl= "https://recep.space/abi/js/PrintOrder.html?ArticelId="+props.ArticelId+"&CorpName="+props.CorpName
+    const newWindow = window.open(PrintUrl, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null
+  }
   return (
     <div className="od-BasePage-suiteNav od-BasePage-suiteNav--reactShell">
       <div className="od-SuiteNav od-SuiteNav-react">
@@ -163,30 +168,7 @@ export default function TopBar(props) {
                 <div>
                   <div className="ms-FocusZone css-74 ms-CommandBar root-79">
                     <div className="ms-OverflowSet TopBarCommandLeft primarySet-82">
-                      <div className="ChangeView ms-OverflowSet-item TopBarObject">
-                        <button
-                          type="button"
-                          name="Görünüm seçenekleri"
-                          className="ms-Button ms-Button--commandBar ms-CommandBarItem-link hide-label root-85"
-                          data-is-focusable="true"
-                        >
-                          <div className="ms-Button-flexContainer flexContainer-86">
-                            <i
-                              data-icon-name="ViewAll"
-                              role="presentation"
-                              className="ButtonIcon icon-97"
-                            >
-                              
-                            </i>
-                            <div className="ms-Button-textContainer textContainer-87">
-                              <div className="ms-Button-label label-89">
-                                Görünüm seçenekleri
-                              </div>
-                            </div>
-                            <i className="ms-Button-menuIcon menuIcon-98"></i>
-                          </div>
-                        </button>
-                      </div>
+                      
                       <div
                         id="commandnew"
                         className="ms-OverflowSet-item  TopBarObject hide"
@@ -246,6 +228,7 @@ export default function TopBar(props) {
                       </div>
                       <div className="ms-OverflowSet-item commandprint TopBarObject SubTools ">
                         <button
+                           onClick={()=>{PrintNow()}}
                           type="button"
                           name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
@@ -343,6 +326,7 @@ export default function TopBar(props) {
                         <button
                           type="button"
                           name="Yeni"
+                       
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
