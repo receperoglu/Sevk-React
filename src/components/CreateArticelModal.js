@@ -76,7 +76,7 @@ export default function CreateArticelModal(props) {
                   <div className="col-md-12 text-right fleft">
                     <div
                       className={
-                        props.CreateArticelLoading
+                        props.isShowCreateArticel
                           ? "show ProgressSpinnerFlat"
                           : "opaq0 ProgressSpinnerFlat"
                       }
@@ -93,7 +93,7 @@ export default function CreateArticelModal(props) {
 
                     <span
                       className={
-                        props.CreateArticelLoading
+                        props.isShowCreateArticel
                           ? "hide"
                           : "Transfer TransferBTN ms-Button ms-Button--primary"
                       }

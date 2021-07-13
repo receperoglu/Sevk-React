@@ -4,7 +4,7 @@ export default function LayoutRight(props) {
   return (
     <div
       id="LayoutRight"
-      className={props.isLayoutRight ? "BaseDrive" : "hide"}
+      className={props.isShowLayoutRight ? "BaseDrive" : "hide"}
     >
       <div className="_3vMrdRZR8bo5hSiJS8JJ8C nopad col-md-12">
         <div className="col-md-8">

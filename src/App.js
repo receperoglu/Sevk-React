@@ -57,8 +57,7 @@ class App extends Component {
   }
 
   render() {
-    const { showButton } = this.state;
-
+ 
     return (
       <div>
    <MainPage />

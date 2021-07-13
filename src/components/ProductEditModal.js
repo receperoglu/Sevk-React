@@ -44,6 +44,9 @@ export default function ProductEditModal(props) {
                           type="number"
                           value={props.Piece}
                           className="Piece form-control"
+                          onChange={(e) =>
+                            props.ChangeProductType(e.target.value)
+                          }
                         />
                       </div>
                       <div className="col-md-2 fleft">
@@ -53,6 +56,9 @@ export default function ProductEditModal(props) {
                         <input
                           type="text"
                           defaultValue={props.Dimensions}
+                          onChange={(e) =>
+                            props.ChangeProductType(e.target.value)
+                          }
                           className="Dim form-control"
                         />
                       </div>
@@ -63,6 +69,9 @@ export default function ProductEditModal(props) {
                         <input
                           type="text"
                           defaultValue={props.Color}
+                          onChange={(e) =>
+                            props.ChangeProductType(e.target.value)
+                          }
                           className="Color form-control"
                         />
                       </div>

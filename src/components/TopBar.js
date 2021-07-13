@@ -158,7 +158,7 @@ export default function TopBar(props) {
             </div>
           </div>
           <div className="od-TopBar-item od-TopBar-commandBar od-BasePage-commandBar">
-            <div className={props.isTopBarShow ? "fright" : "opaq0 hide"}>
+            <div className={props.isShowTopBar ? "fright" : "opaq0 hide"}>
               <div className="col-md-6 padd0 ">
                 <div>
                   <div className="ms-FocusZone css-74 ms-CommandBar root-79">

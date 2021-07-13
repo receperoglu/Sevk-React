@@ -40,7 +40,7 @@ class MainPage extends Component {
       Articelid: 0,
       SaleTypeId: 0,
 
-      isWaybilllist: true,
+      isShowWaybilllist: true,
       IsFirstRun: true,
       isShow: true,
 
@@ -48,16 +48,17 @@ class MainPage extends Component {
       IsCreateArticelShow: false,
       IsNewProductShow: false,
       isShowFiles: false,
-      ismodalvisible: false,
-      IsProductOutShow: false,
       isShowOrder: false,
-      IsCallOutShow: false,
+      isShowTopBar: false,
+      ismodalvisible: false,
+      isShowProductOut: false,
+      isShowProductEdit: false,
+      isShowCallOut: false,
       CalloutLoading: false,
       isFetching: false,
-      isTopBarShow: false,
-      isLayoutRight: false,
-      IsProductEditShow: false,
-      CreateArticelLoading: false,
+      isShowLayoutRight: false,
+
+      isShowCreateArticel: false,
       ProductNewLoading: false,
       Articel: "Articel",
       x: 0,
@@ -108,23 +109,19 @@ class MainPage extends Component {
     this.filterCorp = this.filterCorp.bind(this);
   }
 
-  ChangeProductType(ProductTypeId) {
-    this.setState({ TypeId: ProductTypeId });
+  ChangeProductType(TypeId) {
+    this.setState({ TypeId: TypeId });
   }
-  ChangeArticelName(ArticelName) {
-    this.setState({ ArticelName: ArticelName });
+  ChangeArticelName(Name) {
+    this.setState({ ArticelName: Name });
   }
-  ChangeCorpId(CorpId) {
-    this.setState({ CorpId: CorpId });
+  ChangeCorpId(Id) {
+    this.setState({ CorpId: Id });
   }
 
-  MenuToggler() {
-    if (this.state.MenuStatu === false) {
-      this.setState({ MenuStatu: true });
-    } else {
-      this.setState({ MenuStatu: false });
-    }
-  }
+  MenuToggler = () => {
+    this.setState({ MenuStatu: !this.state.MenuStatu });
+  };
   ChangePiece(Piece) {
     this.setState({ Piece: Piece });
   }
@@ -134,15 +131,15 @@ class MainPage extends Component {
   ChangeDimensions(Dimensions) {
     this.setState({ Dimensions: Dimensions });
   }
-  ChangeWayBillId(WayBillId) {
-    this.setState({ WayBillId: WayBillId });
+  ChangeWayBillId(Id) {
+    this.setState({ WayBillId: Id });
   }
 
   ChangeColor(Color) {
     this.setState({ Color: Color });
   }
-  ChangeSalesType(SaleTypeId) {
-    this.setState({ SaleTypeId: SaleTypeId });
+  ChangeSalesType(Id) {
+    this.setState({ SaleTypeId: Id });
   }
 
   NewProductShow() {
@@ -152,8 +149,8 @@ class MainPage extends Component {
     this.setState({
       IsCreateArticelShow: true,
       IsNewProductShow: false,
-      IsCallOutShow: false,
-      isTopBarShow: false,
+      isShowCallOut: false,
+      isShowTopBar: false,
       isShowOrder: false,
     });
 
@@ -168,7 +165,6 @@ class MainPage extends Component {
   }
   SaveProductOut(OrderId) {
     this.setState({ OrderId: OrderId });
-
     setTimeout(() => this.PostProductOutSave(), 5000);
   }
 
@@ -181,78 +177,78 @@ class MainPage extends Component {
     this.PostOrdersave();
   }
   SaveArticel() {
-    this.setState({ CreateArticelLoading: true });
+    this.setState({ isShowCreateArticel: true });
     this.PostArticelsave();
   }
 
   async PostProductOutSave() {
-  
-      var url =
-        "abi/post/AddWayBill.ashx?CorpId=" +
-        this.state.CorpId + "&Piece=" + this.state.Piece + "&OrderId=" + this.state.OrderId + "&Weight=" +  this.state.Weight +
-        "&SaleType=1&Comment=9&WayBillId=" +
-        this.state.WayBillId +
-        "&ArticelId=" +
-        this.state.Articelid;
+    var url =
+      "abi/post/AddWayBill.ashx?CorpId=" +
+      this.state.CorpId +
+      "&Piece=" +
+      this.state.Piece +
+      "&OrderId=" +
+      this.state.OrderId +
+      "&Weight=" +
+      this.state.Weight +
+      "&SaleType=1&Comment=9&WayBillId=" +
+      this.state.WayBillId +
+      "&ArticelId=" +
+      this.state.Articelid;
 
-      const response = await fetch(url, {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-      });
-      console.log(response.json);
-    
+    const response = await fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+    });
+    console.log(response.json);
   }
   async PostArticelsave() {
-   
-      var url =
-        "abi/post/AddArticel.ashx?CorpId=" +
-        this.state.CorpId +
-        "&Articel=" +
-        this.state.ArticelName +
-        "&SaleType=" +
-        this.state.SaleTypeId;
+    var url =
+      "abi/post/AddArticel.ashx?CorpId=" +
+      this.state.CorpId +
+      "&Articel=" +
+      this.state.ArticelName +
+      "&SaleType=" +
+      this.state.SaleTypeId;
 
-      const response = await fetch(url, {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-      });
-      let articelid=   response.json()
-      this.setState({
-        Articelid:articelid,
-        IsNewProductShow: true,
-        IsCreateArticelShow: false,
-      });
-     
+    const response = await fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+    });
+    let articelid = response.json();
+    this.setState({
+      Articelid: articelid,
+      IsNewProductShow: true,
+      IsCreateArticelShow: false,
+    });
   }
 
   async PostOrdersave() {
-   
-      var url =
-        "abi/post/AddOrder.ashx?ArticelId=" +
-        this.state.Articelid +
-        "&ProductType=" +
-        this.state.TypeId +
-        "&Dimensions=" +
-        this.state.Dimensions +
-        "&CorpId=" +
-        this.state.CorpId +
-        "&Color=" +
-        this.state.Color +
-        "&Piece=" +
-        this.state.Piece +
-        "&SaleType=1&Articel=test";
-      const response = await fetch(url, {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-      });
-      console.log(  response.json());
-      this.setState({ ProductNewLoading: false });
+    var url =
+      "abi/post/AddOrder.ashx?ArticelId=" +
+      this.state.Articelid +
+      "&ProductType=" +
+      this.state.TypeId +
+      "&Dimensions=" +
+      this.state.Dimensions +
+      "&CorpId=" +
+      this.state.CorpId +
+      "&Color=" +
+      this.state.Color +
+      "&Piece=" +
+      this.state.Piece +
+      "&SaleType=1&Articel=test";
+    const response = await fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+    });
+    console.log(response.json());
+    this.setState({ ProductNewLoading: false });
 
-      this.GetOrders(this.state.Articelid, this.state.ArticelName);
-     
+    this.GetOrders(this.state.Articelid, this.state.ArticelName);
   }
   async PostOrderUpdate() {
     var url =
@@ -278,61 +274,61 @@ class MainPage extends Component {
       },
     });
     console.log(response.json());
-    this.setState({ IsProductEditShow: false });
+    this.setState({ isShowProductEdit: false });
 
     this.GetOrders(this.state.Articelid, this.state.ArticelName);
   }
 
   Closeproductmodal() {
-    this.setState({ ismodalvisible: false, IsCallOutShow: false });
+    this.setState({ ismodalvisible: false, isShowCallOut: false });
   }
   LayoutRightShow() {
     this.setState({
-      isLayoutRight: true,
-      isTopBarShow: false,
-      IsCallOutShow: false,
+      isShowLayoutRight: true,
+      isShowTopBar: false,
+      isShowCallOut: false,
     });
     document.getElementById("LayoutRight").style.width = "300px";
   }
   productOutShow() {
-    this.setState({ IsProductOutShow: true, IsCallOutShow: false });
+    this.setState({ isShowProductOut: true, isShowCallOut: false });
   }
 
   productEditShow() {
-    this.setState({ IsProductEditShow: true, IsCallOutShow: false });
+    this.setState({ isShowProductEdit: true, isShowCallOut: false });
   }
 
   CancelProduct() {
-    this.setState({ IsProductOutShow: false, IsCallOutShow: false });
+    this.setState({ isShowProductOut: false, isShowCallOut: false });
   }
 
   CancelNewProduct() {
-    this.setState({ IsNewProductShow: false, IsCallOutShow: false });
+    this.setState({ IsNewProductShow: false, isShowCallOut: false });
   }
   CancelEdit() {
-    this.setState({ IsProductEditShow: false, IsCallOutShow: false });
+    this.setState({ isShowProductEdit: false, isShowCallOut: false });
   }
   CancelCreateArticel() {
-    this.setState({ IsCreateArticelShow: false, IsCallOutShow: false });
+    this.setState({ IsCreateArticelShow: false, isShowCallOut: false });
   }
 
   CancelShare() {
     this.setState({
-      isLayoutRight: false,
-      isTopBarShow: true,
-      IsCallOutShow: false,
+      isShowLayoutRight: false,
+      isShowTopBar: true,
+      isShowCallOut: false,
     });
     document.getElementById("LayoutRight").style.width = "0px";
   }
 
   CancelCallOut() {
-    this.setState({ IsCallOutShow: false });
+    this.setState({ isShowCallOut: false });
   }
 
   closeTopBar() {
     this.setState({
-      isTopBarShow: false,
-      IsCallOutShow: false,
+      isShowTopBar: false,
+      isShowCallOut: false,
       ActiveArticel: 0,
     });
 
@@ -357,29 +353,27 @@ class MainPage extends Component {
       Waybill: [],
       isShow: true,
     });
-    const response = await fetch(
-      USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + Articelid,
-      {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "access-control-allow-credentials": false,
-          "Access-Control-Allow-Origin":
-            USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + Articelid,
-          Authorization: "bearer ",
-        },
-      }
-    );
+    var WayBillUrl =
+      USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + Articelid;
+    const response = await fetch(WayBillUrl, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-credentials": false,
+        "Access-Control-Allow-Origin": WayBillUrl,
+        Authorization: "bearer ",
+      },
+    });
     this.setState({
       Waybill: await response.json(),
       isShow: false,
     });
     if (this.state.Waybill === "") {
-      this.setState({ isWaybilllist: false });
+      this.setState({ isShowWaybilllist: false });
     } else {
-      this.setState({ isWaybilllist: true });
+      this.setState({ isShowWaybilllist: true });
     }
   }
 
@@ -427,7 +421,7 @@ class MainPage extends Component {
       OrderId: orderId,
       ProductTypeName: productTypeName,
       ismodalvisible: true,
-      IsProductEditShow: true,
+      isShowProductEdit: true,
     });
   }
 
@@ -444,25 +438,22 @@ class MainPage extends Component {
       Color: color,
       ProductTypeName: producttypename,
       CalloutLoading: true,
-      IsCallOutShow: true,
+      isShowCallOut: true,
       isShow: true,
     });
-
-    const response = await fetch(
-      USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId,
-      {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "access-control-allow-credentials": false,
-          "Access-Control-Allow-Origin":
-            USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId,
-          Authorization: "bearer ",
-        },
-      }
-    );
+    var MotionUrl =
+      USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId;
+    const response = await fetch(MotionUrl, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-credentials": false,
+        "Access-Control-Allow-Origin": MotionUrl,
+        Authorization: "bearer ",
+      },
+    });
     this.setState({
       OneWayBill: await response.json(),
       isShow: false,
@@ -470,7 +461,7 @@ class MainPage extends Component {
     var wayPiece = 0;
     var wayWeight = 0;
 
-    this.state.OneWayBill.map((w) => (wayPiece = wayPiece + parseInt(w.Piece)));
+    this.state.OneWayBill.map((w) => (wayPiece = wayPiece + parseInt(w.Piece,10)));
 
     this.setState({
       LoopCount: this.state.OneWayBill.length,
@@ -481,14 +472,15 @@ class MainPage extends Component {
   }
 
   async getProductType() {
-    const response = await fetch("abi/post/ProductType.ashx", {
+    var ProductTypeUrl = "abi/post/ProductType.ashx";
+    const response = await fetch(ProductTypeUrl, {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": "abi/post/ProductType.ashx",
+        "Access-Control-Allow-Origin": ProductTypeUrl,
         Authorization: "bearer ",
       },
     });
@@ -498,14 +490,15 @@ class MainPage extends Component {
     });
   }
   async getCorps() {
-    const response = await fetch("abi/post/CorpList.ashx", {
+    var CorpUrl = "abi/post/CorpList.ashx";
+    const response = await fetch(CorpUrl, {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": "abi/post/CorpList.ashx",
+        "Access-Control-Allow-Origin": CorpUrl,
         Authorization: "bearer ",
       },
     });
@@ -516,14 +509,15 @@ class MainPage extends Component {
   }
 
   async getSalesTypes() {
-    const response = await fetch("abi/post/SaleType.ashx", {
+    var SalesTypeUrl = "abi/post/SaleType.ashx";
+    const response = await fetch(SalesTypeUrl, {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": "abi/post/SaleType.ashx",
+        "Access-Control-Allow-Origin": SalesTypeUrl,
         Authorization: "bearer ",
       },
     });
@@ -536,7 +530,7 @@ class MainPage extends Component {
   filterCorp(CorpId) {
     this.setState({
       Articels: this.state.Articels.filter(
-        (articel) => articel.CorpId == CorpId
+        (articel) => articel.CorpId === CorpId
       ),
     });
   }
@@ -546,8 +540,8 @@ class MainPage extends Component {
       isShow: true,
       CorpId: CorpId,
       Articelid: Articelid,
-      isTopBarShow: true,
-      IsCallOutShow: false,
+      isShowTopBar: true,
+      isShowCallOut: false,
       ArticelName: ArticelName,
     });
 
@@ -557,7 +551,6 @@ class MainPage extends Component {
 
     this.setState({
       Orders: [],
-
       isShowOrder: true,
     });
 
@@ -578,22 +571,18 @@ class MainPage extends Component {
     document.getElementById("SecondScreen").classList.add("col-md-8");
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
-
-    const response = await fetch(
-      USER_SERVICE_URL + "Orders&Articelid=" + Articelid,
-      {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "access-control-allow-credentials": false,
-          "Access-Control-Allow-Origin":
-            USER_SERVICE_URL + "Orders&Articelid=" + Articelid,
-          Authorization: "bearer ",
-        },
-      }
-    );
+    var FullUrl = USER_SERVICE_URL + "Orders&Articelid=" + Articelid;
+    const response = await fetch(FullUrl, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-credentials": false,
+        "Access-Control-Allow-Origin": FullUrl,
+        Authorization: "bearer ",
+      },
+    });
 
     this.setState({
       Orders: await response.json(),
@@ -610,7 +599,7 @@ class MainPage extends Component {
           closeTopBar={this.closeTopBar}
           MenuToggler={this.MenuToggler}
           LayoutRightShow={this.LayoutRightShow}
-          isTopBarShow={this.state.isTopBarShow}
+          isShowTopBar={this.state.isShowTopBar}
           productEditShow={this.productEditShow}
           productOutShow={this.productOutShow}
           MenuStatu={this.state.MenuStatu}
@@ -764,7 +753,7 @@ class MainPage extends Component {
             </table>
           </div>
 
-          <div className={this.state.isWaybilllist ? "" : "hide"}>
+          <div className={this.state.isShowWaybilllist ? "" : "hide"}>
             <div className="PartHead">İrsaliyeler</div>
 
             <WayBillList Waybill={this.state.Waybill} />
@@ -776,12 +765,12 @@ class MainPage extends Component {
 
             <LayoutRight
               CancelShare={this.CancelShare}
-              isLayoutRight={this.state.isLayoutRight}
+              isShowLayoutRight={this.state.isShowLayoutRight}
             />
           </div>
         </div>
 
-        <div className={this.state.IsProductOutShow ? "" : "hide"}>
+        <div className={this.state.isShowProductOut ? "" : "hide"}>
           <ProductOutModal
             ChangePiece={this.ChangePiece}
             ChangeWeight={this.ChangeWeight}
@@ -793,7 +782,7 @@ class MainPage extends Component {
           />
         </div>
 
-        <div className={this.state.IsProductEditShow ? "" : "hide"}>
+        <div className={this.state.isShowProductEdit ? "" : "hide"}>
           <ProductEditModal
             UpdateOrder={this.UpdateOrder}
             CancelEdit={this.CancelEdit}
@@ -822,7 +811,7 @@ class MainPage extends Component {
             ChangeSalesType={this.ChangeSalesType}
             SalesTypes={this.state.SalesTypes}
             SaveArticel={this.SaveArticel}
-            CreateArticelLoading={this.state.CreateArticelLoading}
+            isShowCreateArticel={this.state.isShowCreateArticel}
           />
         </div>
         <div className={this.state.IsNewProductShow ? "" : "hide"}>
@@ -838,7 +827,7 @@ class MainPage extends Component {
           />
         </div>
 
-        <div className={this.state.IsCallOutShow ? "" : "hide"}>
+        <div className={this.state.isShowCallOut ? "" : "hide"}>
           <div
             id="PopupWaybill"
             style={{ top: this.state.y, left: this.state.x }}
@@ -935,12 +924,11 @@ class MainPage extends Component {
   }
 
   updateDimensions = () => {
-    this.setState({ IsCallOutShow: false });
+    this.setState({ isShowCallOut: false });
   };
 
   componentDidMount() {
     this.fetcharticels();
-
     window.addEventListener("resize", this.updateDimensions);
   }
 
@@ -950,25 +938,27 @@ class MainPage extends Component {
   }
 
   async fetcharticelsAsync() {
-    this.getProductType();
-    this.getCorps();
-    this.getSalesTypes();
-    const response = await fetch(USER_SERVICE_URL + "Articels", {
+    var ArticelUrl = USER_SERVICE_URL + "Articels";
+    const response = await fetch(ArticelUrl, {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": USER_SERVICE_URL + "Articels",
+        "Access-Control-Allow-Origin": ArticelUrl,
         Authorization: "bearer ",
       },
     });
+
     this.setState({
       Articels: await response.json(),
       isShow: false,
       IsFirstRun: false,
     });
+    this.getProductType();
+    this.getCorps();
+    this.getSalesTypes();
   }
 
   fetcharticels = this.fetcharticelsAsync;

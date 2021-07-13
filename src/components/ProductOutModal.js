@@ -22,7 +22,7 @@ export default function ProductOutModal(props) {
                     onClick={() => props.CancelProduct()}
                     role="presentation"
                     aria-hidden="true"
-                    className="pointer ms-Button-icon icon-73"
+                    className="pointer fright ms-Button-icon icon-73"
                   >
                     
                   </i>

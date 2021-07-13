@@ -34,8 +34,8 @@ class Login extends Component {
     setTimeout(() => this.chechlogin(), 10);
   }
   chechlogin() {
-    [this.state.result].map((postData) => {
-      Cookies.set("Auth", postData.access_token);
+    [this.state.result].map((authData) => {
+      Cookies.set("Auth", authData.access_token);
       window.location.reload();
     });
   }

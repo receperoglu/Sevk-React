@@ -23,7 +23,7 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },   
+  },
   "devDependencies": {
     "@vercel/node": "^1.9.0"
   }

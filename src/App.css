@@ -12,9 +12,10 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.ActiveArticelRow {
-  background: #0078d4;
-  color:#fff;
+tr.ActiveArticelRow {
+     background-color: rgb(53 120 212 / 24%)!important;
+    color: #3578d4 !important
+
 }
 .App-link {
   color: #61dafb;
