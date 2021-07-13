@@ -25,8 +25,9 @@ export default function TopBar(props) {
                 className="riRHDuln2VrIU8dSpyxJ2 o365sx-button  o365sx-waffle"
                 type="button"
               >
-                <span className="Icon--WaffleOffice365 Icon-font-size-16"></span>
+                <span className="Icon--WaffleOffice365 Icon-font-size-16">M</span>
               </button>
+              
             </div>
             <div onClick={() => props.MenuToggler()} className="Mobiles  ">
               <button
