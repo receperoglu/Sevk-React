@@ -2,11 +2,15 @@ import React from "react";
 import "../css/Table.css";
 
 export default function TopBar(props) {
-  const PrintNow=()=>{
-    var PrintUrl= "https://recep.space/abi/js/PrintOrder.html?ArticelId="+props.ArticelId+"&CorpName="+props.CorpName
-    const newWindow = window.open(PrintUrl, '_blank', 'noopener,noreferrer')
-    if (newWindow) newWindow.opener = null
-  }
+  const PrintNow = () => {
+    var PrintUrl =
+      "https://recep.space/abi/js/PrintOrder.html?ArticelId=" +
+      props.ArticelId +
+      "&CorpName=" +
+      props.CorpName;
+    const newWindow = window.open(PrintUrl, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
   return (
     <div className="od-BasePage-suiteNav od-BasePage-suiteNav--reactShell">
       <div className="od-SuiteNav od-SuiteNav-react">
@@ -119,12 +123,15 @@ export default function TopBar(props) {
       </div>
       <div className="od-BasePage-topBar">
         <div className="od-TopBar">
-          <div className="od-TopBar-item od-TopBar-search od-BasePage-search fleft">
+          <div
+            className={
+              props.isShowTopBar
+                ? "opaq0 hide"
+                : "od-TopBar-item od-TopBar-search od-BasePage-search fleft"
+            }
+          >
             <div className="od-Search">
               <div className="od-SearchBox">
-                <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
-                  <span className="Icon SearchIcon css-42"></span>
-                </span>
                 <span
                   style={{ width: "200px" }}
                   className="od-SearchBox-search"
@@ -135,17 +142,11 @@ export default function TopBar(props) {
                     placeholder="Her şeyi ara"
                     name="Her şeyi ara"
                   />
+                  <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
+                    <span className="Icon SearchIcon css-42"></span>
+                  </span>
                 </span>
-                <select
-                  className="OneDriveInput form-control"
-                  onChange={(e) => props.filterCorp(e.target.value)}
-                >
-                  {props.Corps.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.Name}
-                    </option>
-                  ))}
-                </select>
+
                 <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
                   <span className="Icon SearchIcon css-43"></span>
                 </span>
@@ -168,7 +169,30 @@ export default function TopBar(props) {
                 <div>
                   <div className="ms-FocusZone css-74 ms-CommandBar root-79">
                     <div className="ms-OverflowSet TopBarCommandLeft primarySet-82">
-                      
+                      <div   className="ms-OverflowSet-item  TopBarObject ">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            props.toggleView()
+                          }}
+                          className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
+                       
+                          data-is-focusable="true"
+                        >
+                          <span
+                            class="ms-Button-flexContainer flexContainer-46"
+                            data-automationid="splitbuttonprimary"
+                          >
+                            <i
+                              data-icon-name="FullScreen"
+                              aria-hidden="true"
+                              class="ms-Button-icon icon-144s"
+                            >
+                              
+                            </i>
+                          </span>
+                        </button>
+                      </div>
                       <div
                         id="commandnew"
                         className="ms-OverflowSet-item  TopBarObject hide"
@@ -228,7 +252,9 @@ export default function TopBar(props) {
                       </div>
                       <div className="ms-OverflowSet-item commandprint TopBarObject SubTools ">
                         <button
-                           onClick={()=>{PrintNow()}}
+                          onClick={() => {
+                            PrintNow();
+                          }}
                           type="button"
                           name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
@@ -326,7 +352,6 @@ export default function TopBar(props) {
                         <button
                           type="button"
                           name="Yeni"
-                       
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">

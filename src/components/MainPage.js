@@ -30,7 +30,7 @@ class MainPage extends Component {
       Dimensions: "",
       OrderId: 0,
       Weight: 0,
-      CorpName:"",
+      CorpName: "",
       Color: "",
       TypeName: "",
       TypeId: 0,
@@ -40,11 +40,12 @@ class MainPage extends Component {
       TotalOutWeight: 0,
       ArticelId: 0,
       SaleTypeId: 0,
-
-      isShowWaybilllist: true,
+      ChangeView: false,
       IsFirstRun: true,
       isShow: true,
-
+      FilesVisible: true,
+      WayBillVisible: true,
+      OrderVisible: true,
       MenuStatu: false,
       IsCreateArticelShow: false,
       IsNewProductShow: false,
@@ -69,7 +70,9 @@ class MainPage extends Component {
     };
 
     this.getCorps = this.getCorps.bind(this);
-
+    this.toggleWayBillList = this.toggleWayBillList.bind(this);
+    this.toggleFiles = this.toggleFiles.bind(this);
+    this.toggleOrderList = this.toggleOrderList.bind(this);
     this.getProductType = this.getProductType.bind(this);
     this.GetOrders = this.GetOrders.bind(this);
     this.productEditShow = this.productEditShow.bind(this);
@@ -79,7 +82,7 @@ class MainPage extends Component {
     this.CancelEdit = this.CancelEdit.bind(this);
 
     this.CancelCreateArticel = this.CancelCreateArticel.bind(this);
-
+    this.toggleView = this.toggleView.bind(this);
     this.closeTopBar = this.closeTopBar.bind(this);
     this.LayoutRightShow = this.LayoutRightShow.bind(this);
     this.CancelCallOut = this.CancelCallOut.bind(this);
@@ -109,7 +112,21 @@ class MainPage extends Component {
     this.CreateArticelShow = this.CreateArticelShow.bind(this);
     this.filterCorp = this.filterCorp.bind(this);
   }
-
+  toggleWayBillList() {
+    this.setState({ WayBillVisible: !this.state.WayBillVisible });
+  }
+  toggleFiles() {
+    this.setState({ FilesVisible: !this.state.FilesVisible });
+  }
+  toggleView() {
+    if (this.state.isShowOrder) {
+      this.setState({ ChangeView: !this.state.ChangeView });
+    } else {
+    }
+  }
+  toggleOrderList() {
+    this.setState({ OrderVisible: !this.state.OrderVisible });
+  }
   ChangeProductType(TypeId) {
     this.setState({ TypeId: TypeId });
   }
@@ -249,7 +266,11 @@ class MainPage extends Component {
     console.log(response.json());
     this.setState({ ProductNewLoading: false });
 
-    this.GetOrders(this.state.ArticelId, this.state.ArticelName,this.state.CorpName);
+    this.GetOrders(
+      this.state.ArticelId,
+      this.state.ArticelName,
+      this.state.CorpName
+    );
   }
   async PostOrderUpdate() {
     var url =
@@ -277,7 +298,11 @@ class MainPage extends Component {
     console.log(response.json());
     this.setState({ isShowProductEdit: false });
 
-    this.GetOrders(this.state.ArticelId, this.state.ArticelName,this.state.CorpName);
+    this.GetOrders(
+      this.state.ArticelId,
+      this.state.ArticelName,
+      this.state.CorpName
+    );
   }
 
   Closeproductmodal() {
@@ -371,11 +396,6 @@ class MainPage extends Component {
       Waybill: await response.json(),
       isShow: false,
     });
-    if (this.state.Waybill === "") {
-      this.setState({ isShowWaybilllist: false });
-    } else {
-      this.setState({ isShowWaybilllist: true });
-    }
   }
 
   async GetFilesAsync(ArticelId) {
@@ -462,7 +482,9 @@ class MainPage extends Component {
     var wayPiece = 0;
     var wayWeight = 0;
 
-    this.state.OneWayBill.map((w) => (wayPiece = wayPiece + parseInt(w.Piece,10)));
+    this.state.OneWayBill.map(
+      (w) => (wayPiece = wayPiece + parseInt(w.Piece, 10))
+    );
 
     this.setState({
       LoopCount: this.state.OneWayBill.length,
@@ -536,7 +558,7 @@ class MainPage extends Component {
     });
   }
 
-  async GetOrders(ArticelId, CorpId, ArticelName,CorpName) {
+  async GetOrders(ArticelId, CorpId, ArticelName, CorpName) {
     this.setState({
       isShow: true,
       CorpId: CorpId,
@@ -544,8 +566,7 @@ class MainPage extends Component {
       isShowTopBar: true,
       isShowCallOut: false,
       ArticelName: ArticelName,
-      CorpName:CorpName
-
+      CorpName: CorpName,
     });
 
     this.GetWaybillAsync(ArticelId);
@@ -599,6 +620,7 @@ class MainPage extends Component {
       <div className="padd0 col-md-12">
         <TopBar
           NewProductShow={this.NewProductShow}
+          toggleView={this.toggleView}
           closeTopBar={this.closeTopBar}
           MenuToggler={this.MenuToggler}
           LayoutRightShow={this.LayoutRightShow}
@@ -643,13 +665,17 @@ class MainPage extends Component {
           <div aria-hidden="true">•</div>
           <div aria-hidden="true">•</div>
         </div>
-        <div id="FirstScreen" className="WizardArea padd0 col-md-12">
+        <div
+          id="FirstScreen"
+          className={
+            this.state.ChangeView ? "hide" : "WizardArea padd0 col-md-12"
+          }
+        >
           <table className="table table-hover">
             <thead>
               <tr className="alert alert-success">
-                <td>Firma</td>
-                <td>Articel / Sipariş</td>
-                <td>#</td>
+                <td className="col-md-6">Firma</td>
+                <td className="col-md-6">Articel / Sipariş</td>
               </tr>
             </thead>
             <tbody>
@@ -659,7 +685,12 @@ class MainPage extends Component {
                   id={this.state.Articel + a.id}
                   key={a.id}
                   onClick={() =>
-                    this.GetOrders(a.id, a.CorpId, a.ArticelName,a.CustomerName)
+                    this.GetOrders(
+                      a.id,
+                      a.CorpId,
+                      a.ArticelName,
+                      a.CustomerName
+                    )
                   }
                 >
                   <td style={{ whiteSpace: "break-spaces" }}>
@@ -669,12 +700,6 @@ class MainPage extends Component {
                     <span className="ArticelId">AT-{a.id}</span>
                     {a.ArticelName}
                   </td>
-                  <td>
-                    <i
-                     
-                      className="Icon css-43 SearchIcon "
-                    ></i>
-                  </td>
                 </tr>
               ))}
             </tbody>
@@ -683,15 +708,24 @@ class MainPage extends Component {
         <div
           id="SecondScreen"
           className={
-            this.state.isShowOrder ? "WizardArea padd0 col-md-8" : "hide"
+            this.state.ChangeView
+              ? "WizardArea padd0 col-md-12"
+              : "WizardArea padd0 col-md-8"
           }
         >
           <div
             id="ArticelName"
+            onClick={() => this.toggleOrderList()}
             className="ArticelNameHead SSOrder text-capitalize PartHead"
           ></div>
 
-          <div className="DetailOrders SSOrder  OrderDetailsComment">
+          <div
+            className={
+              this.state.OrderVisible
+                ? "DetailOrders SSOrder  OrderDetailsComment"
+                : "hide"
+            }
+          >
             <table className="pointer OrderDetailTable table table-hover">
               <thead>
                 <tr className="alert alert-success">
@@ -759,20 +793,29 @@ class MainPage extends Component {
             </table>
           </div>
 
-          <div className={this.state.isShowWaybilllist ? "" : "hide"}>
-            <div className="PartHead">İrsaliyeler</div>
-
-            <WayBillList Waybill={this.state.Waybill} />
+          <div className={this.state.Waybill.length === 0 ? "hide" : ""}>
+            <div onClick={() => this.toggleWayBillList()} className="PartHead">
+              İrsaliyeler
+            </div>
+            <div className={this.state.WayBillVisible ? "" : "hide"}>
+              <WayBillList Waybill={this.state.Waybill} />
+            </div>
           </div>
           <div className={this.state.isShowFiles ? "" : "hide"}>
-            <div className="PartHead">Dökümanlar</div>
-
-            <Files Files={this.state.Files} />
-
+            <div
+              onClick={() => {
+                this.toggleFiles();
+              }}
+              className="PartHead"
+            >
+              Dökümanlar
+            </div>
+            <div className={this.state.FilesVisible ? "" : "hide"}>
+              <Files Files={this.state.Files} />
+            </div>
           </div>
           <div className={this.state.isShowLayoutRight ? "" : "hide"}>
-            
-          <LayoutRight
+            <LayoutRight
               CancelShare={this.CancelShare}
               isShowLayoutRight={this.state.isShowLayoutRight}
             />

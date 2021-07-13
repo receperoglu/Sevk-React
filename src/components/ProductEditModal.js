@@ -22,7 +22,7 @@ export default function ProductEditModal(props) {
                     onClick={() => props.CancelEdit()}
                     role="presentation"
                     aria-hidden="true"
-                    className="pointer ms-Button-icon icon-73"
+                    className="pointer ms-Button-icon icon-73 fright"
                   >
                     
                   </i>
