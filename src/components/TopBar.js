@@ -169,28 +169,26 @@ export default function TopBar(props) {
                 <div>
                   <div className="ms-FocusZone css-74 ms-CommandBar root-79">
                     <div className="ms-OverflowSet TopBarCommandLeft primarySet-82">
-                      <div   className="ms-OverflowSet-item  TopBarObject ">
+                      <div className="ms-OverflowSet-item  TopBarObject ">
                         <button
                           type="button"
                           onClick={() => {
-                            props.toggleView()
+                            props.toggleView();
                           }}
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
-                       
-                          data-is-focusable="true"
                         >
-                          <span
-                            class="ms-Button-flexContainer flexContainer-46"
+                          <div
+                            className="ms-Button-flexContainer flexContainer-46"
                             data-automationid="splitbuttonprimary"
                           >
                             <i
                               data-icon-name="FullScreen"
                               aria-hidden="true"
-                              class="ms-Button-icon icon-144s"
+                              className="ms-Button-icon icon-144s"
                             >
                               
                             </i>
-                          </span>
+                          </div>
                         </button>
                       </div>
                       <div

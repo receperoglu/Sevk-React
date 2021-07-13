@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Files(props) {
   return (
-    <div style={{lineHeight:"100px"}}>
+    <div style={{ lineHeight: "100px" }}>
       {props.Files.map((f) => (
         <div
           key={f.id}
@@ -21,12 +21,7 @@ export default function Files(props) {
           ></div>
 
           <div className="col-md-11 col-xs-10 text-left">
-            <a
-              className="FileLink"
-              href={f.Path}
-              target="blank"
-              
-            >
+            <a className="FileLink" href={f.Path} target="blank">
               {f.FileName}
             </a>
           </div>
