@@ -889,7 +889,7 @@ i.cwhite{
     position: fixed;
     z-index: 1039;
     right: 0;
-    top: 50px;
+    top: 0px;
     background-color: #fff;
     overflow-x: hidden;
     transition: .4s;
@@ -959,6 +959,10 @@ i.cwhite{
     text-align: left;
     white-space: nowrap;
     transition: color 83ms linear
+}
+._3vMrdRZR8bo5hSiJS8JJ8C {
+    padding:0px !important;
+    margin:0px !important;
 }
 
 .BaseDrive ._3vMrdRZR8bo5hSiJS8JJ8C {

@@ -106,9 +106,8 @@ export default function ProductNewModal(props) {
                           <span
                             onClick={() => props.SaveOrder()}
                             className="transfersavetext"
-                          >
-                            {" "}
-                            Kaydet{" "}
+                          >                           
+                            Kaydet
                           </span>
                         </span>
                       </div>

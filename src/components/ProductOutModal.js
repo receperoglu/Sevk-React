@@ -83,7 +83,7 @@ export default function ProductOutModal(props) {
                                 className="transfersavetext"
                               >
                                 Kaydet
-                              </span>{" "}
+                              </span>
                             </span>
                           </div>
                         </div>

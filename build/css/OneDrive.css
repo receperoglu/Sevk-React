@@ -885,7 +885,7 @@
     position: fixed;
     z-index: 1039;
     right: 0;
-    top: 50px;
+    top: 0px;
     background-color: #fff;
     overflow-x: hidden;
     transition: .4s;

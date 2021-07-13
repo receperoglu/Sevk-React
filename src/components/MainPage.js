@@ -763,7 +763,10 @@ class MainPage extends Component {
 
             <Files Files={this.state.Files} />
 
-            <LayoutRight
+          </div>
+          <div className={this.state.isShowLayoutRight ? "" : "hide"}>
+            
+          <LayoutRight
               CancelShare={this.CancelShare}
               isShowLayoutRight={this.state.isShowLayoutRight}
             />
