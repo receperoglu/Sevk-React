@@ -2512,7 +2512,8 @@ html[dir=ltr] .od-TopBar-commandBar {
 }
 
 .od-BasePage-leftNav {
-    position: absolute;
+    position: fixed !important;
+    z-index: 9999;
     bottom: 0;
     top: 40px;
     box-sizing: border-box;
