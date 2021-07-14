@@ -684,7 +684,7 @@ class MainPage extends Component {
         >
           <table className="table table-hover">
             <thead>
-              <tr className="alert alert-success">
+              <tr className="tablehead">
                 <td className="col-md-6">Firma</td>
                 <td className="col-md-6">Articel / Sipariş</td>
               </tr>
