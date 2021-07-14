@@ -618,6 +618,17 @@ class MainPage extends Component {
   render() {
     return (
       <div className="padd0 col-md-12">
+        <div id="PrintArea" className="col-md-12 hide hidden">
+          {this.state.Orders.map((o) => (
+            <div className="he col-md-2">
+              <h5>
+                <span>{o.Dimensions}</span> <span> {o.Color}</span>
+                {o.ProductTypeName}
+              </h5>
+              <hr /> {o.Piece} {o.Metrics}
+            </div>
+          ))}
+        </div>
         <TopBar
           NewProductShow={this.NewProductShow}
           toggleView={this.toggleView}

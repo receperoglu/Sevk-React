@@ -3,6 +3,7 @@ import "../css/Table.css";
 
 export default function TopBar(props) {
   const PrintNow = () => {
+    //window.print();
     var PrintUrl =
       "https://recep.space/abi/js/PrintOrder.html?ArticelId=" +
       props.ArticelId +
@@ -25,9 +26,10 @@ export default function TopBar(props) {
                 className="riRHDuln2VrIU8dSpyxJ2 o365sx-button  o365sx-waffle"
                 type="button"
               >
-                <span className="Icon--WaffleOffice365 Icon-font-size-16">M</span>
+                <span className="Icon--WaffleOffice365 Icon-font-size-16">
+                  M
+                </span>
               </button>
-              
             </div>
             <div onClick={() => props.MenuToggler()} className="Mobiles  ">
               <button
