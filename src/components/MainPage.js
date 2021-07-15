@@ -925,9 +925,10 @@ class MainPage extends Component {
                       <span className="LeftNav-fadient">
                         <span
                           onClick={() => this.CreateArticelShow()}
-                          className="LeftNav-linkText NewArt"
-                        >
-                          Yeni Sipariş Oluştur
+                          className="LeftNav-linkText NewArt padd10"
+                        ><br></br>
+                        <span className="padd10">
+                          Yeni Sipariş Oluştur</span>
                         </span>
                       </span>
                     </span>

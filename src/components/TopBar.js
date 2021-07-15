@@ -26,9 +26,7 @@ export default function TopBar(props) {
                 className="riRHDuln2VrIU8dSpyxJ2 o365sx-button  o365sx-waffle"
                 type="button"
               >
-                <span className="Icon--WaffleOffice365 Icon-font-size-16">
-                  M
-                </span>
+                <span class="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
               </button>
             </div>
             <div onClick={() => props.MenuToggler()} className="Mobiles  ">
@@ -36,7 +34,8 @@ export default function TopBar(props) {
                 className="MenuSlicer MainMenu o365sx-button o365sx-highContrastButton"
                 type="button"
               >
-                <span className="Icon--GlobalNavButton Icon-font-size-16"></span>
+                asdasd
+                <span class="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
               </button>
             </div>
             <div onClick={() => props.MenuToggler()} className="">
