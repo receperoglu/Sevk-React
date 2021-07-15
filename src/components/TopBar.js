@@ -26,7 +26,7 @@ export default function TopBar(props) {
                 className="riRHDuln2VrIU8dSpyxJ2 o365sx-button  o365sx-waffle"
                 type="button"
               >
-                <span class="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
+                <span className="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
               </button>
             </div>
             <div onClick={() => props.MenuToggler()} className="Mobiles  ">
@@ -34,8 +34,8 @@ export default function TopBar(props) {
                 className="MenuSlicer MainMenu o365sx-button o365sx-highContrastButton"
                 type="button"
               >
-                asdasd
-                <span class="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
+                 
+                <span className="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
               </button>
             </div>
             <div onClick={() => props.MenuToggler()} className="">
@@ -143,6 +143,7 @@ export default function TopBar(props) {
                     type="text"
                     placeholder="Her şeyi ara"
                     name="Her şeyi ara"
+                    onChange={(event) => props.CorpSearch(event)}
                   />
                   <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
                     <span className="Icon SearchIcon css-42"></span>

@@ -33,14 +33,14 @@ class App extends Component {
       },
     });
     this.setState({ result: await response.json() });
-    setTimeout(() => this.chechlogin(), 1000);
+    setTimeout(() => this.checklogin(), 1000);
   }
-  chechlogin() {
-    [this.state.result].map((postData) => {
-      Cookies.set("Auth", postData.access_token);
+  checklogin = () => {
+    [this.state.result].map((data) => {
+      Cookies.set("Auth", data.access_token);
     });
     setTimeout(() => this.checkCookie(), 1000);
-  }
+  };
   checkCookie() {
     if (Cookies.get("Auth")) {
       this.setState({ showButton: false });
@@ -57,11 +57,9 @@ class App extends Component {
   }
 
   render() {
- 
     return (
       <div>
-   <MainPage />
-      
+        <MainPage />
       </div>
     );
   }

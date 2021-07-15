@@ -7,9 +7,11 @@ import TopBar from "./TopBar";
 import ProductOutModal from "./ProductOutModal";
 import ProductEditModal from "./ProductEditModal";
 import ProductNewModal from "./ProductNewModal";
-
+import ArticelsTable from "./ArticelsTable";
 import LayoutRight from "./LayoutRight";
 import CreateArticelModal from "./CreateArticelModal";
+import OrdersTable from "./OrdersTable";
+import LeftNav from "./LeftNav";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 
@@ -81,6 +83,7 @@ class MainPage extends Component {
     this.CancelProduct = this.CancelProduct.bind(this);
     this.CancelEdit = this.CancelEdit.bind(this);
 
+    this.CorpSearch = this.CorpSearch.bind(this);
     this.CancelCreateArticel = this.CancelCreateArticel.bind(this);
     this.toggleView = this.toggleView.bind(this);
     this.closeTopBar = this.closeTopBar.bind(this);
@@ -90,7 +93,6 @@ class MainPage extends Component {
     this.CancelNewProduct = this.CancelNewProduct.bind(this);
 
     this.UpdateOrder = this.UpdateOrder.bind(this);
-
     this.SaveOrder = this.SaveOrder.bind(this);
     this.SaveArticel = this.SaveArticel.bind(this);
     this.SaveProductOut = this.SaveProductOut.bind(this);
@@ -108,10 +110,19 @@ class MainPage extends Component {
     this.ChangeWayBillId = this.ChangeWayBillId.bind(this);
 
     this.MenuToggler = this.MenuToggler.bind(this);
-
+    this.GetWaybillforOrder = this.GetWaybillforOrder.bind(this);
     this.CreateArticelShow = this.CreateArticelShow.bind(this);
     this.filterCorp = this.filterCorp.bind(this);
+    this.CallOutonMouseMove = this.CallOutonMouseMove.bind(this);
   }
+  CorpSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    result = this.state.Articels.filter((data) => {
+      return data.ArticelName.toLowerCase().search(value) !== -1;
+    });
+    this.setState({ Articels: result });
+  };
   toggleWayBillList() {
     this.setState({ WayBillVisible: !this.state.WayBillVisible });
   }
@@ -214,12 +225,7 @@ class MainPage extends Component {
       "&ArticelId=" +
       this.state.ArticelId;
 
-    const response = await fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-    });
-    console.log(response.json);
+    await this.FetchFunc(url);
   }
   async PostArticelsave() {
     var url =
@@ -258,12 +264,8 @@ class MainPage extends Component {
       "&Piece=" +
       this.state.Piece +
       "&SaleType=1&Articel=test";
-    const response = await fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-    });
-    console.log(response.json());
+
+    this.FetchFunc(url);
     this.setState({ ProductNewLoading: false });
 
     this.GetOrders(
@@ -295,7 +297,7 @@ class MainPage extends Component {
         Authorization: "bearer ",
       },
     });
-    console.log(response.json());
+
     this.setState({ isShowProductEdit: false });
 
     this.GetOrders(
@@ -379,21 +381,11 @@ class MainPage extends Component {
       Waybill: [],
       isShow: true,
     });
-    var WayBillUrl =
-      USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId;
-    const response = await fetch(WayBillUrl, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": WayBillUrl,
-        Authorization: "bearer ",
-      },
-    });
+
     this.setState({
-      Waybill: await response.json(),
+      Waybill: await this.FetchFunc(
+        USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId
+      ),
       isShow: false,
     });
   }
@@ -446,7 +438,7 @@ class MainPage extends Component {
     });
   }
 
-  _onMouseMove(e) {
+  CallOutonMouseMove(e) {
     this.setState({
       x: e.pageX + "px",
       y: e.pageY + "px",
@@ -462,21 +454,11 @@ class MainPage extends Component {
       isShowCallOut: true,
       isShow: true,
     });
-    var MotionUrl =
-      USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId;
-    const response = await fetch(MotionUrl, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": MotionUrl,
-        Authorization: "bearer ",
-      },
-    });
+
     this.setState({
-      OneWayBill: await response.json(),
+      OneWayBill: await this.FetchFunc(
+        USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId
+      ),
       isShow: false,
     });
     var wayPiece = 0;
@@ -495,21 +477,8 @@ class MainPage extends Component {
   }
 
   async getProductType() {
-    var ProductTypeUrl = "abi/post/ProductType.ashx";
-    const response = await fetch(ProductTypeUrl, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": ProductTypeUrl,
-        Authorization: "bearer ",
-      },
-    });
-
     this.setState({
-      ProductTypes: await response.json(),
+      ProductTypes: await this.FetchFunc("abi/post/ProductType.ashx"),
     });
   }
   async getCorps() {
@@ -532,21 +501,8 @@ class MainPage extends Component {
   }
 
   async getSalesTypes() {
-    var SalesTypeUrl = "abi/post/SaleType.ashx";
-    const response = await fetch(SalesTypeUrl, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": SalesTypeUrl,
-        Authorization: "bearer ",
-      },
-    });
-
     this.setState({
-      SalesTypes: await response.json(),
+      SalesTypes: await this.FetchFunc("abi/post/SaleType.ashx"),
     });
   }
 
@@ -596,20 +552,9 @@ class MainPage extends Component {
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
     var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + ArticelId;
-    const response = await fetch(FullUrl, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": FullUrl,
-        Authorization: "bearer ",
-      },
-    });
 
     this.setState({
-      Orders: await response.json(),
+      Orders: await this.FetchFunc(FullUrl),
       isShow: false,
       isShowOrder: true,
     });
@@ -620,7 +565,7 @@ class MainPage extends Component {
       <div className="padd0 col-md-12">
         <div id="PrintArea" className="col-md-12 hide hidden">
           {this.state.Orders.map((o) => (
-            <div className="he col-md-2">
+            <div key={o.Piece + o.Metrics} className="he col-md-2">
               <h5>
                 <span>{o.Dimensions}</span> <span> {o.Color}</span>
                 {o.ProductTypeName}
@@ -630,6 +575,7 @@ class MainPage extends Component {
           ))}
         </div>
         <TopBar
+          CorpSearch={this.CorpSearch}
           NewProductShow={this.NewProductShow}
           toggleView={this.toggleView}
           closeTopBar={this.closeTopBar}
@@ -682,39 +628,11 @@ class MainPage extends Component {
             this.state.ChangeView ? "hide" : "WizardArea padd0 col-md-12"
           }
         >
-          <table className="table table-hover">
-            <thead>
-              <tr className="tablehead">
-                <td className="col-md-6">Firma</td>
-                <td className="col-md-6">Articel / Sipariş</td>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.Articels.map((a) => (
-                <tr
-                  className="ArticelRow"
-                  id={this.state.Articel + a.id}
-                  key={a.id}
-                  onClick={() =>
-                    this.GetOrders(
-                      a.id,
-                      a.CorpId,
-                      a.ArticelName,
-                      a.CustomerName
-                    )
-                  }
-                >
-                  <td style={{ whiteSpace: "break-spaces" }}>
-                    {a.CustomerName}
-                  </td>
-                  <td>
-                    <span className="ArticelId">AT-{a.id}</span>
-                    {a.ArticelName}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <ArticelsTable
+            GetOrders={this.GetOrders}
+            Articel={this.state.Articel}
+            Articels={this.state.Articels}
+          />
         </div>
         <div
           id="SecondScreen"
@@ -737,71 +655,12 @@ class MainPage extends Component {
                 : "hide"
             }
           >
-            <table className="pointer OrderDetailTable table table-hover">
-              <thead>
-                <tr className="alert alert-success">
-                  <td>Adet</td>
-                  <td>Ölçü</td>
-                  <td>Renk</td>
-                  <td>Tip</td>
-                  <td>#</td>
-                </tr>
-              </thead>
-              <tbody aria-live="polite">
-                {this.state.Orders.map((o) => (
-                  <tr
-                    data-piece={o.Piece}
-                    data-product={o.Color}
-                    className="MotionData"
-                    key={o.id}
-                    data-orderid={o.id}
-                  >
-                    <td>
-                      <div onClick={this._onMouseMove.bind(this)}>
-                        <span
-                          data-piece={o.Piece}
-                          onClick={() =>
-                            this.GetWaybillforOrder(
-                              o.id,
-                              o.Dimensions,
-                              o.Color,
-                              o.ProductTypeName,
-                              this
-                            )
-                          }
-                        >
-                          {o.Piece} {o.Metrics}
-                        </span>
-                      </div>
-                    </td>
-                    <td>{o.Dimensions}</td>
-                    <td>{o.Color}</td>
-
-                    <td>{o.ProductTypeName}</td>
-
-                    <td>
-                      <i
-                        onClick={() =>
-                          this.GetOrderEdit(
-                            o.id,
-                            o.Dimensions,
-                            o.Color,
-                            o.Piece,
-                            o.ProductTypeName,
-                            o.Typeid
-                          )
-                        }
-                        data-icon-name="Edit"
-                        role="presentation"
-                        className="ms-Button-icon fleft icon-73"
-                      >
-                        
-                      </i>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <OrdersTable
+              GetOrderEdit={this.GetOrderEdit}
+              GetWaybillforOrder={this.GetWaybillforOrder}
+              CallOutonMouseMove={this.CallOutonMouseMove}
+              Orders={this.state.Orders}
+            />
           </div>
 
           <div className={this.state.Waybill.length === 0 ? "hide" : ""}>
@@ -908,81 +767,10 @@ class MainPage extends Component {
             />
           </div>
         </div>
-        <div
-          className={
-            this.state.MenuStatu ? "BasePage-leftNav-Container" : "hide"
-          }
-        >
-          <nav className="od-BasePage-leftNav">
-            <div
-              className="LeftPane LeftPane--hasNotifications"
-              data-is-scrollable="true"
-            >
-              <div className="LeftPane-sections">
-                <div className="LeftNav">
-                  <div className="LeftNav-linkArea">
-                    <span className="LeftNav-subLink ms-font-m" href="#">
-                      <span className="LeftNav-fadient">
-                        <span
-                          onClick={() => this.CreateArticelShow()}
-                          className="LeftNav-linkText NewArt padd10"
-                        ><br></br>
-                        <span className="padd10">
-                          Yeni Sipariş Oluştur</span>
-                        </span>
-                      </span>
-                    </span>
-                    <div className="LeftNav-linkGroupContainer">
-                      <div className="LeftNav-linkGroup is-expanded">
-                        <div className="LeftNav-subLinksClip">
-                          <div className="LeftNav-subLinks">
-                            <a
-                              className="LeftNav-subLink ms-font-m"
-                              href="iplikler.aspx"
-                            >
-                              <span className="LeftNav-fadient">
-                                <span className="LeftNav-linkText" id="">
-                                  İplikler
-                                </span>
-                              </span>
-                            </a>
-                            <a
-                              className="LeftNav-subLink ms-font-m "
-                              href="firmalar.aspx"
-                            >
-                              <span className="LeftNav-fadient">
-                                <span className="LeftNav-linkText" id="">
-                                  Firmalar
-                                </span>
-                              </span>
-                            </a>
-                            <a className="LeftNav-subLink ms-font-m" href="/">
-                              <span className="LeftNav-fadient">
-                                <span className="LeftNav-linkText" id="">
-                                  Siparişler
-                                </span>
-                              </span>
-                            </a>
-                            <a
-                              className="LeftNav-subLink ms-font-m"
-                              href="irsaliyeler.aspx"
-                            >
-                              <span className="LeftNav-fadient">
-                                <span className="LeftNav-linkText" id="">
-                                  İrsaliyeler
-                                </span>
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-        </div>
+        <LeftNav
+          CreateArticelShow={this.CreateArticelShow}
+          MenuStatu={this.state.MenuStatu}
+        />
       </div>
     );
   }
@@ -1002,27 +790,28 @@ class MainPage extends Component {
   }
 
   async fetcharticelsAsync() {
-    var ArticelUrl = USER_SERVICE_URL + "Articels";
-    const response = await fetch(ArticelUrl, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": ArticelUrl,
-        Authorization: "bearer ",
-      },
-    });
-
     this.setState({
-      Articels: await response.json(),
+      Articels: await this.FetchFunc(USER_SERVICE_URL + "Articels"),
       isShow: false,
       IsFirstRun: false,
     });
     this.getProductType();
     this.getCorps();
     this.getSalesTypes();
+  }
+  async FetchFunc(Url) {
+    const response = await fetch(Url, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-credentials": false,
+        "Access-Control-Allow-Origin": Url,
+        Authorization: "bearer ",
+      },
+    });
+    return response.json();
   }
 
   fetcharticels = this.fetcharticelsAsync;
