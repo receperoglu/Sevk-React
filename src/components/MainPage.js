@@ -12,6 +12,7 @@ import LayoutRight from "./LayoutRight";
 import CreateArticelModal from "./CreateArticelModal";
 import OrdersTable from "./OrdersTable";
 import LeftNav from "./LeftNav";
+import { date } from "assert-plus";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 
@@ -544,15 +545,12 @@ class MainPage extends Component {
 
     var Clicked = "Articel" + ArticelId;
     document.getElementById(Clicked).classList.add("ActiveArticelRow");
-
     document.getElementById("ArticelName").innerHTML = ArticelName;
     document.getElementById("SecondScreen").classList.remove("hide");
-
     document.getElementById("SecondScreen").classList.add("col-md-8");
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
     var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + ArticelId;
-
     this.setState({
       Orders: await this.FetchFunc(FullUrl),
       isShow: false,
@@ -565,7 +563,7 @@ class MainPage extends Component {
       <div className="padd0 col-md-12">
         <div id="PrintArea" className="col-md-12 hide hidden">
           {this.state.Orders.map((o) => (
-            <div key={o.Piece + o.Metrics} className="he col-md-2">
+            <div key={o.id} className="he col-md-2">
               <h5>
                 <span>{o.Dimensions}</span> <span> {o.Color}</span>
                 {o.ProductTypeName}
