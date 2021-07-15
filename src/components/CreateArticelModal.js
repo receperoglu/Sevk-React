@@ -14,7 +14,7 @@ export default function CreateArticelModal(props) {
                     data-icon-name="Cancel"
                     onClick={() => props.CancelCreateArticel()}
                     role="presentation"
-                    className="pointer ms-Button-icon icon-73"
+                    className="pointer fright ms-Button-icon icon-73"
                   >
                     
                   </i>
