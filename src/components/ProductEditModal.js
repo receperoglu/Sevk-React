@@ -4,7 +4,7 @@ export default function ProductEditModal(props) {
   return (
     <div
       id="ProductModal"
-      className="ms-Layer ms-Layer--fixed effect layer-351"
+      className={props.isShowProductEdit?"ms-Layer ms-Layer--fixed effect layer-351":"hide"}
       data-portal-element="true"
     >
       <div className="ms-Fabric ms-Layer-content content-120">

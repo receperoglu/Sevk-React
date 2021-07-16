@@ -101,9 +101,8 @@ export default function CreateArticelModal(props) {
                       <span
                         onClick={() => props.SaveArticel()}
                         className="transfersavetext"
-                      >
-                        {" "}
-                        Kaydet{" "}
+                      >                       
+                        Kaydet 
                       </span>
                     </span>
                   </div>

@@ -1,4 +1,20 @@
-﻿.icon-delete {
+﻿.RightLayout {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1039;
+    right: 0;
+    top: 0px;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: .4s;
+    padding-top: 0;
+    margin-top: 0;
+    text-decoration: none;
+    display: block;
+    cursor: pointer
+}
+.icon-delete {
     display: inline-block;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
@@ -2516,7 +2532,7 @@ html[dir=ltr] .od-TopBar-commandBar {
 .od-BasePage-leftNav {
     position: absolute;
     bottom: 0;
-    top: 40px;
+    top: 48px;
     box-sizing: border-box;
     background-color: #fff;
     width: 208px

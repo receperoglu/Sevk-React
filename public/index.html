@@ -10,57 +10,101 @@
   <link href="css/Loading.css" rel="stylesheet" />
 
   <style>
-    .padd10{
+    .controlicon{
+      font-family: 'controlIcons';
+    font-style: normal;
+    font-weight: 400;
+    }
+    body{
+      font-family: "Segoe UI Web (East European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    }
+    .RightLayout {
+      height: 500px;
+      width: 0;
+      position: fixed;
+      z-index: 1039;
+      right: 0;
+      top: 0px;
+      background-color: #fff;
+      overflow-x: hidden;
+      transition: .4s;
+      padding-top: 0;
+      margin-top: 0;
+      text-decoration: none;
+      display: block;
+      cursor: pointer
+    }
+
+    .padd10 {
       padding: 10px !important
     }
-    .menuicons{
+
+    .menuicons {
       display: inline-block;
       font-size: 16px;
     }
 
-    .ms-Icon--WaffleOffice365:before{
+    .ms-Icon--WaffleOffice365:before {
       content: "" !important;
       font-family: ShellFabricMDL2Icons !important;
       display: inline-block;
       font-style: normal;
-    font-weight: 400;
-    text-decoration: inherit;
-    text-align: center;
-    font-variant: normal;
-    text-transform: none;
-    width: auto;
-    margin-left: 0;
-    margin-right: 0;
-    line-height: 48px;
+      font-weight: 400;
+      text-decoration: inherit;
+      text-align: center;
+      font-variant: normal;
+      text-transform: none;
+      width: auto;
+      margin-left: 0;
+      margin-right: 0;
+      line-height: 48px;
+    }
+    a.LeftNav-subLink.ms-font-m {
+text-decoration: none !important;
+    }
+    a.LeftNav-subLink.ms-font-m:hover{
+      color:#005A9E !important
+    }
+    a.LeftNav-subLink.ms-font-m.activelink{
+      background-color: #C7E0F4 !important;
+      color:#005A9E !important;
+      font-weight: 600;
+    }
+    .od-BasePage-leftNav {
+      position: fixed !important;
+      z-index: 9999;
+      top:48px !important;
+      background-color: #f3f2f1 !important;
+ 
     }
 
-    .od-BasePage-leftNav {
-    position: fixed !important;
-    z-index: 9999;
-   
-}
-    .tablehead{
+    .tablehead {
       background: #3d78d4;
-    color: #fff;
-    height: 40px;
+      color: #fff;
+      height: 40px;
     }
-    #SecondScreen{
-      border-left:3px solid #3578d4;
+
+    #SecondScreen {
+      border-left: 3px solid #3578d4;
     }
+
     .he {
-            height: 150px !important;
-            text-align: center;
-            font-size: 18px;
-        }
-        .col-md-2{
-            width:20%;
-            float:left;
-        }
-        hr{
-            margin-bottom:0px !important;
-            margin-top:5px !important;
-            font-weight:600 !important;
-        }
+      height: 150px !important;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .col-md-2 {
+      width: 20%;
+      float: left;
+    }
+
+    hr {
+      margin-bottom: 0px !important;
+      margin-top: 5px !important;
+      font-weight: 600 !important;
+    }
+
     tr.ActiveArticelRow {
       background-color: rgb(53 120 212 / 24%) !important;
       color: #3578d4 !important

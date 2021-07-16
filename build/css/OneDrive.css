@@ -879,7 +879,7 @@
     src: url(fonts/odsp-next-icons-1-e4b6522a.woff) format("woff")
 }
 
-#LayoutRight {
+.RightLayout {
     height: 100%;
     width: 0;
     position: fixed;
@@ -2515,7 +2515,7 @@ html[dir=ltr] .od-TopBar-commandBar {
     position: fixed !important;
     z-index: 9999;
     bottom: 0;
-    top: 40px;
+    top: 48px;
     box-sizing: border-box;
     background-color: #fff;
     width: 208px

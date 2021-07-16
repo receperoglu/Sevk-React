@@ -33,7 +33,41 @@ class LeftNav extends Component {
                     <div className="LeftNav-linkGroupContainer">
                       <div className="LeftNav-linkGroup is-expanded">
                         <div className="LeftNav-subLinksClip">
+                          <a
+                            className="LeftNav-subLink ms-font-m activelink"
+                            href="/"
+                          >
+                            <span className="LeftNav-fadient">
+                              <span className="LeftNav-linkText" id="">
+                                <i
+                                  data-icon-name="Inbox"
+                                  aria-hidden="true"
+                                  class="controlicon"
+                                >
+                                  
+                                </i>
+                                Siparişler
+                              </span>
+                            </span>
+                          </a>
                           <div className="LeftNav-subLinks">
+                            <a
+                              className="LeftNav-subLink ms-font-m "
+                              href="firmalar.aspx"
+                            >
+                              <span className="LeftNav-fadient">
+                                <span className="LeftNav-linkText" id="">
+                                  <i
+                                    data-icon-name="Archive"
+                                    aria-hidden="true"
+                                    class="controlicon"
+                                  >
+                                    
+                                  </i>{" "}
+                                  Firmalar
+                                </span>
+                              </span>
+                            </a>
                             <a
                               className="LeftNav-subLink ms-font-m"
                               href="iplikler.aspx"
@@ -44,23 +78,7 @@ class LeftNav extends Component {
                                 </span>
                               </span>
                             </a>
-                            <a
-                              className="LeftNav-subLink ms-font-m "
-                              href="firmalar.aspx"
-                            >
-                              <span className="LeftNav-fadient">
-                                <span className="LeftNav-linkText" id="">
-                                  Firmalar
-                                </span>
-                              </span>
-                            </a>
-                            <a className="LeftNav-subLink ms-font-m" href="/">
-                              <span className="LeftNav-fadient">
-                                <span className="LeftNav-linkText" id="">
-                                  Siparişler
-                                </span>
-                              </span>
-                            </a>
+
                             <a
                               className="LeftNav-subLink ms-font-m"
                               href="irsaliyeler.aspx"

@@ -9,10 +9,10 @@ import ProductEditModal from "./ProductEditModal";
 import ProductNewModal from "./ProductNewModal";
 import ArticelsTable from "./ArticelsTable";
 import LayoutRight from "./LayoutRight";
+import LayoutNote from "./LayoutNote";
 import CreateArticelModal from "./CreateArticelModal";
 import OrdersTable from "./OrdersTable";
 import LeftNav from "./LeftNav";
-import { date } from "assert-plus";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 
@@ -28,6 +28,7 @@ class MainPage extends Component {
       Files: [],
       ProductTypes: [],
       SalesTypes: [],
+      ArticelNotes: "",
       Piece: 0,
       WayBillId: 0,
       Dimensions: "",
@@ -55,6 +56,7 @@ class MainPage extends Component {
       isShowFiles: false,
       isShowOrder: false,
       isShowTopBar: false,
+      isShowLayoutNote: false,
       ismodalvisible: false,
       isShowProductOut: false,
       isShowProductEdit: false,
@@ -91,6 +93,8 @@ class MainPage extends Component {
     this.LayoutRightShow = this.LayoutRightShow.bind(this);
     this.CancelCallOut = this.CancelCallOut.bind(this);
     this.CancelShare = this.CancelShare.bind(this);
+    this.CancelNote = this.CancelNote.bind(this);
+
     this.CancelNewProduct = this.CancelNewProduct.bind(this);
 
     this.UpdateOrder = this.UpdateOrder.bind(this);
@@ -109,12 +113,16 @@ class MainPage extends Component {
     this.ChangeDimensions = this.ChangeDimensions.bind(this);
     this.ChangeColor = this.ChangeColor.bind(this);
     this.ChangeWayBillId = this.ChangeWayBillId.bind(this);
-
+    this.LayoutNoteShow = this.LayoutNoteShow.bind(this);
     this.MenuToggler = this.MenuToggler.bind(this);
     this.GetWaybillforOrder = this.GetWaybillforOrder.bind(this);
     this.CreateArticelShow = this.CreateArticelShow.bind(this);
     this.filterCorp = this.filterCorp.bind(this);
     this.CallOutonMouseMove = this.CallOutonMouseMove.bind(this);
+    this.GetOrderEdit = this.GetOrderEdit.bind(this);
+    this.getNotes = this.getNotes.bind(this);
+    this.UpdateArticelNote = this.UpdateArticelNote.bind(this);
+    this.SaveNotes = this.SaveNotes.bind(this);
   }
   CorpSearch = (event) => {
     let value = event.target.value.toLowerCase();
@@ -124,6 +132,21 @@ class MainPage extends Component {
     });
     this.setState({ Articels: result });
   };
+  UpdateArticelNote = (note) => {
+    this.setState({ ArticelNotes: note });
+  };
+  SaveNotes() {
+    this.setState({ isShow: true });
+    var formData = new FormData();
+    formData.append("ArticelId", this.state.ActiveArticel);
+    formData.append("Notes", this.state.ArticelNotes);
+    fetch("abi/post/AddNotes.ashx", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => this.setState({ isShow: false }))
+      .then((data) => console.log(data));
+  }
   toggleWayBillList() {
     this.setState({ WayBillVisible: !this.state.WayBillVisible });
   }
@@ -319,6 +342,16 @@ class MainPage extends Component {
     });
     document.getElementById("LayoutRight").style.width = "300px";
   }
+  LayoutNoteShow() {
+    this.setState({
+      isShowLayoutNote: true,
+      isShowLayoutRight: false,
+
+      isShowTopBar: false,
+      isShowCallOut: false,
+    });
+    document.getElementById("LayoutNote").style.width = "300px";
+  }
   productOutShow() {
     this.setState({ isShowProductOut: true, isShowCallOut: false });
   }
@@ -349,7 +382,15 @@ class MainPage extends Component {
     });
     document.getElementById("LayoutRight").style.width = "0px";
   }
-
+  CancelNote() {
+    this.setState({
+      isShowLayoutRight: false,
+      isShowLayoutNote: false,
+      isShowCallOut: false,
+      isShowTopBar: true,
+    });
+    document.getElementById("LayoutNote").style.width = "0px";
+  }
   CancelCallOut() {
     this.setState({ isShowCallOut: false });
   }
@@ -419,21 +460,14 @@ class MainPage extends Component {
     }
   }
 
-  async GetOrderEdit(
-    orderId,
-    dimensions,
-    color,
-    piece,
-    productTypeName,
-    TypeId
-  ) {
+  GetOrderEdit(id, dimensions, color, piece, typeName, TypeId) {
     this.setState({
       Piece: piece,
       TypeId: TypeId,
       Dimensions: dimensions,
       Color: color,
-      OrderId: orderId,
-      ProductTypeName: productTypeName,
+      OrderId: id,
+      ProductTypeName: typeName,
       ismodalvisible: true,
       isShowProductEdit: true,
     });
@@ -506,6 +540,16 @@ class MainPage extends Component {
       SalesTypes: await this.FetchFunc("abi/post/SaleType.ashx"),
     });
   }
+  async getNotes(ArticelId) {
+    fetch("abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
+      .then((response) => response.text())
+      .then((response) => {
+        this.setState({
+          ArticelNotes: response,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
 
   filterCorp(CorpId) {
     this.setState({
@@ -524,10 +568,14 @@ class MainPage extends Component {
       isShowCallOut: false,
       ArticelName: ArticelName,
       CorpName: CorpName,
+      isShowLayoutNote: false,
+      isShowLayoutRight: false,
     });
+    document.getElementById("LayoutRight").style.width = "0px";
+    document.getElementById("LayoutNote").style.width = "0px";
 
     this.GetWaybillAsync(ArticelId);
-
+    this.getNotes(ArticelId);
     this.GetFilesAsync(ArticelId);
 
     this.setState({
@@ -540,7 +588,10 @@ class MainPage extends Component {
     } else {
       var selectedId = "Articel" + this.state.ActiveArticel;
       document.getElementById(selectedId).classList.remove("ActiveArticelRow");
-      this.state.ActiveArticel = ArticelId;
+
+      this.setState({
+        ActiveArticel: ArticelId,
+      });
     }
 
     var Clicked = "Articel" + ArticelId;
@@ -587,6 +638,7 @@ class MainPage extends Component {
           filterCorp={this.filterCorp}
           ArticelId={this.state.ArticelId}
           CorpName={this.state.CorpName}
+          LayoutNoteShow={this.LayoutNoteShow}
         />
 
         <div
@@ -682,12 +734,19 @@ class MainPage extends Component {
               <Files Files={this.state.Files} />
             </div>
           </div>
-          <div className={this.state.isShowLayoutRight ? "" : "hide"}>
-            <LayoutRight
-              CancelShare={this.CancelShare}
-              isShowLayoutRight={this.state.isShowLayoutRight}
-            />
-          </div>
+
+          <LayoutRight
+            CancelShare={this.CancelShare}
+            isShowLayoutRight={this.state.isShowLayoutRight}
+          />
+
+          <LayoutNote
+            CancelNote={this.CancelNote}
+            SaveNotes={this.SaveNotes}
+            UpdateArticelNote={this.UpdateArticelNote}
+            ArticelNotes={this.state.ArticelNotes}
+            isShowLayoutNote={this.state.isShowLayoutNote}
+          />
         </div>
 
         <div className={this.state.isShowProductOut ? "" : "hide"}>
@@ -702,20 +761,20 @@ class MainPage extends Component {
           />
         </div>
 
-        <div className={this.state.isShowProductEdit ? "" : "hide"}>
-          <ProductEditModal
-            UpdateOrder={this.UpdateOrder}
-            CancelEdit={this.CancelEdit}
-            ChangeProductType={this.ChangeProductType}
-            ProductTypes={this.state.ProductTypes}
-            Piece={this.state.Piece}
-            Dimensions={this.state.Dimensions}
-            Typeid={this.state.TypeId}
-            ProductTypeName={this.state.ProductTypeName}
-            Color={this.state.Color}
-            OrderId={this.state.OrderId}
-          />
-        </div>
+        <ProductEditModal
+          isShowProductEdit={this.state.isShowProductEdit}
+          UpdateOrder={this.UpdateOrder}
+          CancelEdit={this.CancelEdit}
+          ChangeProductType={this.ChangeProductType}
+          ProductTypes={this.state.ProductTypes}
+          Piece={this.state.Piece}
+          Dimensions={this.state.Dimensions}
+          Typeid={this.state.TypeId}
+          ProductTypeName={this.state.ProductTypeName}
+          Color={this.state.Color}
+          OrderId={this.state.OrderId}
+        />
+
         <div className={this.state.IsCreateArticelShow ? "" : "hide"}>
           <CreateArticelModal
             Corps={this.state.Corps}

@@ -34,7 +34,6 @@ export default function TopBar(props) {
                 className="MenuSlicer MainMenu o365sx-button o365sx-highContrastButton"
                 type="button"
               >
-                 
                 <span className="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
               </button>
             </div>
@@ -71,55 +70,7 @@ export default function TopBar(props) {
                 <span className="Icon--WaffleOffice365 Icon-font-size-16"></span>
               </button>
             </div>
-            <div className="_3T6iq7Mut8tUPtyv-A9S6l">
-              <button
-                className="MenuSlicer o365sx-button o365sx-highContrastButton"
-                type="button"
-              >
-                <span
-                  data-html="true"
-                  data-toggle="popover"
-                  className="Icon--Settings  Icon-font-size-16"
-                ></span>
-              </button>
-            </div>
-            <div className="_3T6iq7Mut8tUPtyv-A9S6l">
-              <button
-                className="MenuSlicer o365sx-button o365sx-highContrastButton"
-                type="button"
-              >
-                <span className="Icon--Help Icon-font-size-16"></span>
-              </button>
-            </div>
-            <div className="Mobiles CloseMobileCommandOptions hide Mm MobileCommandOptions">
-              <button className="MenuSlicer o365sx-button" type="button">
-                <span className="Icon--ChromeClose  Icon-font-size-16"></span>
-              </button>
-            </div>
-            <div className="">
-              <button
-                className="riRHDuln2VrIU8dSpyxJ2 _2aUXQf-eONv8YsEl8vjt5t o365sx-button o365sx-highContrastButton"
-                type="button"
-              >
-                <div className="EVtx536X5dUgzXHm2qXs">
-                  <div className="_3OhYOe1wotB0LNRbjEDfz9 _3FLRgiFtGLuaFraVW49btd">
-                    <span>sdf</span>
-                  </div>
-                  <div className="riRHDuln2VrIU8dSpyxJ2 _3yeneo3QKaGGnZNVFmaZCF">
-                    <div className="_1MAj-oaYBNuu8HgwBH0d6a">
-                      <div className="_1fH43YlMAnPCr8RI9qH98P">
-                        <div className="M_s6agPZfWvz2OH8iRoGk">
-                          <span>R</span>
-                        </div>
-                        <div className="_14ggU2yZvNol5U91gfmYQA">
-                          <img alt="R" title="Resim Bulunamadı" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </button>
-            </div>
+             
           </div>
         </div>
       </div>
@@ -307,6 +258,7 @@ export default function TopBar(props) {
                         <button
                           type="button"
                           name="Yeni"
+                          onClick={() => props.LayoutNoteShow()}
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
