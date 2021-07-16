@@ -32,7 +32,7 @@ export default function ProductNewModal(props) {
                   <hr />
                   <div className="col-md-12 fleft">
                     <select
-                      className="OneDriveInput form-control"
+                      className="ms-TextField-field"
                       onChange={(e) => props.ChangeProductType(e.target.value)}
                     >
                       {props.ProductTypes.map((p) => (
@@ -52,7 +52,7 @@ export default function ProductNewModal(props) {
                         <input
                           type="number"
                           onChange={(e) => props.ChangePiece(e.target.value)}
-                          className="Piece form-control"
+                          className="Piece ms-TextField-field"
                         />
                       </div>
                       <div className="col-md-2 fleft">
@@ -64,7 +64,7 @@ export default function ProductNewModal(props) {
                           onChange={(e) =>
                             props.ChangeDimensions(e.target.value)
                           }
-                          className="Dim form-control"
+                          className="Dim ms-TextField-field"
                         />
                       </div>
                       <div className="col-md-2 fleft">
@@ -74,7 +74,7 @@ export default function ProductNewModal(props) {
                         <input
                           type="text"
                           onChange={(e) => props.ChangeColor(e.target.value)}
-                          className="Color form-control"
+                          className="Color ms-TextField-field"
                         />
                       </div>
 

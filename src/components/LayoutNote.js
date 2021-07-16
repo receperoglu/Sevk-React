@@ -26,7 +26,7 @@ export default function LayoutNote(props) {
         <div className="LayoutType" id="Notes" style={{ display: "block" }}>
           <h5> Not Almanız gerekenleri yazın</h5>
           <textarea
-            className="NotesArea form-control OneDriveInput"
+            className="NotesArea  ms-TextField-field"
             style={{ width: "100%", height: "250px" }}
             value={props.ArticelNotes}
             onChange={(e) => props.UpdateArticelNote(e.target.value)}

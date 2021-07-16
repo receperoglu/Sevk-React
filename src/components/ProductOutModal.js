@@ -38,7 +38,7 @@ export default function ProductOutModal(props) {
                       type="text"
                       onChange={(e) => props.ChangeWayBillId(e.target.value)}
                       placeholder="İrsaliye No"
-                      className="irsaliyeno col-md-1 form-control OneDriveInput"
+                      className="irsaliyeno col-md-1  ms-TextField-field"
                     />
                     <br />
                   </div>
@@ -54,7 +54,7 @@ export default function ProductOutModal(props) {
                               onChange={(e) =>
                                 props.ChangePiece(e.target.value)
                               }
-                              className="Piece form-control"
+                              className="Piece ms-TextField-field"
                             />
                           </div>
                           <div className="col-md-2 fleft">
@@ -64,7 +64,7 @@ export default function ProductOutModal(props) {
                               onChange={(e) =>
                                 props.ChangeWeight(e.target.value)
                               }
-                              className="Weight form-control"
+                              className="Weight ms-TextField-field"
                             />
                           </div>
 

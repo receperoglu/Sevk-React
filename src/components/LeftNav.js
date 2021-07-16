@@ -20,15 +20,17 @@ class LeftNav extends Component {
                 <div className="LeftNav">
                   <div className="LeftNav-linkArea">
                     <span className="LeftNav-subLink ms-font-m" href="#">
-                      <span className="LeftNav-fadient">
-                        <span
-                          onClick={() => this.props.CreateArticelShow()}
-                          className="LeftNav-linkText NewArt padd10"
-                        >
-                          <br></br>
-                          <span className="padd10">Yeni Sipariş Oluştur</span>
+                      <div className="LeftNav-fadient text-center">
+                        <br/>
+                        <span className="Transfer TransferBTN ms-Button ms-Button--primary">
+                          <span
+                            onClick={() => this.props.CreateArticelShow()}
+                            className="transfersavetext"
+                          >
+                           + Sipariş Oluştur
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </span>
                     <div className="LeftNav-linkGroupContainer">
                       <div className="LeftNav-linkGroup is-expanded">
@@ -42,7 +44,7 @@ class LeftNav extends Component {
                                 <i
                                   data-icon-name="Inbox"
                                   aria-hidden="true"
-                                  class="controlicon"
+                                  className="controlicon"
                                 >
                                   
                                 </i>
@@ -60,10 +62,10 @@ class LeftNav extends Component {
                                   <i
                                     data-icon-name="Archive"
                                     aria-hidden="true"
-                                    class="controlicon"
+                                    className="controlicon"
                                   >
                                     
-                                  </i>{" "}
+                                  </i>
                                   Firmalar
                                 </span>
                               </span>

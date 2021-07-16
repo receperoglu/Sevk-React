@@ -32,7 +32,7 @@ export default function CreateArticelModal(props) {
                     </div>
                     <div className="col-md-10 ">
                       <select
-                        className="OneDriveInput form-control"
+                        className="ms-TextField-field"
                         onChange={(e) => props.ChangeCorpId(e.target.value)}
                       >
                         {props.Corps.map((p) => (
@@ -45,11 +45,11 @@ export default function CreateArticelModal(props) {
                   </div>
                   <div className="col-md-12">
                     <div className="col-md-2 fleft">
-                      <span>Satış Tipi</span>
+                      <span>  Tipi</span>
                     </div>
                     <div className="col-md-10 fleft">
                       <select
-                        className="OneDriveInput form-control"
+                        className="ms-TextField-field field-320"
                         onChange={(e) => props.ChangeSalesType(e.target.value)}
                       >
                         {props.SalesTypes.map((p) => (
@@ -59,8 +59,9 @@ export default function CreateArticelModal(props) {
                         ))}
                       </select>
                     </div>
+                    <div className="col-md-12 ">
                     <div className="col-md-2 fleft">
-                      <span>Artikel Adı</span>
+                      <span>Artikel  </span>
                     </div>
                     <div className="col-md-10 fleft">
                       <input
@@ -68,9 +69,9 @@ export default function CreateArticelModal(props) {
                         onChange={(e) =>
                           props.ChangeArticelName(e.target.value)
                         }
-                        className=" form-control"
+                        className="ms-TextField-field"
                       />
-                    </div>
+                    </div></div>
                   </div>
 
                   <div className="col-md-12 text-right fleft">

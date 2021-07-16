@@ -210,8 +210,12 @@ class MainPage extends Component {
     document.getElementById("SecondScreen").classList.add("hide");
     document.getElementById("FirstScreen").classList.add("col-md-12");
     document.getElementById("FirstScreen").classList.remove("col-md-4");
-    var selectedId = "Articel" + this.state.ActiveArticel;
-    document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+    try {
+      var selectedId = "Articel" + this.state.ArticelId;
+      document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+    } catch (error) {
+      console.log("ulaşılamadı" + error);
+    }
   }
   CancelArticel() {
     this.setState({ IsCreateArticelShow: false });
@@ -321,6 +325,7 @@ class MainPage extends Component {
         Authorization: "bearer ",
       },
     });
+    console.log(response)
 
     this.setState({ isShowProductEdit: false });
 

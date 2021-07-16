@@ -43,7 +43,7 @@ export default function ProductEditModal(props) {
                         <input
                           type="number"
                           value={props.Piece}
-                          className="Piece form-control"
+                          className="Piece ms-TextField-field"
                           onChange={(e) =>
                             props.ChangeProductType(e.target.value)
                           }
@@ -59,7 +59,7 @@ export default function ProductEditModal(props) {
                           onChange={(e) =>
                             props.ChangeProductType(e.target.value)
                           }
-                          className="Dim form-control"
+                          className="Dim ms-TextField-field"
                         />
                       </div>
                       <div className="col-md-2 fleft">
@@ -72,14 +72,14 @@ export default function ProductEditModal(props) {
                           onChange={(e) =>
                             props.ChangeProductType(e.target.value)
                           }
-                          className="Color form-control"
+                          className="Color ms-TextField-field"
                         />
                       </div>
 
                       <div className="col-md-12 fleft">
                         <select
                           key={props.Typeid}
-                          className="OneDriveInput form-control"
+                          className="ms-TextField-field"
                           onChange={(e) =>
                             props.ChangeProductType(e.target.value)
                           }
