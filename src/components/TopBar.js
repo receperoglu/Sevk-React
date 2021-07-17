@@ -353,6 +353,7 @@ export default function TopBar(props) {
                       <div className="ms-OverflowSet-item ms-ContextualMenuExample commandfileadd SubTools TopBarObject">
                         <button
                           type="button"
+                          onClick={()=>{props.chooseFile()}}
                           name="Karşıya Yükle"
                           className="ms-Button ms-Button--commandBar  ms-CommandBarItem-link root-85"
                           data-is-focusable="true"

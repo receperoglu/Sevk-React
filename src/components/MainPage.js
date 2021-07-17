@@ -13,6 +13,7 @@ import LayoutNote from "./LayoutNote";
 import CreateArticelModal from "./CreateArticelModal";
 import OrdersTable from "./OrdersTable";
 import LeftNav from "./LeftNav";
+import PicturePreview from "./PicturePreview";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 
@@ -37,6 +38,8 @@ class MainPage extends Component {
       CorpName: "",
       Color: "",
       TypeName: "",
+      Path: "",
+      RawPath: "",
       TypeId: 0,
       CorpId: 0,
       LoopCount: 0,
@@ -51,6 +54,7 @@ class MainPage extends Component {
       WayBillVisible: true,
       OrderVisible: true,
       MenuStatu: false,
+      isShowPicturePreview: false,
       IsCreateArticelShow: false,
       IsNewProductShow: false,
       isShowFiles: false,
@@ -64,6 +68,7 @@ class MainPage extends Component {
       CalloutLoading: false,
       isFetching: false,
       isShowLayoutRight: false,
+      isRotating:false,
 
       isShowCreateArticel: false,
       ProductNewLoading: false,
@@ -123,6 +128,11 @@ class MainPage extends Component {
     this.getNotes = this.getNotes.bind(this);
     this.UpdateArticelNote = this.UpdateArticelNote.bind(this);
     this.SaveNotes = this.SaveNotes.bind(this);
+    this.uploadPicture = this.uploadPicture.bind(this);
+    this.chooseFile = this.chooseFile.bind(this);
+    this.showPicturePreview = this.showPicturePreview.bind(this);
+    this.hidePicturePreview = this.hidePicturePreview.bind(this);
+    this.RotatePicture = this.RotatePicture.bind(this);
   }
   CorpSearch = (event) => {
     let value = event.target.value.toLowerCase();
@@ -135,6 +145,30 @@ class MainPage extends Component {
   UpdateArticelNote = (note) => {
     this.setState({ ArticelNotes: note });
   };
+  showPicturePreview(path, RawPath) {
+    console.log(path);
+    this.setState({ Path: path, RawPath: RawPath, isShowPicturePreview: true });
+  }
+  hidePicturePreview() {
+    this.setState({ isShowPicturePreview: false });
+  }
+  RotatePicture() {
+    this.setState({isRotating:true})
+    var formData = new FormData();
+    formData.append("Rotate", "Left");
+    formData.append("Path", "/dosyalar/" + this.state.RawPath);
+    formData.append("PictureName", this.state.Path);
+    formData.append("PictureId", 0);
+    fetch("abi/post/DosyaSistem/ResimDondur.ashx", {
+      method: "POST",
+      processData: false,
+      body: formData,
+    })
+      .then((response) =>
+        this.setState({ Path: this.state.Path + "?" + new Date().getTime(),isRotating:false }) 
+      )
+      .then((data) =>alert(data))
+  }
   SaveNotes() {
     this.setState({ isShow: true });
     var formData = new FormData();
@@ -159,8 +193,36 @@ class MainPage extends Component {
     } else {
     }
   }
+  chooseFile() {
+    var file = document.getElementById("FileNew");
+    file.click();
+  }
   toggleOrderList() {
     this.setState({ OrderVisible: !this.state.OrderVisible });
+  }
+  uploadPicture() {
+    console.log("asdsa");
+    this.setState({ isShow: true });
+    var FilesCollection = document.getElementById("FileNew");
+    var fileList = FilesCollection.files;
+    var formData = new FormData();
+    formData.append("ArticelId", this.state.ArticelId);
+    formData.append("FileType", "Picture");
+    formData.append("UploadArea[0]", fileList[0], fileList[0].name);
+    fetch("abi/post/UploadWayBillOrder.ashx", {
+      method: "POST",
+      contentType: false,
+      processData: false,
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Success:", result);
+        this.setState({ isShow: false });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
   ChangeProductType(TypeId) {
     this.setState({ TypeId: TypeId });
@@ -325,7 +387,7 @@ class MainPage extends Component {
         Authorization: "bearer ",
       },
     });
-    console.log(response)
+    console.log(response);
 
     this.setState({ isShowProductEdit: false });
 
@@ -628,7 +690,18 @@ class MainPage extends Component {
             </div>
           ))}
         </div>
+        <input
+          type="file"
+          id="FileNew"
+          name="UploadArea[]"
+          onChange={() => {
+            this.uploadPicture();
+          }}
+          className="MultipleNew hide"
+          multiple
+        ></input>
         <TopBar
+          chooseFile={this.chooseFile}
           CorpSearch={this.CorpSearch}
           NewProductShow={this.NewProductShow}
           toggleView={this.toggleView}
@@ -736,7 +809,10 @@ class MainPage extends Component {
               Dökümanlar
             </div>
             <div className={this.state.FilesVisible ? "" : "hide"}>
-              <Files Files={this.state.Files} />
+              <Files
+                Files={this.state.Files}
+                showPicturePreview={this.showPicturePreview}
+              />
             </div>
           </div>
 
@@ -832,6 +908,15 @@ class MainPage extends Component {
         <LeftNav
           CreateArticelShow={this.CreateArticelShow}
           MenuStatu={this.state.MenuStatu}
+        />
+        <PicturePreview
+          isShowPicturePreview={this.state.isShowPicturePreview}
+          Path={this.state.Path}
+          hidePicturePreview={this.hidePicturePreview}
+          Articel={this.state.ArticelName}
+          RotatePicture={this.RotatePicture}
+          isRotating={this.state.isRotating}
+
         />
       </div>
     );
