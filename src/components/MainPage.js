@@ -167,7 +167,7 @@ class MainPage extends Component {
       .then((response) =>
         this.setState({ Path: this.state.Path + "?" + new Date().getTime(),isRotating:false }) 
       )
-      .then((data) =>alert(data))
+      .then((data) =>console.log(data))
   }
   SaveNotes() {
     this.setState({ isShow: true });
@@ -504,7 +504,7 @@ class MainPage extends Component {
       Files: [],
       isShowFiles: false,
     });
-    var url = USER_SERVICE_URL + "Pictures&ArticelId=" + ArticelId;
+    var url =  "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
     const response = await fetch(url, {
       method: "POST",
       cache: "no-cache",
