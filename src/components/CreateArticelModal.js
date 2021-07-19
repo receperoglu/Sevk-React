@@ -2,7 +2,7 @@ import React from "react";
 
 export default function CreateArticelModal(props) {
   return (
-    <div id="ProductModal" className="ms-Layer ms-Layer--fixed layer-351">
+    <div id="ProductModal" className={props.IsCreateArticelShow ? "ms-Layer ms-Layer--fixed layer-351" : "hide"}  >
       <div className="ms-Fabric ms-Layer-content content-120">
         <div role="dialog">
           <div className="ms-Modal is-open root-345">

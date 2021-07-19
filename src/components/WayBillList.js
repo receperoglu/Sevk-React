@@ -2,7 +2,11 @@ import React from "react";
 
 export default function WayBillList(props) {
   return (
-    <table className="MotionDetails table table-hover ">
+    <table
+      className={
+        props.WayBillVisible ? "MotionDetails table table-hover " : "hide"
+      }
+    >
       <thead>
         <tr className="alert alert-success">
           <td>Adet</td>

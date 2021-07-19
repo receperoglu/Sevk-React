@@ -20,68 +20,6 @@ const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      Articels: [],
-      Orders: [],
-      Waybill: [],
-      Corps: [],
-      OneWayBill: [],
-      Files: [],
-      ProductTypes: [],
-      SalesTypes: [],
-      FileType: "",
-      ArticelNotes: "",
-      Piece: 0,
-      WayBillId: 0,
-      Dimensions: "",
-      OrderId: 0,
-      Weight: 0,
-      CorpName: "",
-      Color: "",
-      TypeName: "",
-      Path: "",
-      RawPath: "",
-      TypeId: 0,
-      CorpId: 0,
-      LoopCount: 0,
-      TotalOutPiece: 0,
-      TotalOutWeight: 0,
-      ArticelId: 0,
-      SaleTypeId: 0,
-      ChangeView: false,
-      IsFirstRun: true,
-      isShow: true,
-      FilesVisible: true,
-      WayBillVisible: true,
-      OrderVisible: true,
-      MenuStatu: false,
-      isShowPicturePreview: false,
-      IsCreateArticelShow: false,
-      IsNewProductShow: false,
-      isShowFiles: false,
-      isShowOrder: false,
-      isShowTopBar: false,
-      isShowLayoutNote: false,
-      ismodalvisible: false,
-      isShowProductOut: false,
-      isShowProductEdit: false,
-      isShowCallOut: false,
-      CalloutLoading: false,
-      isFetching: false,
-      isShowLayoutRight: false,
-      isRotating: false,
-
-      isShowCreateArticel: false,
-      ProductNewLoading: false,
-      Articel: "Articel",
-      x: 0,
-      y: 0,
-      MouseX: 0,
-      MouseY: 0,
-      ArticelName: "",
-      ActiveArticel: 0,
-    };
-
     this.getCorps = this.getCorps.bind(this);
     this.toggleWayBillList = this.toggleWayBillList.bind(this);
     this.toggleFiles = this.toggleFiles.bind(this);
@@ -137,6 +75,64 @@ class MainPage extends Component {
     this.showPicturePreview = this.showPicturePreview.bind(this);
     this.hidePicturePreview = this.hidePicturePreview.bind(this);
     this.RotatePicture = this.RotatePicture.bind(this);
+    this.state = {
+      Articels: [],
+      Orders: [],
+      Waybill: [],
+      Corps: [],
+      OneWayBill: [],
+      Files: [],
+      ProductTypes: [],
+      SalesTypes: [],
+      FileType: "",
+      ArticelNotes: "",
+      Dimensions: "",
+      CorpName: "",
+      Color: "",
+      TypeName: "",
+      Path: "",
+      RawPath: "",
+      Articel: "Articel",
+      ArticelName: "",
+      OrderId: 0,
+      Weight: 0,
+      Piece: 0,
+      WayBillId: 0,
+      x: 0,
+      y: 0,
+      TypeId: 0,
+      CorpId: 0,
+      LoopCount: 0,
+      TotalOutPiece: 0,
+      TotalOutWeight: 0,
+      ArticelId: 0,
+      SaleTypeId: 0,
+      ActiveArticel: 0,
+      IsFirstRun: true,
+      isShow: true,
+      FilesVisible: true,
+      WayBillVisible: true,
+      OrderVisible: true,
+      ChangeView: false,
+      MenuStatu: false,
+      isShowPicturePreview: false,
+      IsCreateArticelShow: false,
+      IsNewProductShow: false,
+      isShowOrder: false,
+      isShowTopBar: false,
+      isShowLayoutNote: false,
+      ismodalvisible: false,
+      isShowProductOut: false,
+      isShowProductEdit: false,
+      isShowCallOut: false,
+      CalloutLoading: false,
+      isFetching: false,
+      isShowLayoutRight: false,
+      isRotating: false,
+
+      isShowCreateArticel: false,
+      ProductNewLoading: false,
+    };
   }
   CorpSearch = (event) => {
     let value = event.target.value.toLowerCase();
@@ -149,7 +145,7 @@ class MainPage extends Component {
   UpdateArticelNote = (note) => {
     this.setState({ ArticelNotes: note });
   };
-  showPicturePreview(path, RawPath) {   
+  showPicturePreview(path, RawPath) {
     this.setState({ Path: path, RawPath: RawPath, isShowPicturePreview: true });
   }
   hidePicturePreview() {
@@ -208,7 +204,7 @@ class MainPage extends Component {
     this.setState({ OrderVisible: !this.state.OrderVisible });
   }
   uploadPicture() {
-     this.setState({ isShow: true });
+    this.setState({ isShow: true });
     var FilesCollection = document.getElementById("FileNew");
     var fileList = FilesCollection.files;
     var formData = new FormData();
@@ -217,13 +213,19 @@ class MainPage extends Component {
     formData.append("UploadArea[0]", fileList[0], fileList[0].name);
     fetch("abi/post/UploadWayBillOrder.ashx", {
       method: "POST",
-      contentType: false,
+      contentType: "application/json",
       processData: false,
       body: formData,
     })
       .then((response) => response.json())
-      .then((result) => {       
+      .then((result) => {
         this.setState({ isShow: false });
+        this.GetOrders(
+          this.state.ArticelId,
+          this.state.CorpId,
+          this.state.ArticelName,
+          this.state.CorpName
+        );
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -238,7 +240,6 @@ class MainPage extends Component {
   ChangeCorpId(Id) {
     this.setState({ CorpId: Id });
   }
-
   MenuToggler = () => {
     this.setState({ MenuStatu: !this.state.MenuStatu });
   };
@@ -254,14 +255,12 @@ class MainPage extends Component {
   ChangeWayBillId(Id) {
     this.setState({ WayBillId: Id });
   }
-
   ChangeColor(Color) {
     this.setState({ Color: Color });
   }
   ChangeSalesType(Id) {
     this.setState({ SaleTypeId: Id });
   }
-
   NewProductShow() {
     this.setState({ IsNewProductShow: true });
   }
@@ -284,14 +283,11 @@ class MainPage extends Component {
       console.log("ulaşılamadı" + error);
     }
   }
-  CancelArticel() {
-    this.setState({ IsCreateArticelShow: false });
-  }
+
   SaveProductOut(OrderId) {
     this.setState({ OrderId: OrderId });
     setTimeout(() => this.PostProductOutSave(), 5000);
   }
-
   UpdateOrder() {
     this.PostOrderUpdate();
   }
@@ -305,6 +301,231 @@ class MainPage extends Component {
     this.PostArticelsave();
   }
 
+  LayoutRightShow() {
+    this.setState({
+      isShowLayoutRight: true,
+      isShowTopBar: false,
+      isShowCallOut: false,
+    });
+    document.getElementById("LayoutRight").style.width = "300px";
+  }
+  LayoutNoteShow() {
+    this.setState({
+      isShowLayoutNote: true,
+      isShowLayoutRight: false,
+
+      isShowTopBar: false,
+      isShowCallOut: false,
+    });
+    document.getElementById("LayoutNote").style.width = "300px";
+  }
+  productOutShow() {
+    this.setState({ isShowProductOut: true, isShowCallOut: false });
+  }
+  productEditShow() {
+    this.setState({ isShowProductEdit: true, isShowCallOut: false });
+  }
+  CancelArticel() {
+    this.setState({ IsCreateArticelShow: false });
+  }
+  CancelProduct() {
+    this.setState({ isShowProductOut: false, isShowCallOut: false });
+  }
+  CancelNewProduct() {
+    this.setState({ IsNewProductShow: false, isShowCallOut: false });
+  }
+  CancelEdit() {
+    this.setState({ isShowProductEdit: false, isShowCallOut: false });
+  }
+  CancelCreateArticel() {
+    this.setState({ IsCreateArticelShow: false, isShowCallOut: false });
+  }
+  CancelShare() {
+    this.setState({
+      isShowLayoutRight: false,
+      isShowTopBar: true,
+      isShowCallOut: false,
+    });
+    document.getElementById("LayoutRight").style.width = "0px";
+  }
+  CancelNote() {
+    this.setState({
+      isShowLayoutRight: false,
+      isShowLayoutNote: false,
+      isShowCallOut: false,
+      isShowTopBar: true,
+    });
+    document.getElementById("LayoutNote").style.width = "0px";
+  }
+  CancelCallOut() {
+    this.setState({ isShowCallOut: false });
+  }
+  closeTopBar() {
+    this.setState({
+      isShowTopBar: false,
+      isShowCallOut: false,
+      ActiveArticel: 0,
+    });
+
+    document.getElementById("SecondScreen").classList.add("hide");
+    document.getElementById("FirstScreen").classList.add("col-md-12");
+    document.getElementById("FirstScreen").classList.remove("col-md-4");
+    var selectedId = "Articel" + this.state.ActiveArticel;
+    document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+  }
+  Closeproductmodal() {
+    this.setState({ ismodalvisible: false, isShowCallOut: false });
+  }
+  TransferSummary(weight, piece) {
+    this.setState({
+      TotalOutPiece: 1 + piece,
+      TotalOutWeight: 1 + weight,
+      LoopCount: 99,
+    });
+  }
+  GetOrderEdit(id, dimensions, color, piece, typeName, TypeId) {
+    this.setState({
+      Piece: piece,
+      TypeId: TypeId,
+      Dimensions: dimensions,
+      Color: color,
+      OrderId: id,
+      ProductTypeName: typeName,
+      ismodalvisible: true,
+      isShowProductEdit: true,
+    });
+  }
+  CallOutonMouseMove(e) {
+    this.setState({
+      x: e.pageX + "px",
+      y: e.pageY + "px",
+    });
+  }
+  filterCorp(CorpId) {
+    this.setState({
+      Articels: this.state.Articels.filter(
+        (articel) => articel.CorpId === CorpId
+      ),
+    });
+  }
+  async GetWaybillforOrder(OrderId, dimensions, color, producttypename) {
+    this.setState({
+      Dimensions: dimensions,
+      OneWayBill: [],
+      Color: color,
+      ProductTypeName: producttypename,
+      CalloutLoading: true,
+      isShowCallOut: true,
+      isShow: true,
+    });
+
+    this.setState({
+      OneWayBill: await this.FetchFunc(
+        USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId
+      ),
+      isShow: false,
+    });
+    var wayPiece = 0;
+    var wayWeight = 0;
+
+    this.state.OneWayBill.map(
+      (w) => (wayPiece = wayPiece + parseInt(w.Piece, 10))
+    );
+
+    this.setState({
+      LoopCount: this.state.OneWayBill.length,
+      CalloutLoading: false,
+      TotalOutPiece: wayPiece,
+      TotalOutWeight: wayWeight,
+    });
+  }
+  async getProductType() {
+    this.setState({
+      ProductTypes: await this.FetchFunc("abi/post/ProductType.ashx"),
+    });
+  }
+  async getCorps() {
+    var CorpUrl = "abi/post/CorpList.ashx";
+    const response = await fetch(CorpUrl, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-credentials": false,
+        "Access-Control-Allow-Origin": CorpUrl,
+        Authorization: "bearer ",
+      },
+    });
+
+    this.setState({
+      Corps: await response.json(),
+    });
+  }
+  async getSalesTypes() {
+    this.setState({
+      SalesTypes: await this.FetchFunc("abi/post/SaleType.ashx"),
+    });
+  }
+  async getNotes(ArticelId) {
+    fetch("abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
+      .then((response) => response.text())
+      .then((response) => {
+        this.setState({
+          ArticelNotes: response,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+  async GetOrders(ArticelId, CorpId, ArticelName, CorpName) {
+    this.setState({
+      isShow: true,
+      CorpId: CorpId,
+      ArticelId: ArticelId,
+      isShowTopBar: true,
+      isShowCallOut: false,
+      ArticelName: ArticelName,
+      CorpName: CorpName,
+      isShowLayoutNote: false,
+      isShowLayoutRight: false,
+    });
+    document.getElementById("LayoutRight").style.width = "0px";
+    document.getElementById("LayoutNote").style.width = "0px";
+
+    this.GetWaybillAsync(ArticelId);
+    this.getNotes(ArticelId);
+    this.GetFilesAsync(ArticelId);
+
+    this.setState({
+      Orders: [],
+      isShowOrder: true,
+    });
+
+    if (this.state.ActiveArticel === 0) {
+      this.state.ActiveArticel = ArticelId;
+    } else {
+      var selectedId = "Articel" + this.state.ActiveArticel;
+      document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+
+      this.setState({
+        ActiveArticel: ArticelId,
+      });
+    }
+
+    var Clicked = "Articel" + ArticelId;
+    document.getElementById(Clicked).classList.add("ActiveArticelRow");
+    document.getElementById("ArticelName").innerHTML = ArticelName;
+    document.getElementById("SecondScreen").classList.remove("hide");
+    document.getElementById("SecondScreen").classList.add("col-md-8");
+    document.getElementById("FirstScreen").classList.add("col-md-4");
+    document.getElementById("FirstScreen").classList.remove("col-md-12");
+    var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + ArticelId;
+    this.setState({
+      Orders: await this.FetchFunc(FullUrl),
+      isShow: false,
+      isShowOrder: true,
+    });
+  }
   async PostProductOutSave() {
     var url =
       "abi/post/AddWayBill.ashx?CorpId=" +
@@ -330,7 +551,6 @@ class MainPage extends Component {
       this.state.ArticelName +
       "&SaleType=" +
       this.state.SaleTypeId;
-
     const response = await fetch(url, {
       method: "POST",
       cache: "no-cache",
@@ -343,7 +563,6 @@ class MainPage extends Component {
       IsCreateArticelShow: false,
     });
   }
-
   async PostOrdersave() {
     var url =
       "abi/post/AddOrder.ashx?ArticelId=" +
@@ -402,93 +621,6 @@ class MainPage extends Component {
       this.state.CorpName
     );
   }
-
-  Closeproductmodal() {
-    this.setState({ ismodalvisible: false, isShowCallOut: false });
-  }
-  LayoutRightShow() {
-    this.setState({
-      isShowLayoutRight: true,
-      isShowTopBar: false,
-      isShowCallOut: false,
-    });
-    document.getElementById("LayoutRight").style.width = "300px";
-  }
-  LayoutNoteShow() {
-    this.setState({
-      isShowLayoutNote: true,
-      isShowLayoutRight: false,
-
-      isShowTopBar: false,
-      isShowCallOut: false,
-    });
-    document.getElementById("LayoutNote").style.width = "300px";
-  }
-  productOutShow() {
-    this.setState({ isShowProductOut: true, isShowCallOut: false });
-  }
-
-  productEditShow() {
-    this.setState({ isShowProductEdit: true, isShowCallOut: false });
-  }
-
-  CancelProduct() {
-    this.setState({ isShowProductOut: false, isShowCallOut: false });
-  }
-
-  CancelNewProduct() {
-    this.setState({ IsNewProductShow: false, isShowCallOut: false });
-  }
-  CancelEdit() {
-    this.setState({ isShowProductEdit: false, isShowCallOut: false });
-  }
-  CancelCreateArticel() {
-    this.setState({ IsCreateArticelShow: false, isShowCallOut: false });
-  }
-
-  CancelShare() {
-    this.setState({
-      isShowLayoutRight: false,
-      isShowTopBar: true,
-      isShowCallOut: false,
-    });
-    document.getElementById("LayoutRight").style.width = "0px";
-  }
-  CancelNote() {
-    this.setState({
-      isShowLayoutRight: false,
-      isShowLayoutNote: false,
-      isShowCallOut: false,
-      isShowTopBar: true,
-    });
-    document.getElementById("LayoutNote").style.width = "0px";
-  }
-  CancelCallOut() {
-    this.setState({ isShowCallOut: false });
-  }
-
-  closeTopBar() {
-    this.setState({
-      isShowTopBar: false,
-      isShowCallOut: false,
-      ActiveArticel: 0,
-    });
-
-    document.getElementById("SecondScreen").classList.add("hide");
-    document.getElementById("FirstScreen").classList.add("col-md-12");
-    document.getElementById("FirstScreen").classList.remove("col-md-4");
-    var selectedId = "Articel" + this.state.ActiveArticel;
-    document.getElementById(selectedId).classList.remove("ActiveArticelRow");
-  }
-
-  TransferSummary(weight, piece) {
-    this.setState({
-      TotalOutPiece: 1 + piece,
-      TotalOutWeight: 1 + weight,
-      LoopCount: 99,
-    });
-  }
-
   async GetWaybillPhoto(WaybillId) {}
   async GetWaybillAsync(ArticelId) {
     this.setState({
@@ -503,11 +635,9 @@ class MainPage extends Component {
       isShow: false,
     });
   }
-
   async GetFilesAsync(ArticelId) {
     this.setState({
       Files: [],
-      isShowFiles: false,
     });
     var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
     const response = await fetch(url, {
@@ -523,189 +653,13 @@ class MainPage extends Component {
     });
     this.setState({
       Files: await response.json(),
-      isShowFiles: false,
-    });
-    if (this.state.Files === "") {
-      this.setState({ isShowFiles: false });
-    } else {
-      this.setState({ isShowFiles: true });
-    }
-  }
-
-  GetOrderEdit(id, dimensions, color, piece, typeName, TypeId) {
-    this.setState({
-      Piece: piece,
-      TypeId: TypeId,
-      Dimensions: dimensions,
-      Color: color,
-      OrderId: id,
-      ProductTypeName: typeName,
-      ismodalvisible: true,
-      isShowProductEdit: true,
     });
   }
-
-  CallOutonMouseMove(e) {
-    this.setState({
-      x: e.pageX + "px",
-      y: e.pageY + "px",
-    });
-  }
-
-  async GetWaybillforOrder(OrderId, dimensions, color, producttypename) {
-    this.setState({
-      Dimensions: dimensions,
-      OneWayBill: [],
-      Color: color,
-      ProductTypeName: producttypename,
-      CalloutLoading: true,
-      isShowCallOut: true,
-      isShow: true,
-    });
-
-    this.setState({
-      OneWayBill: await this.FetchFunc(
-        USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId
-      ),
-      isShow: false,
-    });
-    var wayPiece = 0;
-    var wayWeight = 0;
-
-    this.state.OneWayBill.map(
-      (w) => (wayPiece = wayPiece + parseInt(w.Piece, 10))
-    );
-
-    this.setState({
-      LoopCount: this.state.OneWayBill.length,
-      CalloutLoading: false,
-      TotalOutPiece: wayPiece,
-      TotalOutWeight: wayWeight,
-    });
-  }
-
-  async getProductType() {
-    this.setState({
-      ProductTypes: await this.FetchFunc("abi/post/ProductType.ashx"),
-    });
-  }
-  async getCorps() {
-    var CorpUrl = "abi/post/CorpList.ashx";
-    const response = await fetch(CorpUrl, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": CorpUrl,
-        Authorization: "bearer ",
-      },
-    });
-
-    this.setState({
-      Corps: await response.json(),
-    });
-  }
-
-  async getSalesTypes() {
-    this.setState({
-      SalesTypes: await this.FetchFunc("abi/post/SaleType.ashx"),
-    });
-  }
-  async getNotes(ArticelId) {
-    fetch("abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
-      .then((response) => response.text())
-      .then((response) => {
-        this.setState({
-          ArticelNotes: response,
-        });
-      })
-      .catch((err) => console.log(err));
-  }
-
-  filterCorp(CorpId) {
-    this.setState({
-      Articels: this.state.Articels.filter(
-        (articel) => articel.CorpId === CorpId
-      ),
-    });
-  }
-
-  async GetOrders(ArticelId, CorpId, ArticelName, CorpName) {
-    this.setState({
-      isShow: true,
-      CorpId: CorpId,
-      ArticelId: ArticelId,
-      isShowTopBar: true,
-      isShowCallOut: false,
-      ArticelName: ArticelName,
-      CorpName: CorpName,
-      isShowLayoutNote: false,
-      isShowLayoutRight: false,
-    });
-    document.getElementById("LayoutRight").style.width = "0px";
-    document.getElementById("LayoutNote").style.width = "0px";
-
-    this.GetWaybillAsync(ArticelId);
-    this.getNotes(ArticelId);
-    this.GetFilesAsync(ArticelId);
-
-    this.setState({
-      Orders: [],
-      isShowOrder: true,
-    });
-
-    if (this.state.ActiveArticel === 0) {
-      this.state.ActiveArticel = ArticelId;
-    } else {
-      var selectedId = "Articel" + this.state.ActiveArticel;
-      document.getElementById(selectedId).classList.remove("ActiveArticelRow");
-
-      this.setState({
-        ActiveArticel: ArticelId,
-      });
-    }
-
-    var Clicked = "Articel" + ArticelId;
-    document.getElementById(Clicked).classList.add("ActiveArticelRow");
-    document.getElementById("ArticelName").innerHTML = ArticelName;
-    document.getElementById("SecondScreen").classList.remove("hide");
-    document.getElementById("SecondScreen").classList.add("col-md-8");
-    document.getElementById("FirstScreen").classList.add("col-md-4");
-    document.getElementById("FirstScreen").classList.remove("col-md-12");
-    var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + ArticelId;
-    this.setState({
-      Orders: await this.FetchFunc(FullUrl),
-      isShow: false,
-      isShowOrder: true,
-    });
-  }
-
   render() {
     return (
       <div className="padd0 col-md-12">
-        <div id="PrintArea" className="col-md-12 hide hidden">
-          {this.state.Orders.map((o) => (
-            <div key={o.id} className="he col-md-2">
-              <h5>
-                <span>{o.Dimensions}</span> <span> {o.Color}</span>
-                {o.ProductTypeName}
-              </h5>
-              <hr /> {o.Piece} {o.Metrics}
-            </div>
-          ))}
-        </div>
-        <input
-          type="file"
-          id="FileNew"
-          name="UploadArea[]"
-          onChange={() => {
-            this.uploadPicture();
-          }}
-          className="MultipleNew hide"
-          multiple
-        ></input>
+        
+
         <TopBar
           chooseFile={this.chooseFile}
           CorpSearch={this.CorpSearch}
@@ -782,45 +736,39 @@ class MainPage extends Component {
             className="ArticelNameHead SSOrder text-capitalize PartHead"
           ></div>
 
-          <div
-            className={
-              this.state.OrderVisible
-                ? "DetailOrders SSOrder  OrderDetailsComment"
-                : "hide"
-            }
-          >
-            <OrdersTable
-              GetOrderEdit={this.GetOrderEdit}
-              GetWaybillforOrder={this.GetWaybillforOrder}
-              CallOutonMouseMove={this.CallOutonMouseMove}
-              Orders={this.state.Orders}
-            />
-          </div>
+          <OrdersTable
+            GetOrderEdit={this.GetOrderEdit}
+            GetWaybillforOrder={this.GetWaybillforOrder}
+            CallOutonMouseMove={this.CallOutonMouseMove}
+            Orders={this.state.Orders}
+            OrderVisible={this.state.OrderVisible}
+          />
 
           <div className={this.state.Waybill.length === 0 ? "hide" : ""}>
             <div onClick={() => this.toggleWayBillList()} className="PartHead">
               İrsaliyeler
             </div>
-            <div className={this.state.WayBillVisible ? "" : "hide"}>
-              <WayBillList Waybill={this.state.Waybill} />
-            </div>
+
+            <WayBillList
+              WayBillVisible={this.state.WayBillVisible}
+              Waybill={this.state.Waybill}
+            />
           </div>
-          <div className={this.state.isShowFiles ? "" : "hide"}>
-            <div
-              onClick={() => {
-                this.toggleFiles();
-              }}
-              className="PartHead"
-            >
-              Dökümanlar
-            </div>
-            <div className={this.state.FilesVisible ? "" : "hide"}>
-              <Files
-                Files={this.state.Files}
-                showPicturePreview={this.showPicturePreview}
-              />
-            </div>
+
+          <div
+            onClick={() => {
+              this.toggleFiles();
+            }}
+            className="PartHead"
+          >
+            Dökümanlar
           </div>
+
+          <Files
+            Files={this.state.Files}
+            showPicturePreview={this.showPicturePreview}
+            FilesVisible={this.state.FilesVisible}
+          />
 
           <LayoutRight
             CancelShare={this.CancelShare}
@@ -836,17 +784,16 @@ class MainPage extends Component {
           />
         </div>
 
-        <div className={this.state.isShowProductOut ? "" : "hide"}>
-          <ProductOutModal
-            ChangePiece={this.ChangePiece}
-            ChangeWeight={this.ChangeWeight}
-            ChangeWayBillId={this.ChangeWayBillId}
-            CancelProduct={this.CancelProduct}
-            OrderList={this.state.Orders}
-            ArticelName={this.state.ArticelName}
-            SaveProductOut={this.SaveProductOut}
-          />
-        </div>
+        <ProductOutModal
+          ChangePiece={this.ChangePiece}
+          ChangeWeight={this.ChangeWeight}
+          ChangeWayBillId={this.ChangeWayBillId}
+          CancelProduct={this.CancelProduct}
+          OrderList={this.state.Orders}
+          ArticelName={this.state.ArticelName}
+          SaveProductOut={this.SaveProductOut}
+          isShowProductOut={this.state.isShowProductOut}
+        />
 
         <ProductEditModal
           isShowProductEdit={this.state.isShowProductEdit}
@@ -862,55 +809,50 @@ class MainPage extends Component {
           OrderId={this.state.OrderId}
         />
 
-        <div className={this.state.IsCreateArticelShow ? "" : "hide"}>
-          <CreateArticelModal
-            Corps={this.state.Corps}
-            Piece={this.state.Piece}
-            Dimensions={this.state.Dimensions}
-            Typeid={this.state.TypeId}
-            ProductTypeName={this.state.ProductTypeName}
-            Color={this.state.Color}
-            ProductTypes={this.state.ProductTypes}
-            ChangeArticelName={this.ChangeArticelName}
-            CancelCreateArticel={this.CancelCreateArticel}
-            ChangeCorpId={this.ChangeCorpId}
-            ChangeSalesType={this.ChangeSalesType}
-            SalesTypes={this.state.SalesTypes}
-            SaveArticel={this.SaveArticel}
-            isShowCreateArticel={this.state.isShowCreateArticel}
-          />
-        </div>
-        <div className={this.state.IsNewProductShow ? "" : "hide"}>
-          <ProductNewModal
-            SaveOrder={this.SaveOrder}
-            CancelNewProduct={this.CancelNewProduct}
-            ChangeProductType={this.ChangeProductType}
-            ChangePiece={this.ChangePiece}
-            ChangeDimensions={this.ChangeDimensions}
-            ChangeColor={this.ChangeColor}
-            ProductTypes={this.state.ProductTypes}
-            ProductNewLoading={this.state.ProductNewLoading}
-          />
-        </div>
+        <CreateArticelModal
+          Corps={this.state.Corps}
+          Piece={this.state.Piece}
+          Dimensions={this.state.Dimensions}
+          Typeid={this.state.TypeId}
+          ProductTypeName={this.state.ProductTypeName}
+          Color={this.state.Color}
+          ProductTypes={this.state.ProductTypes}
+          ChangeArticelName={this.ChangeArticelName}
+          CancelCreateArticel={this.CancelCreateArticel}
+          ChangeCorpId={this.ChangeCorpId}
+          ChangeSalesType={this.ChangeSalesType}
+          SalesTypes={this.state.SalesTypes}
+          SaveArticel={this.SaveArticel}
+          isShowCreateArticel={this.state.isShowCreateArticel}
+          IsCreateArticelShow={this.state.IsCreateArticelShow}
+        />
 
-        <div className={this.state.isShowCallOut ? "" : "hide"}>
-          <div
-            id="PopupWaybill"
-            style={{ top: this.state.y, left: this.state.x }}
-            className="ms-ContextualHost is-positioned ms-ContextualHost--arrowLeft is-open ms-ContextualHost--primaryArrow"
-          >
-            <CallOut
-              CalloutLoading={this.state.CalloutLoading}
-              CancelCallOut={this.CancelCallOut}
-              TotalOutPiece={this.state.TotalOutPiece}
-              LoopCount={this.state.LoopCount}
-              Dimensions={this.state.Dimensions}
-              Color={this.state.Color}
-              ProductTypeName={this.state.ProductTypeName}
-              OneWayBill={this.state.OneWayBill}
-            />
-          </div>
-        </div>
+        <ProductNewModal
+          SaveOrder={this.SaveOrder}
+          CancelNewProduct={this.CancelNewProduct}
+          ChangeProductType={this.ChangeProductType}
+          ChangePiece={this.ChangePiece}
+          ChangeDimensions={this.ChangeDimensions}
+          ChangeColor={this.ChangeColor}
+          ProductTypes={this.state.ProductTypes}
+          ProductNewLoading={this.state.ProductNewLoading}
+          IsNewProductShow={this.state.IsNewProductShow}
+        />
+
+        <CallOut
+          CalloutLoading={this.state.CalloutLoading}
+          CancelCallOut={this.CancelCallOut}
+          TotalOutPiece={this.state.TotalOutPiece}
+          LoopCount={this.state.LoopCount}
+          Dimensions={this.state.Dimensions}
+          Color={this.state.Color}
+          ProductTypeName={this.state.ProductTypeName}
+          OneWayBill={this.state.OneWayBill}
+          top={this.state.y}
+          left={this.state.x}
+          isShowCallOut={this.state.isShowCallOut}
+        />
+
         <LeftNav
           CreateArticelShow={this.CreateArticelShow}
           MenuStatu={this.state.MenuStatu}
@@ -923,6 +865,27 @@ class MainPage extends Component {
           RotatePicture={this.RotatePicture}
           isRotating={this.state.isRotating}
         />
+        <input
+          type="file"
+          id="FileNew"
+          name="UploadArea[]"
+          onChange={() => {
+            this.uploadPicture();
+          }}
+          className="MultipleNew hide"
+          multiple
+        ></input>
+        <div id="PrintArea" className="col-md-12 hide hidden">
+          {this.state.Orders.map((o) => (
+            <div key={o.id} className="he col-md-2">
+              <h5>
+                <span>{o.Dimensions}</span> <span> {o.Color}</span>
+                {o.ProductTypeName}
+              </h5>
+              <hr /> {o.Piece} {o.Metrics}
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

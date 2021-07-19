@@ -4,7 +4,11 @@ export default function ProductNewModal(props) {
   return (
     <div
       id="ProductModal"
-      className="ms-Layer ms-Layer--fixed effect layer-351"
+      className={
+        props.IsNewProductShow
+          ? "ms-Layer ms-Layer--fixed effect layer-351"
+          : "hide"
+      }
       data-portal-element="true"
     >
       <div className="ms-Fabric ms-Layer-content content-120">
@@ -106,7 +110,7 @@ export default function ProductNewModal(props) {
                           <span
                             onClick={() => props.SaveOrder()}
                             className="transfersavetext"
-                          >                           
+                          >
                             Kaydet
                           </span>
                         </span>

@@ -333,7 +333,7 @@ export default function TopBar(props) {
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="Attach"
-                              class="ms-Icon   ms-Button-icon  Paylas"
+                              className="ms-Icon   ms-Button-icon  Paylas"
                             >
                               
                             </i>
@@ -356,7 +356,7 @@ export default function TopBar(props) {
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="Picture_20"
-                              class="ms-Icon root-32 ms-Button-icon icon-216"
+                              className="ms-Icon root-32 ms-Button-icon icon-216"
                             >
                               <img src="photo.png"></img>
                             </i>
