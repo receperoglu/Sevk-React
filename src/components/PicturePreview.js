@@ -3,9 +3,23 @@ import React, { Component } from "react";
 class PicturePreview extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      rotation:0
+    };
+    this.rotate = this.rotate.bind(this);
+ 
   }
-
+  rotate(){
+    let newRotation = this.state.rotation + 90;
+    if(newRotation >= 360){
+      newRotation =- 360;
+    }
+    this.setState({
+      rotation: newRotation,
+    })
+  }
+  
+   
   render() {
     return (
       <div
@@ -33,6 +47,7 @@ class PicturePreview extends Component {
           id="FullScreen"
           src={this.props.Path}
           width="100"
+          style={{transform: `rotate(${this.state.rotation}deg)`}}
           title="Resim Bulunamadı"
           data-url="58ef24c1-ffbc-4e2e-a228-13d6f11fdcf2.jpg"
           data-id="undefined"
@@ -159,7 +174,7 @@ class PicturePreview extends Component {
                       </button>
                     </div>
                   </span>
-                  <span  onClick={()=>{this.props.RotatePicture()}} className="hover-dropdown">
+                  <span  onClick={()=>{this.rotate()}} className="hover-dropdown">
                     <div className="hover-tooltip__tooltip-anchor">
                       <button
                         className="button2 button2_view_classic button2_size_n button2_theme_clear-inverse groupable-buttons__visible-button groupable-buttons__visible-button_name_copy "

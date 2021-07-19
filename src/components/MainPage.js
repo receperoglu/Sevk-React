@@ -658,8 +658,6 @@ class MainPage extends Component {
   render() {
     return (
       <div className="padd0 col-md-12">
-        
-
         <TopBar
           chooseFile={this.chooseFile}
           CorpSearch={this.CorpSearch}
@@ -685,7 +683,6 @@ class MainPage extends Component {
           }
         >
           <div className="text-center">İlk Açılış ayarlanıyor</div>
-
           <div className="prf ProgressSpinnerFlat" role="progressbar">
             <div aria-hidden="true">•</div>
             <div aria-hidden="true">•</div>
@@ -748,7 +745,6 @@ class MainPage extends Component {
             <div onClick={() => this.toggleWayBillList()} className="PartHead">
               İrsaliyeler
             </div>
-
             <WayBillList
               WayBillVisible={this.state.WayBillVisible}
               Waybill={this.state.Waybill}
