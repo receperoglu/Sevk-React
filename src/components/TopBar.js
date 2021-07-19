@@ -358,7 +358,7 @@ export default function TopBar(props) {
                               data-icon-name="Picture_20"
                               className="ms-Icon root-32 ms-Button-icon icon-216"
                             >
-                              <img src="photo.png"></img>
+                              <img src="https://recep.space/photo.png"></img>
                             </i>
                             <div className="ms-Button-textContainer textContainer-87">
                               <div className="ms-Button-label label-89">
