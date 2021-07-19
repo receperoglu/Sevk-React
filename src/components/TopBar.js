@@ -70,7 +70,6 @@ export default function TopBar(props) {
                 <span className="Icon--WaffleOffice365 Icon-font-size-16"></span>
               </button>
             </div>
-             
           </div>
         </div>
       </div>
@@ -93,7 +92,6 @@ export default function TopBar(props) {
                     className="SearchInput"
                     type="text"
                     placeholder="Her şeyi ara"
-                    name="Her şeyi ara"
                     onChange={(event) => props.CorpSearch(event)}
                   />
                   <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
@@ -107,8 +105,6 @@ export default function TopBar(props) {
                 <span className="od-SearchBox-iconWrapper  od-SearchBox-iconClearWrapper">
                   <i
                     data-icon-name="Cancel"
-                    role="presentation"
-                    aria-hidden="true"
                     className="ms-Button-icon delsearch icon-73"
                   >
                     
@@ -137,7 +133,6 @@ export default function TopBar(props) {
                           >
                             <i
                               data-icon-name="FullScreen"
-                              aria-hidden="true"
                               className="ms-Button-icon icon-144s"
                             >
                               
@@ -151,13 +146,11 @@ export default function TopBar(props) {
                       >
                         <button
                           type="button"
-                          name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="Add"
-                              role="presentation"
                               className="ButtonIcon icon-93"
                             >
                               
@@ -182,13 +175,10 @@ export default function TopBar(props) {
                       >
                         <button
                           type="button"
-                          name="Karşıya Yükle"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85"
-                          data-is-focusable="true"
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
-                              role="presentation"
                               data-icon-name="Add"
                               className="ButtonIcon icon-93"
                             >
@@ -208,14 +198,11 @@ export default function TopBar(props) {
                             PrintNow();
                           }}
                           type="button"
-                          name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="Print"
-                              role="presentation"
-                              aria-hidden="true"
                               className="ms-Button-icon icon-144s"
                             >
                               
@@ -234,14 +221,11 @@ export default function TopBar(props) {
                       >
                         <button
                           type="button"
-                          name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="Share"
-                              role="presentation"
-                              aria-hidden="true"
                               className="ms-Button-icon Paylas"
                             >
                               
@@ -257,15 +241,12 @@ export default function TopBar(props) {
                       <div className="SubTools commandnotes ms-OverflowSet-item TopBarObject">
                         <button
                           type="button"
-                          name="Yeni"
                           onClick={() => props.LayoutNoteShow()}
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="StackIndicator"
-                              role="presentation"
-                              aria-hidden="true"
                               className="nott fleft icon-68"
                             >
                               
@@ -281,14 +262,11 @@ export default function TopBar(props) {
                       <div className="SubTools commandedit ms-OverflowSet-item TopBarObject ">
                         <button
                           type="button"
-                          name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="Edit"
-                              role="presentation"
-                              aria-hidden="true"
                               className="ms-Button-icon fleft icon-73"
                             >
                               
@@ -304,14 +282,11 @@ export default function TopBar(props) {
                       <div className="SubTools commandoutproduct ms-OverflowSet-item TopBarObject">
                         <button
                           type="button"
-                          name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="OpenInNewWindow"
-                              role="presentation"
-                              aria-hidden="true"
                               className="ms-Button-icon fleft   iconnewWindow"
                             >
                               
@@ -330,14 +305,11 @@ export default function TopBar(props) {
                       >
                         <button
                           type="button"
-                          name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="Tag"
-                              role="presentation"
-                              aria-hidden="true"
                               className="ms-Button-icon fleft icon-73"
                             >
                               
@@ -352,62 +324,49 @@ export default function TopBar(props) {
                       </div>
                       <div className="ms-OverflowSet-item ms-ContextualMenuExample commandfileadd SubTools TopBarObject">
                         <button
+                          onClick={() => {
+                            props.chooseFile("Document");
+                          }}
                           type="button"
-                          onClick={()=>{props.chooseFile()}}
-                          name="Karşıya Yükle"
                           className="ms-Button ms-Button--commandBar  ms-CommandBarItem-link root-85"
-                          data-is-focusable="true"
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
-                              role="presentation"
-                              data-icon-name="Upload"
-                              className="ButtonIcon icon-93"
+                              data-icon-name="Attach"
+                              class="ms-Icon   ms-Button-icon  Paylas"
                             >
-                              
+                              
                             </i>
                             <div className="ms-Button-textContainer textContainer-87">
                               <div className="ms-Button-label label-89">
-                                Dosya Ekle
+                                Belge Ekle
                               </div>
                             </div>
                           </div>
                         </button>
-                        <ul className="ms-ContextualMenu effect is-hidden">
-                          <li className="ms-ContextualMenu-item ms-ContextualMenu-item--header">
-                            Yükleme Tipi
-                          </li>
-                          <li className="ms-ContextualMenu-item">
-                            <span
-                              className="ms-ContextualMenu-link FileType"
-                              data-type="Picture"
-                              tabIndex="1"
+                      </div>
+                      <div className="ms-OverflowSet-item ms-ContextualMenuExample commandfileadd SubTools TopBarObject">
+                        <button
+                          onClick={() => {
+                            props.chooseFile("Picture");
+                          }}
+                          type="button"
+                          className="ms-Button ms-Button--commandBar  ms-CommandBarItem-link root-85"
+                        >
+                          <div className="ms-Button-flexContainer flexContainer-86">
+                            <i
+                              data-icon-name="Picture_20"
+                              class="ms-Icon root-32 ms-Button-icon icon-216"
                             >
-                              Resimler
-                            </span>
-                            <i className="ms-Icon ms-Icon--Picture"></i>
-                          </li>
-                          <li className="ms-ContextualMenu-item">
-                            <span
-                              className="ms-ContextualMenu-link FileType"
-                              data-type="WayBill"
-                              tabIndex="2"
-                            >
-                              İrsaliye
-                            </span>
-                            <i className="ms-Icon ms-Icon--Money"></i>
-                          </li>
-                          <li className="ms-ContextualMenu-item">
-                            <span
-                              className="ms-ContextualMenu-link FileType"
-                              data-type="Document"
-                              tabIndex="3"
-                            >
-                              Sipariş Belgeleri
-                            </span>
-                            <i className="ms-Icon ms-Icon--Document"></i>
-                          </li>
-                        </ul>
+                              <img src="photo.png"></img>
+                            </i>
+                            <div className="ms-Button-textContainer textContainer-87">
+                              <div className="ms-Button-label label-89">
+                                Resim Ekle
+                              </div>
+                            </div>
+                          </div>
+                        </button>
                       </div>
                       <div
                         onClick={() => props.closeTopBar()}
@@ -415,14 +374,11 @@ export default function TopBar(props) {
                       >
                         <button
                           type="button"
-                          name="Yeni"
                           className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
                         >
                           <div className="ms-Button-flexContainer flexContainer-86">
                             <i
                               data-icon-name="Cancel"
-                              role="presentation"
-                              aria-hidden="true"
                               className="ms-Button-icon icon-73"
                             >
                               

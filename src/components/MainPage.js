@@ -29,6 +29,7 @@ class MainPage extends Component {
       Files: [],
       ProductTypes: [],
       SalesTypes: [],
+      FileType: "",
       ArticelNotes: "",
       Piece: 0,
       WayBillId: 0,
@@ -68,13 +69,15 @@ class MainPage extends Component {
       CalloutLoading: false,
       isFetching: false,
       isShowLayoutRight: false,
-      isRotating:false,
+      isRotating: false,
 
       isShowCreateArticel: false,
       ProductNewLoading: false,
       Articel: "Articel",
       x: 0,
       y: 0,
+      MouseX: 0,
+      MouseY: 0,
       ArticelName: "",
       ActiveArticel: 0,
     };
@@ -124,6 +127,7 @@ class MainPage extends Component {
     this.CreateArticelShow = this.CreateArticelShow.bind(this);
     this.filterCorp = this.filterCorp.bind(this);
     this.CallOutonMouseMove = this.CallOutonMouseMove.bind(this);
+
     this.GetOrderEdit = this.GetOrderEdit.bind(this);
     this.getNotes = this.getNotes.bind(this);
     this.UpdateArticelNote = this.UpdateArticelNote.bind(this);
@@ -145,15 +149,14 @@ class MainPage extends Component {
   UpdateArticelNote = (note) => {
     this.setState({ ArticelNotes: note });
   };
-  showPicturePreview(path, RawPath) {
-    console.log(path);
+  showPicturePreview(path, RawPath) {   
     this.setState({ Path: path, RawPath: RawPath, isShowPicturePreview: true });
   }
   hidePicturePreview() {
     this.setState({ isShowPicturePreview: false });
   }
   RotatePicture() {
-    this.setState({isRotating:true})
+    this.setState({ isRotating: true });
     var formData = new FormData();
     formData.append("Rotate", "Left");
     formData.append("Path", "/dosyalar/" + this.state.RawPath);
@@ -165,9 +168,12 @@ class MainPage extends Component {
       body: formData,
     })
       .then((response) =>
-        this.setState({ Path: this.state.Path + "?" + new Date().getTime(),isRotating:false }) 
+        this.setState({
+          Path: this.state.Path + "?" + new Date().getTime(),
+          isRotating: false,
+        })
       )
-      .then((data) =>console.log(data))
+      .then((data) => console.log(data));
   }
   SaveNotes() {
     this.setState({ isShow: true });
@@ -193,7 +199,8 @@ class MainPage extends Component {
     } else {
     }
   }
-  chooseFile() {
+  chooseFile(type) {
+    this.setState({ FileType: type });
     var file = document.getElementById("FileNew");
     file.click();
   }
@@ -201,13 +208,12 @@ class MainPage extends Component {
     this.setState({ OrderVisible: !this.state.OrderVisible });
   }
   uploadPicture() {
-    console.log("asdsa");
-    this.setState({ isShow: true });
+     this.setState({ isShow: true });
     var FilesCollection = document.getElementById("FileNew");
     var fileList = FilesCollection.files;
     var formData = new FormData();
     formData.append("ArticelId", this.state.ArticelId);
-    formData.append("FileType", "Picture");
+    formData.append("FileType", this.state.FileType);
     formData.append("UploadArea[0]", fileList[0], fileList[0].name);
     fetch("abi/post/UploadWayBillOrder.ashx", {
       method: "POST",
@@ -216,8 +222,7 @@ class MainPage extends Component {
       body: formData,
     })
       .then((response) => response.json())
-      .then((result) => {
-        console.log("Success:", result);
+      .then((result) => {       
         this.setState({ isShow: false });
       })
       .catch((error) => {
@@ -504,7 +509,7 @@ class MainPage extends Component {
       Files: [],
       isShowFiles: false,
     });
-    var url =  "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
+    var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
     const response = await fetch(url, {
       method: "POST",
       cache: "no-cache",
@@ -546,6 +551,7 @@ class MainPage extends Component {
       y: e.pageY + "px",
     });
   }
+
   async GetWaybillforOrder(OrderId, dimensions, color, producttypename) {
     this.setState({
       Dimensions: dimensions,
@@ -916,7 +922,6 @@ class MainPage extends Component {
           Articel={this.state.ArticelName}
           RotatePicture={this.RotatePicture}
           isRotating={this.state.isRotating}
-
         />
       </div>
     );

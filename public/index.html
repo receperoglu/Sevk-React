@@ -8,19 +8,44 @@
   <meta name="theme-color" content="#000000" />
   <link href="css/FabricComponent.css" rel="stylesheet" />
   <link href="css/Loading.css" rel="stylesheet" />
-   <style>
-    .PictureLoading{
+  <style>
+    .padd5 {
+      padding: 5px !important;
+    }
+
+    .filepreview {
+      background-size: "50%";
+      background-repeat: "no-repeat";
+      background-position: "top center"
+    }
+
+    .PictureDiv {
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 110px;
+      margin: 0px 10px 0px 10px
+    }
+
+    .FileIco:active {
+      transform: scale(.95);
+    }
+
+
+    .PictureLoading {
       width: 100%;
-      top:50px;
+      top: 50px;
       position: fixed;
       z-index: 9999999999999999999;
     }
-    .cpointer{
+
+    .cpointer {
       cursor: pointer !important;
     }
+
     .lh45px {
       line-height: 45px !important;
     }
+
     @font-face {
       font-family: yandex-sans;
       font-weight: 100;
@@ -194,7 +219,7 @@
     .modal__content {
       display: inline-block;
       text-align: left;
-     }
+    }
 
     .ufo-icon {
       display: inline-block;
@@ -387,10 +412,11 @@
     }
 
     @media (max-width:650px) {
-      .button2_view_default> .button2__text{
+      .button2_view_default>.button2__text {
         display: none
       }
-      .button2_view_classic>.button2__text{
+
+      .button2_view_classic>.button2__text {
         display: none;
       }
 
@@ -403,9 +429,9 @@
         justify-content: flex-end
       }
 
-      
 
-      
+
+
     }
 
     @media (min-width:650px) {
