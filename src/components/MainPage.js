@@ -14,6 +14,7 @@ import CreateArticelModal from "./CreateArticelModal";
 import OrdersTable from "./OrdersTable";
 import LeftNav from "./LeftNav";
 import PicturePreview from "./PicturePreview";
+import ProgressBar from "./ProgressBar";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 
@@ -684,10 +685,7 @@ class MainPage extends Component {
         >
           <div className="text-center">İlk Açılış ayarlanıyor</div>
           <div className="prf ProgressSpinnerFlat" role="progressbar">
-            <div aria-hidden="true">•</div>
-            <div aria-hidden="true">•</div>
-            <div aria-hidden="true">•</div>
-            <div aria-hidden="true">•</div>
+            <ProgressBar />
           </div>
         </div>
 
@@ -699,13 +697,7 @@ class MainPage extends Component {
           }
           role="progressbar"
         >
-          <div aria-hidden="true">•</div>
-          <div aria-hidden="true">•</div>
-          <div aria-hidden="true">•</div>
-          <div aria-hidden="true">•</div>
-          <div aria-hidden="true">•</div>
-          <div aria-hidden="true">•</div>
-          <div aria-hidden="true">•</div>
+          <ProgressBar />
         </div>
         <div
           id="FirstScreen"

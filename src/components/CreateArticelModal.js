@@ -1,4 +1,5 @@
 import React from "react";
+import ProgressBar from "./ProgressBar"
 
 export default function CreateArticelModal(props) {
   return (
@@ -83,13 +84,7 @@ export default function CreateArticelModal(props) {
                       }
                       role="progressbar"
                     >
-                      <div aria-hidden="true">•</div>
-                      <div aria-hidden="true">•</div>
-                      <div aria-hidden="true">•</div>
-                      <div aria-hidden="true">•</div>
-                      <div aria-hidden="true">•</div>
-                      <div aria-hidden="true">•</div>
-                      <div aria-hidden="true">•</div>
+                     <ProgressBar/>
                     </div>
 
                     <span
