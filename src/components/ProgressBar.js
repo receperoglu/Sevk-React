@@ -2,7 +2,14 @@ import React, { Component }  from 'react';
 
 export default function ProgressBar(props) {
   return (
-    <div>
+    <div
+          className={
+          props.isVisible
+              ? "show ProgressSpinnerFlat"
+              : "opaq0 ProgressSpinnerFlat"
+          }
+          role="progressbar"
+        >
       <div>•</div>
       <div>•</div>
       <div>•</div>

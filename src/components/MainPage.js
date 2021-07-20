@@ -15,7 +15,7 @@ import OrdersTable from "./OrdersTable";
 import LeftNav from "./LeftNav";
 import PicturePreview from "./PicturePreview";
 import ProgressBar from "./ProgressBar";
-
+import FirstRun from "./FirstRun";
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 
 class MainPage extends Component {
@@ -678,27 +678,8 @@ class MainPage extends Component {
           LayoutNoteShow={this.LayoutNoteShow}
         />
 
-        <div
-          className={
-            this.state.IsFirstRun ? "show pagefirstloading" : "opaq0 hide"
-          }
-        >
-          <div className="text-center">İlk Açılış ayarlanıyor</div>
-          <div className="prf ProgressSpinnerFlat" role="progressbar">
-            <ProgressBar />
-          </div>
-        </div>
-
-        <div
-          className={
-            this.state.isShow
-              ? "show ProgressSpinnerFlat"
-              : "opaq0 ProgressSpinnerFlat"
-          }
-          role="progressbar"
-        >
-          <ProgressBar />
-        </div>
+        <FirstRun IsFirstRun={this.state.IsFirstRun} />
+        <ProgressBar isVisible={this.state.isShow} />
         <div
           id="FirstScreen"
           className={
@@ -733,16 +714,6 @@ class MainPage extends Component {
             OrderVisible={this.state.OrderVisible}
           />
 
-          <div className={this.state.Waybill.length === 0 ? "hide" : ""}>
-            <div onClick={() => this.toggleWayBillList()} className="PartHead">
-              İrsaliyeler
-            </div>
-            <WayBillList
-              WayBillVisible={this.state.WayBillVisible}
-              Waybill={this.state.Waybill}
-            />
-          </div>
-
           <div
             onClick={() => {
               this.toggleFiles();
@@ -756,6 +727,14 @@ class MainPage extends Component {
             Files={this.state.Files}
             showPicturePreview={this.showPicturePreview}
             FilesVisible={this.state.FilesVisible}
+          />
+
+          <div onClick={() => this.toggleWayBillList()} className="PartHead">
+            İrsaliyeler
+          </div>
+          <WayBillList
+            WayBillVisible={this.state.WayBillVisible}
+            Waybill={this.state.Waybill}
           />
 
           <LayoutRight
