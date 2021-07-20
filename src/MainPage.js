@@ -1,21 +1,20 @@
 import React, { Component } from "react";
-import "../css/Table.css";
-import CallOut from "./CallOut";
-import Files from "./Files";
-import WayBillList from "./WayBillList";
-import TopBar from "./TopBar";
-import ProductOutModal from "./ProductOutModal";
-import ProductEditModal from "./ProductEditModal";
-import ProductNewModal from "./ProductNewModal";
-import ArticelsTable from "./ArticelsTable";
-import LayoutRight from "./LayoutRight";
-import LayoutNote from "./LayoutNote";
-import CreateArticelModal from "./CreateArticelModal";
-import OrdersTable from "./OrdersTable";
-import LeftNav from "./LeftNav";
-import PicturePreview from "./PicturePreview";
-import ProgressBar from "./ProgressBar";
-import FirstRun from "./FirstRun";
+ import CallOut from "./components/CallOut";
+import Files from "./components/Files";
+import WayBillList from "./components/WayBillList";
+import TopBar from "./components/TopBar";
+import ProductOutModal from "./components/ProductOutModal";
+import ProductEditModal from "./components/ProductEditModal";
+import ProductNewModal from "./components/ProductNewModal";
+import ArticelsTable from "./components/ArticelsTable";
+import LayoutRight from "./components/LayoutRight";
+import LayoutNote from "./components/LayoutNote";
+import CreateArticelModal from "./components/CreateArticelModal";
+import OrdersTable from "./components/OrdersTable";
+import LeftNav from "./components/LeftNav";
+import PicturePreview from "./components/PicturePreview";
+import ProgressBar from "./components/ProgressBar";
+import FirstRun from "./components/FirstRun";
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 
 class MainPage extends Component {

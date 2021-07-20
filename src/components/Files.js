@@ -94,7 +94,7 @@ export default function Files(props) {
   };
 
   return (
-    <div  className={props.FilesVisible ? "padd5" : "hide"}  >
+    <div className={props.FilesVisible ? "padd5" : "hide"}>
       <div className="padd5">
         {props.Files.map((f) =>
           f.FileType === "Picture" ? Picture(f) : <div></div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
 import Login from "./components/Login";
-import MainPage from "./components/MainPage";
+import MainPage from "./MainPage";
 
 class App extends Component {
   constructor(props) {
