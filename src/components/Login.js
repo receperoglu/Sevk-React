@@ -33,12 +33,12 @@ class Login extends Component {
     this.setState({ result: await response.json() });
     setTimeout(() => this.chechlogin(), 10);
   }
-  chechlogin() {
+  chechlogin=()=> {
     [this.state.result].map((authData) => {
       Cookies.set("Auth", authData.access_token);
-      window.location.reload();
+      return window.location.reload();
     });
-  }
+   }
   ChangeName(value) {
     this.setState({ name: value });
   }

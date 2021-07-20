@@ -48,9 +48,7 @@ class PicturePreview extends Component {
           src={this.props.Path}
           width="100"
           style={{transform: `rotate(${this.state.rotation}deg)`}}
-          title="Resim Bulunamadı"
-          data-url="58ef24c1-ffbc-4e2e-a228-13d6f11fdcf2.jpg"
-          data-id="undefined"
+          alt="Resim"         
         />
 
         <div className="resources-action-bar resources-action-bar_visible resources-action-bar_fixed resources-action-bar_delay resources-action-bar_theme_black js-prevent-deselect ufo-resources-action-bar OpenedPictureTool">

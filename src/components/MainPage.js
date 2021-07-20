@@ -22,6 +22,7 @@ class MainPage extends Component {
   constructor(props) {
     super(props);
     this.getCorps = this.getCorps.bind(this);
+    this.MenuToggler = this.MenuToggler.bind(this);
     this.toggleWayBillList = this.toggleWayBillList.bind(this);
     this.toggleFiles = this.toggleFiles.bind(this);
     this.toggleOrderList = this.toggleOrderList.bind(this);
@@ -29,27 +30,20 @@ class MainPage extends Component {
     this.GetOrders = this.GetOrders.bind(this);
     this.productEditShow = this.productEditShow.bind(this);
     this.productOutShow = this.productOutShow.bind(this);
-    this.productOutShow = this.productOutShow.bind(this);
-    this.CancelProduct = this.CancelProduct.bind(this);
-    this.CancelEdit = this.CancelEdit.bind(this);
+   
 
     this.CorpSearch = this.CorpSearch.bind(this);
-    this.CancelCreateArticel = this.CancelCreateArticel.bind(this);
+  
     this.toggleView = this.toggleView.bind(this);
     this.closeTopBar = this.closeTopBar.bind(this);
     this.LayoutRightShow = this.LayoutRightShow.bind(this);
     this.CancelCallOut = this.CancelCallOut.bind(this);
     this.CancelShare = this.CancelShare.bind(this);
     this.CancelNote = this.CancelNote.bind(this);
-
+    this.CancelProduct = this.CancelProduct.bind(this);
+    this.CancelEdit = this.CancelEdit.bind(this);
     this.CancelNewProduct = this.CancelNewProduct.bind(this);
-
-    this.UpdateOrder = this.UpdateOrder.bind(this);
-    this.SaveOrder = this.SaveOrder.bind(this);
-    this.SaveArticel = this.SaveArticel.bind(this);
-    this.SaveProductOut = this.SaveProductOut.bind(this);
-
-    this.NewProductShow = this.NewProductShow.bind(this);
+    this.CancelCreateArticel = this.CancelCreateArticel.bind(this);
 
     this.ChangeProductType = this.ChangeProductType.bind(this);
     this.ChangeSalesType = this.ChangeSalesType.bind(this);
@@ -60,8 +54,16 @@ class MainPage extends Component {
     this.ChangeDimensions = this.ChangeDimensions.bind(this);
     this.ChangeColor = this.ChangeColor.bind(this);
     this.ChangeWayBillId = this.ChangeWayBillId.bind(this);
+    
+    this.UpdateOrder = this.UpdateOrder.bind(this);
+    this.SaveOrder = this.SaveOrder.bind(this);
+    this.SaveArticel = this.SaveArticel.bind(this);
+    this.SaveProductOut = this.SaveProductOut.bind(this);
+
+    this.NewProductShow = this.NewProductShow.bind(this);
+
+    
     this.LayoutNoteShow = this.LayoutNoteShow.bind(this);
-    this.MenuToggler = this.MenuToggler.bind(this);
     this.GetWaybillforOrder = this.GetWaybillforOrder.bind(this);
     this.CreateArticelShow = this.CreateArticelShow.bind(this);
     this.filterCorp = this.filterCorp.bind(this);
@@ -515,8 +517,7 @@ class MainPage extends Component {
 
     var Clicked = "Articel" + ArticelId;
     document.getElementById(Clicked).classList.add("ActiveArticelRow");
-    document.getElementById("ArticelName").innerHTML = ArticelName;
-    document.getElementById("SecondScreen").classList.remove("hide");
+     document.getElementById("SecondScreen").classList.remove("hide");
     document.getElementById("SecondScreen").classList.add("col-md-8");
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
@@ -701,10 +702,10 @@ class MainPage extends Component {
           }
         >
           <div
-            id="ArticelName"
+           
             onClick={() => this.toggleOrderList()}
             className="ArticelNameHead SSOrder text-capitalize PartHead"
-          ></div>
+          >{this.state.ArticelName}</div>
 
           <OrdersTable
             GetOrderEdit={this.GetOrderEdit}
