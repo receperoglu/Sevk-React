@@ -15,7 +15,7 @@ class Files extends Component {
 
   render() {
     return (
-      <div className={this.props.Files.length === 0 ? "hide" : ""}>
+      <div className={this.props.Files.length === 0 ? "hide" : "col-xs-12 col-md-12"}>
         <div
           onClick={() => {
             this.toggleFiles();
@@ -33,7 +33,7 @@ class Files extends Component {
                   data-url={f.Path}
                   data-ext={f.ext}
                   style={{ height: "130px" }}
-                  className=" FileIco text-center col-md-2 padd0 cpointer  filepreview"
+                  className=" FileIco text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
                 >
                   <div
                     onClick={() => {
@@ -59,7 +59,7 @@ class Files extends Component {
                 <div
                   data-ext={f.ext}
                   key={f.id}
-                  className="FileIco   text-center col-md-2 padd0 cpointer  filepreview"
+                  className="FileIco   text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
                   style={{ height: "130px" }}
                 >
                   <div
