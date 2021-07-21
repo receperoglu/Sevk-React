@@ -30,17 +30,14 @@ export default function ProductOutModal(props) {
                 <div className="ProductModalSub ProductOut">
                   <div>
                     <h4>Ürün Çıkışı</h4>
-                    <h4 className="ProductName padd0 text-left col-md-12">
-                      {props.ArticelName}
-                    </h4>
-                    <br />
                     <input
                       type="text"
                       onChange={(e) => props.ChangeWayBillId(e.target.value)}
                       placeholder="İrsaliye No"
-                      className="irsaliyeno col-md-1  ms-TextField-field"
+                      className="irsaliyeno col-md-1  ms-TextField-field w80"
                     />
                     <br />
+                     
                   </div>
                   <hr />
                   <div className="ProductOutList col-md-12">
@@ -54,7 +51,7 @@ export default function ProductOutModal(props) {
                               onChange={(e) =>
                                 props.ChangePiece(e.target.value)
                               }
-                              className="Piece ms-TextField-field"
+                              className="Piece ms-TextField-field w80"
                             />
                           </div>
                           <div className="col-md-2 fleft">
@@ -64,7 +61,7 @@ export default function ProductOutModal(props) {
                               onChange={(e) =>
                                 props.ChangeWeight(e.target.value)
                               }
-                              className="Weight ms-TextField-field"
+                              className="Weight ms-TextField-field w80"
                             />
                           </div>
 
@@ -73,10 +70,8 @@ export default function ProductOutModal(props) {
                               {o.Dimensions} {o.Color} {o.ProductTypeName}
                             </span>
                           </div>
-                          <div className="col-md-1 text-right fleft">
-                            <span className="btn btnoutlineprimary "></span>
-                          </div>
-                          <div className="col-md-1 text-right fleft">
+                         
+                          <div className="col-md-2 text-right fleft">
                             <span className="Transfer TransferBTN ms-Button ms-Button--primary">
                               <span
                                 onClick={() => props.SaveProductOut(o.id)}

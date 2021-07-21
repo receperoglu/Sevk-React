@@ -1,5 +1,5 @@
 import React, { Component } from "react";
- import CallOut from "./components/CallOut";
+import CallOut from "./components/CallOut";
 import Files from "./components/Files";
 import WayBillList from "./components/WayBillList";
 import TopBar from "./components/TopBar";
@@ -29,10 +29,9 @@ class MainPage extends Component {
     this.GetOrders = this.GetOrders.bind(this);
     this.productEditShow = this.productEditShow.bind(this);
     this.productOutShow = this.productOutShow.bind(this);
-   
 
     this.CorpSearch = this.CorpSearch.bind(this);
-  
+
     this.toggleView = this.toggleView.bind(this);
     this.closeTopBar = this.closeTopBar.bind(this);
     this.LayoutRightShow = this.LayoutRightShow.bind(this);
@@ -53,7 +52,7 @@ class MainPage extends Component {
     this.ChangeDimensions = this.ChangeDimensions.bind(this);
     this.ChangeColor = this.ChangeColor.bind(this);
     this.ChangeWayBillId = this.ChangeWayBillId.bind(this);
-    
+
     this.UpdateOrder = this.UpdateOrder.bind(this);
     this.SaveOrder = this.SaveOrder.bind(this);
     this.SaveArticel = this.SaveArticel.bind(this);
@@ -61,7 +60,6 @@ class MainPage extends Component {
 
     this.NewProductShow = this.NewProductShow.bind(this);
 
-    
     this.LayoutNoteShow = this.LayoutNoteShow.bind(this);
     this.GetWaybillforOrder = this.GetWaybillforOrder.bind(this);
     this.CreateArticelShow = this.CreateArticelShow.bind(this);
@@ -516,7 +514,7 @@ class MainPage extends Component {
 
     var Clicked = "Articel" + ArticelId;
     document.getElementById(Clicked).classList.add("ActiveArticelRow");
-     document.getElementById("SecondScreen").classList.remove("hide");
+    document.getElementById("SecondScreen").classList.remove("hide");
     document.getElementById("SecondScreen").classList.add("col-md-8");
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
@@ -701,10 +699,11 @@ class MainPage extends Component {
           }
         >
           <div
-           
             onClick={() => this.toggleOrderList()}
             className="ArticelNameHead SSOrder text-capitalize PartHead"
-          >{this.state.ArticelName}</div>
+          >
+            {this.state.ArticelName}
+          </div>
 
           <OrdersTable
             GetOrderEdit={this.GetOrderEdit}
@@ -714,27 +713,17 @@ class MainPage extends Component {
             OrderVisible={this.state.OrderVisible}
           />
 
-          <div
-            onClick={() => {
-              this.toggleFiles();
-            }}
-            className="PartHead"
-          >
-            Dökümanlar
-          </div>
-
           <Files
             Files={this.state.Files}
             showPicturePreview={this.showPicturePreview}
             FilesVisible={this.state.FilesVisible}
+            toggleFiles={this.toggleFiles}
           />
 
-          <div onClick={() => this.toggleWayBillList()} className="PartHead">
-            İrsaliyeler
-          </div>
           <WayBillList
             WayBillVisible={this.state.WayBillVisible}
             Waybill={this.state.Waybill}
+            toggleWayBillList={this.toggleWayBillList}
           />
 
           <LayoutRight
