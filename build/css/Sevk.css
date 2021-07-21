@@ -419,9 +419,7 @@ a:focus, a:hover {
         margin-top: 4px;
         margin-left: 12px
     } 
-.BasePage-leftNav-Container {
-    display: none;
-}
+ 
 .none {
     display: none !important;
 }
