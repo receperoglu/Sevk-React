@@ -699,6 +699,7 @@ class MainPage extends Component {
           CorpName={this.state.CorpName}
           LayoutNoteShow={this.LayoutNoteShow}
           CreateArticelShow={this.CreateArticelShow}
+          isMobile={this.state.isMobile} 
         />
 
         <FirstRun IsFirstRun={this.state.IsFirstRun} />

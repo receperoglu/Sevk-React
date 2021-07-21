@@ -131,7 +131,7 @@ class TopBar extends Component {
                   <div>
                     <div className="ms-FocusZone css-74 ms-CommandBar root-79">
                       <div className="ms-OverflowSet TopBarCommandLeft primarySet-82">
-                        <div className="ms-OverflowSet-item  TopBarObject ">
+                        <div className={this.props.isMobile?"hide":"ms-OverflowSet-item  TopBarObject "}>
                           <button
                             type="button"
                             onClick={() => {
