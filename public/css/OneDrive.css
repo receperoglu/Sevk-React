@@ -1259,8 +1259,8 @@ html[dir=ltr] a.LeftNav-link.LeftNav-is-active > span:after {
 
 @media (max-width:600px) {
     
-    .label-89 {
-        display: none
+    .ms-Button-label.label-89{
+        display: none !important
     }
     .od-TopBar-search {
         width: 40px
