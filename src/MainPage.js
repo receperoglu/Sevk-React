@@ -12,6 +12,9 @@ import CreateArticelModal from "./components/CreateArticelModal";
 import OrdersTable from "./components/OrdersTable";
 import ProgressBar from "./components/ProgressBar";
 import FirstRun from "./components/FirstRun";
+import CallOut from "./components/CallOut";
+import PicturePreview from "./components/PicturePreview";
+
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 
 class MainPage extends Component {
@@ -62,6 +65,11 @@ class MainPage extends Component {
     this.SaveNotes = this.SaveNotes.bind(this);
     this.uploadPicture = this.uploadPicture.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
+    this.CallOutonMouseMove = this.CallOutonMouseMove.bind(this);
+    this.CancelCallOut = this.CancelCallOut.bind(this);
+    this.GetWaybillforOrder = this.GetWaybillforOrder.bind(this);
+    this.showPicturePreview = this.showPicturePreview.bind(this);
+    this.hidePicturePreview = this.hidePicturePreview.bind(this);
     this.state = {
       Articels: [],
       Orders: [],
@@ -70,12 +78,19 @@ class MainPage extends Component {
       Files: [],
       ProductTypes: [],
       SalesTypes: [],
+      OneWayBill: [],
       FileType: "",
       ArticelNotes: "",
       Dimensions: "",
       CorpName: "",
       Color: "",
       TypeName: "",
+      x: 0,
+      y: 0,
+      screenWidth: 0,
+      Path: "",
+      isMobile: false,
+      isDetailActive:false,
 
       RawPath: "",
       Articel: "Articel",
@@ -96,6 +111,10 @@ class MainPage extends Component {
       IsFirstRun: true,
       isShow: true,
 
+      isShowCallOut: false,
+      CalloutLoading: false,
+      isShowPicturePreview: false,
+      isRotating: false,
       ChangeView: false,
       IsCreateArticelShow: false,
       IsNewProductShow: false,
@@ -113,9 +132,59 @@ class MainPage extends Component {
       ProductNewLoading: false,
     };
   }
+ 
+  CancelCallOut() {
+    this.setState({ isShowCallOut: false });
+  }
+  CallOutonMouseMove(e) {
+    this.setState({
+      x: e.pageX + "px",
+      y: e.pageY + "px",
+    });
+  }
+  async GetWaybillforOrder(OrderId, dimensions, color, producttypename) {
+    this.setState({
+      Dimensions: dimensions,
+      OneWayBill: [],
+      Color: color,
+      ProductTypeName: producttypename,
 
+      isShow: true,
+    });
+
+    this.setState({
+      OneWayBill: await this.FetchFunc(
+        USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId
+      ),
+      isShow: false,
+      isShowCallOut: true,
+    });
+    var wayPiece = 0;
+    var wayWeight = 0;
+
+    this.state.OneWayBill.map(
+      (w) => (wayPiece = wayPiece + parseInt(w.Piece, 10))
+    );
+
+    this.setState({
+      LoopCount: this.state.OneWayBill.length,
+      TotalOutPiece: wayPiece,
+      TotalOutWeight: wayWeight,
+    });
+  }
+  updateDimensions = () => {
+     
+    this.setState({ isShowCallOut: false });
+    if (window.innerWidth <= 768) {
+      this.setState({ isMobile: true });
+    }else{
+      this.setState({ isMobile: false });
+    }
+  };
   componentDidMount() {
     this.fetcharticels();
+    window.addEventListener("resize", this.updateDimensions);
+    console.log("takıldı");   
   }
   componentWillUnmount() {
     clearInterval(this.timer);
@@ -322,16 +391,15 @@ class MainPage extends Component {
     this.setState({
       isShowLayoutRight: false,
       isShowLayoutNote: false,
-
       isShowTopBar: true,
     });
     document.getElementById("LayoutNote").style.width = "0px";
   }
-
   closeTopBar() {
     this.setState({
       isShowTopBar: false,
       ActiveArticel: 0,
+      isDetailActive:false,
     });
 
     document.getElementById("SecondScreen").classList.add("hide");
@@ -362,13 +430,38 @@ class MainPage extends Component {
       isShowProductEdit: true,
     });
   }
-
+  RotatePicture() {
+    this.setState({ isRotating: true });
+    var formData = new FormData();
+    formData.append("Rotate", "Left");
+    formData.append("Path", "/dosyalar/" + this.state.RawPath);
+    formData.append("PictureName", this.state.Path);
+    formData.append("PictureId", 0);
+    fetch("abi/post/DosyaSistem/ResimDondur.ashx", {
+      method: "POST",
+      processData: false,
+      body: formData,
+    })
+      .then((response) =>
+        this.setState({
+          Path: this.state.Path + "?" + new Date().getTime(),
+          isRotating: false,
+        })
+      )
+      .then((data) => console.log(data));
+  }
   filterCorp(CorpId) {
     this.setState({
       Articels: this.state.Articels.filter(
         (articel) => articel.CorpId === CorpId
       ),
     });
+  }
+  hidePicturePreview() {
+    this.setState({ isShowPicturePreview: false });
+  }
+  showPicturePreview(path, RawPath) {
+    this.setState({ Path: path, RawPath: RawPath, isShowPicturePreview: true });
   }
   async getProductType() {
     this.setState({
@@ -408,6 +501,7 @@ class MainPage extends Component {
       })
       .catch((err) => console.log(err));
   }
+
   async GetOrders(ArticelId, CorpId, ArticelName, CorpName) {
     this.setState({
       isShow: true,
@@ -418,6 +512,8 @@ class MainPage extends Component {
       CorpName: CorpName,
       isShowLayoutNote: false,
       isShowLayoutRight: false,
+      isShowCallOut: false,
+      isDetailActive:true
     });
     document.getElementById("LayoutRight").style.width = "0px";
     document.getElementById("LayoutNote").style.width = "0px";
@@ -607,6 +703,7 @@ class MainPage extends Component {
 
         <FirstRun IsFirstRun={this.state.IsFirstRun} />
         <ProgressBar isVisible={this.state.isShow} />
+        <div className={(this.state.isMobile&&this.state.isDetailActive)?"hide":""} >
         <div
           id="FirstScreen"
           className={
@@ -618,6 +715,7 @@ class MainPage extends Component {
             Articel={this.state.Articel}
             Articels={this.state.Articels}
           />
+        </div>
         </div>
         <div
           id="SecondScreen"
@@ -631,9 +729,15 @@ class MainPage extends Component {
             GetOrderEdit={this.GetOrderEdit}
             Orders={this.state.Orders}
             ArticelName={this.state.ArticelName}
+            CallOutonMouseMove={this.CallOutonMouseMove}
+            GetWaybillforOrder={this.GetWaybillforOrder}
           />
 
-          <Files Files={this.state.Files} Articel={this.state.ArticelName} />
+          <Files
+            Files={this.state.Files}
+            Articel={this.state.ArticelName}
+            showPicturePreview={this.showPicturePreview}
+          />
           <WayBillList Waybill={this.state.Waybill} />
           <LayoutRight
             CancelShare={this.CancelShare}
@@ -697,6 +801,27 @@ class MainPage extends Component {
           ProductTypes={this.state.ProductTypes}
           ProductNewLoading={this.state.ProductNewLoading}
           IsNewProductShow={this.state.IsNewProductShow}
+        />
+        <CallOut
+          CalloutLoading={this.state.CalloutLoading}
+          CancelCallOut={this.CancelCallOut}
+          TotalOutPiece={this.state.TotalOutPiece}
+          LoopCount={this.state.LoopCount}
+          Dimensions={this.state.Dimensions}
+          Color={this.state.Color}
+          ProductTypeName={this.state.ProductTypeName}
+          OneWayBill={this.state.OneWayBill}
+          top={this.state.y}
+          left={this.state.x}
+          isShowCallOut={this.state.isShowCallOut}
+        />
+        <PicturePreview
+          isShowPicturePreview={this.state.isShowPicturePreview}
+          Path={this.state.Path}
+          hidePicturePreview={this.hidePicturePreview}
+          Articel={this.state.ArticelName}
+          RotatePicture={this.RotatePicture}
+          isRotating={this.state.isRotating}
         />
         <input
           type="file"

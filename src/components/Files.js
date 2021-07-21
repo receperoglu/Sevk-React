@@ -1,51 +1,18 @@
-import React,{Component} from "react";
-import PicturePreview from "./PicturePreview";
+import React, { Component } from "react";
 
 class Files extends Component {
   constructor(props) {
     super(props);
     this.state = {
       FilesVisible: true,
-      Path: "",
-      isShowPicturePreview:false,
-      isRotating:false
-      
     };
     this.toggleFiles = this.toggleFiles.bind(this);
-    this.showPicturePreview = this.showPicturePreview.bind(this);
-    this.hidePicturePreview = this.hidePicturePreview.bind(this);
+  }
 
-  }
-  hidePicturePreview() {
-    this.setState({ isShowPicturePreview: false });
-  }
   toggleFiles() {
     this.setState({ FilesVisible: !this.state.FilesVisible });
   }
-  showPicturePreview(path, RawPath) {
-    this.setState({ Path: path, RawPath: RawPath, isShowPicturePreview: true });
-  }
-  
-  RotatePicture() {
-    this.setState({ isRotating: true });
-    var formData = new FormData();
-    formData.append("Rotate", "Left");
-    formData.append("Path", "/dosyalar/" + this.state.RawPath);
-    formData.append("PictureName", this.state.Path);
-    formData.append("PictureId", 0);
-    fetch("abi/post/DosyaSistem/ResimDondur.ashx", {
-      method: "POST",
-      processData: false,
-      body: formData,
-    })
-      .then((response) =>
-        this.setState({
-          Path: this.state.Path + "?" + new Date().getTime(),
-          isRotating: false,
-        })
-      )
-      .then((data) => console.log(data));
-  }
+
   render() {
     return (
       <div className={this.props.Files.length === 0 ? "hide" : ""}>
@@ -70,11 +37,9 @@ class Files extends Component {
                 >
                   <div
                     onClick={() => {
-                      this.showPicturePreview(
-                        `http://recep.space/abi/dosyalar/${
-                          f.Path + "?" + new Date().getTime()
-                        }`,
-                        f.Path + "?" + new Date().getTime()
+                      this.props.showPicturePreview(
+                        `http://recep.space/abi/dosyalar/${f.Path}`,
+                        f.Path
                       );
                     }}
                     style={{
@@ -149,14 +114,6 @@ class Files extends Component {
             )}
           </div>
         </div>
-        <PicturePreview
-          isShowPicturePreview={this.state.isShowPicturePreview}
-          Path={this.state.Path}
-          hidePicturePreview={this.hidePicturePreview}
-          Articel={this.props.ArticelName}
-          RotatePicture={this.RotatePicture}
-          isRotating={this.state.isRotating}
-        />
       </div>
     );
   }

@@ -271,26 +271,7 @@ class TopBar extends Component {
                             </div>
                           </button>
                         </div>
-                        <div className="SubTools commandedit ms-OverflowSet-item TopBarObject ">
-                          <button
-                            type="button"
-                            className="ms-Button ms-Button--commandBar ms-CommandBarItem-link root-85 "
-                          >
-                            <div className="ms-Button-flexContainer flexContainer-86">
-                              <i
-                                data-icon-name="Edit"
-                                className="ms-Button-icon fleft icon-73"
-                              >
-                                
-                              </i>
-                              <div className="ms-Button-textContainer textContainer-87">
-                                <div className="ms-Button-label label-89">
-                                  Düzenle
-                                </div>
-                              </div>
-                            </div>
-                          </button>
-                        </div>
+                        
                         <div className="SubTools commandoutproduct ms-OverflowSet-item TopBarObject">
                           <button
                             type="button"

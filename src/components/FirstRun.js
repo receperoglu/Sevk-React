@@ -8,7 +8,7 @@ export default function FirstRun(props) {
      props.IsFirstRun ? "show pagefirstloading" : "opaq0 hide"
     }
   >
-    <div className="text-center">İlk Açılış ayarlanıyor</div>
+    <div className="text-center">İlk açılış ayarlanıyor</div>
     <div className="prf ProgressSpinnerFlat" role="progressbar">
       <ProgressBar isVisible={true}/>
 

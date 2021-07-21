@@ -10,10 +10,10 @@ class CallOut extends Component {
     return (
       <div
         id="PopupWaybill"
-        style={{ top: this.props.top, left: 0 }}
+        style={{ top: this.props.top, left:this.props.left }}
         className={
           this.props.isShowCallOut
-            ? "ms-ContextualHost is-positioned ms-ContextualHost--arrowLeft is-open ms-ContextualHost--primaryArrow"
+            ? "ms-ContextualHost effect is-positioned ms-ContextualHost--arrowLeft is-open ms-ContextualHost--primaryArrow"
             : "hide"
         }
       >
@@ -45,26 +45,6 @@ class CallOut extends Component {
               <div className="ms-Callout-inner">
                 <div className="ms-Callout-content">
                   <div className="ms-Callout-subText">
-                    <div
-                      className={this.props.calloutloading ? "" : "opaq0 hide"}
-                    >
-                      <br /> <br /> <br /> <br />
-                      <div
-                        className={
-                          this.props.calloutloading
-                            ? "prf ProgressSpinnerFlat"
-                            : "opaq0 hide"
-                        }
-                        role="progressbar"
-                      >
-                        <div aria-hidden="true">•</div>
-                        <div aria-hidden="true">•</div>
-                        <div aria-hidden="true">•</div>
-                        <div aria-hidden="true">•</div>
-                      </div>
-                      <br /> <br /> <br />
-                      <br />
-                    </div>
                     <table
                       className={
                         this.props.calloutloading
