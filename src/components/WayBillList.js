@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Arrow from "./Tools/Arrow"
+import Arrow from "./Tools/Arrow";
 class WayBillList extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +17,6 @@ class WayBillList extends Component {
         <div onClick={() => this.toggleWayBillList()} className="PartHead">
           İrsaliyeler
           <Arrow Direction={this.state.WayBillVisible} />
-
         </div>
         <table
           className={
@@ -29,22 +28,36 @@ class WayBillList extends Component {
           <thead>
             <tr className="alert alert-success">
               <td>Adet</td>
-              <td>Ağırlık</td>
+              <td>KG</td>
               <td>Ölçü</td>
               <td>Renk</td>
-              <td>Tarih</td>
-              <td>İrsaliye</td>
+              <td>
+                Tarih <br />
+              </td>
+              <td className={this.state.isMobile ? "hide" : ""}>
+                İrsaliye <br />
+              </td>
             </tr>
           </thead>
           <tbody aria-live="polite">
             {this.props.Waybill.map((w) => (
               <tr key={w.id}>
                 <td> {w.Piece} </td>
-                <td> {w.Weight} KG </td>
+                <td> {w.Weight} </td>
                 <td> {w.Dimensions} </td>
-                <td> {w.Color} </td>
-                <td> {w.CreatedDate} </td>
+                <td className={this.props.isMobile ? "minifont" : ""}>
+                  {w.Color}
+                </td>
+
                 <td className="pointer">
+                  <span>
+                    {w.CreatedDate}
+                    <span className={this.state.isMobile ? "" : "hide"}>
+                      ( {w.WayBillId} )
+                    </span>
+                  </span>
+                </td>
+                <td className={this.state.isMobile ? "hide" : ""}>
                   <span> {w.WayBillId} </span>
                 </td>
               </tr>

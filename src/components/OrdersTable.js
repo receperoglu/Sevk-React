@@ -68,7 +68,7 @@ class OrdersTable extends Component {
                   </div>
                 </td>
                 <td>{o.Dimensions}</td>
-                <td>{o.Color}</td>
+                <td className={this.props.isMobile?"minifont":""}>{o.Color}</td>
 
                 <td>{o.ProductTypeName}</td>
 

@@ -38,9 +38,9 @@ class Files extends Component {
                   key={f.id}
                   data-url={f.Path}
                   data-ext={f.ext}
-                  style={{ height: "130px" }}
+                  style={{ height: "150px" }}
                   className=" FileIco text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
-                >
+                ><div className="FileBorder">
                   <div
                     onClick={() => {
                       this.props.showPicturePreview(
@@ -60,14 +60,14 @@ class Files extends Component {
                   >
                     {f.FileName.substring(0, 12)}
                   </a>
-                </div>
+                  </div></div>
               ) : (
                 <div
                   data-ext={f.ext}
                   key={f.id}
                   className="FileIco   text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
-                  style={{ height: "130px" }}
-                >
+                  style={{ height: "150px" }}
+                ><div className="FileBorder">
                   <div
                     style={{
                       backgroundPosition: "center",
@@ -98,8 +98,8 @@ class Files extends Component {
                     <a
                       style={{
                         position: "absolute",
-                        right: "0px",
-                        top: "10px",
+                        right: "15px",
+                        top: "20px",
                       }}
                       href={`http://recep.space/abi/dosyalar/${f.Path}`}
                       target="blank"
@@ -113,7 +113,7 @@ class Files extends Component {
                           
                         </i>
                       </span>
-                    </a>
+                    </a>   </div>
                   </div>
                 </div>
               )

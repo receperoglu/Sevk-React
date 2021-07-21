@@ -90,7 +90,7 @@ class MainPage extends Component {
       screenWidth: 0,
       Path: "",
       isMobile: false,
-      isDetailActive:false,
+      isDetailActive: false,
 
       RawPath: "",
       Articel: "Articel",
@@ -132,7 +132,7 @@ class MainPage extends Component {
       ProductNewLoading: false,
     };
   }
- 
+
   CancelCallOut() {
     this.setState({ isShowCallOut: false });
   }
@@ -173,18 +173,17 @@ class MainPage extends Component {
     });
   }
   updateDimensions = () => {
-     
     this.setState({ isShowCallOut: false });
     if (window.innerWidth <= 768) {
       this.setState({ isMobile: true });
-    }else{
+    } else {
       this.setState({ isMobile: false });
     }
   };
   componentDidMount() {
     this.fetcharticels();
     window.addEventListener("resize", this.updateDimensions);
-    console.log("takıldı");   
+    console.log("takıldı");
   }
   componentWillUnmount() {
     clearInterval(this.timer);
@@ -399,7 +398,7 @@ class MainPage extends Component {
     this.setState({
       isShowTopBar: false,
       ActiveArticel: 0,
-      isDetailActive:false,
+      isDetailActive: false,
     });
 
     document.getElementById("SecondScreen").classList.add("hide");
@@ -513,7 +512,7 @@ class MainPage extends Component {
       isShowLayoutNote: false,
       isShowLayoutRight: false,
       isShowCallOut: false,
-      isDetailActive:true
+      isDetailActive: true,
     });
     document.getElementById("LayoutRight").style.width = "0px";
     document.getElementById("LayoutNote").style.width = "0px";
@@ -699,24 +698,28 @@ class MainPage extends Component {
           CorpName={this.state.CorpName}
           LayoutNoteShow={this.LayoutNoteShow}
           CreateArticelShow={this.CreateArticelShow}
-          isMobile={this.state.isMobile} 
+          isMobile={this.state.isMobile}
         />
 
         <FirstRun IsFirstRun={this.state.IsFirstRun} />
         <ProgressBar isVisible={this.state.isShow} />
-        <div className={(this.state.isMobile&&this.state.isDetailActive)?"hide":""} >
         <div
-          id="FirstScreen"
           className={
-            this.state.ChangeView ? "hide" : "WizardArea padd0 col-md-12"
+            this.state.isMobile && this.state.isDetailActive ? "hide" : ""
           }
         >
-          <ArticelsTable
-            GetOrders={this.GetOrders}
-            Articel={this.state.Articel}
-            Articels={this.state.Articels}
-          />
-        </div>
+          <div
+            id="FirstScreen"
+            className={
+              this.state.ChangeView ? "hide" : "WizardArea padd0 col-md-12"
+            }
+          >
+            <ArticelsTable
+              GetOrders={this.GetOrders}
+              Articel={this.state.Articel}
+              Articels={this.state.Articels}
+            />
+          </div>
         </div>
         <div
           id="SecondScreen"
@@ -732,6 +735,7 @@ class MainPage extends Component {
             ArticelName={this.state.ArticelName}
             CallOutonMouseMove={this.CallOutonMouseMove}
             GetWaybillforOrder={this.GetWaybillforOrder}
+            isMobile={this.state.isMobile}
           />
 
           <Files
@@ -739,7 +743,10 @@ class MainPage extends Component {
             Articel={this.state.ArticelName}
             showPicturePreview={this.showPicturePreview}
           />
-          <WayBillList Waybill={this.state.Waybill} />
+          <WayBillList
+            Waybill={this.state.Waybill}
+            isMobile={this.state.isMobile}
+          />
           <LayoutRight
             CancelShare={this.CancelShare}
             isShowLayoutRight={this.state.isShowLayoutRight}
