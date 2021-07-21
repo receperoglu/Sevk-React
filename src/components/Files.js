@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Arrow from "./Tools/Arrow";
 
 class Files extends Component {
   constructor(props) {
@@ -15,7 +16,11 @@ class Files extends Component {
 
   render() {
     return (
-      <div className={this.props.Files.length === 0 ? "hide" : "col-xs-12 col-md-12"}>
+      <div
+        className={
+          this.props.Files.length === 0 ? "hide" : "col-xs-12 col-md-12"
+        }
+      >
         <div
           onClick={() => {
             this.toggleFiles();
@@ -23,6 +28,7 @@ class Files extends Component {
           className="PartHead"
         >
           Dökümanlar
+          <Arrow Direction={this.state.FilesVisible} />
         </div>
         <div className={this.state.FilesVisible ? "padd5" : "hide"}>
           <div className="padd5">

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Arrow from "./Tools/Arrow"
  
 class OrdersTable extends Component {
   constructor(props) {
@@ -20,6 +21,8 @@ class OrdersTable extends Component {
           className="ArticelNameHead SSOrder text-capitalize PartHead"
         >
           {this.props.ArticelName}
+          <Arrow Direction={this.state.OrderVisible} />
+
         </div>
         <table
           className={

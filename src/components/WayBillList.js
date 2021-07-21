@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Arrow from "./Tools/Arrow"
 class WayBillList extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +16,8 @@ class WayBillList extends Component {
       <div className={this.props.Waybill.length === 0 ? "hide" : ""}>
         <div onClick={() => this.toggleWayBillList()} className="PartHead">
           İrsaliyeler
+          <Arrow Direction={this.state.WayBillVisible} />
+
         </div>
         <table
           className={
