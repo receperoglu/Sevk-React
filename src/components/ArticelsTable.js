@@ -9,7 +9,7 @@ class ArticelsTable extends Component {
   render() {
     return (
       <div>
-        <table className="table table-hover">
+        <table className="Articels table table-hover">
           <thead>
             <tr className="tablehead">
               <td className="col-md-6">Firma</td>

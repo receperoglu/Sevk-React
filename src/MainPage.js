@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import CallOut from "./components/CallOut";
 import Files from "./components/Files";
 import WayBillList from "./components/WayBillList";
 import TopBar from "./components/TopBar";
@@ -11,8 +10,6 @@ import LayoutRight from "./components/LayoutRight";
 import LayoutNote from "./components/LayoutNote";
 import CreateArticelModal from "./components/CreateArticelModal";
 import OrdersTable from "./components/OrdersTable";
-import LeftNav from "./components/LeftNav";
-import PicturePreview from "./components/PicturePreview";
 import ProgressBar from "./components/ProgressBar";
 import FirstRun from "./components/FirstRun";
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
@@ -21,10 +18,6 @@ class MainPage extends Component {
   constructor(props) {
     super(props);
     this.getCorps = this.getCorps.bind(this);
-    this.MenuToggler = this.MenuToggler.bind(this);
-    this.toggleWayBillList = this.toggleWayBillList.bind(this);
-    this.toggleFiles = this.toggleFiles.bind(this);
-    this.toggleOrderList = this.toggleOrderList.bind(this);
     this.getProductType = this.getProductType.bind(this);
     this.GetOrders = this.GetOrders.bind(this);
     this.productEditShow = this.productEditShow.bind(this);
@@ -35,7 +28,6 @@ class MainPage extends Component {
     this.toggleView = this.toggleView.bind(this);
     this.closeTopBar = this.closeTopBar.bind(this);
     this.LayoutRightShow = this.LayoutRightShow.bind(this);
-    this.CancelCallOut = this.CancelCallOut.bind(this);
     this.CancelShare = this.CancelShare.bind(this);
     this.CancelNote = this.CancelNote.bind(this);
     this.CancelProduct = this.CancelProduct.bind(this);
@@ -61,10 +53,8 @@ class MainPage extends Component {
     this.NewProductShow = this.NewProductShow.bind(this);
 
     this.LayoutNoteShow = this.LayoutNoteShow.bind(this);
-    this.GetWaybillforOrder = this.GetWaybillforOrder.bind(this);
     this.CreateArticelShow = this.CreateArticelShow.bind(this);
     this.filterCorp = this.filterCorp.bind(this);
-    this.CallOutonMouseMove = this.CallOutonMouseMove.bind(this);
 
     this.GetOrderEdit = this.GetOrderEdit.bind(this);
     this.getNotes = this.getNotes.bind(this);
@@ -72,15 +62,11 @@ class MainPage extends Component {
     this.SaveNotes = this.SaveNotes.bind(this);
     this.uploadPicture = this.uploadPicture.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
-    this.showPicturePreview = this.showPicturePreview.bind(this);
-    this.hidePicturePreview = this.hidePicturePreview.bind(this);
-    this.RotatePicture = this.RotatePicture.bind(this);
     this.state = {
       Articels: [],
       Orders: [],
       Waybill: [],
       Corps: [],
-      OneWayBill: [],
       Files: [],
       ProductTypes: [],
       SalesTypes: [],
@@ -90,7 +76,7 @@ class MainPage extends Component {
       CorpName: "",
       Color: "",
       TypeName: "",
-      Path: "",
+
       RawPath: "",
       Articel: "Articel",
       ArticelName: "",
@@ -98,8 +84,7 @@ class MainPage extends Component {
       Weight: 0,
       Piece: 0,
       WayBillId: 0,
-      x: 0,
-      y: 0,
+
       TypeId: 0,
       CorpId: 0,
       LoopCount: 0,
@@ -110,12 +95,8 @@ class MainPage extends Component {
       ActiveArticel: 0,
       IsFirstRun: true,
       isShow: true,
-      FilesVisible: true,
-      WayBillVisible: true,
-      OrderVisible: true,
+
       ChangeView: false,
-      MenuStatu: false,
-      isShowPicturePreview: false,
       IsCreateArticelShow: false,
       IsNewProductShow: false,
       isShowOrder: false,
@@ -124,16 +105,47 @@ class MainPage extends Component {
       ismodalvisible: false,
       isShowProductOut: false,
       isShowProductEdit: false,
-      isShowCallOut: false,
-      CalloutLoading: false,
+
       isFetching: false,
       isShowLayoutRight: false,
-      isRotating: false,
 
       isShowCreateArticel: false,
       ProductNewLoading: false,
     };
   }
+
+  componentDidMount() {
+    this.fetcharticels();
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    this.timer = null;
+  }
+  async fetcharticelsAsync() {
+    this.setState({
+      Articels: await this.FetchFunc(USER_SERVICE_URL + "Articels"),
+      isShow: false,
+      IsFirstRun: false,
+    });
+    this.getProductType();
+    this.getCorps();
+    this.getSalesTypes();
+  }
+  async FetchFunc(Url) {
+    const response = await fetch(Url, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "access-control-allow-credentials": false,
+        "Access-Control-Allow-Origin": Url,
+        Authorization: "bearer ",
+      },
+    });
+    return response.json();
+  }
+  fetcharticels = this.fetcharticelsAsync;
   CorpSearch = (event) => {
     let value = event.target.value.toLowerCase();
     let result = [];
@@ -145,32 +157,7 @@ class MainPage extends Component {
   UpdateArticelNote = (note) => {
     this.setState({ ArticelNotes: note });
   };
-  showPicturePreview(path, RawPath) {
-    this.setState({ Path: path, RawPath: RawPath, isShowPicturePreview: true });
-  }
-  hidePicturePreview() {
-    this.setState({ isShowPicturePreview: false });
-  }
-  RotatePicture() {
-    this.setState({ isRotating: true });
-    var formData = new FormData();
-    formData.append("Rotate", "Left");
-    formData.append("Path", "/dosyalar/" + this.state.RawPath);
-    formData.append("PictureName", this.state.Path);
-    formData.append("PictureId", 0);
-    fetch("abi/post/DosyaSistem/ResimDondur.ashx", {
-      method: "POST",
-      processData: false,
-      body: formData,
-    })
-      .then((response) =>
-        this.setState({
-          Path: this.state.Path + "?" + new Date().getTime(),
-          isRotating: false,
-        })
-      )
-      .then((data) => console.log(data));
-  }
+
   SaveNotes() {
     this.setState({ isShow: true });
     var formData = new FormData();
@@ -183,12 +170,7 @@ class MainPage extends Component {
       .then((response) => this.setState({ isShow: false }))
       .then((data) => console.log(data));
   }
-  toggleWayBillList() {
-    this.setState({ WayBillVisible: !this.state.WayBillVisible });
-  }
-  toggleFiles() {
-    this.setState({ FilesVisible: !this.state.FilesVisible });
-  }
+
   toggleView() {
     if (this.state.isShowOrder) {
       this.setState({ ChangeView: !this.state.ChangeView });
@@ -199,9 +181,6 @@ class MainPage extends Component {
     this.setState({ FileType: type });
     var file = document.getElementById("FileNew");
     file.click();
-  }
-  toggleOrderList() {
-    this.setState({ OrderVisible: !this.state.OrderVisible });
   }
   uploadPicture() {
     this.setState({ isShow: true });
@@ -240,9 +219,6 @@ class MainPage extends Component {
   ChangeCorpId(Id) {
     this.setState({ CorpId: Id });
   }
-  MenuToggler = () => {
-    this.setState({ MenuStatu: !this.state.MenuStatu });
-  };
   ChangePiece(Piece) {
     this.setState({ Piece: Piece });
   }
@@ -268,7 +244,6 @@ class MainPage extends Component {
     this.setState({
       IsCreateArticelShow: true,
       IsNewProductShow: false,
-      isShowCallOut: false,
       isShowTopBar: false,
       isShowOrder: false,
     });
@@ -283,7 +258,6 @@ class MainPage extends Component {
       console.log("ulaşılamadı" + error);
     }
   }
-
   SaveProductOut(OrderId) {
     this.setState({ OrderId: OrderId });
     setTimeout(() => this.PostProductOutSave(), 5000);
@@ -300,12 +274,10 @@ class MainPage extends Component {
     this.setState({ isShowCreateArticel: true });
     this.PostArticelsave();
   }
-
   LayoutRightShow() {
     this.setState({
       isShowLayoutRight: true,
       isShowTopBar: false,
-      isShowCallOut: false,
     });
     document.getElementById("LayoutRight").style.width = "300px";
   }
@@ -315,36 +287,34 @@ class MainPage extends Component {
       isShowLayoutRight: false,
 
       isShowTopBar: false,
-      isShowCallOut: false,
     });
     document.getElementById("LayoutNote").style.width = "300px";
   }
   productOutShow() {
-    this.setState({ isShowProductOut: true, isShowCallOut: false });
+    this.setState({ isShowProductOut: true });
   }
   productEditShow() {
-    this.setState({ isShowProductEdit: true, isShowCallOut: false });
+    this.setState({ isShowProductEdit: true });
   }
   CancelArticel() {
     this.setState({ IsCreateArticelShow: false });
   }
   CancelProduct() {
-    this.setState({ isShowProductOut: false, isShowCallOut: false });
+    this.setState({ isShowProductOut: false });
   }
   CancelNewProduct() {
-    this.setState({ IsNewProductShow: false, isShowCallOut: false });
+    this.setState({ IsNewProductShow: false });
   }
   CancelEdit() {
-    this.setState({ isShowProductEdit: false, isShowCallOut: false });
+    this.setState({ isShowProductEdit: false });
   }
   CancelCreateArticel() {
-    this.setState({ IsCreateArticelShow: false, isShowCallOut: false });
+    this.setState({ IsCreateArticelShow: false });
   }
   CancelShare() {
     this.setState({
       isShowLayoutRight: false,
       isShowTopBar: true,
-      isShowCallOut: false,
     });
     document.getElementById("LayoutRight").style.width = "0px";
   }
@@ -352,18 +322,15 @@ class MainPage extends Component {
     this.setState({
       isShowLayoutRight: false,
       isShowLayoutNote: false,
-      isShowCallOut: false,
+
       isShowTopBar: true,
     });
     document.getElementById("LayoutNote").style.width = "0px";
   }
-  CancelCallOut() {
-    this.setState({ isShowCallOut: false });
-  }
+
   closeTopBar() {
     this.setState({
       isShowTopBar: false,
-      isShowCallOut: false,
       ActiveArticel: 0,
     });
 
@@ -374,7 +341,7 @@ class MainPage extends Component {
     document.getElementById(selectedId).classList.remove("ActiveArticelRow");
   }
   Closeproductmodal() {
-    this.setState({ ismodalvisible: false, isShowCallOut: false });
+    this.setState({ ismodalvisible: false });
   }
   TransferSummary(weight, piece) {
     this.setState({
@@ -395,48 +362,12 @@ class MainPage extends Component {
       isShowProductEdit: true,
     });
   }
-  CallOutonMouseMove(e) {
-    this.setState({
-      x: e.pageX + "px",
-      y: e.pageY + "px",
-    });
-  }
+
   filterCorp(CorpId) {
     this.setState({
       Articels: this.state.Articels.filter(
         (articel) => articel.CorpId === CorpId
       ),
-    });
-  }
-  async GetWaybillforOrder(OrderId, dimensions, color, producttypename) {
-    this.setState({
-      Dimensions: dimensions,
-      OneWayBill: [],
-      Color: color,
-      ProductTypeName: producttypename,
-      CalloutLoading: true,
-      isShowCallOut: true,
-      isShow: true,
-    });
-
-    this.setState({
-      OneWayBill: await this.FetchFunc(
-        USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId
-      ),
-      isShow: false,
-    });
-    var wayPiece = 0;
-    var wayWeight = 0;
-
-    this.state.OneWayBill.map(
-      (w) => (wayPiece = wayPiece + parseInt(w.Piece, 10))
-    );
-
-    this.setState({
-      LoopCount: this.state.OneWayBill.length,
-      CalloutLoading: false,
-      TotalOutPiece: wayPiece,
-      TotalOutWeight: wayWeight,
     });
   }
   async getProductType() {
@@ -483,7 +414,6 @@ class MainPage extends Component {
       CorpId: CorpId,
       ArticelId: ArticelId,
       isShowTopBar: true,
-      isShowCallOut: false,
       ArticelName: ArticelName,
       CorpName: CorpName,
       isShowLayoutNote: false,
@@ -663,17 +593,16 @@ class MainPage extends Component {
           NewProductShow={this.NewProductShow}
           toggleView={this.toggleView}
           closeTopBar={this.closeTopBar}
-          MenuToggler={this.MenuToggler}
           LayoutRightShow={this.LayoutRightShow}
           isShowTopBar={this.state.isShowTopBar}
           productEditShow={this.productEditShow}
           productOutShow={this.productOutShow}
-          MenuStatu={this.state.MenuStatu}
           Corps={this.state.Corps}
           filterCorp={this.filterCorp}
           ArticelId={this.state.ArticelId}
           CorpName={this.state.CorpName}
           LayoutNoteShow={this.LayoutNoteShow}
+          CreateArticelShow={this.CreateArticelShow}
         />
 
         <FirstRun IsFirstRun={this.state.IsFirstRun} />
@@ -698,39 +627,18 @@ class MainPage extends Component {
               : "WizardArea padd0 col-md-8"
           }
         >
-          <div
-            onClick={() => this.toggleOrderList()}
-            className="ArticelNameHead SSOrder text-capitalize PartHead"
-          >
-            {this.state.ArticelName}
-          </div>
-
           <OrdersTable
             GetOrderEdit={this.GetOrderEdit}
-            GetWaybillforOrder={this.GetWaybillforOrder}
-            CallOutonMouseMove={this.CallOutonMouseMove}
             Orders={this.state.Orders}
-            OrderVisible={this.state.OrderVisible}
+            ArticelName={this.state.ArticelName}
           />
 
-          <Files
-            Files={this.state.Files}
-            showPicturePreview={this.showPicturePreview}
-            FilesVisible={this.state.FilesVisible}
-            toggleFiles={this.toggleFiles}
-          />
-
-          <WayBillList
-            WayBillVisible={this.state.WayBillVisible}
-            Waybill={this.state.Waybill}
-            toggleWayBillList={this.toggleWayBillList}
-          />
-
+          <Files Files={this.state.Files} Articel={this.state.ArticelName} />
+          <WayBillList Waybill={this.state.Waybill} />
           <LayoutRight
             CancelShare={this.CancelShare}
             isShowLayoutRight={this.state.isShowLayoutRight}
           />
-
           <LayoutNote
             CancelNote={this.CancelNote}
             SaveNotes={this.SaveNotes}
@@ -739,7 +647,6 @@ class MainPage extends Component {
             isShowLayoutNote={this.state.isShowLayoutNote}
           />
         </div>
-
         <ProductOutModal
           ChangePiece={this.ChangePiece}
           ChangeWeight={this.ChangeWeight}
@@ -750,7 +657,6 @@ class MainPage extends Component {
           SaveProductOut={this.SaveProductOut}
           isShowProductOut={this.state.isShowProductOut}
         />
-
         <ProductEditModal
           isShowProductEdit={this.state.isShowProductEdit}
           UpdateOrder={this.UpdateOrder}
@@ -764,7 +670,6 @@ class MainPage extends Component {
           Color={this.state.Color}
           OrderId={this.state.OrderId}
         />
-
         <CreateArticelModal
           Corps={this.state.Corps}
           Piece={this.state.Piece}
@@ -782,7 +687,6 @@ class MainPage extends Component {
           isShowCreateArticel={this.state.isShowCreateArticel}
           IsCreateArticelShow={this.state.IsCreateArticelShow}
         />
-
         <ProductNewModal
           SaveOrder={this.SaveOrder}
           CancelNewProduct={this.CancelNewProduct}
@@ -793,33 +697,6 @@ class MainPage extends Component {
           ProductTypes={this.state.ProductTypes}
           ProductNewLoading={this.state.ProductNewLoading}
           IsNewProductShow={this.state.IsNewProductShow}
-        />
-
-        <CallOut
-          CalloutLoading={this.state.CalloutLoading}
-          CancelCallOut={this.CancelCallOut}
-          TotalOutPiece={this.state.TotalOutPiece}
-          LoopCount={this.state.LoopCount}
-          Dimensions={this.state.Dimensions}
-          Color={this.state.Color}
-          ProductTypeName={this.state.ProductTypeName}
-          OneWayBill={this.state.OneWayBill}
-          top={this.state.y}
-          left={this.state.x}
-          isShowCallOut={this.state.isShowCallOut}
-        />
-
-        <LeftNav
-          CreateArticelShow={this.CreateArticelShow}
-          MenuStatu={this.state.MenuStatu}
-        />
-        <PicturePreview
-          isShowPicturePreview={this.state.isShowPicturePreview}
-          Path={this.state.Path}
-          hidePicturePreview={this.hidePicturePreview}
-          Articel={this.state.ArticelName}
-          RotatePicture={this.RotatePicture}
-          isRotating={this.state.isRotating}
         />
         <input
           type="file"
@@ -845,47 +722,6 @@ class MainPage extends Component {
       </div>
     );
   }
-
-  updateDimensions = () => {
-    this.setState({ isShowCallOut: false });
-  };
-
-  componentDidMount() {
-    this.fetcharticels();
-    window.addEventListener("resize", this.updateDimensions);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-    this.timer = null;
-  }
-
-  async fetcharticelsAsync() {
-    this.setState({
-      Articels: await this.FetchFunc(USER_SERVICE_URL + "Articels"),
-      isShow: false,
-      IsFirstRun: false,
-    });
-    this.getProductType();
-    this.getCorps();
-    this.getSalesTypes();
-  }
-  async FetchFunc(Url) {
-    const response = await fetch(Url, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": Url,
-        Authorization: "bearer ",
-      },
-    });
-    return response.json();
-  }
-
-  fetcharticels = this.fetcharticelsAsync;
 }
 
 export default MainPage;
