@@ -1258,9 +1258,7 @@ html[dir=ltr] a.LeftNav-link.LeftNav-is-active > span:after {
 }
 
 @media (max-width:600px) {
-    .BasePage-leftNav-Container, .SearchInput, .label-89 {
-        display: none
-    }
+    
 
     .od-TopBar-search {
         width: 40px

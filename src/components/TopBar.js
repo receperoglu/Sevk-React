@@ -1,12 +1,12 @@
-import React,{Component} from "react";
+import React, { Component } from "react";
 import "../css/Table.css";
-import LeftNav from "./LeftNav"
+import LeftNav from "./LeftNav";
 
 class TopBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      MenuStatu:false
+      MenuStatu: false,
     };
     this.MenuToggler = this.MenuToggler.bind(this);
   }
@@ -29,12 +29,10 @@ class TopBar extends Component {
         <div className="od-SuiteNav od-SuiteNav-react">
           <span className="od-SuiteNav-reactShell-diamond Icon css-41"></span>
           <div className="_3amH8O5zhIe06K_vFGTuae  _242EiqwUQtpcOkmbnzLL3d   ThemeBase o365cst o365spo o365sx-navbar o365sx-search">
-            <div
-              onClick={() => this.MenuToggler()}
-              className="_2kc0c9nP-qti6fefMCFonk"
-            >
+            <div className="_2kc0c9nP-qti6fefMCFonk">
               <div className="Mm _3FLRgiFtGLuaFraVW49btd">
                 <button
+                  onClick={() => this.MenuToggler()}
                   className="riRHDuln2VrIU8dSpyxJ2 o365sx-button  o365sx-waffle"
                   type="button"
                 >
@@ -49,7 +47,7 @@ class TopBar extends Component {
                   <span className="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
                 </button>
               </div>
-              <div onClick={() => this.MenuToggler()} className="">
+              <div className="">
                 <span className="_3oXfC-h0HSTdxztdO_F4_A o365sx-appName o365cs-o365logo Mm _3FLRgiFtGLuaFraVW49btd _3odjF_1ZcGTHwuaL30ia2J"></span>
                 <a className="m5-kje_HEdyN8cPiq-Sp0 o365sx-appName" href="/">
                   <span className="_1yZIUhrPA4l6_cQWV3l3O- o365sx-appName">
@@ -126,7 +124,9 @@ class TopBar extends Component {
               </div>
             </div>
             <div className="od-TopBar-item od-TopBar-commandBar od-BasePage-commandBar">
-              <div className={this.props.isShowTopBar ? "fright" : "opaq0 hide"}>
+              <div
+                className={this.props.isShowTopBar ? "fright" : "opaq0 hide"}
+              >
                 <div className="col-md-6 padd0 ">
                   <div>
                     <div className="ms-FocusZone css-74 ms-CommandBar root-79">
@@ -271,7 +271,7 @@ class TopBar extends Component {
                             </div>
                           </button>
                         </div>
-                        
+
                         <div className="SubTools commandoutproduct ms-OverflowSet-item TopBarObject">
                           <button
                             type="button"
