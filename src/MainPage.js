@@ -718,6 +718,7 @@ class MainPage extends Component {
               GetOrders={this.GetOrders}
               Articel={this.state.Articel}
               Articels={this.state.Articels}
+              isMobile={this.state.isMobile}
             />
           </div>
         </div>
