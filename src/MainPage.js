@@ -174,7 +174,7 @@ class MainPage extends Component {
   }
   updateDimensions = () => {
     this.setState({ isShowCallOut: false });
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1024) {
       this.setState({ isMobile: true });
     } else {
       this.setState({ isMobile: false });
@@ -723,7 +723,7 @@ class MainPage extends Component {
         </div>
         <div
           id="SecondScreen"
-          className={
+          className={this.state.isMobile?"col-xs-12 padd0":
             this.state.ChangeView
               ? "WizardArea padd0 col-md-12"
               : "WizardArea padd0 col-md-8"
