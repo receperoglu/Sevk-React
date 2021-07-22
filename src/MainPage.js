@@ -79,6 +79,7 @@ class MainPage extends Component {
       ProductTypes: [],
       SalesTypes: [],
       OneWayBill: [],
+
       FileType: "",
       ArticelNotes: "",
       Dimensions: "",
@@ -172,6 +173,7 @@ class MainPage extends Component {
       TotalOutWeight: wayWeight,
     });
   }
+
   updateDimensions = () => {
     this.setState({ isShowCallOut: false });
     if (window.innerWidth <= 1024) {
@@ -180,10 +182,10 @@ class MainPage extends Component {
       this.setState({ isMobile: false });
     }
   };
+
   componentDidMount() {
     this.fetcharticels();
     window.addEventListener("resize", this.updateDimensions);
-    console.log("takıldı");
   }
   componentWillUnmount() {
     clearInterval(this.timer);
@@ -213,6 +215,7 @@ class MainPage extends Component {
     });
     return response.json();
   }
+
   fetcharticels = this.fetcharticelsAsync;
   CorpSearch = (event) => {
     let value = event.target.value.toLowerCase();
@@ -724,8 +727,10 @@ class MainPage extends Component {
         </div>
         <div
           id="SecondScreen"
-          className={this.state.isMobile?"col-xs-12 padd0":
-            this.state.ChangeView
+          className={
+            this.state.isMobile
+              ? "col-xs-12 padd0"
+              : this.state.ChangeView
               ? "WizardArea padd0 col-md-12"
               : "WizardArea padd0 col-md-8"
           }
