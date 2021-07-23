@@ -17,6 +17,7 @@ import PicturePreview from "./components/PicturePreview";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 export default function MainPage() {
+
   const [Corps, setCorps] = useState([]);
   const [Files, setFiles] = useState([]);
   const [Orders, setOrders] = useState([]);
@@ -43,8 +44,8 @@ export default function MainPage() {
   const [TypeId, setTypeId] = useState(0);
   const [CorpId, setCorpId] = useState(0);
   const [OrderId, setOrderId] = useState(0);
-  const [WayBillId, setWayBillId] = useState(0);
   const [ArticelId, setArticelId] = useState(0);
+  const [WayBillId, setWayBillId] = useState(0);
   const [SaleTypeId, setSaleTypeId] = useState(0);
   const [ActiveArticel, setActiveArticel] = useState(0);
 
@@ -66,7 +67,10 @@ export default function MainPage() {
   const [IsCreateArticelShow, setIsCreateArticelShow] = useState(false);
   const [isShowCreateArticel, setisShowCreateArticel] = useState(false);
   const [isShowPicturePreview, setisShowPicturePreview] = useState(false);
-
+  useEffect(() => {
+    fetcharticels();
+    window.addEventListener("resize", updateDimensions);
+  },[Articels]);
   const ChangeProductType = (typeid) => {
     setTypeId(typeid);
   };
@@ -124,11 +128,7 @@ export default function MainPage() {
     } else {
       setisMobile(false);
     }
-  };
-  useEffect(() => {
-    fetcharticels();
-    window.addEventListener("resize", updateDimensions);
-  },[Articels]);
+  }; 
   const fetcharticels = async () => {
     var data = await FetchFunc(USER_SERVICE_URL + "Articels");
     setArticels(data);
@@ -300,16 +300,7 @@ export default function MainPage() {
     var selectedId = "Articel" + ActiveArticel;
     document.getElementById(selectedId).classList.remove("ActiveArticelRow");
     setActiveArticel(0);
-  };
-  const GetOrderEdit = (id, dimensions, color, piece, typeName, TypeId) => {
-    setPiece(piece);
-    setTypeId(TypeId);
-    setDimensions(dimensions);
-    setColor(color);
-    setOrderId(id);
-    setProductTypeName(typeName);
-    setisShowProductEdit(true);
-  };
+  }; 
   const RotatePicture = () => {
     setisRotating(true);
     var formData = new FormData();
@@ -406,6 +397,31 @@ export default function MainPage() {
     setisShow(false);
     setisshowOrder(true);
   };
+  const GetWaybillAsync = async (ArticelId) => {
+    setWaybill([]);
+    setisShow(true);
+    setWaybill(
+      await FetchFunc(
+        USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId
+      )
+    );
+    setisShow(false);
+  };
+  const GetFilesAsync = async (ArticelId) => {
+    setFiles([]);
+    var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
+    var data = await FetchFunc(url);
+    setFiles(data);
+  };
+  const GetOrderEdit = (id, dimensions, color, piece, typeName, TypeId) => {
+    setPiece(piece);
+    setTypeId(TypeId);
+    setDimensions(dimensions);
+    setColor(color);
+    setOrderId(id);
+    setProductTypeName(typeName);
+    setisShowProductEdit(true);
+  };
   const PostProductOutSave = async () => {
     var url =
       "abi/post/AddWayBill.ashx?CorpId=" +
@@ -488,23 +504,7 @@ export default function MainPage() {
 
     setisShowProductEdit(false);
     GetOrders(ArticelId, ArticelName, CorpName);
-  };
-  const GetWaybillAsync = async (ArticelId) => {
-    setWaybill([]);
-    setisShow(true);
-    setWaybill(
-      await FetchFunc(
-        USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId
-      )
-    );
-    setisShow(false);
-  };
-  const GetFilesAsync = async (ArticelId) => {
-    setFiles([]);
-    var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
-    var data = await FetchFunc(url);
-    setFiles(data);
-  };
+  }; 
   return (
     <div className="padd0 col-md-12">
       <TopBar
@@ -525,7 +525,6 @@ export default function MainPage() {
         CreateArticelShow={CreateArticelShow}
         isMobile={isMobile}
       />
-
       <FirstRun IsFirstRun={IsFirstRun} />
       <ProgressBar isVisible={isShow} />
       <div className={isMobile && isDetailActive ? "hide" : ""}>
@@ -572,8 +571,7 @@ export default function MainPage() {
           ArticelNotes={ArticelNotes}
           isShowLayoutNote={isShowLayoutNote}
         />
-      </div>
-      
+      </div>      
       <ProductOutModal
         ChangePiece={ChangePiece}
         ChangeWeight={ChangeWeight}
