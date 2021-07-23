@@ -528,7 +528,7 @@ export default function MainPage() {
 
       <FirstRun IsFirstRun={IsFirstRun} />
       <ProgressBar isVisible={isShow} />
-      <div className={isMobile && isDetailActive ? "hide" : "col-md-12 padd0"}>
+      <div className={isMobile && isDetailActive ? "hide" : ""}>
         <div
           id="FirstScreen"
           className={ChangeView ? "hide" : "WizardArea padd0 col-md-12"}
@@ -557,8 +557,8 @@ export default function MainPage() {
           CallOutonMouseMove={CallOutonMouseMove}
           GetWaybillforOrder={GetWaybillforOrder}
           isMobile={isMobile}
+          isDetailActive={isDetailActive}
         />
-
         <FilesComponent Files={Files} showPicturePreview={showPicturePreview} />
         <WayBillList Waybill={Waybill} isMobile={isMobile} />
         <LayoutRight
@@ -653,18 +653,7 @@ export default function MainPage() {
         }}
         className="MultipleNew hide"
         multiple
-      ></input>
-      <div id="PrintArea" className="col-md-12 hide hidden">
-        {Orders.map((o) => (
-          <div key={o.id} className="he col-md-2">
-            <h5>
-              <span>{o.Dimensions}</span> <span> {o.Color}</span>
-              {o.ProductTypeName}
-            </h5>
-            <hr /> {o.Piece} {o.Metrics}
-          </div>
-        ))}
-      </div>
+      ></input>     
     </div>
   );
 }

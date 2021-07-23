@@ -7,17 +7,17 @@ export default function OrdersTable({
   CallOutonMouseMove,
   GetWaybillforOrder,
   isMobile,
-  GetOrderEdit,
+  GetOrderEdit,isDetailActive
 }) {
   const toggleOrderList = () => {
     setOrderVisible(!OrderVisible);
   };
-  const [OrderVisible, setOrderVisible] = useState();
+  const [OrderVisible, setOrderVisible] = useState(true);
   return (
     <div>
       <div
         onClick={() => toggleOrderList()}
-        className="ArticelNameHead SSOrder text-capitalize PartHead"
+        className= {isDetailActive?"ArticelNameHead SSOrder text-capitalize PartHead":"hide"}
       >
         {ArticelName}
         <Arrow Direction={OrderVisible} />
