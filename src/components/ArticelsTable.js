@@ -15,7 +15,7 @@ export default function ArticelsTable({Articels,GetOrders,Articel,isMobile}) {
             {Articels.map((a) => (
               <tr
                 className="ArticelRow"
-                id={Articel + a.id}
+                id={"Articel" + a.id}
                 key={a.id}
                 onClick={() =>
                   GetOrders(
@@ -48,7 +48,7 @@ export default function ArticelsTable({Articels,GetOrders,Articel,isMobile}) {
             {Articels.map((a) => (
               <tr
                 className="ArticelRow"
-                id={Articel + a.id}
+                id={"Articel" + a.id}
                 key={a.id}
                 onClick={() =>
                   GetOrders(

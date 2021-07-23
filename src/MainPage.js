@@ -190,7 +190,7 @@ export default function MainPage() {
     var FilesCollection = document.getElementById("FileNew");
     var fileList = FilesCollection.files;
     var formData = new FormData();
-    formData.append("ArticelId", ArticelId);
+    formData.append("ArticelId", ActiveArticel);
     formData.append("FileType", FileType);
     formData.append("UploadArea[0]", fileList[0], fileList[0].name);
     fetch("abi/post/UploadWayBillOrder.ashx", {
@@ -203,7 +203,7 @@ export default function MainPage() {
       .then((result) => {
         setisShow(false);
 
-        GetOrders(ArticelId, CorpId, ArticelName, CorpName);
+        GetOrders(ActiveArticel, CorpId, ArticelName, CorpName);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -217,16 +217,16 @@ export default function MainPage() {
     setIsNewProductShow(false);
     setisShowTopBar(false);
     setisshowOrder(false);
-
     document.getElementById("SecondScreen").classList.add("hide");
     document.getElementById("FirstScreen").classList.add("col-md-12");
     document.getElementById("FirstScreen").classList.remove("col-md-4");
     try {
-      var selectedId = "Articel" + ArticelId;
+      var selectedId = "Articel" + ActiveArticel;
       document.getElementById(selectedId).classList.remove("ActiveArticelRow");
     } catch (error) {
-      console.log("ulaşılamadı" + error);
+      console.log(error);
     }
+ 
   };
   const SaveProductOut = (orderid) => {
     setOrderId(orderid);
@@ -292,17 +292,14 @@ export default function MainPage() {
   };
   const closeTopBar = () => {
     setisShowTopBar(false);
-    setActiveArticel(0);
+
     setisDetailActive(false);
     document.getElementById("SecondScreen").classList.add("hide");
     document.getElementById("FirstScreen").classList.add("col-md-12");
     document.getElementById("FirstScreen").classList.remove("col-md-4");
-    try {
-      var selectedId = "Articel" + ActiveArticel;
-      document.getElementById(selectedId).classList.remove("ActiveArticelRow");
-    } catch (error) {
-      console.log(error);
-    }
+    var selectedId = "Articel" + ActiveArticel;
+    document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+    setActiveArticel(0);
   };
   const GetOrderEdit = (id, dimensions, color, piece, typeName, TypeId) => {
     setPiece(piece);
@@ -371,10 +368,15 @@ export default function MainPage() {
       })
       .catch((err) => console.log(err));
   };
-  const GetOrders = async (ArticelId, CorpId, ArticelName, CorpName) => {
+  const GetOrders = async (articelid, CorpId, ArticelName, CorpName) => {
+    setOrders([]);
+    document.getElementById("LayoutRight").style.width = "0px";
+    document.getElementById("LayoutNote").style.width = "0px";
     setisShow(true);
     setCorpId(CorpId);
-    setArticelId(ArticelId);
+    GetWaybillAsync(articelid);
+    getNotes(articelid);
+    GetFilesAsync(articelid);
     setisShowTopBar(true);
     setArticelName(ArticelName);
     setCorpName(CorpName);
@@ -382,42 +384,24 @@ export default function MainPage() {
     setisShowLayoutRight(false);
     setisShowCallOut(false);
     setisDetailActive(true);
-
-    document.getElementById("LayoutRight").style.width = "0px";
-    document.getElementById("LayoutNote").style.width = "0px";
-
-    GetWaybillAsync(ArticelId);
-    getNotes(ArticelId);
-    GetFilesAsync(ArticelId);
-
-    setOrders([]);
     setisshowOrder(true);
     if (ActiveArticel === 0) {
-      setActiveArticel(ArticelId);
-    } else {
-      try {
-        var selectedId = "Articel" + ActiveArticel;
-        document
-          .getElementById(selectedId)
-          .classList.remove("ActiveArticelRow");
-
-        setActiveArticel(ArticelId);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    try {
-      var Clicked = "Articel" + ArticelId;
+      setActiveArticel(articelid);
+      var Clicked = "Articel" + articelid;
       document.getElementById(Clicked).classList.add("ActiveArticelRow");
-    } catch (error) {
-      console.log(error);
+    } else {
+      var PrevClicked = "Articel" + ActiveArticel;
+      document.getElementById(PrevClicked).classList.remove("ActiveArticelRow");
+      setActiveArticel(articelid);
+      var Clicked = "Articel" + articelid;
+      document.getElementById(Clicked).classList.add("ActiveArticelRow");
     }
 
     document.getElementById("SecondScreen").classList.remove("hide");
     document.getElementById("SecondScreen").classList.add("col-md-8");
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
-    var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + ArticelId;
+    var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + articelid;
     setOrders(await FetchFunc(FullUrl));
     setisShow(false);
     setisshowOrder(true);
