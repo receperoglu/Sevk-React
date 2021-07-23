@@ -13,23 +13,23 @@ export default function LayoutNote({
       className={isShowLayoutNote ? "BaseDrive RightLayout" : "hide"}
     >
       <div className="_3vMrdRZR8bo5hSiJS8JJ8C nopad col-md-12">
-        <div className="col-md-8">
-          <h3 className="LayoutHead ">Sipariş Notu</h3>
+        <div className="col-md-8 padd0">
+          <h3 className="LayoutHead paddleft10">Sipariş Notu</h3>
         </div>
 
-        <div className="col-md-4">
+        <div className="col-md-4 padd0">
           <i
             data-icon-name="Cancel"
             onClick={() => CancelNote()}
             role="presentation"
-            className="pointer shareclose ms-Button-icon icon-73"
+            className="pointer shareclose fright ms-Button-icon icon-73"
           >
             
           </i>
         </div>
       </div>
       <div className="col-md-12 fleft">
-        <div className="LayoutType" id="Notes" style={{ display: "block" }}>
+        <div className="LayoutType" id="Notes" style={{ display: "block" ,padding:"10px"}}>
           <h5> Not Almanız gerekenleri yazın</h5>
           <textarea
             className="NotesArea  ms-TextField-field"

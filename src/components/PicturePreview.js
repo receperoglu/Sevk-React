@@ -118,6 +118,7 @@ export default function PicturePreview({
                 className="BaseDriveContainer  col-xs-4 col-md-4 sidepre ShareWhatsapp"
                 href={`https://api.whatsapp.com/send?text=${Path}`}
                 target="_blank"
+                rel="noreferrer"
               >
                 <div
                   className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal button2_type_check ufo-resources-action-bar__primary-button ufo-resources-action-bar__primary-button_desktop ufo-resources-action-bar__primary-button_action_publish"

@@ -128,7 +128,7 @@ export default function MainPage() {
   useEffect(() => {
     fetcharticels();
     window.addEventListener("resize", updateDimensions);
-  }, []);
+  },[Articels]);
   const fetcharticels = async () => {
     var data = await FetchFunc(USER_SERVICE_URL + "Articels");
     setArticels(data);
@@ -528,20 +528,18 @@ export default function MainPage() {
 
       <FirstRun IsFirstRun={IsFirstRun} />
       <ProgressBar isVisible={isShow} />
-      <div className={isMobile && isDetailActive ? "hide" : ""}>
+      <div className={isMobile && isDetailActive ? "hide" : "col-md-12 padd0"}>
         <div
           id="FirstScreen"
           className={ChangeView ? "hide" : "WizardArea padd0 col-md-12"}
         >
           <ArticelsTable
             GetOrders={GetOrders}
-            Articel={ArticelName}
-            Articels={Articels}
+             Articels={Articels}
             isMobile={isMobile}
           />
         </div>
-      </div>
-      <div
+        <div
         id="SecondScreen"
         className={
           isMobile
@@ -574,6 +572,8 @@ export default function MainPage() {
           isShowLayoutNote={isShowLayoutNote}
         />
       </div>
+      </div>
+     
       <ProductOutModal
         ChangePiece={ChangePiece}
         ChangeWeight={ChangeWeight}

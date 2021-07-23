@@ -1,5 +1,5 @@
 import React from "react";
-export default function ArticelsTable({Articels,GetOrders,Articel,isMobile}) {
+export default function ArticelsTable({Articels,GetOrders,isMobile}) {
   return (
     <div>
       {isMobile ? (

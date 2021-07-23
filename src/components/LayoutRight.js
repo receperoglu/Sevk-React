@@ -6,11 +6,11 @@ export default function LayoutRight({CancelShare,isShowLayoutRight}) {
       className={isShowLayoutRight ? "BaseDrive RightLayout" : "hide"}
     >
       <div className="_3vMrdRZR8bo5hSiJS8JJ8C nopad col-md-12">
-        <div className="col-md-8">
-          <h3 className="LayoutHead ">Paylaş</h3>
+        <div className="col-md-8 padd0">
+          <h3 className="LayoutHead padd10">Paylaş</h3>
         </div>
 
-        <div className="col-md-4">
+        <div className="col-md-4 padd0 text-center">
           <i
             data-icon-name="Cancel"
             onClick={() => CancelShare()}

@@ -51,7 +51,7 @@ export default function ProductOutModal({
                   <div className="ProductOutList col-md-12">
                     {OrderList.map((o) => (
                       <div key={o.id}>
-                        <div className="clearfix OrderRow">
+                        <div className="col-md-12 OrderRow">
                           <div className="col-md-2 fleft">
                             <input
                               type="text"

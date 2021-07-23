@@ -17,11 +17,10 @@ export default function CallOut({
     OneWayBill.map((w) => (waybillPiece = +parseInt(w.Piece, 10)));
     settotalPice(waybillPiece);
     setLoopCount(OneWayBill.length);
-  });
+  },[OneWayBill]);
 
   return (
-    <div
-      id="PopupWaybill"
+    <div 
       style={{ top: top, left: left }}
       className={
         isShowCallOut

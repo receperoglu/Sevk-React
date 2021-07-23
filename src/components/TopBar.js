@@ -1,5 +1,4 @@
 import React, {  useState } from "react";
-import "../css/Table.css";
 import LeftNav from "./LeftNav";
 
 export default function TopBar({

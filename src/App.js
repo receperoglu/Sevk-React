@@ -1,78 +1,9 @@
-import React, { Component } from "react";
-import Cookies from "js-cookie";
-import Login from "./components/Login";
+import React  from "react";
 import MainPage from "./MainPage";
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      pass: "",
-      result: "",
-      showButton: false,
-    };
-
-    this.LoginProccess = this.LoginProccess.bind(this);
-  }
-
-  async LoginProccess() {
-    const response = await fetch("https://api.recep.space/token", {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      body:
-        "grant_type=password&username=" +
-        this.state.name +
-        "&password=" +
-        this.state.pass,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": "https://api.recep.space/token",
-      },
-    });
-    this.setState({ result: await response.json() });
-    setTimeout(() => this.checklogin(), 1000);
-  }
-  checklogin = () => {
-    [this.state.result].map((data) => {
-      Cookies.set("Auth", data.access_token);
-    });
-    setTimeout(() => this.checkCookie(), 1000);
-  };
-  checkCookie() {
-    if (Cookies.get("Auth")) {
-      this.setState({ showButton: false });
-      window.location.reload();
-    } else {
-      this.setState({ showButton: true });
-    }
-  }
-  ChangeName(value) {
-    this.setState({ name: value });
-  }
-  ChangePass(value) {
-    this.setState({ pass: value });
-  }
-
-  render() {
-    return (
-      <div>
-        <MainPage />
-      </div>
-    );
-  }
-
-  componentDidMount() {
-    if (Cookies.get("Auth")) {
-      this.setState({ showButton: false });
-    } else {
-      this.setState({ showButton: true });
-    }
-  }
-
-  componentWillUnmount() {}
+export default function App() { 
+  return (
+    <div>
+      <MainPage />
+    </div>
+  );
 }
-
-export default App;
