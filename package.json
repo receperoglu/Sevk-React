@@ -3,6 +3,8 @@
   "proxy": "https://recep.space/",
   "version": "0.1.0",
   "private": true,
+  "vercell":"CI= npm run build",
+  "SERVER_URI":"https://recep.space/",
   "dependencies": {
     "cors": "^2.8.5",
     "js-cookie": "^2.2.1",

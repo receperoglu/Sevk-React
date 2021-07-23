@@ -15,7 +15,7 @@ import FirstRun from "./components/FirstRun";
 import CallOut from "./components/CallOut";
 import PicturePreview from "./components/PicturePreview";
 
-const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
+const USER_SERVICE_URL = "https://recep.space/StartApi.ashx?Platform=Android&ProcessType=";
 export default function MainPage() {
 
   const [Corps, setCorps] = useState([]);
@@ -168,7 +168,7 @@ export default function MainPage() {
     var formData = new FormData();
     formData.append("ArticelId", ActiveArticel);
     formData.append("Notes", ArticelNotes);
-    fetch("abi/post/AddNotes.ashx", {
+    fetch("https://recep.space/abi/post/AddNotes.ashx", {
       method: "POST",
       body: formData,
     })
@@ -193,7 +193,7 @@ export default function MainPage() {
     formData.append("ArticelId", ActiveArticel);
     formData.append("FileType", FileType);
     formData.append("UploadArea[0]", fileList[0], fileList[0].name);
-    fetch("abi/post/UploadWayBillOrder.ashx", {
+    fetch("https://recep.space/abi/post/UploadWayBillOrder.ashx", {
       method: "POST",
       contentType: "application/json",
       processData: false,
@@ -308,7 +308,7 @@ export default function MainPage() {
     formData.append("Path", "/dosyalar/" + RawPath);
     formData.append("PictureName", Path);
     formData.append("PictureId", 0);
-    fetch("abi/post/DosyaSistem/ResimDondur.ashx", {
+    fetch("https://recep.space/abi/post/DosyaSistem/ResimDondur.ashx", {
       method: "POST",
       processData: false,
       body: formData,
@@ -330,10 +330,10 @@ export default function MainPage() {
     setisShowPicturePreview(true);
   };
   const getProductType = async () => {
-    setProductTypes(await FetchFunc("abi/post/ProductType.ashx"));
+    setProductTypes(await FetchFunc("https://recep.space/abi/post/ProductType.ashx"));
   };
   const getCorps = async () => {
-    var CorpUrl = "abi/post/CorpList.ashx";
+    var CorpUrl = "https://recep.space/abi/post/CorpList.ashx";
     const response = await fetch(CorpUrl, {
       method: "POST",
       cache: "no-cache",
@@ -349,10 +349,10 @@ export default function MainPage() {
     setCorps(await response.json());
   };
   const getSalesTypes = async () => {
-    setSalesTypes(await FetchFunc("abi/post/SaleType.ashx"));
+    setSalesTypes(await FetchFunc("https://recep.space/abi/post/SaleType.ashx"));
   };
   const getNotes = async (ArticelId) => {
-    fetch("abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
+    fetch("https://recep.space/abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
       .then((response) => response.text())
       .then((response) => {
         setArticelNotes(response);
@@ -409,7 +409,7 @@ export default function MainPage() {
   };
   const GetFilesAsync = async (ArticelId) => {
     setFiles([]);
-    var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
+    var url = "https://recep.space/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
     var data = await FetchFunc(url);
     setFiles(data);
   };
@@ -424,7 +424,7 @@ export default function MainPage() {
   };
   const PostProductOutSave = async () => {
     var url =
-      "abi/post/AddWayBill.ashx?CorpId=" +
+      "https://recep.space/abi/post/AddWayBill.ashx?CorpId=" +
       CorpId +
       "&Piece=" +
       Piece +
@@ -441,7 +441,7 @@ export default function MainPage() {
   };
   const PostArticelsave = async () => {
     var url =
-      "abi/post/AddArticel.ashx?CorpId=" +
+      "https://recep.space/abi/post/AddArticel.ashx?CorpId=" +
       CorpId +
       "&Articel=" +
       ArticelName +
@@ -459,7 +459,7 @@ export default function MainPage() {
   };
   const PostOrdersave = async () => {
     var url =
-      "abi/post/AddOrder.ashx?ArticelId=" +
+      "https://recep.space/abi/post/AddOrder.ashx?ArticelId=" +
       ArticelId +
       "&ProductType=" +
       TypeId +
@@ -479,7 +479,7 @@ export default function MainPage() {
   };
   const PostOrderUpdate = async () => {
     var url =
-      "abi/post/UpdateOrder.ashx?OrderId=" +
+      "https://recep.space/abi/post/UpdateOrder.ashx?OrderId=" +
       OrderId +
       "&ProductType=" +
       TypeId +
