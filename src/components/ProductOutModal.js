@@ -68,13 +68,6 @@ export default function ProductOutModal({
                               className="Weight ms-TextField-field w80"
                             />
                           </div>
-
-                          <div className="col-md-6 fleft">
-                            <span>
-                              {o.Dimensions} {o.Color} {o.ProductTypeName}
-                            </span>
-                          </div>
-
                           <div className="col-md-2 text-right fleft">
                             <span className="Transfer TransferBTN ms-Button ms-Button--primary">
                               <span
@@ -85,6 +78,11 @@ export default function ProductOutModal({
                               </span>
                             </span>
                           </div>
+                          <div className="col-md-6 fleft">
+                            <span className="minifont">
+                              {o.Dimensions} {o.Color} {o.ProductTypeName}
+                            </span>
+                          </div>                         
                         </div>
                         <hr />
                       </div>
