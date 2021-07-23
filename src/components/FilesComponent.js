@@ -1,49 +1,37 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Arrow from "./Tools/Arrow";
 
-class Files extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      FilesVisible: true,
-    };
-    this.toggleFiles = this.toggleFiles.bind(this);
-  }
-
-  toggleFiles() {
-    this.setState({ FilesVisible: !this.state.FilesVisible });
-  }
-
-  render() {
-    return (
+export default function FilesComponent({ Files, showPicturePreview }) {
+  const [FilesVisible, setFilesVisible] = useState(true);
+  const toggleView = () => {
+    setFilesVisible(!FilesVisible);
+  };
+  return (
+    <div className={Files.length === 0 ? "hide" : "col-xs-12 col-md-12"}>
       <div
-        className={
-          this.props.Files.length === 0 ? "hide" : "col-xs-12 col-md-12"
-        }
+        onClick={() => {
+          toggleView()
+        }}
+        className="PartHead"
       >
-        <div
-          onClick={() => {
-            this.toggleFiles();
-          }}
-          className="PartHead"
-        >
-          Dökümanlar
-          <Arrow Direction={this.state.FilesVisible} />
-        </div>
-        <div className={this.state.FilesVisible ? "padd5" : "hide"}>
-          <div className="padd5">
-            {this.props.Files.map((f) =>
-              f.FileType === "Picture" ? (
-                <div
-                  key={f.id}
-                  data-url={f.Path}
-                  data-ext={f.ext}
-                  style={{ height: "150px" }}
-                  className=" FileIco text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
-                ><div className="FileBorder">
+        Dökümanlar
+        <Arrow Direction={FilesVisible} />
+      </div>
+      <div className={FilesVisible ? "padd5" : "hide"}>
+        <div className="padd5">
+          {Files.map((f) =>
+            f.FileType === "Picture" ? (
+              <div
+                key={f.id}
+                data-url={f.Path}
+                data-ext={f.ext}
+                style={{ height: "150px" }}
+                className=" FileIco text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
+              >
+                <div className="FileBorder">
                   <div
                     onClick={() => {
-                      this.props.showPicturePreview(
+                      showPicturePreview(
                         `http://recep.space/abi/dosyalar/${f.Path}`,
                         f.Path
                       );
@@ -60,14 +48,16 @@ class Files extends Component {
                   >
                     {f.FileName.substring(0, 12)}
                   </a>
-                  </div></div>
-              ) : (
-                <div
-                  data-ext={f.ext}
-                  key={f.id}
-                  className="FileIco   text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
-                  style={{ height: "150px" }}
-                ><div className="FileBorder">
+                </div>
+              </div>
+            ) : (
+              <div
+                data-ext={f.ext}
+                key={f.id}
+                className="FileIco   text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
+                style={{ height: "150px" }}
+              >
+                <div className="FileBorder">
                   <div
                     style={{
                       backgroundPosition: "center",
@@ -113,15 +103,14 @@ class Files extends Component {
                           
                         </i>
                       </span>
-                    </a>   </div>
+                    </a>
                   </div>
                 </div>
-              )
-            )}
-          </div>
+              </div>
+            )
+          )}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
-export default Files;

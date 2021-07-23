@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import Files from "./components/Files";
+import React, { useState, useEffect } from "react";
+import FilesComponent from "./components/FilesComponent";
 import WayBillList from "./components/WayBillList";
 import TopBar from "./components/TopBar";
 import ProductOutModal from "./components/ProductOutModal";
@@ -16,192 +16,129 @@ import CallOut from "./components/CallOut";
 import PicturePreview from "./components/PicturePreview";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
+export default function MainPage() {
+  const [Corps, setCorps] = useState([]);
+  const [Files, setFiles] = useState([]);
+  const [Orders, setOrders] = useState([]);
+  const [Waybill, setWaybill] = useState([]);
+  const [Articels, setArticels] = useState([]);
+  const [SalesTypes, setSalesTypes] = useState([]);
+  const [OneWayBill, setOneWayBill] = useState([]);
+  const [ProductTypes, setProductTypes] = useState([]);
 
-class MainPage extends Component {
-  constructor(props) {
-    super(props);
-    this.getCorps = this.getCorps.bind(this);
-    this.getProductType = this.getProductType.bind(this);
-    this.GetOrders = this.GetOrders.bind(this);
-    this.productEditShow = this.productEditShow.bind(this);
-    this.productOutShow = this.productOutShow.bind(this);
+  const [Path, setPath] = useState("");
+  const [Color, setColor] = useState("");
+  const [RawPath, setRawPath] = useState("");
+  const [CorpName, setCorpName] = useState("");
+  const [FileType, setFileType] = useState("");
+  const [Dimensions, setDimensions] = useState("");
+  const [ArticelName, setArticelName] = useState("");
+  const [ArticelNotes, setArticelNotes] = useState("");
+  const [ProductTypeName, setProductTypeName] = useState("");
 
-    this.CorpSearch = this.CorpSearch.bind(this);
+  const [x, setx] = useState(0);
+  const [y, sety] = useState(0);
+  const [Piece, setPiece] = useState(0);
+  const [Weight, setWeight] = useState(0);
+  const [TypeId, setTypeId] = useState(0);
+  const [CorpId, setCorpId] = useState(0);
+  const [OrderId, setOrderId] = useState(0);
+  const [WayBillId, setWayBillId] = useState(0);
+  const [ArticelId, setArticelId] = useState(0);
+  const [SaleTypeId, setSaleTypeId] = useState(0);
+  const [ActiveArticel, setActiveArticel] = useState(0);
 
-    this.toggleView = this.toggleView.bind(this);
-    this.closeTopBar = this.closeTopBar.bind(this);
-    this.LayoutRightShow = this.LayoutRightShow.bind(this);
-    this.CancelShare = this.CancelShare.bind(this);
-    this.CancelNote = this.CancelNote.bind(this);
-    this.CancelProduct = this.CancelProduct.bind(this);
-    this.CancelEdit = this.CancelEdit.bind(this);
-    this.CancelNewProduct = this.CancelNewProduct.bind(this);
-    this.CancelCreateArticel = this.CancelCreateArticel.bind(this);
+  const [isShow, setisShow] = useState(true);
+  const [isMobile, setisMobile] = useState(false);
+  const [IsFirstRun, setIsFirstRun] = useState(true);
+  const [isRotating, setisRotating] = useState(false);
+  const [ChangeView, setChangeView] = useState(false);
+  const [isshowOrder, setisshowOrder] = useState(false);
+  const [isShowTopBar, setisShowTopBar] = useState(false);
+  const [isShowCallOut, setisShowCallOut] = useState(false);
+  const [isDetailActive, setisDetailActive] = useState(false);
+  const [IsNewProductShow, setIsNewProductShow] = useState(false);
+  const [isShowLayoutNote, setisShowLayoutNote] = useState(false);
+  const [isShowProductOut, setisShowProductOut] = useState(false);
+  const [isShowProductEdit, setisShowProductEdit] = useState(false);
+  const [isShowLayoutRight, setisShowLayoutRight] = useState(false);
+  const [ProductNewLoading, setProductNewLoading] = useState(false);
+  const [IsCreateArticelShow, setIsCreateArticelShow] = useState(false);
+  const [isShowCreateArticel, setisShowCreateArticel] = useState(false);
+  const [isShowPicturePreview, setisShowPicturePreview] = useState(false);
 
-    this.ChangeProductType = this.ChangeProductType.bind(this);
-    this.ChangeSalesType = this.ChangeSalesType.bind(this);
-    this.ChangeCorpId = this.ChangeCorpId.bind(this);
-    this.ChangeArticelName = this.ChangeArticelName.bind(this);
-    this.ChangePiece = this.ChangePiece.bind(this);
-    this.ChangeWeight = this.ChangeWeight.bind(this);
-    this.ChangeDimensions = this.ChangeDimensions.bind(this);
-    this.ChangeColor = this.ChangeColor.bind(this);
-    this.ChangeWayBillId = this.ChangeWayBillId.bind(this);
-
-    this.UpdateOrder = this.UpdateOrder.bind(this);
-    this.SaveOrder = this.SaveOrder.bind(this);
-    this.SaveArticel = this.SaveArticel.bind(this);
-    this.SaveProductOut = this.SaveProductOut.bind(this);
-
-    this.NewProductShow = this.NewProductShow.bind(this);
-
-    this.LayoutNoteShow = this.LayoutNoteShow.bind(this);
-    this.CreateArticelShow = this.CreateArticelShow.bind(this);
-    this.filterCorp = this.filterCorp.bind(this);
-
-    this.GetOrderEdit = this.GetOrderEdit.bind(this);
-    this.getNotes = this.getNotes.bind(this);
-    this.UpdateArticelNote = this.UpdateArticelNote.bind(this);
-    this.SaveNotes = this.SaveNotes.bind(this);
-    this.uploadPicture = this.uploadPicture.bind(this);
-    this.chooseFile = this.chooseFile.bind(this);
-    this.CallOutonMouseMove = this.CallOutonMouseMove.bind(this);
-    this.CancelCallOut = this.CancelCallOut.bind(this);
-    this.GetWaybillforOrder = this.GetWaybillforOrder.bind(this);
-    this.showPicturePreview = this.showPicturePreview.bind(this);
-    this.hidePicturePreview = this.hidePicturePreview.bind(this);
-    this.state = {
-      Articels: [],
-      Orders: [],
-      Waybill: [],
-      Corps: [],
-      Files: [],
-      ProductTypes: [],
-      SalesTypes: [],
-      OneWayBill: [],
-
-      FileType: "",
-      ArticelNotes: "",
-      Dimensions: "",
-      CorpName: "",
-      Color: "",
-      TypeName: "",
-      x: 0,
-      y: 0,
-      screenWidth: 0,
-      Path: "",
-      isMobile: false,
-      isDetailActive: false,
-
-      RawPath: "",
-      Articel: "Articel",
-      ArticelName: "",
-      OrderId: 0,
-      Weight: 0,
-      Piece: 0,
-      WayBillId: 0,
-
-      TypeId: 0,
-      CorpId: 0,
-      LoopCount: 0,
-      TotalOutPiece: 0,
-      TotalOutWeight: 0,
-      ArticelId: 0,
-      SaleTypeId: 0,
-      ActiveArticel: 0,
-      IsFirstRun: true,
-      isShow: true,
-
-      isShowCallOut: false,
-      CalloutLoading: false,
-      isShowPicturePreview: false,
-      isRotating: false,
-      ChangeView: false,
-      IsCreateArticelShow: false,
-      IsNewProductShow: false,
-      isShowOrder: false,
-      isShowTopBar: false,
-      isShowLayoutNote: false,
-      ismodalvisible: false,
-      isShowProductOut: false,
-      isShowProductEdit: false,
-
-      isFetching: false,
-      isShowLayoutRight: false,
-
-      isShowCreateArticel: false,
-      ProductNewLoading: false,
-    };
-  }
-
-  CancelCallOut() {
-    this.setState({ isShowCallOut: false });
-  }
-  CallOutonMouseMove(e) {
-    this.setState({
-      x: e.pageX + "px",
-      y: e.pageY + "px",
-    });
-  }
-  async GetWaybillforOrder(OrderId, dimensions, color, producttypename) {
-    this.setState({
-      Dimensions: dimensions,
-      OneWayBill: [],
-      Color: color,
-      ProductTypeName: producttypename,
-
-      isShow: true,
-    });
-
-    this.setState({
-      OneWayBill: await this.FetchFunc(
+  const ChangeProductType = (typeid) => {
+    setTypeId(typeid);
+  };
+  const ChangeArticelName = (name) => {
+    setArticelName(name);
+  };
+  const ChangeCorpId = (id) => {
+    setCorpId(id);
+  };
+  const ChangePiece = (piece) => {
+    setPiece(piece);
+  };
+  const ChangeWeight = (weight) => {
+    setWeight(weight);
+  };
+  const ChangeDimensions = (dimensions) => {
+    setDimensions(dimensions);
+  };
+  const ChangeWayBillId = (id) => {
+    setWayBillId(id);
+  };
+  const ChangeColor = (color) => {
+    setColor(color);
+  };
+  const ChangeSalesType = (id) => {
+    setSaleTypeId(id);
+  };
+  const CallOutonMouseMove = (e) => {
+    setx(e.pageX + "px");
+    sety(e.pageY + "px");
+  };
+  const GetWaybillforOrder = async (
+    OrderId,
+    dimensions,
+    color,
+    producttypename
+  ) => {
+    setDimensions(dimensions);
+    setOneWayBill([]);
+    setColor(color);
+    setProductTypeName(producttypename);
+    setisShow(true);
+    setOneWayBill(
+      await FetchFunc(
         USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId
-      ),
-      isShow: false,
-      isShowCallOut: true,
-    });
-    var wayPiece = 0;
-    var wayWeight = 0;
-
-    this.state.OneWayBill.map(
-      (w) => (wayPiece = wayPiece + parseInt(w.Piece, 10))
+      )
     );
-
-    this.setState({
-      LoopCount: this.state.OneWayBill.length,
-      TotalOutPiece: wayPiece,
-      TotalOutWeight: wayWeight,
-    });
-  }
-
-  updateDimensions = () => {
-    this.setState({ isShowCallOut: false });
+    setisShow(false);
+    setisShowCallOut(true);
+  };
+  const updateDimensions = () => {
+    setisShowCallOut(false);
     if (window.innerWidth <= 1024) {
-      this.setState({ isMobile: true });
+      setisMobile(true);
     } else {
-      this.setState({ isMobile: false });
+      setisMobile(false);
     }
   };
-
-  componentDidMount() {
-    this.fetcharticels();
-    window.addEventListener("resize", this.updateDimensions);
-  }
-  componentWillUnmount() {
-    clearInterval(this.timer);
-    this.timer = null;
-  }
-  async fetcharticelsAsync() {
-    this.setState({
-      Articels: await this.FetchFunc(USER_SERVICE_URL + "Articels"),
-      isShow: false,
-      IsFirstRun: false,
-    });
-    this.getProductType();
-    this.getCorps();
-    this.getSalesTypes();
-  }
-  async FetchFunc(Url) {
+  useEffect(() => {
+    fetcharticels();
+    window.addEventListener("resize", updateDimensions);
+  }, []);
+  const fetcharticels = async () => {
+    var data = await FetchFunc(USER_SERVICE_URL + "Articels");
+    setArticels(data);
+    setisShow(false);
+    setIsFirstRun(false);
+    getProductType();
+    getCorps();
+    getSalesTypes();
+  };
+  const FetchFunc = async (Url) => {
     const response = await fetch(Url, {
       method: "POST",
       cache: "no-cache",
@@ -214,52 +151,47 @@ class MainPage extends Component {
       },
     });
     return response.json();
-  }
-
-  fetcharticels = this.fetcharticelsAsync;
-  CorpSearch = (event) => {
+  };
+  const CorpSearch = (event) => {
     let value = event.target.value.toLowerCase();
     let result = [];
-    result = this.state.Articels.filter((data) => {
+    result = Articels.filter((data) => {
       return data.ArticelName.toLowerCase().search(value) !== -1;
     });
-    this.setState({ Articels: result });
+    setArticels(result);
   };
-  UpdateArticelNote = (note) => {
-    this.setState({ ArticelNotes: note });
+  const UpdateArticelNote = (note) => {
+    setArticelNotes(note);
   };
-
-  SaveNotes() {
-    this.setState({ isShow: true });
+  const SaveNotes = () => {
+    setisShow(true);
     var formData = new FormData();
-    formData.append("ArticelId", this.state.ActiveArticel);
-    formData.append("Notes", this.state.ArticelNotes);
+    formData.append("ArticelId", ActiveArticel);
+    formData.append("Notes", ArticelNotes);
     fetch("abi/post/AddNotes.ashx", {
       method: "POST",
       body: formData,
     })
-      .then((response) => this.setState({ isShow: false }))
+      .then((response) => setisShow(false))
       .then((data) => console.log(data));
-  }
-
-  toggleView() {
-    if (this.state.isShowOrder) {
-      this.setState({ ChangeView: !this.state.ChangeView });
-    } else {
+  };
+  const toggleView = () => {
+    if (isshowOrder) {
+      setChangeView(!ChangeView);
     }
-  }
-  chooseFile(type) {
-    this.setState({ FileType: type });
+  };
+  const chooseFile = (type) => {
+    setFileType(type);
     var file = document.getElementById("FileNew");
     file.click();
-  }
-  uploadPicture() {
-    this.setState({ isShow: true });
+  };
+  const uploadPicture = () => {
+    setisShow(true);
     var FilesCollection = document.getElementById("FileNew");
     var fileList = FilesCollection.files;
     var formData = new FormData();
-    formData.append("ArticelId", this.state.ArticelId);
-    formData.append("FileType", this.state.FileType);
+    formData.append("ArticelId", ArticelId);
+    formData.append("FileType", FileType);
     formData.append("UploadArea[0]", fileList[0], fileList[0].name);
     fetch("abi/post/UploadWayBillOrder.ashx", {
       method: "POST",
@@ -269,208 +201,150 @@ class MainPage extends Component {
     })
       .then((response) => response.json())
       .then((result) => {
-        this.setState({ isShow: false });
-        this.GetOrders(
-          this.state.ArticelId,
-          this.state.CorpId,
-          this.state.ArticelName,
-          this.state.CorpName
-        );
+        setisShow(false);
+
+        GetOrders(ArticelId, CorpId, ArticelName, CorpName);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-  }
-  ChangeProductType(TypeId) {
-    this.setState({ TypeId: TypeId });
-  }
-  ChangeArticelName(Name) {
-    this.setState({ ArticelName: Name });
-  }
-  ChangeCorpId(Id) {
-    this.setState({ CorpId: Id });
-  }
-  ChangePiece(Piece) {
-    this.setState({ Piece: Piece });
-  }
-  ChangeWeight(Weight) {
-    this.setState({ Weight: Weight });
-  }
-  ChangeDimensions(Dimensions) {
-    this.setState({ Dimensions: Dimensions });
-  }
-  ChangeWayBillId(Id) {
-    this.setState({ WayBillId: Id });
-  }
-  ChangeColor(Color) {
-    this.setState({ Color: Color });
-  }
-  ChangeSalesType(Id) {
-    this.setState({ SaleTypeId: Id });
-  }
-  NewProductShow() {
-    this.setState({ IsNewProductShow: true });
-  }
-  CreateArticelShow() {
-    this.setState({
-      IsCreateArticelShow: true,
-      IsNewProductShow: false,
-      isShowTopBar: false,
-      isShowOrder: false,
-    });
+  };
+  const NewProductShow = () => {
+    setIsNewProductShow(true);
+  };
+  const CreateArticelShow = () => {
+    setIsCreateArticelShow(true);
+    setIsNewProductShow(false);
+    setisShowTopBar(false);
+    setisshowOrder(false);
 
     document.getElementById("SecondScreen").classList.add("hide");
     document.getElementById("FirstScreen").classList.add("col-md-12");
     document.getElementById("FirstScreen").classList.remove("col-md-4");
     try {
-      var selectedId = "Articel" + this.state.ArticelId;
+      var selectedId = "Articel" + ArticelId;
       document.getElementById(selectedId).classList.remove("ActiveArticelRow");
     } catch (error) {
       console.log("ulaşılamadı" + error);
     }
-  }
-  SaveProductOut(OrderId) {
-    this.setState({ OrderId: OrderId });
-    setTimeout(() => this.PostProductOutSave(), 5000);
-  }
-  UpdateOrder() {
-    this.PostOrderUpdate();
-  }
-  SaveOrder(a) {
-    this.setState({ ProductNewLoading: true });
-
-    this.PostOrdersave();
-  }
-  SaveArticel() {
-    this.setState({ isShowCreateArticel: true });
-    this.PostArticelsave();
-  }
-  LayoutRightShow() {
-    this.setState({
-      isShowLayoutRight: true,
-      isShowTopBar: false,
-    });
+  };
+  const SaveProductOut = (orderid) => {
+    setOrderId(orderid);
+    setTimeout(() => PostProductOutSave(), 5000);
+  };
+  const UpdateOrder = () => {
+    PostOrderUpdate();
+  };
+  const SaveOrder = (a) => {
+    setProductNewLoading(true);
+    PostOrdersave();
+  };
+  const SaveArticel = () => {
+    setisShowCreateArticel(true);
+    PostArticelsave();
+  };
+  const LayoutRightShow = () => {
+    setisShowLayoutRight(true);
+    setisShowTopBar(false);
     document.getElementById("LayoutRight").style.width = "300px";
-  }
-  LayoutNoteShow() {
-    this.setState({
-      isShowLayoutNote: true,
-      isShowLayoutRight: false,
-
-      isShowTopBar: false,
-    });
+  };
+  const LayoutNoteShow = () => {
+    setisShowLayoutNote(true);
+    setisShowLayoutRight(false);
+    setisShowTopBar(false);
     document.getElementById("LayoutNote").style.width = "300px";
-  }
-  productOutShow() {
-    this.setState({ isShowProductOut: true });
-  }
-  productEditShow() {
-    this.setState({ isShowProductEdit: true });
-  }
-  CancelArticel() {
-    this.setState({ IsCreateArticelShow: false });
-  }
-  CancelProduct() {
-    this.setState({ isShowProductOut: false });
-  }
-  CancelNewProduct() {
-    this.setState({ IsNewProductShow: false });
-  }
-  CancelEdit() {
-    this.setState({ isShowProductEdit: false });
-  }
-  CancelCreateArticel() {
-    this.setState({ IsCreateArticelShow: false });
-  }
-  CancelShare() {
-    this.setState({
-      isShowLayoutRight: false,
-      isShowTopBar: true,
-    });
-    document.getElementById("LayoutRight").style.width = "0px";
-  }
-  CancelNote() {
-    this.setState({
-      isShowLayoutRight: false,
-      isShowLayoutNote: false,
-      isShowTopBar: true,
-    });
-    document.getElementById("LayoutNote").style.width = "0px";
-  }
-  closeTopBar() {
-    this.setState({
-      isShowTopBar: false,
-      ActiveArticel: 0,
-      isDetailActive: false,
-    });
+  };
+  const productOutShow = () => {
+    setisShowProductOut(true);
+  };
+  const productEditShow = () => {
+    setisShowProductEdit(true);
+  };
+  const CancelCallOut = () => {
+    setisShowCallOut(false);
+  };
+  const CancelArticel = () => {
+    setIsCreateArticelShow(false);
+  };
+  const CancelProduct = () => {
+    setisShowProductOut(false);
+  };
+  const CancelNewProduct = () => {
+    setIsNewProductShow(false);
+  };
+  const CancelEdit = () => {
+    setisShowProductEdit(false);
+  };
+  const CancelCreateArticel = () => {
+    setIsCreateArticelShow(false);
+  };
+  const CancelShare = () => {
+    setisShowLayoutRight(false);
+    setisShowTopBar(true);
 
+    document.getElementById("LayoutRight").style.width = "0px";
+  };
+  const CancelNote = () => {
+    setisShowLayoutRight(false);
+    setisShowLayoutNote(false);
+    setisShowTopBar(true);
+    document.getElementById("LayoutNote").style.width = "0px";
+  };
+  const closeTopBar = () => {
+    setisShowTopBar(false);
+    setActiveArticel(0);
+    setisDetailActive(false);
     document.getElementById("SecondScreen").classList.add("hide");
     document.getElementById("FirstScreen").classList.add("col-md-12");
     document.getElementById("FirstScreen").classList.remove("col-md-4");
-    var selectedId = "Articel" + this.state.ActiveArticel;
-    document.getElementById(selectedId).classList.remove("ActiveArticelRow");
-  }
-  Closeproductmodal() {
-    this.setState({ ismodalvisible: false });
-  }
-  TransferSummary(weight, piece) {
-    this.setState({
-      TotalOutPiece: 1 + piece,
-      TotalOutWeight: 1 + weight,
-      LoopCount: 99,
-    });
-  }
-  GetOrderEdit(id, dimensions, color, piece, typeName, TypeId) {
-    this.setState({
-      Piece: piece,
-      TypeId: TypeId,
-      Dimensions: dimensions,
-      Color: color,
-      OrderId: id,
-      ProductTypeName: typeName,
-      ismodalvisible: true,
-      isShowProductEdit: true,
-    });
-  }
-  RotatePicture() {
-    this.setState({ isRotating: true });
+    try {
+      var selectedId = "Articel" + ActiveArticel;
+      document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const GetOrderEdit = (id, dimensions, color, piece, typeName, TypeId) => {
+    setPiece(piece);
+    setTypeId(TypeId);
+    setDimensions(dimensions);
+    setColor(color);
+    setOrderId(id);
+    setProductTypeName(typeName);
+    setisShowProductEdit(true);
+  };
+  const RotatePicture = () => {
+    setisRotating(true);
     var formData = new FormData();
     formData.append("Rotate", "Left");
-    formData.append("Path", "/dosyalar/" + this.state.RawPath);
-    formData.append("PictureName", this.state.Path);
+    formData.append("Path", "/dosyalar/" + RawPath);
+    formData.append("PictureName", Path);
     formData.append("PictureId", 0);
     fetch("abi/post/DosyaSistem/ResimDondur.ashx", {
       method: "POST",
       processData: false,
       body: formData,
     })
-      .then((response) =>
-        this.setState({
-          Path: this.state.Path + "?" + new Date().getTime(),
-          isRotating: false,
-        })
-      )
+      .then((response) => setPath(Path))
       .then((data) => console.log(data));
-  }
-  filterCorp(CorpId) {
-    this.setState({
-      Articels: this.state.Articels.filter(
-        (articel) => articel.CorpId === CorpId
-      ),
-    });
-  }
-  hidePicturePreview() {
-    this.setState({ isShowPicturePreview: false });
-  }
-  showPicturePreview(path, RawPath) {
-    this.setState({ Path: path, RawPath: RawPath, isShowPicturePreview: true });
-  }
-  async getProductType() {
-    this.setState({
-      ProductTypes: await this.FetchFunc("abi/post/ProductType.ashx"),
-    });
-  }
-  async getCorps() {
+    setisRotating(false);
+  };
+  const filterCorp = (id) => {
+    var filterCorp = Articels.filter((articel) => articel.id === id);
+    setArticels(filterCorp);
+  };
+  const hidePicturePreview = () => {
+    setisShowPicturePreview(false);
+  };
+  const showPicturePreview = (path, RawPath) => {
+    setPath(path);
+    setRawPath(RawPath);
+    setisShowPicturePreview(true);
+  };
+  const getProductType = async () => {
+    setProductTypes(await FetchFunc("abi/post/ProductType.ashx"));
+  };
+  const getCorps = async () => {
     var CorpUrl = "abi/post/CorpList.ashx";
     const response = await fetch(CorpUrl, {
       method: "POST",
@@ -484,149 +358,137 @@ class MainPage extends Component {
       },
     });
 
-    this.setState({
-      Corps: await response.json(),
-    });
-  }
-  async getSalesTypes() {
-    this.setState({
-      SalesTypes: await this.FetchFunc("abi/post/SaleType.ashx"),
-    });
-  }
-  async getNotes(ArticelId) {
+    setCorps(await response.json());
+  };
+  const getSalesTypes = async () => {
+    setSalesTypes(await FetchFunc("abi/post/SaleType.ashx"));
+  };
+  const getNotes = async (ArticelId) => {
     fetch("abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
       .then((response) => response.text())
       .then((response) => {
-        this.setState({
-          ArticelNotes: response,
-        });
+        setArticelNotes(response);
       })
       .catch((err) => console.log(err));
-  }
+  };
+  const GetOrders = async (ArticelId, CorpId, ArticelName, CorpName) => {
+    setisShow(true);
+    setCorpId(CorpId);
+    setArticelId(ArticelId);
+    setisShowTopBar(true);
+    setArticelName(ArticelName);
+    setCorpName(CorpName);
+    setisShowLayoutNote(false);
+    setisShowLayoutRight(false);
+    setisShowCallOut(false);
+    setisDetailActive(true);
 
-  async GetOrders(ArticelId, CorpId, ArticelName, CorpName) {
-    this.setState({
-      isShow: true,
-      CorpId: CorpId,
-      ArticelId: ArticelId,
-      isShowTopBar: true,
-      ArticelName: ArticelName,
-      CorpName: CorpName,
-      isShowLayoutNote: false,
-      isShowLayoutRight: false,
-      isShowCallOut: false,
-      isDetailActive: true,
-    });
     document.getElementById("LayoutRight").style.width = "0px";
     document.getElementById("LayoutNote").style.width = "0px";
 
-    this.GetWaybillAsync(ArticelId);
-    this.getNotes(ArticelId);
-    this.GetFilesAsync(ArticelId);
+    GetWaybillAsync(ArticelId);
+    getNotes(ArticelId);
+    GetFilesAsync(ArticelId);
 
-    this.setState({
-      Orders: [],
-      isShowOrder: true,
-    });
-
-    if (this.state.ActiveArticel === 0) {
-      this.state.ActiveArticel = ArticelId;
+    setOrders([]);
+    setisshowOrder(true);
+    if (ActiveArticel === 0) {
+      setActiveArticel(ArticelId);
     } else {
-      var selectedId = "Articel" + this.state.ActiveArticel;
-      document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+      try {
+        var selectedId = "Articel" + ActiveArticel;
+        document
+          .getElementById(selectedId)
+          .classList.remove("ActiveArticelRow");
 
-      this.setState({
-        ActiveArticel: ArticelId,
-      });
+        setActiveArticel(ArticelId);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    try {
+      var Clicked = "Articel" + ArticelId;
+      document.getElementById(Clicked).classList.add("ActiveArticelRow");
+    } catch (error) {
+      console.log(error);
     }
 
-    var Clicked = "Articel" + ArticelId;
-    document.getElementById(Clicked).classList.add("ActiveArticelRow");
     document.getElementById("SecondScreen").classList.remove("hide");
     document.getElementById("SecondScreen").classList.add("col-md-8");
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
     var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + ArticelId;
-    this.setState({
-      Orders: await this.FetchFunc(FullUrl),
-      isShow: false,
-      isShowOrder: true,
-    });
-  }
-  async PostProductOutSave() {
+    setOrders(await FetchFunc(FullUrl));
+    setisShow(false);
+    setisshowOrder(true);
+  };
+  const PostProductOutSave = async () => {
     var url =
       "abi/post/AddWayBill.ashx?CorpId=" +
-      this.state.CorpId +
+      CorpId +
       "&Piece=" +
-      this.state.Piece +
+      Piece +
       "&OrderId=" +
-      this.state.OrderId +
+      OrderId +
       "&Weight=" +
-      this.state.Weight +
+      Weight +
       "&SaleType=1&Comment=9&WayBillId=" +
-      this.state.WayBillId +
+      WayBillId +
       "&ArticelId=" +
-      this.state.ArticelId;
+      ArticelId;
 
-    await this.FetchFunc(url);
-  }
-  async PostArticelsave() {
+    await FetchFunc(url);
+  };
+  const PostArticelsave = async () => {
     var url =
       "abi/post/AddArticel.ashx?CorpId=" +
-      this.state.CorpId +
+      CorpId +
       "&Articel=" +
-      this.state.ArticelName +
+      ArticelName +
       "&SaleType=" +
-      this.state.SaleTypeId;
+      SaleTypeId;
     const response = await fetch(url, {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
     });
     let articelid = response.json();
-    this.setState({
-      ArticelId: articelid,
-      IsNewProductShow: true,
-      IsCreateArticelShow: false,
-    });
-  }
-  async PostOrdersave() {
+    setArticelId(articelid);
+    setIsNewProductShow(true);
+    setisShowCreateArticel(false);
+  };
+  const PostOrdersave = async () => {
     var url =
       "abi/post/AddOrder.ashx?ArticelId=" +
-      this.state.ArticelId +
+      ArticelId +
       "&ProductType=" +
-      this.state.TypeId +
+      TypeId +
       "&Dimensions=" +
-      this.state.Dimensions +
+      Dimensions +
       "&CorpId=" +
-      this.state.CorpId +
+      CorpId +
       "&Color=" +
-      this.state.Color +
+      Color +
       "&Piece=" +
-      this.state.Piece +
+      Piece +
       "&SaleType=1&Articel=test";
 
-    this.FetchFunc(url);
-    this.setState({ ProductNewLoading: false });
-
-    this.GetOrders(
-      this.state.ArticelId,
-      this.state.ArticelName,
-      this.state.CorpName
-    );
-  }
-  async PostOrderUpdate() {
+    FetchFunc(url);
+    setProductNewLoading(false);
+    GetOrders(ArticelId, ArticelName, CorpName);
+  };
+  const PostOrderUpdate = async () => {
     var url =
       "abi/post/UpdateOrder.ashx?OrderId=" +
-      this.state.OrderId +
+      OrderId +
       "&ProductType=" +
-      this.state.TypeId +
+      TypeId +
       "&Dimensions=" +
-      this.state.Dimensions +
+      Dimensions +
       "&Color=" +
-      this.state.Color +
+      Color +
       "&Piece=" +
-      this.state.Piece;
+      Piece;
     const response = await fetch(url, {
       method: "POST",
       cache: "no-cache",
@@ -640,227 +502,185 @@ class MainPage extends Component {
     });
     console.log(response);
 
-    this.setState({ isShowProductEdit: false });
-
-    this.GetOrders(
-      this.state.ArticelId,
-      this.state.ArticelName,
-      this.state.CorpName
-    );
-  }
-  async GetWaybillPhoto(WaybillId) {}
-  async GetWaybillAsync(ArticelId) {
-    this.setState({
-      Waybill: [],
-      isShow: true,
-    });
-
-    this.setState({
-      Waybill: await this.FetchFunc(
+    setisShowProductEdit(false);
+    GetOrders(ArticelId, ArticelName, CorpName);
+  };
+  const GetWaybillAsync = async (ArticelId) => {
+    setWaybill([]);
+    setisShow(true);
+    setWaybill(
+      await FetchFunc(
         USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId
-      ),
-      isShow: false,
-    });
-  }
-  async GetFilesAsync(ArticelId) {
-    this.setState({
-      Files: [],
-    });
+      )
+    );
+    setisShow(false);
+  };
+  const GetFilesAsync = async (ArticelId) => {
+    setFiles([]);
     var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
-    const response = await fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": url,
-        Authorization: "bearer ",
-      },
-    });
-    this.setState({
-      Files: await response.json(),
-    });
-  }
-  render() {
-    return (
-      <div className="padd0 col-md-12">
-        <TopBar
-          chooseFile={this.chooseFile}
-          CorpSearch={this.CorpSearch}
-          NewProductShow={this.NewProductShow}
-          toggleView={this.toggleView}
-          closeTopBar={this.closeTopBar}
-          LayoutRightShow={this.LayoutRightShow}
-          isShowTopBar={this.state.isShowTopBar}
-          productEditShow={this.productEditShow}
-          productOutShow={this.productOutShow}
-          Corps={this.state.Corps}
-          filterCorp={this.filterCorp}
-          ArticelId={this.state.ArticelId}
-          CorpName={this.state.CorpName}
-          LayoutNoteShow={this.LayoutNoteShow}
-          CreateArticelShow={this.CreateArticelShow}
-          isMobile={this.state.isMobile}
-        />
+    var data = await FetchFunc(url);
+    setFiles(data);
+  };
+  return (
+    <div className="padd0 col-md-12">
+      <TopBar
+        chooseFile={chooseFile}
+        CorpSearch={CorpSearch}
+        NewProductShow={NewProductShow}
+        toggleView={toggleView}
+        closeTopBar={closeTopBar}
+        LayoutRightShow={LayoutRightShow}
+        isShowTopBar={isShowTopBar}
+        productEditShow={productEditShow}
+        productOutShow={productOutShow}
+        Corps={Corps}
+        filterCorp={filterCorp}
+        ArticelId={ArticelId}
+        CorpName={CorpName}
+        LayoutNoteShow={LayoutNoteShow}
+        CreateArticelShow={CreateArticelShow}
+        isMobile={isMobile}
+      />
 
-        <FirstRun IsFirstRun={this.state.IsFirstRun} />
-        <ProgressBar isVisible={this.state.isShow} />
+      <FirstRun IsFirstRun={IsFirstRun} />
+      <ProgressBar isVisible={isShow} />
+      <div className={isMobile && isDetailActive ? "hide" : ""}>
         <div
-          className={
-            this.state.isMobile && this.state.isDetailActive ? "hide" : ""
-          }
+          id="FirstScreen"
+          className={ChangeView ? "hide" : "WizardArea padd0 col-md-12"}
         >
-          <div
-            id="FirstScreen"
-            className={
-              this.state.ChangeView ? "hide" : "WizardArea padd0 col-md-12"
-            }
-          >
-            <ArticelsTable
-              GetOrders={this.GetOrders}
-              Articel={this.state.Articel}
-              Articels={this.state.Articels}
-              isMobile={this.state.isMobile}
-            />
-          </div>
-        </div>
-        <div
-          id="SecondScreen"
-          className={
-            this.state.isMobile
-              ? "col-xs-12 padd0"
-              : this.state.ChangeView
-              ? "WizardArea padd0 col-md-12"
-              : "WizardArea padd0 col-md-8"
-          }
-        >
-          <OrdersTable
-            GetOrderEdit={this.GetOrderEdit}
-            Orders={this.state.Orders}
-            ArticelName={this.state.ArticelName}
-            CallOutonMouseMove={this.CallOutonMouseMove}
-            GetWaybillforOrder={this.GetWaybillforOrder}
-            isMobile={this.state.isMobile}
+          <ArticelsTable
+            GetOrders={GetOrders}
+            Articel={ArticelName}
+            Articels={Articels}
+            isMobile={isMobile}
           />
-
-          <Files
-            Files={this.state.Files}
-            Articel={this.state.ArticelName}
-            showPicturePreview={this.showPicturePreview}
-          />
-          <WayBillList
-            Waybill={this.state.Waybill}
-            isMobile={this.state.isMobile}
-          />
-          <LayoutRight
-            CancelShare={this.CancelShare}
-            isShowLayoutRight={this.state.isShowLayoutRight}
-          />
-          <LayoutNote
-            CancelNote={this.CancelNote}
-            SaveNotes={this.SaveNotes}
-            UpdateArticelNote={this.UpdateArticelNote}
-            ArticelNotes={this.state.ArticelNotes}
-            isShowLayoutNote={this.state.isShowLayoutNote}
-          />
-        </div>
-        <ProductOutModal
-          ChangePiece={this.ChangePiece}
-          ChangeWeight={this.ChangeWeight}
-          ChangeWayBillId={this.ChangeWayBillId}
-          CancelProduct={this.CancelProduct}
-          OrderList={this.state.Orders}
-          ArticelName={this.state.ArticelName}
-          SaveProductOut={this.SaveProductOut}
-          isShowProductOut={this.state.isShowProductOut}
-        />
-        <ProductEditModal
-          isShowProductEdit={this.state.isShowProductEdit}
-          UpdateOrder={this.UpdateOrder}
-          CancelEdit={this.CancelEdit}
-          ChangeProductType={this.ChangeProductType}
-          ProductTypes={this.state.ProductTypes}
-          Piece={this.state.Piece}
-          Dimensions={this.state.Dimensions}
-          Typeid={this.state.TypeId}
-          ProductTypeName={this.state.ProductTypeName}
-          Color={this.state.Color}
-          OrderId={this.state.OrderId}
-        />
-        <CreateArticelModal
-          Corps={this.state.Corps}
-          Piece={this.state.Piece}
-          Dimensions={this.state.Dimensions}
-          Typeid={this.state.TypeId}
-          ProductTypeName={this.state.ProductTypeName}
-          Color={this.state.Color}
-          ProductTypes={this.state.ProductTypes}
-          ChangeArticelName={this.ChangeArticelName}
-          CancelCreateArticel={this.CancelCreateArticel}
-          ChangeCorpId={this.ChangeCorpId}
-          ChangeSalesType={this.ChangeSalesType}
-          SalesTypes={this.state.SalesTypes}
-          SaveArticel={this.SaveArticel}
-          isShowCreateArticel={this.state.isShowCreateArticel}
-          IsCreateArticelShow={this.state.IsCreateArticelShow}
-        />
-        <ProductNewModal
-          SaveOrder={this.SaveOrder}
-          CancelNewProduct={this.CancelNewProduct}
-          ChangeProductType={this.ChangeProductType}
-          ChangePiece={this.ChangePiece}
-          ChangeDimensions={this.ChangeDimensions}
-          ChangeColor={this.ChangeColor}
-          ProductTypes={this.state.ProductTypes}
-          ProductNewLoading={this.state.ProductNewLoading}
-          IsNewProductShow={this.state.IsNewProductShow}
-        />
-        <CallOut
-          CalloutLoading={this.state.CalloutLoading}
-          CancelCallOut={this.CancelCallOut}
-          TotalOutPiece={this.state.TotalOutPiece}
-          LoopCount={this.state.LoopCount}
-          Dimensions={this.state.Dimensions}
-          Color={this.state.Color}
-          ProductTypeName={this.state.ProductTypeName}
-          OneWayBill={this.state.OneWayBill}
-          top={this.state.y}
-          left={this.state.x}
-          isShowCallOut={this.state.isShowCallOut}
-        />
-        <PicturePreview
-          isShowPicturePreview={this.state.isShowPicturePreview}
-          Path={this.state.Path}
-          hidePicturePreview={this.hidePicturePreview}
-          Articel={this.state.ArticelName}
-          RotatePicture={this.RotatePicture}
-          isRotating={this.state.isRotating}
-        />
-        <input
-          type="file"
-          id="FileNew"
-          name="UploadArea[]"
-          onChange={() => {
-            this.uploadPicture();
-          }}
-          className="MultipleNew hide"
-          multiple
-        ></input>
-        <div id="PrintArea" className="col-md-12 hide hidden">
-          {this.state.Orders.map((o) => (
-            <div key={o.id} className="he col-md-2">
-              <h5>
-                <span>{o.Dimensions}</span> <span> {o.Color}</span>
-                {o.ProductTypeName}
-              </h5>
-              <hr /> {o.Piece} {o.Metrics}
-            </div>
-          ))}
         </div>
       </div>
-    );
-  }
-}
+      <div
+        id="SecondScreen"
+        className={
+          isMobile
+            ? "col-xs-12 padd0"
+            : ChangeView
+            ? "WizardArea padd0 col-md-12"
+            : "WizardArea padd0 col-md-8"
+        }
+      >
+        <OrdersTable
+          GetOrderEdit={GetOrderEdit}
+          Orders={Orders}
+          ArticelName={ArticelName}
+          CallOutonMouseMove={CallOutonMouseMove}
+          GetWaybillforOrder={GetWaybillforOrder}
+          isMobile={isMobile}
+        />
 
-export default MainPage;
+        <FilesComponent Files={Files} showPicturePreview={showPicturePreview} />
+        <WayBillList Waybill={Waybill} isMobile={isMobile} />
+        <LayoutRight
+          CancelShare={CancelShare}
+          isShowLayoutRight={isShowLayoutRight}
+        />
+        <LayoutNote
+          CancelNote={CancelNote}
+          SaveNotes={SaveNotes}
+          UpdateArticelNote={UpdateArticelNote}
+          ArticelNotes={ArticelNotes}
+          isShowLayoutNote={isShowLayoutNote}
+        />
+      </div>
+      <ProductOutModal
+        ChangePiece={ChangePiece}
+        ChangeWeight={ChangeWeight}
+        ChangeWayBillId={ChangeWayBillId}
+        CancelProduct={CancelProduct}
+        OrderList={Orders}
+        ArticelName={ArticelName}
+        SaveProductOut={SaveProductOut}
+        isShowProductOut={isShowProductOut}
+      />
+      <ProductEditModal
+        isShowProductEdit={isShowProductEdit}
+        UpdateOrder={UpdateOrder}
+        CancelEdit={CancelEdit}
+        ChangeProductType={ChangeProductType}
+        ProductTypes={ProductTypes}
+        Piece={Piece}
+        Dimensions={Dimensions}
+        Typeid={TypeId}
+        ProductTypeName={ProductTypeName}
+        Color={Color}
+        OrderId={OrderId}
+      />
+      <CreateArticelModal
+        Corps={Corps}
+        Piece={Piece}
+        Dimensions={Dimensions}
+        Typeid={TypeId}
+        ProductTypeName={ProductTypeName}
+        Color={Color}
+        ProductTypes={ProductTypes}
+        ChangeArticelName={ChangeArticelName}
+        CancelCreateArticel={CancelCreateArticel}
+        ChangeCorpId={ChangeCorpId}
+        ChangeSalesType={ChangeSalesType}
+        SalesTypes={SalesTypes}
+        SaveArticel={SaveArticel}
+        isShowCreateArticel={isShowCreateArticel}
+        CancelArticel={CancelArticel}
+        IsCreateArticelShow={IsCreateArticelShow}
+      />
+      <ProductNewModal
+        SaveOrder={SaveOrder}
+        CancelNewProduct={CancelNewProduct}
+        ChangeProductType={ChangeProductType}
+        ChangePiece={ChangePiece}
+        ChangeDimensions={ChangeDimensions}
+        ChangeColor={ChangeColor}
+        ProductTypes={ProductTypes}
+        ProductNewLoading={ProductNewLoading}
+        IsNewProductShow={IsNewProductShow}
+      />
+      <CallOut
+        CancelCallOut={CancelCallOut}
+        Dimensions={Dimensions}
+        Color={Color}
+        ProductTypeName={ProductTypeName}
+        OneWayBill={OneWayBill}
+        top={y}
+        left={x}
+        isShowCallOut={isShowCallOut}
+      />
+      <PicturePreview
+        isShowPicturePreview={isShowPicturePreview}
+        Path={Path}
+        hidePicturePreview={hidePicturePreview}
+        Articel={ArticelName}
+        RotatePicture={RotatePicture}
+        isRotating={isRotating}
+      />
+      <input
+        type="file"
+        id="FileNew"
+        name="UploadArea[]"
+        onChange={() => {
+          uploadPicture();
+        }}
+        className="MultipleNew hide"
+        multiple
+      ></input>
+      <div id="PrintArea" className="col-md-12 hide hidden">
+        {Orders.map((o) => (
+          <div key={o.id} className="he col-md-2">
+            <h5>
+              <span>{o.Dimensions}</span> <span> {o.Color}</span>
+              {o.ProductTypeName}
+            </h5>
+            <hr /> {o.Piece} {o.Metrics}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

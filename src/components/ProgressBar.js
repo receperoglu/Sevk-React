@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-export default function ProgressBar(props) {
+export default function ProgressBar({isVisible}) {
   return (
     <div
-          className={
-          props.isVisible
-              ? "show ProgressSpinnerFlat"
-              : "opaq0 ProgressSpinnerFlat"
-          }
-          role="progressbar"
-        >
+      className={
+        isVisible
+          ? "show ProgressSpinnerFlat"
+          : "opaq0 ProgressSpinnerFlat"
+      }
+      role="progressbar"
+    >
       <div>•</div>
       <div>•</div>
       <div>•</div>

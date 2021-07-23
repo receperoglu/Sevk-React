@@ -1,34 +1,33 @@
-import React, { Component } from "react";
-import Arrow from "./Tools/Arrow"
- 
-class OrdersTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      OrderVisible: true,
-    };
-    this.toggleOrderList = this.toggleOrderList.bind(this);
-  }
-  toggleOrderList() {
-    this.setState({ OrderVisible: !this.state.OrderVisible });
-  }
+import React, {  useState } from "react";
+import Arrow from "./Tools/Arrow";
 
-  render() {
-    return (
-      <div>
-        <div
-          onClick={() => this.toggleOrderList()}
-          className="ArticelNameHead SSOrder text-capitalize PartHead"
-        >
-          {this.props.ArticelName}
-          <Arrow Direction={this.state.OrderVisible} />
-
-        </div>
+export default function OrdersTable({
+  ArticelName,
+  Orders,
+  CallOutonMouseMove,
+  GetWaybillforOrder,
+  isMobile,
+  GetOrderEdit,
+}) {
+  const toggleOrderList = () => {
+    setOrderVisible(!OrderVisible);
+  };
+  const [OrderVisible, setOrderVisible] = useState();
+  return (
+    <div>
+      <div
+        onClick={() => toggleOrderList()}
+        className="ArticelNameHead SSOrder text-capitalize PartHead"
+      >
+        {ArticelName}
+        <Arrow Direction={OrderVisible} />
+      </div>
+      {Orders.length === 0 ? (
+        ""
+      ) : (
         <table
           className={
-            this.state.OrderVisible
-              ? "pointer OrderDetailTable table table-hover"
-              : "hide"
+            OrderVisible ? "pointer OrderDetailTable table table-hover" : "hide"
           }
         >
           <thead>
@@ -41,7 +40,7 @@ class OrdersTable extends Component {
             </tr>
           </thead>
           <tbody aria-live="polite">
-            {this.props.Orders.map((o) => (
+            {Orders.map((o) => (
               <tr
                 data-piece={o.Piece}
                 data-product={o.Color}
@@ -50,11 +49,11 @@ class OrdersTable extends Component {
                 data-orderid={o.id}
               >
                 <td>
-                  <div onClick={this.props.CallOutonMouseMove.bind(this)}>
+                  <div onClick={CallOutonMouseMove.bind(this)}>
                     <span
                       data-piece={o.Piece}
                       onClick={() =>
-                        this.props.GetWaybillforOrder(
+                        GetWaybillforOrder(
                           o.id,
                           o.Dimensions,
                           o.Color,
@@ -68,14 +67,14 @@ class OrdersTable extends Component {
                   </div>
                 </td>
                 <td>{o.Dimensions}</td>
-                <td className={this.props.isMobile?"minifont":""}>{o.Color}</td>
+                <td className={isMobile ? "minifont" : ""}>{o.Color}</td>
 
                 <td>{o.ProductTypeName}</td>
 
                 <td>
                   <i
                     onClick={() =>
-                      this.props.GetOrderEdit(
+                      GetOrderEdit(
                         o.id,
                         o.Dimensions,
                         o.Color,
@@ -95,12 +94,7 @@ class OrdersTable extends Component {
             ))}
           </tbody>
         </table>
-        
-      </div>
-    );
-  }
-
-   
+      )}
+    </div>
+  );
 }
-
-export default OrdersTable;

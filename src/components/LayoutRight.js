@@ -1,10 +1,9 @@
 import React from "react";
-
-export default function LayoutRight(props) {
+export default function LayoutRight({CancelShare,isShowLayoutRight}) {
   return (
     <div
       id="LayoutRight"
-      className={props.isShowLayoutRight ? "BaseDrive RightLayout" : "hide"}
+      className={isShowLayoutRight ? "BaseDrive RightLayout" : "hide"}
     >
       <div className="_3vMrdRZR8bo5hSiJS8JJ8C nopad col-md-12">
         <div className="col-md-8">
@@ -14,7 +13,7 @@ export default function LayoutRight(props) {
         <div className="col-md-4">
           <i
             data-icon-name="Cancel"
-            onClick={() => props.CancelShare()}
+            onClick={() => CancelShare()}
             role="presentation"
             className="pointer shareclose ms-Button-icon icon-73"
           >

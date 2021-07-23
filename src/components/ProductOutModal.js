@@ -1,10 +1,19 @@
 import React from "react";
-
-export default function ProductOutModal(props) {
+export default function ProductOutModal({
+  isShowProductOut,
+  CancelProduct,
+  ChangeWayBillId,
+  ChangePiece,
+  OrderList,
+  ChangeWeight,
+  SaveProductOut,
+}) {
   return (
     <div
-      id="ProductModal"   
-      className={props.isShowProductOut ? "ms-Layer ms-Layer--fixed  effect layer-351" : "hide"}
+      id="ProductModal"
+      className={
+        isShowProductOut ? "ms-Layer ms-Layer--fixed  effect layer-351" : "hide"
+      }
       data-portal-element="true"
     >
       <div className="ms-Fabric ms-Layer-content content-120">
@@ -19,7 +28,7 @@ export default function ProductOutModal(props) {
                 <div>
                   <i
                     data-icon-name="Cancel"
-                    onClick={() => props.CancelProduct()}
+                    onClick={() => CancelProduct()}
                     role="presentation"
                     aria-hidden="true"
                     className="pointer fright ms-Button-icon icon-73"
@@ -32,25 +41,22 @@ export default function ProductOutModal(props) {
                     <h4>Ürün Çıkışı</h4>
                     <input
                       type="text"
-                      onChange={(e) => props.ChangeWayBillId(e.target.value)}
+                      onChange={(e) => ChangeWayBillId(e.target.value)}
                       placeholder="İrsaliye No"
                       className="irsaliyeno col-md-1  ms-TextField-field w80"
                     />
                     <br />
-                     
                   </div>
                   <hr />
                   <div className="ProductOutList col-md-12">
-                    {props.OrderList.map((o) => (
+                    {OrderList.map((o) => (
                       <div key={o.id}>
                         <div className="clearfix OrderRow">
                           <div className="col-md-2 fleft">
                             <input
                               type="text"
                               placeholder={o.Piece}
-                              onChange={(e) =>
-                                props.ChangePiece(e.target.value)
-                              }
+                              onChange={(e) => ChangePiece(e.target.value)}
                               className="Piece ms-TextField-field w80"
                             />
                           </div>
@@ -58,9 +64,7 @@ export default function ProductOutModal(props) {
                             <input
                               type="text"
                               placeholder="Ağırlık"
-                              onChange={(e) =>
-                                props.ChangeWeight(e.target.value)
-                              }
+                              onChange={(e) => ChangeWeight(e.target.value)}
                               className="Weight ms-TextField-field w80"
                             />
                           </div>
@@ -70,11 +74,11 @@ export default function ProductOutModal(props) {
                               {o.Dimensions} {o.Color} {o.ProductTypeName}
                             </span>
                           </div>
-                         
+
                           <div className="col-md-2 text-right fleft">
                             <span className="Transfer TransferBTN ms-Button ms-Button--primary">
                               <span
-                                onClick={() => props.SaveProductOut(o.id)}
+                                onClick={() => SaveProductOut(o.id)}
                                 className="transfersavetext"
                               >
                                 Kaydet

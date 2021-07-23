@@ -1,10 +1,16 @@
 import React from "react";
 
-export default function LayoutNote(props) {
+export default function LayoutNote({
+  isShowLayoutNote,
+  CancelNote,
+  UpdateArticelNote,
+  ArticelNotes,
+  SaveNotes,
+}) {
   return (
     <div
       id="LayoutNote"
-      className={props.isShowLayoutNote ? "BaseDrive RightLayout" : "hide"}
+      className={isShowLayoutNote ? "BaseDrive RightLayout" : "hide"}
     >
       <div className="_3vMrdRZR8bo5hSiJS8JJ8C nopad col-md-12">
         <div className="col-md-8">
@@ -14,7 +20,7 @@ export default function LayoutNote(props) {
         <div className="col-md-4">
           <i
             data-icon-name="Cancel"
-            onClick={() => props.CancelNote()}
+            onClick={() => CancelNote()}
             role="presentation"
             className="pointer shareclose ms-Button-icon icon-73"
           >
@@ -28,12 +34,12 @@ export default function LayoutNote(props) {
           <textarea
             className="NotesArea  ms-TextField-field"
             style={{ width: "100%", height: "250px" }}
-            value={props.ArticelNotes}
-            onChange={(e) => props.UpdateArticelNote(e.target.value)}
+            value={ArticelNotes}
+            onChange={(e) => UpdateArticelNote(e.target.value)}
           ></textarea>
           <hr />
           <div
-            onClick={() => props.SaveNotes()}
+            onClick={() => SaveNotes()}
             className="btn btn-block btn-success"
           >
             Güncelle

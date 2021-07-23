@@ -1,13 +1,20 @@
 import React from "react";
-
-export default function ProductNewModal(props) {
+export default function ProductNewModal({
+  SaveOrder,
+  ProductNewLoading,
+  ChangeColor,
+  ChangePiece,
+  IsNewProductShow,
+  CancelNewProduct,
+  ProductTypes,
+  ChangeProductType,
+  ChangeDimensions,
+}) {
   return (
     <div
       id="ProductModal"
       className={
-        props.IsNewProductShow
-          ? "ms-Layer ms-Layer--fixed effect layer-351"
-          : "hide"
+        IsNewProductShow ? "ms-Layer ms-Layer--fixed effect layer-351" : "hide"
       }
       data-portal-element="true"
     >
@@ -20,7 +27,7 @@ export default function ProductNewModal(props) {
                 <div>
                   <i
                     data-icon-name="Cancel"
-                    onClick={() => props.CancelNewProduct()}
+                    onClick={() => CancelNewProduct()}
                     role="presentation"
                     className="pointer fright ms-Button-icon icon-73"
                   >
@@ -37,9 +44,9 @@ export default function ProductNewModal(props) {
                   <div className="col-md-12 fleft">
                     <select
                       className="ms-TextField-field"
-                      onChange={(e) => props.ChangeProductType(e.target.value)}
+                      onChange={(e) => ChangeProductType(e.target.value)}
                     >
-                      {props.ProductTypes.map((p) => (
+                      {ProductTypes.map((p) => (
                         <option key={p.id} value={p.id}>
                           {p.Name}
                         </option>
@@ -55,7 +62,7 @@ export default function ProductNewModal(props) {
                       <div className="col-md-10 fleft">
                         <input
                           type="number"
-                          onChange={(e) => props.ChangePiece(e.target.value)}
+                          onChange={(e) => ChangePiece(e.target.value)}
                           className="Piece ms-TextField-field"
                         />
                       </div>
@@ -65,9 +72,7 @@ export default function ProductNewModal(props) {
                       <div className="col-md-10 fleft">
                         <input
                           type="text"
-                          onChange={(e) =>
-                            props.ChangeDimensions(e.target.value)
-                          }
+                          onChange={(e) => ChangeDimensions(e.target.value)}
                           className="Dim ms-TextField-field"
                         />
                       </div>
@@ -77,7 +82,7 @@ export default function ProductNewModal(props) {
                       <div className="col-md-10 fleft">
                         <input
                           type="text"
-                          onChange={(e) => props.ChangeColor(e.target.value)}
+                          onChange={(e) => ChangeColor(e.target.value)}
                           className="Color ms-TextField-field"
                         />
                       </div>
@@ -85,7 +90,7 @@ export default function ProductNewModal(props) {
                       <div className="col-md-12 text-right fleft">
                         <div
                           className={
-                            props.ProductNewLoading
+                            ProductNewLoading
                               ? "show ProgressSpinnerFlat"
                               : "opaq0 ProgressSpinnerFlat"
                           }
@@ -102,13 +107,13 @@ export default function ProductNewModal(props) {
 
                         <span
                           className={
-                            props.ProductNewLoading
+                            ProductNewLoading
                               ? "hide"
                               : "Transfer TransferBTN ms-Button ms-Button--primary"
                           }
                         >
                           <span
-                            onClick={() => props.SaveOrder()}
+                            onClick={() => SaveOrder()}
                             className="transfersavetext"
                           >
                             Kaydet

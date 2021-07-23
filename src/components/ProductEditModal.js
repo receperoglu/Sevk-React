@@ -1,10 +1,22 @@
 import React from "react";
 
-export default function ProductEditModal(props) {
+export default function ProductEditModal({
+  isShowProductEdit,
+  Typeid,
+  Dimensions,
+  Piece,
+  ChangeProductType,
+  CancelEdit,
+  UpdateOrder,
+  Color,
+  ProductTypes,
+}) {
   return (
     <div
       id="ProductModal"
-      className={props.isShowProductEdit?"ms-Layer ms-Layer--fixed effect layer-351":"hide"}
+      className={
+        isShowProductEdit ? "ms-Layer ms-Layer--fixed effect layer-351" : "hide"
+      }
       data-portal-element="true"
     >
       <div className="ms-Fabric ms-Layer-content content-120">
@@ -19,7 +31,7 @@ export default function ProductEditModal(props) {
                 <div>
                   <i
                     data-icon-name="Cancel"
-                    onClick={() => props.CancelEdit()}
+                    onClick={() => CancelEdit()}
                     role="presentation"
                     aria-hidden="true"
                     className="pointer ms-Button-icon icon-73 fright"
@@ -42,11 +54,9 @@ export default function ProductEditModal(props) {
                       <div className="col-md-10 fleft">
                         <input
                           type="number"
-                          value={props.Piece}
+                          value={Piece}
                           className="Piece ms-TextField-field"
-                          onChange={(e) =>
-                            props.ChangeProductType(e.target.value)
-                          }
+                          onChange={(e) => ChangeProductType(e.target.value)}
                         />
                       </div>
                       <div className="col-md-2 fleft">
@@ -55,10 +65,8 @@ export default function ProductEditModal(props) {
                       <div className="col-md-10 fleft">
                         <input
                           type="text"
-                          defaultValue={props.Dimensions}
-                          onChange={(e) =>
-                            props.ChangeProductType(e.target.value)
-                          }
+                          defaultValue={Dimensions}
+                          onChange={(e) => ChangeProductType(e.target.value)}
                           className="Dim ms-TextField-field"
                         />
                       </div>
@@ -68,25 +76,21 @@ export default function ProductEditModal(props) {
                       <div className="col-md-10 fleft">
                         <input
                           type="text"
-                          defaultValue={props.Color}
-                          onChange={(e) =>
-                            props.ChangeProductType(e.target.value)
-                          }
+                          defaultValue={Color}
+                          onChange={(e) => ChangeProductType(e.target.value)}
                           className="Color ms-TextField-field"
                         />
                       </div>
 
                       <div className="col-md-12 fleft">
                         <select
-                          key={props.Typeid}
+                          key={Typeid}
                           className="ms-TextField-field"
-                          onChange={(e) =>
-                            props.ChangeProductType(e.target.value)
-                          }
-                          value={props.Typeid}
+                          onChange={(e) => ChangeProductType(e.target.value)}
+                          value={Typeid}
                           id="ProductType"
                         >
-                          {props.ProductTypes.map((p) => (
+                          {ProductTypes.map((p) => (
                             <option key={p.id} value={p.id}>
                               {p.Name}
                             </option>
@@ -97,7 +101,7 @@ export default function ProductEditModal(props) {
                       <div className="col-md-12 text-right fleft">
                         <span className="Transfer TransferBTN ms-Button ms-Button--primary">
                           <span
-                            onClick={() => props.UpdateOrder()}
+                            onClick={() => UpdateOrder()}
                             className="transfersavetext"
                           >
                             Kaydet

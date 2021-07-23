@@ -1,52 +1,46 @@
-import React, { Component } from "react";
+import React, {  useState } from "react";
 
 import Cookies from "js-cookie";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      pass: "",
-      result: "",
-    };
+export default function  Login ()  {
+   
+  const [name,setname]=useState("");
+  const [pass,setpass]=useState("");
+  const [result,setresult]=useState("");
 
-    this.LoginProccess = this.LoginProccess.bind(this);
-  }
 
-  async LoginProccess() {
+  const LoginProccess=async()=> {
     const response = await fetch("https://api.bymomani.com/token", {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
       body:
         "grant_type=password&username=" +
-        this.state.name +
+         name +
         "&password=" +
-        this.state.pass,
+         pass,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "access-control-allow-credentials": false,
         "Access-Control-Allow-Origin": "https://api.bymomanic.com/token",
       },
     });
-    this.setState({ result: await response.json() });
-    setTimeout(() => this.chechlogin(), 10);
+    setresult( response.json());
+    setTimeout(() => chechlogin(), 10);
   }
-  chechlogin=()=> {
-    [this.state.result].map((authData) => {
+ const chechlogin=()=> {
+    [result].map((authData) => {
       Cookies.set("Auth", authData.access_token);
       return window.location.reload();
     });
    }
-  ChangeName(value) {
-    this.setState({ name: value });
+ const ChangeName=(value)=> {
+     setname(value);
   }
-  ChangePass(value) {
-    this.setState({ pass: value });
-  }
+  const ChangePass=(value)=> {
+setpass(value);  }
 
-  render() {
+ 
     return (
       <div
         style={{
@@ -83,8 +77,8 @@ class Login extends Component {
               <input
                 type="email"
                 className="form-control ltr_override input ext-input text-box ext-text-box"
-                onChange={(e) => this.ChangeName(e.target.value)}
-                defaultValue={this.state.name}
+                onChange={(e) => ChangeName(e.target.value)}
+                defaultValue={name}
               />
               <br />
               <b>Şifre</b>
@@ -94,14 +88,14 @@ class Login extends Component {
               <input
                 type="password"
                 className="form-control ltr_override input ext-input text-box ext-text-box"
-                onChange={(e) => this.ChangePass(e.target.value)}
-                defaultValue={this.state.pass}
+                onChange={(e) => ChangePass(e.target.value)}
+                defaultValue={pass}
               />
               <div style={{ textAlign: "center" }}>
                 <br />
                 <span
                   className="Transfer TransferBTN ms-Button ms-Button--primary"
-                  onClick={() => this.LoginProccess()}
+                  onClick={() => LoginProccess()}
                 >
                   Giriş Yap
                 </span>
@@ -111,11 +105,4 @@ class Login extends Component {
         </div>
       </div>
     );
-  }
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
 }
-
-export default Login;

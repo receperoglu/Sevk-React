@@ -1,9 +1,24 @@
 import React from "react";
-import ProgressBar from "./ProgressBar"
+import ProgressBar from "./ProgressBar";
 
-export default function CreateArticelModal(props) {
+export default function CreateArticelModal({
+  IsCreateArticelShow,
+  CancelCreateArticel,
+  ChangeCorpId,
+  ChangeSalesType,
+  Corps,
+  SalesTypes,
+  ChangeArticelName,
+  isShowCreateArticel,
+  SaveArticel,
+}) {
   return (
-    <div id="ProductModal" className={props.IsCreateArticelShow ? "ms-Layer ms-Layer--fixed layer-351" : "hide"}  >
+    <div
+      id="ProductModal"
+      className={
+        IsCreateArticelShow ? "ms-Layer ms-Layer--fixed layer-351" : "hide"
+      }
+    >
       <div className="ms-Fabric ms-Layer-content content-120">
         <div role="dialog">
           <div className="ms-Modal is-open root-345">
@@ -13,7 +28,7 @@ export default function CreateArticelModal(props) {
                 <div>
                   <i
                     data-icon-name="Cancel"
-                    onClick={() => props.CancelCreateArticel()}
+                    onClick={() => CancelCreateArticel()}
                     role="presentation"
                     className="pointer fright ms-Button-icon icon-73"
                   >
@@ -34,26 +49,26 @@ export default function CreateArticelModal(props) {
                     <div className="col-md-10 ">
                       <select
                         className="ms-TextField-field"
-                        onChange={(e) => props.ChangeCorpId(e.target.value)}
+                        onChange={(e) => ChangeCorpId(e.target.value)}
                       >
-                        {props.Corps.map((p) => (
+                        {Corps.map((p) => (
                           <option key={p.id} value={p.id}>
                             {p.Name}
                           </option>
                         ))}
                       </select>
-                    </div>{" "}
+                    </div>
                   </div>
                   <div className="col-md-12">
                     <div className="col-md-2 fleft">
-                      <span>  Tipi</span>
+                      <span> Tipi</span>
                     </div>
                     <div className="col-md-10 fleft">
                       <select
                         className="ms-TextField-field field-320"
-                        onChange={(e) => props.ChangeSalesType(e.target.value)}
+                        onChange={(e) => ChangeSalesType(e.target.value)}
                       >
-                        {props.SalesTypes.map((p) => (
+                        {SalesTypes.map((p) => (
                           <option key={p.id} value={p.id}>
                             {p.Name}
                           </option>
@@ -61,44 +76,43 @@ export default function CreateArticelModal(props) {
                       </select>
                     </div>
                     <div className="col-md-12 ">
-                    <div className="col-md-2 fleft">
-                      <span>Artikel  </span>
+                      <div className="col-md-2 fleft">
+                        <span>Artikel </span>
+                      </div>
+                      <div className="col-md-10 fleft">
+                        <input
+                          type="text"
+                          onChange={(e) => ChangeArticelName(e.target.value)}
+                          className="ms-TextField-field"
+                        />
+                      </div>
                     </div>
-                    <div className="col-md-10 fleft">
-                      <input
-                        type="text"
-                        onChange={(e) =>
-                          props.ChangeArticelName(e.target.value)
-                        }
-                        className="ms-TextField-field"
-                      />
-                    </div></div>
                   </div>
 
                   <div className="col-md-12 text-right fleft">
                     <div
                       className={
-                        props.isShowCreateArticel
+                        isShowCreateArticel
                           ? "show ProgressSpinnerFlat"
                           : "opaq0 ProgressSpinnerFlat"
                       }
                       role="progressbar"
                     >
-                     <ProgressBar/>
+                      <ProgressBar />
                     </div>
 
                     <span
                       className={
-                        props.isShowCreateArticel
+                        isShowCreateArticel
                           ? "hide"
                           : "Transfer TransferBTN ms-Button ms-Button--primary"
                       }
                     >
                       <span
-                        onClick={() => props.SaveArticel()}
+                        onClick={() => SaveArticel()}
                         className="transfersavetext"
-                      >                       
-                        Kaydet 
+                      >
+                        Kaydet
                       </span>
                     </span>
                   </div>
