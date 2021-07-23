@@ -728,15 +728,15 @@ tr.ActiveArticelRow {
 }
 @font-face {
   font-family: FabricMDL2Icons;
-  src: url(css/fonts/odsp-next-icons-6d13ee67.woff) format("woff");
+  src: url(fonts/odsp-next-icons-6d13ee67.woff) format("woff");
 }
 @font-face {
   font-family: FabricMDL2Icons-0;
-  src: url(css/fonts/odsp-next-icons-0-c18ff6a9.woff) format("woff");
+  src: url(fonts/odsp-next-icons-0-c18ff6a9.woff) format("woff");
 }
 @font-face {
   font-family: FabricMDL2Icons-1;
-  src: url(css/fonts/odsp-next-icons-1-e4b6522a.woff) format("woff");
+  src: url(fonts/odsp-next-icons-1-e4b6522a.woff) format("woff");
 }
 @font-face {
   font-family: FabricMDL2Icons-5;
@@ -744,7 +744,7 @@ tr.ActiveArticelRow {
 }
 @font-face {
   font-family: controlIcons;
-  src: url(css/fonts/controlIcons.woff) format("woff");
+  src: url(fonts/controlIcons.woff) format("woff");
   font-weight: 400;
   font-style: normal;
 }
@@ -767,7 +767,7 @@ tr.ActiveArticelRow {
 }
 @font-face {
   font-family: FabricMDL2Icons-0;
-  src: url(css/fonts/odsp-next-icons-0-c18ff6a9.woff) format("woff");
+  src: url(fonts/odsp-next-icons-0-c18ff6a9.woff) format("woff");
 }
 @font-face {
   font-family: FabricMDL2Icons-5;
