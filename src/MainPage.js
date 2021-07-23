@@ -539,7 +539,8 @@ export default function MainPage() {
             isMobile={isMobile}
           />
         </div>
-        <div
+      </div>
+      <div
         id="SecondScreen"
         className={
           isMobile
@@ -572,8 +573,7 @@ export default function MainPage() {
           isShowLayoutNote={isShowLayoutNote}
         />
       </div>
-      </div>
-     
+      
       <ProductOutModal
         ChangePiece={ChangePiece}
         ChangeWeight={ChangeWeight}
