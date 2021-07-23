@@ -387,8 +387,8 @@ export default function MainPage() {
     setisshowOrder(true);
     if (ActiveArticel === 0) {
       setActiveArticel(articelid);
-      var Clicked = "Articel" + articelid;
-      document.getElementById(Clicked).classList.add("ActiveArticelRow");
+      var FirstClicked = "Articel" + articelid;
+      document.getElementById(FirstClicked).classList.add("ActiveArticelRow");
     } else {
       var PrevClicked = "Articel" + ActiveArticel;
       document.getElementById(PrevClicked).classList.remove("ActiveArticelRow");
