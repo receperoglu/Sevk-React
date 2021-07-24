@@ -116,6 +116,8 @@ export default function MainPage() {
     color,
     producttypename
   ) => {
+    var element = "Order"+OrderId
+    document.getElementById(element).classList.add("OrderProccessing");
     setDimensions(dimensions);
     setOneWayBill([]);
     setColor(color);
@@ -128,6 +130,7 @@ export default function MainPage() {
     );
     setisShow(false);
     setisShowCallOut(true);
+    document.getElementById(element).classList.remove("OrderProccessing");
   };
   const updateDimensions = () => {
     setisShowCallOut(false);

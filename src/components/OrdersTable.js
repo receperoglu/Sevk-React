@@ -1,6 +1,6 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Arrow from "./Tools/Arrow";
-import ProgressBar from "./ProgressBar"
+import ProgressBar from "./ProgressBar";
 
 export default function OrdersTable({
   ArticelName,
@@ -8,7 +8,9 @@ export default function OrdersTable({
   CallOutonMouseMove,
   GetWaybillforOrder,
   isMobile,
-  GetOrderEdit,isDetailActive,isShow
+  GetOrderEdit,
+  isDetailActive,
+  isShow,
 }) {
   const toggleOrderList = () => {
     setOrderVisible(!OrderVisible);
@@ -19,7 +21,11 @@ export default function OrdersTable({
       <ProgressBar isVisible={isShow} />
       <div
         onClick={() => toggleOrderList()}
-        className= {isDetailActive?"ArticelNameHead SSOrder text-capitalize PartHead":"hide"}
+        className={
+          isDetailActive
+            ? "ArticelNameHead SSOrder text-capitalize PartHead"
+            : "hide"
+        }
       >
         {ArticelName}
         <Arrow Direction={OrderVisible} />
@@ -49,6 +55,7 @@ export default function OrdersTable({
                 className="MotionData"
                 key={o.id}
                 data-orderid={o.id}
+                id={"Order" + o.id}
               >
                 <td>
                   <div onClick={CallOutonMouseMove.bind(this)}>
