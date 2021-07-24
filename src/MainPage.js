@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CreateArticelModal from "./components/CreateArticelModal";
-import ProductOutModal from "./components/ProductOutModal";
 import ProductEditModal from "./components/ProductEditModal";
 import ProductNewModal from "./components/ProductNewModal";
+import ProductOutModal from "./components/ProductOutModal";
 import FilesComponent from "./components/FilesComponent";
 import PicturePreview from "./components/PicturePreview";
 import ArticelsTable from "./components/ArticelsTable";

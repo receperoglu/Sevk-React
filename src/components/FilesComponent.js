@@ -16,8 +16,8 @@ export default function FilesComponent({ Files, showPicturePreview }) {
   };
   
   useEffect(() => {
-     setdocuments(Files.filter((f) => "Document" == f.FileType));
-     setpictures(Files.filter((f) => "Picture" == f.FileType));
+     setdocuments(Files.filter((f) => "Document" === f.FileType));
+     setpictures(Files.filter((f) => "Picture" === f.FileType));
 
    }, [Files]);
 
