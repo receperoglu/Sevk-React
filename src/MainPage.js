@@ -548,6 +548,7 @@ export default function MainPage() {
         }
       >
         <OrdersTable
+         isVisible={isShow}
           Orders={Orders}
           isMobile={isMobile}
           ArticelName={ArticelName}
