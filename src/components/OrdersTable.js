@@ -9,8 +9,7 @@ export default function OrdersTable({
   isMobile,
   GetOrderEdit,
   isDetailActive,
-  isShow,
-}) {
+ }) {
   const toggleOrderList = () => {
     setOrderVisible(!OrderVisible);
   };
