@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Arrow from "./Tools/Arrow";
-import ProgressBar from "./ProgressBar";
 
 export default function OrdersTable({
   ArticelName,
@@ -18,7 +17,6 @@ export default function OrdersTable({
   const [OrderVisible, setOrderVisible] = useState(true);
   return (
     <div>
-      <ProgressBar isVisible={isShow} />
       <div
         onClick={() => toggleOrderList()}
         className={
