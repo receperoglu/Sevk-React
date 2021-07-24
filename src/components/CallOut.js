@@ -7,7 +7,7 @@ export default function CallOut({
   Dimensions,
   Color,
   ProductTypeName,
-   OneWayBill,
+  OneWayBill,
   GetWayBillPhoto,
 }) {
   const [totalPiece, settotalPice] = useState(0);
@@ -17,75 +17,66 @@ export default function CallOut({
     OneWayBill.map((w) => (waybillPiece = +parseInt(w.Piece, 10)));
     settotalPice(waybillPiece);
     setLoopCount(OneWayBill.length);
-  },[OneWayBill]);
+  }, [OneWayBill]);
 
   return (
-    <div 
+    <div
       style={{ top: top, left: left }}
       className={
         isShowCallOut
-          ? "ms-ContextualHost effect is-positioned ms-ContextualHost--arrowLeft is-open ms-ContextualHost--primaryArrow"
+          ? "ms-ContextualHost effect is-positioned ms-ContextualHost--arrowLeft is-open "
           : "hide"
       }
     >
       <div className="ms-ContextualHost-main">
-        <div className="ms-Callout ms-Callout--arrowLeft ms-Callout--OOBE">
-          <div className="ms-Callout-main">
-            <i
-              data-icon-name="Cancel"
-              onClick={() => CancelCallOut()}
-              aria-hidden="true"
-              className="pointer ms-Button-icon icon-73 fright cwhite"
-            >
-              
-            </i>
-            <div className="ms-Callout-header">
-              <div className="ms-Callout-title">
-                {totalPiece === 0 ? " Henüz Sevkiyat Yapılmamış" : ""}
-                <div className={totalPiece === 0 ? "hide" : ""}>
-                  {totalPiece} Adet.
-                  {LoopCount} Kez Sevk Edildi.
-                  <br />
-                  {Dimensions} {Color} <br />
-                  {ProductTypeName}
-                </div>
-              </div>
-            </div>
-            <div className="ms-Callout-inner">
-              <div className="ms-Callout-content">
-                <div className="ms-Callout-subText">
-                  <table
-                    className="table padd0  table-hover alert alert-primary"
-                  >
-                    <thead className={totalPiece === 0 ? "hide" : ""}>
-                      <tr className="alert alert-success">
-                        <td>Adet</td>
-                        <td>Ağırlık</td>
-                        <td>Tarih</td>
-                        <td>İrsaliye</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {OneWayBill.map((w) => (
-                        <tr key={w.id}>
-                          <td>
-                            <b> </b> {w.Piece}
-                          </td>
-                          <td>{w.Weight} KG </td>
-                          <td> {w.CreatedDate} </td>
-                          <td>
-                            <span onClick={() => GetWayBillPhoto(w.WayBillId)}>
-                              {w.WayBillId}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+        <div className="ms-Callout  ms-Callout--OOBE">
+          <i
+            data-icon-name="Cancel"
+            onClick={() => CancelCallOut()}
+            aria-hidden="true"
+            className="pointer ms-Button-icon icon-73 fright cwhite"
+          >
+            
+          </i>
+          <div className="ms-Callout-header">
+            <div className="ms-Callout-title">
+              {totalPiece === 0 ? " Henüz Sevkiyat Yapılmamış" : ""}
+              <div className={totalPiece === 0 ? "hide" : ""}>
+                {totalPiece} Adet.
+                {LoopCount} Kez Sevk Edildi.
+                <br />
+                {Dimensions} {Color} <br />
+                {ProductTypeName}
               </div>
             </div>
           </div>
+
+          <table className="table padd0  table-hover alert alert-primary">
+            <thead className={totalPiece === 0 ? "hide" : ""}>
+              <tr className="alert alert-success">
+                <td>Adet</td>
+                <td>Ağırlık</td>
+                <td>Tarih</td>
+                <td>İrsaliye</td>
+              </tr>
+            </thead>
+            <tbody>
+              {OneWayBill.map((w) => (
+                <tr key={w.id}>
+                  <td>
+                    <b> </b> {w.Piece}
+                  </td>
+                  <td>{w.Weight} KG </td>
+                  <td> {w.CreatedDate} </td>
+                  <td>
+                    <span onClick={() => GetWayBillPhoto(w.WayBillId)}>
+                      {w.WayBillId}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

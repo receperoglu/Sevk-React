@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
-import FilesComponent from "./components/FilesComponent";
-import WayBillList from "./components/WayBillList";
-import TopBar from "./components/TopBar";
+import CreateArticelModal from "./components/CreateArticelModal";
 import ProductOutModal from "./components/ProductOutModal";
 import ProductEditModal from "./components/ProductEditModal";
 import ProductNewModal from "./components/ProductNewModal";
+import FilesComponent from "./components/FilesComponent";
+import PicturePreview from "./components/PicturePreview";
 import ArticelsTable from "./components/ArticelsTable";
 import LayoutRight from "./components/LayoutRight";
-import LayoutNote from "./components/LayoutNote";
-import CreateArticelModal from "./components/CreateArticelModal";
 import OrdersTable from "./components/OrdersTable";
 import ProgressBar from "./components/ProgressBar";
+import WayBillList from "./components/WayBillList";
+import LayoutNote from "./components/LayoutNotes";
 import FirstRun from "./components/FirstRun";
 import CallOut from "./components/CallOut";
-import PicturePreview from "./components/PicturePreview";
+import TopBar from "./components/TopBar";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 export default function MainPage() {
-
   const [Corps, setCorps] = useState([]);
   const [Files, setFiles] = useState([]);
   const [Orders, setOrders] = useState([]);
@@ -70,7 +69,7 @@ export default function MainPage() {
   useEffect(() => {
     fetcharticels();
     window.addEventListener("resize", updateDimensions);
-  },[Articels]);
+  }, [Articels]);
   const ChangeProductType = (typeid) => {
     setTypeId(typeid);
   };
@@ -128,7 +127,7 @@ export default function MainPage() {
     } else {
       setisMobile(false);
     }
-  }; 
+  };
   const fetcharticels = async () => {
     var data = await FetchFunc(USER_SERVICE_URL + "Articels");
     setArticels(data);
@@ -226,7 +225,6 @@ export default function MainPage() {
     } catch (error) {
       console.log(error);
     }
- 
   };
   const SaveProductOut = (orderid) => {
     setOrderId(orderid);
@@ -300,7 +298,7 @@ export default function MainPage() {
     var selectedId = "Articel" + ActiveArticel;
     document.getElementById(selectedId).classList.remove("ActiveArticelRow");
     setActiveArticel(0);
-  }; 
+  };
   const RotatePicture = () => {
     setisRotating(true);
     var formData = new FormData();
@@ -504,26 +502,26 @@ export default function MainPage() {
 
     setisShowProductEdit(false);
     GetOrders(ArticelId, ArticelName, CorpName);
-  }; 
+  };
   return (
     <div className="padd0 col-md-12">
       <TopBar
+        Corps={Corps}
+        isMobile={isMobile}
+        CorpName={CorpName}
+        ArticelId={ArticelId}
         chooseFile={chooseFile}
         CorpSearch={CorpSearch}
-        NewProductShow={NewProductShow}
         toggleView={toggleView}
-        closeTopBar={closeTopBar}
-        LayoutRightShow={LayoutRightShow}
-        isShowTopBar={isShowTopBar}
-        productEditShow={productEditShow}
-        productOutShow={productOutShow}
-        Corps={Corps}
         filterCorp={filterCorp}
-        ArticelId={ArticelId}
-        CorpName={CorpName}
+        closeTopBar={closeTopBar}
+        isShowTopBar={isShowTopBar}
         LayoutNoteShow={LayoutNoteShow}
+        productOutShow={productOutShow}
+        NewProductShow={NewProductShow}
+        LayoutRightShow={LayoutRightShow}
+        productEditShow={productEditShow}
         CreateArticelShow={CreateArticelShow}
-        isMobile={isMobile}
       />
       <FirstRun IsFirstRun={IsFirstRun} />
       <ProgressBar isVisible={isShow} />
@@ -533,9 +531,9 @@ export default function MainPage() {
           className={ChangeView ? "hide" : "WizardArea padd0 col-md-12"}
         >
           <ArticelsTable
-            GetOrders={GetOrders}
-             Articels={Articels}
+            Articels={Articels}
             isMobile={isMobile}
+            GetOrders={GetOrders}
           />
         </div>
       </div>
@@ -550,13 +548,13 @@ export default function MainPage() {
         }
       >
         <OrdersTable
-          GetOrderEdit={GetOrderEdit}
           Orders={Orders}
+          isMobile={isMobile}
           ArticelName={ArticelName}
+          GetOrderEdit={GetOrderEdit}
+          isDetailActive={isDetailActive}
           CallOutonMouseMove={CallOutonMouseMove}
           GetWaybillforOrder={GetWaybillforOrder}
-          isMobile={isMobile}
-          isDetailActive={isDetailActive}
         />
         <FilesComponent Files={Files} showPicturePreview={showPicturePreview} />
         <WayBillList Waybill={Waybill} isMobile={isMobile} />
@@ -565,82 +563,82 @@ export default function MainPage() {
           isShowLayoutRight={isShowLayoutRight}
         />
         <LayoutNote
-          CancelNote={CancelNote}
           SaveNotes={SaveNotes}
+          CancelNote={CancelNote}
           UpdateArticelNote={UpdateArticelNote}
           ArticelNotes={ArticelNotes}
           isShowLayoutNote={isShowLayoutNote}
         />
-      </div>      
-      <ProductOutModal
-        ChangePiece={ChangePiece}
-        ChangeWeight={ChangeWeight}
-        ChangeWayBillId={ChangeWayBillId}
-        CancelProduct={CancelProduct}
-        OrderList={Orders}
-        ArticelName={ArticelName}
-        SaveProductOut={SaveProductOut}
-        isShowProductOut={isShowProductOut}
-      />
-      <ProductEditModal
-        isShowProductEdit={isShowProductEdit}
-        UpdateOrder={UpdateOrder}
-        CancelEdit={CancelEdit}
-        ChangeProductType={ChangeProductType}
-        ProductTypes={ProductTypes}
-        Piece={Piece}
-        Dimensions={Dimensions}
-        Typeid={TypeId}
-        ProductTypeName={ProductTypeName}
-        Color={Color}
-        OrderId={OrderId}
-      />
+      </div>
       <CreateArticelModal
         Corps={Corps}
         Piece={Piece}
-        Dimensions={Dimensions}
-        Typeid={TypeId}
-        ProductTypeName={ProductTypeName}
         Color={Color}
-        ProductTypes={ProductTypes}
-        ChangeArticelName={ChangeArticelName}
-        CancelCreateArticel={CancelCreateArticel}
-        ChangeCorpId={ChangeCorpId}
-        ChangeSalesType={ChangeSalesType}
+        Typeid={TypeId}
         SalesTypes={SalesTypes}
+        Dimensions={Dimensions}
         SaveArticel={SaveArticel}
-        isShowCreateArticel={isShowCreateArticel}
+        ProductTypes={ProductTypes}
+        ChangeCorpId={ChangeCorpId}
         CancelArticel={CancelArticel}
+        ChangeSalesType={ChangeSalesType}
+        ProductTypeName={ProductTypeName}
+        ChangeArticelName={ChangeArticelName}
+        isShowCreateArticel={isShowCreateArticel}
         IsCreateArticelShow={IsCreateArticelShow}
+        CancelCreateArticel={CancelCreateArticel}
       />
       <ProductNewModal
         SaveOrder={SaveOrder}
-        CancelNewProduct={CancelNewProduct}
-        ChangeProductType={ChangeProductType}
         ChangePiece={ChangePiece}
-        ChangeDimensions={ChangeDimensions}
         ChangeColor={ChangeColor}
         ProductTypes={ProductTypes}
-        ProductNewLoading={ProductNewLoading}
         IsNewProductShow={IsNewProductShow}
+        CancelNewProduct={CancelNewProduct}
+        ChangeDimensions={ChangeDimensions}
+        ChangeProductType={ChangeProductType}
+        ProductNewLoading={ProductNewLoading}
+      />
+      <ProductOutModal
+        OrderList={Orders}
+        ArticelName={ArticelName}
+        ChangePiece={ChangePiece}
+        ChangeWeight={ChangeWeight}
+        CancelProduct={CancelProduct}
+        SaveProductOut={SaveProductOut}
+        ChangeWayBillId={ChangeWayBillId}
+        isShowProductOut={isShowProductOut}
+      />
+      <ProductEditModal
+        Color={Color}
+        Piece={Piece}
+        Typeid={TypeId}
+        OrderId={OrderId}
+        CancelEdit={CancelEdit}
+        Dimensions={Dimensions}
+        UpdateOrder={UpdateOrder}
+        ProductTypes={ProductTypes}
+        ProductTypeName={ProductTypeName}
+        isShowProductEdit={isShowProductEdit}
+        ChangeProductType={ChangeProductType}
       />
       <CallOut
-        CancelCallOut={CancelCallOut}
-        Dimensions={Dimensions}
-        Color={Color}
-        ProductTypeName={ProductTypeName}
-        OneWayBill={OneWayBill}
         top={y}
         left={x}
+        Color={Color}
+        Dimensions={Dimensions}
+        OneWayBill={OneWayBill}
+        CancelCallOut={CancelCallOut}
         isShowCallOut={isShowCallOut}
+        ProductTypeName={ProductTypeName}
       />
       <PicturePreview
-        isShowPicturePreview={isShowPicturePreview}
         Path={Path}
-        hidePicturePreview={hidePicturePreview}
         Articel={ArticelName}
-        RotatePicture={RotatePicture}
         isRotating={isRotating}
+        RotatePicture={RotatePicture}
+        hidePicturePreview={hidePicturePreview}
+        isShowPicturePreview={isShowPicturePreview}
       />
       <input
         type="file"
@@ -651,7 +649,7 @@ export default function MainPage() {
         }}
         className="MultipleNew hide"
         multiple
-      ></input>     
+      ></input>
     </div>
   );
 }

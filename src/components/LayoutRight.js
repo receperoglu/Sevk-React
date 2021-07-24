@@ -3,18 +3,18 @@ export default function LayoutRight({CancelShare,isShowLayoutRight}) {
   return (
     <div
       id="LayoutRight"
-      className={isShowLayoutRight ? "BaseDrive RightLayout" : "hide"}
+      className={isShowLayoutRight ? "BaseDrive effect RightLayout" : "hide"}
     >
       <div className="_3vMrdRZR8bo5hSiJS8JJ8C nopad col-xs-12">
         <div className="col-xs-8 padd0">
           <h3 className="LayoutHead padd10">Paylaş</h3>
         </div>
-        <div className="col-xs-4 padd0 text-center">
+        <div style={{lineHeight:"102px"}} className="col-xs-4 padd0 text-center">
           <i
             data-icon-name="Cancel"
             onClick={() => CancelShare()}
             role="presentation"
-            className="pointer shareclose ms-Button-icon icon-73"
+            className="pointer   icon-73"
           >
             
           </i>

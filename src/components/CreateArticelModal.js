@@ -42,11 +42,11 @@ export default function CreateArticelModal({
                     <br />
                   </div>
                   <hr />
-                  <div className="col-md-12 ">
-                    <div className="col-md-2 ">
+                  <div className="padd0 col-xs-12 ">
+                    <div className="padd0 col-xs-2 ">
                       <span>Firma</span>
                     </div>
-                    <div className="col-md-10 ">
+                    <div className="padd0 col-xs-10 ">
                       <select
                         className="ms-TextField-field"
                         onChange={(e) => ChangeCorpId(e.target.value)}
@@ -59,11 +59,11 @@ export default function CreateArticelModal({
                       </select>
                     </div>
                   </div>
-                  <div className="col-md-12">
-                    <div className="col-md-2 fleft">
+                  <div className="padd0 col-xs-12">
+                    <div className="padd0 col-xs-2 fleft">
                       <span> Tipi</span>
                     </div>
-                    <div className="col-md-10 fleft">
+                    <div className="padd0 col-xs-10 fleft">
                       <select
                         className="ms-TextField-field field-320"
                         onChange={(e) => ChangeSalesType(e.target.value)}
@@ -75,11 +75,11 @@ export default function CreateArticelModal({
                         ))}
                       </select>
                     </div>
-                    <div className="col-md-12 ">
-                      <div className="col-md-2 fleft">
+                    <div className="padd0 col-xs-12 ">
+                      <div className="padd0 col-xs-2 fleft">
                         <span>Artikel </span>
                       </div>
-                      <div className="col-md-10 fleft">
+                      <div className="padd0 col-xs-10 fleft">
                         <input
                           type="text"
                           onChange={(e) => ChangeArticelName(e.target.value)}
@@ -89,7 +89,7 @@ export default function CreateArticelModal({
                     </div>
                   </div>
 
-                  <div className="col-md-12 text-right fleft">
+                  <div className="padd0 col-xs-12 text-right fleft">
                     <div
                       className={
                         isShowCreateArticel
