@@ -1,12 +1,10 @@
 import React from "react";
 
-export default function ProgressBar({isVisible}) {
+export default function ProgressBar({ isVisible }) {
   return (
     <div
       className={
-        isVisible
-          ? "show ProgressSpinnerFlat"
-          : "opaq0 ProgressSpinnerFlat"
+        isVisible ? "show ProgressSpinnerFlat" : "opaq0 ProgressSpinnerFlat"
       }
       role="progressbar"
     >

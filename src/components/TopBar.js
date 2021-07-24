@@ -131,8 +131,7 @@ export default function TopBar({
           <div className="od-TopBar-item od-TopBar-commandBar od-BasePage-commandBar">
             <div className={isShowTopBar ? "fright" : "opaq0 hide"}>
               <div className="col-md-6 padd0 ">
-                <div>
-                  <div className="ms-FocusZone css-74 ms-CommandBar root-79">
+                   <div className="ms-FocusZone css-74 ms-CommandBar root-79">
                     <div className="ms-OverflowSet TopBarCommandLeft primarySet-82">
                       <div
                         className={
@@ -398,7 +397,7 @@ export default function TopBar({
                       </div>
                     </div>
                   </div>
-                </div>
+              
               </div>
             </div>
           </div>

@@ -34,7 +34,7 @@ export default function LayoutNotes({  isShowLayoutNote,
           ></textarea>
            <div
             onClick={() => SaveNotes()}
-            className="btn btn-block btn-success"
+            className="text-center Transfer btn-block TransferBTN ms-Button ms-Button--primary"
           >
             Güncelle
           </div>
