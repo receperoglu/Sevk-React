@@ -11,7 +11,7 @@ import OrdersTable from "./components/OrdersTable";
 import ProgressBar from "./components/ProgressBar";
 import WayBillList from "./components/WayBillList";
 import LayoutNote from "./components/LayoutNotes";
- import CallOut from "./components/CallOut";
+import CallOut from "./components/CallOut";
 import TopBar from "./components/TopBar";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
@@ -290,7 +290,7 @@ export default function MainPage() {
   };
   const closeTopBar = () => {
     setisShowTopBar(false);
-
+    setisShowCallOut(false);
     setisDetailActive(false);
     document.getElementById("SecondScreen").classList.add("hide");
     document.getElementById("FirstScreen").classList.add("col-md-12");
