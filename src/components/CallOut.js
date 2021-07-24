@@ -33,7 +33,6 @@ export default function CallOut({
           <i
             data-icon-name="Cancel"
             onClick={() => CancelCallOut()}
-            aria-hidden="true"
             className="pointer ms-Button-icon icon-73 fright cwhite"
           >
             
@@ -51,34 +50,40 @@ export default function CallOut({
             </div>
           </div>
 
-          <table className="table padd0  table-hover alert alert-primary">
-            <thead className={totalPiece === 0 ? "hide" : ""}>
-              <tr className="alert alert-success">
-                <td>Adet</td>
-                <td>Ağırlık</td>
-                <td>Tarih</td>
-                <td>İrsaliye</td>
-              </tr>
-            </thead>
-            <tbody>
-              {OneWayBill.map((w) => (
-                <tr key={w.id}>
-                  <td>
-                    <b> </b> {w.Piece}
-                  </td>
-                  <td>{w.Weight} KG </td>
-                  <td> {w.CreatedDate} </td>
-                  <td>
-                    <span onClick={() => GetWayBillPhoto(w.WayBillId)}>
-                      {w.WayBillId}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece)}
         </div>
       </div>
     </div>
+  );
+}
+
+function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
+  return (
+    <table className="table padd0  table-hover alert alert-primary">
+      <thead className={totalPiece === 0 ? "hide" : ""}>
+        <tr className="alert alert-success">
+          <td>Adet</td>
+          <td>Ağırlık</td>
+          <td>Tarih</td>
+          <td>İrsaliye</td>
+        </tr>
+      </thead>
+      <tbody>
+        {OneWayBill.map((w) => (
+          <tr key={w.id}>
+            <td>
+              <b> </b> {w.Piece}
+            </td>
+            <td>{w.Weight} KG </td>
+            <td> {w.CreatedDate} </td>
+            <td>
+              <span onClick={() => GetWayBillPhoto(w.WayBillId)}>
+                {w.WayBillId}
+              </span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

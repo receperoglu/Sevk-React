@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Arrow from "./Tools/Arrow";
 export default function WayBillList({ isMobile, Waybill }) {
   const [WayBillVisible, setWayBillVisible] = useState(true);
@@ -35,7 +35,6 @@ export default function WayBillList({ isMobile, Waybill }) {
               <td> {w.Weight} </td>
               <td> {w.Dimensions} </td>
               <td className={isMobile ? "minifont" : ""}>{w.Color}</td>
-
               <td className="pointer">
                 <span>
                   {w.CreatedDate}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Arrow from "./Tools/Arrow";
-
 export default function OrdersTable({
   ArticelName,
   Orders,
@@ -9,11 +8,11 @@ export default function OrdersTable({
   isMobile,
   GetOrderEdit,
   isDetailActive,
- }) {
+}) {
+  const [OrderVisible, setOrderVisible] = useState(true);
   const toggleOrderList = () => {
     setOrderVisible(!OrderVisible);
   };
-  const [OrderVisible, setOrderVisible] = useState(true);
   return (
     <div>
       <div
@@ -46,18 +45,13 @@ export default function OrdersTable({
           </thead>
           <tbody aria-live="polite">
             {Orders.map((o) => (
-              <tr
-                data-piece={o.Piece}
-                data-product={o.Color}
-                className="MotionData"
-                key={o.id}
-                data-orderid={o.id}
+              <tr 
+                key={o.id}                
                 id={"Order" + o.id}
               >
                 <td>
                   <div onClick={CallOutonMouseMove.bind(this)}>
-                    <span
-                      data-piece={o.Piece}
+                    <span                    
                       onClick={() =>
                         GetWaybillforOrder(
                           o.id,
@@ -74,9 +68,7 @@ export default function OrdersTable({
                 </td>
                 <td>{o.Dimensions}</td>
                 <td className={isMobile ? "minifont" : ""}>{o.Color}</td>
-
                 <td>{o.ProductTypeName}</td>
-
                 <td>
                   <i
                     onClick={() =>

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-
 export default function PicturePreview({
   isRotating,
   isShowPicturePreview,
   Path,
   Articel,
-  hidePicturePreview,
+  hidePicturePreview
 }) {
   const [rotation, setrotation] = useState(0);
-
   const rotate = () => {
     let newRotation = rotation + 90;
     if (newRotation >= 360) {
@@ -44,8 +42,8 @@ export default function PicturePreview({
       />
 
       <div className="resources-action-bar resources-action-bar_visible resources-action-bar_fixed resources-action-bar_delay resources-action-bar_theme_black js-prevent-deselect ufo-resources-action-bar OpenedPictureTool">
-        <div className="resources-action-bar__body" data-reactid="4">
-          <div className="resources-action-bar__side-left" data-reactid="5">
+        <div className="resources-action-bar__body">
+          <div className="resources-action-bar__side-left">
             <div className="resources-info-dropdown">
               <div className="resources-info-dropdown__icon-wrap">
                 <span className="hover-dropdown">
@@ -77,7 +75,6 @@ export default function PicturePreview({
                   </div>
                 </span>
               </div>
-
               <div className="resources-info-dropdown__text-wrap">
                 <span className="hover-dropdown">
                   <div className="hover-tooltip__tooltip-anchor">
@@ -89,23 +86,18 @@ export default function PicturePreview({
               </div>
             </div>
           </div>
-          <div className="resources-action-bar__side-right" data-reactid="6">
+          <div className="resources-action-bar__side-right">
             <span>
               <a
-                id="O365_AppTile_Mail lh45px sidepre"
                 className="BaseDriveContainer fleft  col-xs-4 col-md-4 ShareMail"
                 href={`mailto:receperoglu1@hotmail.com?subject=${Articel}&body=${Path}`}
               >
                 <div
                   className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal button2_type_check ufo-resources-action-bar__primary-button ufo-resources-action-bar__primary-button_desktop ufo-resources-action-bar__primary-button_action_publish"
                   type="button"
-                  autoComplete="off"
-                  aria-pressed="false"
-                  tabIndex="0"
-                  aria-disabled="false"
                 >
                   <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-                    <div className="BaseDrive fleft" aria-hidden="true">
+                    <div className="BaseDrive fleft">
                       <span className="ms-Icon--OutlookLogo DriveIcon ms-svg-Icon"></span>
                     </div>
                   </span>
@@ -123,13 +115,9 @@ export default function PicturePreview({
                 <div
                   className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal button2_type_check ufo-resources-action-bar__primary-button ufo-resources-action-bar__primary-button_desktop ufo-resources-action-bar__primary-button_action_publish"
                   type="button"
-                  autoComplete="off"
-                  aria-pressed="false"
-                  tabIndex="0"
-                  aria-disabled="false"
                 >
                   <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-                    <div className="BaseDrive fleft" aria-hidden="true">
+                    <div className="BaseDrive fleft">
                       <span className="ms-Icon--WordLogo DriveIcon ms-svg-Icon "></span>
                     </div>
                   </span>
@@ -137,7 +125,6 @@ export default function PicturePreview({
                 </div>
               </a>
             </span>
-
             <div className="groupable-buttons">
               <div className="groupable-buttons__visible-buttons">
                 <span className="hover-dropdown">
@@ -183,13 +170,9 @@ export default function PicturePreview({
                   </div>
                 </span>
               </div>
-
-              <div className=" groupable-buttons__more-button-wrap">
-                <span className="hover-dropdown" data-reactid="7">
-                  <div
-                    className="hover-tooltip__tooltip-anchor"
-                    data-reactid="8"
-                  >
+              <div className="groupable-buttons__more-button-wrap">
+                <span className="hover-dropdown">
+                  <div className="hover-tooltip__tooltip-anchor">
                     <button
                       onClick={() => {
                         hidePicturePreview();
@@ -197,21 +180,16 @@ export default function PicturePreview({
                       className="button2 button2_view_classic button2_size_n button2_theme_clear-inverse resources-action-bar__close"
                       type="button"
                     >
-                      <span
-                        className="ufo-icon ufo-icon_size_n icon button2__icon"
-                        data-reactid="10"
-                      >
+                      <span className="ufo-icon ufo-icon_size_n icon button2__icon">
                         <svg
                           className="ufo-icon__icon"
                           width="24"
                           height="24"
                           viewBox="0 0 24 24"
-                          data-reactid="11"
                         >
                           <path
                             fill="currentColor"
                             d="M21 5.421L19.579 4 12.5 11.079 5.421 4 4 5.421l7.079 7.079L4 19.579 5.421 21l7.079-7.079L19.579 21 21 19.579 13.921 12.5z"
-                            data-reactid="12"
                           ></path>
                         </svg>
                       </span>

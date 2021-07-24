@@ -7,9 +7,9 @@ export default function LayoutNotes({  isShowLayoutNote,
   return (
     <div
       id="LayoutNote"
-      className={isShowLayoutNote ? "BaseDrive effect RightLayout" : "hide"}
+      className={isShowLayoutNote ? "effect RightLayout" : "hide"}
     >
-      <div className="_3vMrdRZR8bo5hSiJS8JJ8C nopad col-xs-12">
+      <div className="col-xs-12">
         <div className="col-xs-8 padd0">
           <h3 className="LayoutHead padd10">Not</h3>
         </div>
