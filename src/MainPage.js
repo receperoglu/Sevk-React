@@ -11,8 +11,7 @@ import OrdersTable from "./components/OrdersTable";
 import ProgressBar from "./components/ProgressBar";
 import WayBillList from "./components/WayBillList";
 import LayoutNote from "./components/LayoutNotes";
-import FirstRun from "./components/FirstRun";
-import CallOut from "./components/CallOut";
+ import CallOut from "./components/CallOut";
 import TopBar from "./components/TopBar";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
@@ -50,7 +49,6 @@ export default function MainPage() {
 
   const [isShow, setisShow] = useState(true);
   const [isMobile, setisMobile] = useState(false);
-  const [IsFirstRun, setIsFirstRun] = useState(true);
   const [isRotating, setisRotating] = useState(false);
   const [ChangeView, setChangeView] = useState(false);
   const [isshowOrder, setisshowOrder] = useState(false);
@@ -71,7 +69,6 @@ export default function MainPage() {
       var data = await FetchFunc(USER_SERVICE_URL + "Articels");
       setArticels(data);
       setisShow(false);
-      setIsFirstRun(false);
     }
     fetchArticels();
     getProductType();
@@ -116,7 +113,7 @@ export default function MainPage() {
     color,
     producttypename
   ) => {
-    var element = "Order"+OrderId
+    var element = "Order" + OrderId;
     document.getElementById(element).classList.add("OrderProccessing");
     setDimensions(dimensions);
     setOneWayBill([]);
@@ -526,7 +523,7 @@ export default function MainPage() {
         productEditShow={productEditShow}
         CreateArticelShow={CreateArticelShow}
       />
-       <ProgressBar isVisible={isShow} />
+      <ProgressBar isVisible={isShow} />
       <div className={isMobile && isDetailActive ? "hide" : ""}>
         <div
           id="FirstScreen"
