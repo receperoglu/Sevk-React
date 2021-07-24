@@ -67,9 +67,18 @@ export default function MainPage() {
   const [isShowCreateArticel, setisShowCreateArticel] = useState(false);
   const [isShowPicturePreview, setisShowPicturePreview] = useState(false);
   useEffect(() => {
-    fetcharticels();
+    async function fetchArticels() {
+      var data = await FetchFunc(USER_SERVICE_URL + "Articels");
+      setArticels(data);
+      setisShow(false);
+      setIsFirstRun(false);
+    }
+    fetchArticels();
+    getProductType();
+    getCorps();
+    getSalesTypes();
     window.addEventListener("resize", updateDimensions);
-  }, [Articels]);
+  }, []);
   const ChangeProductType = (typeid) => {
     setTypeId(typeid);
   };
@@ -127,15 +136,6 @@ export default function MainPage() {
     } else {
       setisMobile(false);
     }
-  };
-  const fetcharticels = async () => {
-    var data = await FetchFunc(USER_SERVICE_URL + "Articels");
-    setArticels(data);
-    setisShow(false);
-    setIsFirstRun(false);
-    getProductType();
-    getCorps();
-    getSalesTypes();
   };
   const FetchFunc = async (Url) => {
     const response = await fetch(Url, {
@@ -548,7 +548,7 @@ export default function MainPage() {
         }
       >
         <OrdersTable
-         isVisible={isShow}
+          isVisible={isShow}
           Orders={Orders}
           isMobile={isMobile}
           ArticelName={ArticelName}
