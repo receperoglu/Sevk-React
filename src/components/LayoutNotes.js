@@ -3,7 +3,7 @@ export default function LayoutNotes({  isShowLayoutNote,
   CancelNote,
   UpdateArticelNote,
   ArticelNotes,
-  SaveNotes,}) {
+  SaveNotes}) {
   return (
     <div
       id="LayoutNote"
@@ -11,7 +11,7 @@ export default function LayoutNotes({  isShowLayoutNote,
     >
       <div className="_3vMrdRZR8bo5hSiJS8JJ8C nopad col-xs-12">
         <div className="col-xs-8 padd0">
-          <h3 className="LayoutHead padd10">Paylaş</h3>
+          <h3 className="LayoutHead padd10">Not</h3>
         </div>
         <div style={{lineHeight:"102px"}} className="col-xs-4 padd0 text-center">
           <i
