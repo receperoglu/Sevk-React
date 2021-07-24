@@ -34,7 +34,7 @@ export default function FilesComponent({ Files, showPicturePreview }) {
       </div>
       <div className={FilesVisible ? "effect" : "hide"}>
         
-      <h2 className="padleft5">Resimler</h2>
+      <h2 className="padleft5 col-xs-12">Resimler</h2>
 
           {pictures.map((f) => (
             <div
@@ -57,7 +57,7 @@ export default function FilesComponent({ Files, showPicturePreview }) {
               </div>
             </div>
           ))}
-          <h2 className="padleft5">Belgeler</h2>
+          <h2 className="padleft5 col-xs-12">Belgeler</h2>
           {documents.map((f) => (
             <div key={f.id} className="DocumentContainerDiv col-md-2 col-xs-4">
               <div className="FileBorder">
