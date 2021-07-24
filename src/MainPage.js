@@ -523,8 +523,7 @@ export default function MainPage() {
         productEditShow={productEditShow}
         CreateArticelShow={CreateArticelShow}
       />
-      <FirstRun IsFirstRun={IsFirstRun} />
-      <ProgressBar isVisible={isShow} />
+       <ProgressBar isVisible={isShow} />
       <div className={isMobile && isDetailActive ? "hide" : ""}>
         <div
           id="FirstScreen"
