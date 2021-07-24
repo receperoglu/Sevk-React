@@ -1,115 +1,94 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Arrow from "./Tools/Arrow";
 
 export default function FilesComponent({ Files, showPicturePreview }) {
   const [FilesVisible, setFilesVisible] = useState(true);
+  const [documents, setdocuments] = useState([]);
+  const [pictures, setpictures] = useState([]);
+
+  const BaseUrl = "http://recep.space/abi/dosyalar/";
+  const ThumbUrl = "http://recep.space/thumbs/";
+  const icoUrl = "http://recep.space/abi/css/img/";
+  const DocumentViewUrl =
+    "https://view.officeapps.live.com/op/embed.aspx?src=http://recep.space/abi/dosyalar/";
   const toggleView = () => {
     setFilesVisible(!FilesVisible);
   };
+  
+  useEffect(() => {
+     setdocuments(Files.filter((f) => "Document" == f.FileType));
+     setpictures(Files.filter((f) => "Picture" == f.FileType));
+
+   }, [Files]);
+
   return (
     <div className={Files.length === 0 ? "hide" : "col-xs-12 col-md-12"}>
       <div
-        onClick={() => {
-          toggleView()
-        }}
         className="PartHead"
+        onClick={() => {
+          toggleView();
+        }}
       >
         Dökümanlar
         <Arrow Direction={FilesVisible} />
       </div>
-      <div className={FilesVisible ? "padd5" : "hide"}>
-        <div className="padd5">
-          {Files.map((f) =>
-            f.FileType === "Picture" ? (
-              <div
-                key={f.id}
-                data-url={f.Path}
-                data-ext={f.ext}
-                style={{ height: "150px" }}
-                className=" FileIco text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
-              >
-                <div className="FileBorder">
-                  <div
-                    onClick={() => {
-                      showPicturePreview(
-                        `http://recep.space/abi/dosyalar/${f.Path}`,
-                        f.Path
-                      );
-                    }}
-                    style={{
-                      backgroundImage: `url(http://recep.space/thumbs/${f.Path})`,
-                    }}
-                    className="PictureDiv"
-                  ></div>
+      <div className={FilesVisible ? "effect" : "hide"}>
+        
+      <h2 className="padleft5">Resimler</h2>
+
+          {pictures.map((f) => (
+            <div
+              key={f.id}
+              className="DocumentContainerDiv col-md-2 col-xs-4  "
+            >
+              <div className="FileBorder">
+                <div
+                  onClick={() => {
+                    showPicturePreview(BaseUrl + f.Path, f.Path);
+                  }}
+                  style={{
+                    backgroundImage: `url(${ThumbUrl + f.Path})`,
+                  }}
+                  className="PictureDiv"
+                ></div>
+                <a href={BaseUrl + f.Path} target="blank">
+                  {f.FileName.substring(0, 12)}
+                </a>
+              </div>
+            </div>
+          ))}
+          <h2 className="padleft5">Belgeler</h2>
+          {documents.map((f) => (
+            <div key={f.id} className="DocumentContainerDiv col-md-2 col-xs-4">
+              <div className="FileBorder">
+                <div
+                  style={{
+                    backgroundImage: `url(${icoUrl + f.ext.substring(1)}.png)`,
+                  }}
+                  className="padd0 filepreview "
+                >
                   <a
-                    className="FileLink"
-                    href={`http://recep.space/abi/dosyalar/${f.Path}`}
+                    className="FileLink "
+                    href={DocumentViewUrl + f.Path}
                     target="blank"
                   >
                     {f.FileName.substring(0, 12)}
                   </a>
-                </div>
-              </div>
-            ) : (
-              <div
-                data-ext={f.ext}
-                key={f.id}
-                className="FileIco   text-center col-md-2 col-xs-6 padd0 cpointer  filepreview"
-                style={{ height: "150px" }}
-              >
-                <div className="FileBorder">
-                  <div
-                    style={{
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "50%",
-                      backgroundImage: `url(http://recep.space/abi/css/img/${f.ext.substring(
-                        1
-                      )}.png)`,
-                    }}
-                    className=" padd0   filepreview "
+                  <a
+                    className="DownloadBtn"
+                    href={BaseUrl + f.Path}
+                    target="blank"
                   >
-                    <a
-                      style={{
-                        position: "absolute",
-                        bottom: "10px",
-                        display: "inline-flex",
-                        width: "100%",
-                        left: "0",
-                      }}
-                      className="FileLink"
-                      href={`https://view.officeapps.live.com/op/embed.aspx?src=http://recep.space/abi/dosyalar/${f.Path}`}
-                      target="blank"
-                    >
-                      <span style={{ textAlign: "center", width: "100%" }}>
-                        {f.FileName.substring(0, 12)}
-                      </span>
-                    </a>
-                    <a
-                      style={{
-                        position: "absolute",
-                        right: "15px",
-                        top: "20px",
-                      }}
-                      href={`http://recep.space/abi/dosyalar/${f.Path}`}
-                      target="blank"
-                    >
-                      <span style={{ textAlign: "right", width: "100%" }}>
-                        <i
-                          data-icon-name="Download"
-                          aria-hidden="true"
-                          className="fright ms-Button-icon icon-73"
-                        >
-                          
-                        </i>
-                      </span>
-                    </a>
-                  </div>
+                    <i data-icon-name="Download" className="FabricMDL2Icons">
+                      
+                    </i>
+                  </a>
                 </div>
               </div>
-            )
-          )}
-        </div>
+            </div>
+          ))}
+       
+       
       </div>
     </div>
   );
