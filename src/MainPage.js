@@ -13,6 +13,7 @@ import WayBillList from "./components/WayBillList";
 import LayoutNote from "./components/LayoutNotes";
 import CallOut from "./components/CallOut";
 import TopBar from "./components/TopBar";
+import Menus from "./components/Tools/Menus";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 export default function MainPage() {
@@ -249,19 +250,15 @@ export default function MainPage() {
   const LayoutRightShow = () => {
     setisShowLayoutRight(true);
     setisShowTopBar(false);
-    
   };
   const LayoutNoteShow = () => {
     setisShowLayoutNote(true);
     setisShowLayoutRight(false);
     setisShowTopBar(false);
-   };
+  };
   const productOutShow = () => {
     setisShowProductOut(true);
-  };
-  const productEditShow = () => {
-    setisShowProductEdit(true);
-  };
+  };  
   const CancelCallOut = () => {
     setisShowCallOut(false);
   };
@@ -283,13 +280,12 @@ export default function MainPage() {
   const CancelShare = () => {
     setisShowLayoutRight(false);
     setisShowTopBar(true);
-
-   };
+  };
   const CancelNote = () => {
     setisShowLayoutRight(false);
     setisShowLayoutNote(false);
     setisShowTopBar(true);
-   };
+  };
   const closeTopBar = () => {
     setisShowTopBar(false);
     setisShowCallOut(false);
@@ -361,7 +357,6 @@ export default function MainPage() {
   };
   const GetOrders = async (articelid, CorpId, ArticelName, CorpName) => {
     setOrders([]);
-    
 
     setisShow(true);
     setCorpId(CorpId);
@@ -534,7 +529,6 @@ export default function MainPage() {
         productOutShow={productOutShow}
         NewProductShow={NewProductShow}
         LayoutRightShow={LayoutRightShow}
-        productEditShow={productEditShow}
         CreateArticelShow={CreateArticelShow}
       />
       <ProgressBar isVisible={isShow} />

@@ -1,5 +1,6 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
+import CancelBtn from "./Tools/CancelBtn";
 export default function CreateArticelModal({
   IsCreateArticelShow,
   CancelCreateArticel,
@@ -15,21 +16,10 @@ export default function CreateArticelModal({
     <div id="ProductModal" className="ms-Layer ms-Layer--fixed layer-351">
       <div className="root-345">
         <div className="ms-Dialog-main  main-412">
-          <div>
-            <i
-              data-icon-name="Cancel"
-              onClick={() => CancelCreateArticel()}
-              role="presentation"
-              className="pointer fright ms-Button-icon icon-73"
-            >
-              
-            </i>
-          </div>
+          <CancelBtn click={CancelCreateArticel} />
           <div className="ProductModalSub ProductOut">
-            <div>
-              <h4>Yeni Artikel Oluştur</h4>
-              <br />
-            </div>
+            <h4>Yeni Artikel Oluştur</h4>
+            <br />
             <hr />
             <div className="padd0 col-xs-12 ">
               <div className="padd0 col-xs-2 ">
@@ -78,30 +68,17 @@ export default function CreateArticelModal({
               </div>
             </div>
             <div className="padd0 col-xs-12 text-right fleft">
-              <div
-                className={
-                  isShowCreateArticel
-                    ? "show ProgressSpinnerFlat"
-                    : "opaq0 ProgressSpinnerFlat"
-                }
-                role="progressbar"
-              >
-                <ProgressBar />
-              </div>
-              <span
-                className={
-                  isShowCreateArticel
-                    ? "hide"
-                    : "Transfer TransferBTN ms-Button ms-Button--primary"
-                }
-              >
-                <span
-                  onClick={() => SaveArticel()}
-                  className="transfersavetext"
-                >
-                  Kaydet
+              <ProgressBar isVisible={isShowCreateArticel} />
+              {isShowCreateArticel ? null : (
+                <span className="Transfer TransferBTN ms-Button ms-Button--primary">
+                  <span
+                    onClick={() => SaveArticel()}
+                    className="transfersavetext"
+                  >
+                    Kaydet
+                  </span>
                 </span>
-              </span>
+              )}
             </div>
             <hr />
           </div>

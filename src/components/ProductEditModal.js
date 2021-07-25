@@ -1,5 +1,6 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
+import CancelBtn from "./Tools/CancelBtn";
 export default function ProductEditModal({
   isShowProductEdit,
   Typeid,
@@ -19,13 +20,7 @@ export default function ProductEditModal({
     <div className="ms-Layer ms-Layer--fixed effect layer-351">
       <div className="root-345">
         <div className="ms-Dialog-main  main-412">
-          <i
-            data-icon-name="Cancel"
-            onClick={() => CancelEdit()}
-            className="pointer ms-Button-icon icon-73 fright"
-          >
-            
-          </i>
+          <CancelBtn click={CancelEdit} />
           <div>
             <h4>Ürün Düzenleme</h4>
             <br />

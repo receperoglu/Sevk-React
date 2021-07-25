@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LeftNav from "./LeftNav";
-import MenuItem from "./Tools/MenuItem";
+import Menus from "./Tools/Menus";
 export default function TopBar({
   ArticelId,
   CorpName,
@@ -20,15 +20,6 @@ export default function TopBar({
   const [MenuStatu, setMenuStatu] = useState(false);
   const MenuToggler = () => {
     setMenuStatu(!MenuStatu);
-  };
-  const PrintNow = () => {
-    var PrintUrl =
-      "https://recep.space/abi/js/PrintOrder.html?ArticelId=" +
-      ArticelId +
-      "&CorpName=" +
-      CorpName;
-    const newWindow = window.open(PrintUrl, "_blank", "noopener,noreferrer");
-    if (newWindow) newWindow.opener = null;
   };
   return (
     <div className="od-BasePage-suiteNav od-BasePage-suiteNav--reactShell">
@@ -112,103 +103,25 @@ export default function TopBar({
                 <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
                   <span className="Icon SearchIcon css-43"></span>
                 </span>
-                <span className="od-SearchBox-iconWrapper  od-SearchBox-iconClearWrapper">
-                  <i
-                    data-icon-name="Cancel"
-                    className="ms-Button-icon FabricMDL2Icons"
-                  >
-                    
-                  </i>
-                </span>
               </div>
             </div>
           </div>
           <div className="od-TopBar-item od-TopBar-commandBar od-BasePage-commandBar">
-            <div className={isShowTopBar ? "fright" : "opaq0 hide"}>
-              <div className="col-md-6 padd0">
-                <div className="ms-FocusZone css-74 ms-CommandBar root-79">
-                  <div className="ms-OverflowSet TopBarCommandLeft primarySet-82">
-                    <div
-                      className={
-                        isMobile ? "hide" : "ms-OverflowSet-item  TopBarObject "
-                      }
-                    >
-                      <MenuItem
-                        click={toggleView}
-                        icon="FullScreen"
-                        text=""
-                        symbol=""
-                        iconclassname="icon-144s"
-                      />
-                    </div>
-
-                    <MenuItem
-                      click={NewProductShow}
-                      icon="Add"
-                      text="Ekle"
-                      symbol=""
-                      iconclassname="ButtonIcon icon-93"
-                    />
-                    <MenuItem
-                      click={PrintNow}
-                      icon="Print"
-                      text="Yazdır"
-                      symbol=""
-                      iconclassname="ms-Button-icon icon-144s"
-                    />
-                    <MenuItem
-                      click={LayoutRightShow}
-                      icon="Share"
-                      text="Paylaş"
-                      symbol=""
-                      iconclassname="ButtonIcon icon-93"
-                    />
-                    <MenuItem
-                      click={LayoutNoteShow}
-                      icon="StackIndicator"
-                      text="Notlar"
-                      symbol=""
-                      iconclassname="nott fleft icon-68"
-                    />
-                    <MenuItem
-                      click={LayoutNoteShow}
-                      icon="OpenInNewWindow"
-                      text="Yeni Sekme"
-                      symbol=""
-                      iconclassname="ms-Button-icon fleft   iconnewWindow"
-                    />
-                    <MenuItem
-                      click={productOutShow}
-                      icon="Tag"
-                      text="Çıkış Yap"
-                      symbol=""
-                      iconclassname="ButtonIcon icon-93"
-                    />
-                    <MenuItem
-                      click={choosePicture}
-                      icon="Attach"
-                      text="Belge Ekle"
-                      symbol=""
-                      iconclassname=" ms-Button-icon  Paylas"
-                    />
-                    <MenuItem
-                      click={chooseFile}
-                      icon="Photo2Add"
-                      text="Resim Ekle"
-                      symbol=""
-                      iconclassname="ms-Button-icon FabricMDL2Icons-13"
-                    />
-                    <MenuItem
-                      click={closeTopBar}
-                      icon="Cancel"
-                      text="Kapat"
-                      symbol=""
-                      iconclassname="ms-Button-icon FabricMDL2Icons"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Menus
+              isMobile={isMobile}
+              chooseFile={chooseFile}
+              toggleView={toggleView}
+              closeTopBar={closeTopBar}
+              choosePicture={choosePicture}
+              LayoutNoteShow={LayoutNoteShow}
+              productOutShow={productOutShow}
+              NewProductShow={NewProductShow}
+              LayoutRightShow={LayoutRightShow}
+              CreateArticelShow={CreateArticelShow}
+              isShowTopBar={isShowTopBar}
+              ArticelId={ArticelId}
+              CorpName={CorpName}
+            />
           </div>
         </div>
       </div>

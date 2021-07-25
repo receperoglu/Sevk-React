@@ -1,4 +1,5 @@
 import React from "react";
+import CancelBtn from "./Tools/CancelBtn";
 export default function ProductOutModal({
   isShowProductOut,
   CancelProduct,
@@ -8,18 +9,11 @@ export default function ProductOutModal({
   ChangeWeight,
   SaveProductOut,
 }) {
-  return ( isShowProductOut ?
+  return isShowProductOut ? (
     <div className="ms-Layer ms-Layer--fixed  effect layer-351">
       <div className="root-345">
         <div className="ms-Dialog-main  main-412">
-          <i
-            data-icon-name="Cancel"
-            onClick={() => CancelProduct()}
-            className="pointer fright ms-Button-icon icon-73"
-          >
-            
-          </i>
-
+          <CancelBtn click={CancelProduct} />
           <div className="ProductModalSub ProductOut">
             <div>
               <h4>Ürün Çıkışı</h4>
@@ -80,6 +74,6 @@ export default function ProductOutModal({
           </div>
         </div>
       </div>
-    </div>:null
-  );
+    </div>
+  ) : null;
 }

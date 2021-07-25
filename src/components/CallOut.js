@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CancelBtn from "./Tools/CancelBtn";
 export default function CallOut({
   isShowCallOut,
   top,
@@ -25,13 +26,7 @@ export default function CallOut({
     >
       <div className="ms-ContextualHost-main">
         <div className="ms-Callout  ms-Callout--OOBE">
-          <i
-            data-icon-name="Cancel"
-            onClick={() => CancelCallOut()}
-            className="pointer ms-Button-icon icon-73 fright cwhite"
-          >
-            
-          </i>
+          <CancelBtn click={CancelCallOut} />
           <div className="ms-Callout-header">
             <div className="ms-Callout-title">
               {totalPiece === 0 ? " Henüz Sevkiyat Yapılmamış" : ""}

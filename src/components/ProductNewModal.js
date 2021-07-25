@@ -1,5 +1,6 @@
 import React from "react";
-import ProgressBar from "./ProgressBar"
+import ProgressBar from "./ProgressBar";
+import CancelBtn from "./Tools/CancelBtn"
 export default function ProductNewModal({
   SaveOrder,
   ProductNewLoading,
@@ -16,13 +17,7 @@ export default function ProductNewModal({
       <div className="ms-Fabric ms-Layer-content content-120">
         <div className="root-345">
           <div className="ms-Dialog-main  main-412">
-            <i
-              data-icon-name="Cancel"
-              onClick={() => CancelNewProduct()}
-              className="pointer fright ms-Button-icon icon-73"
-            >
-              
-            </i>
+            <CancelBtn click={CancelNewProduct} />
             <div>
               <h4>Yeni Ürün Ekle</h4>
               <br />
@@ -82,7 +77,8 @@ export default function ProductNewModal({
                     >
                       Kaydet
                     </span>
-                  </span>:null
+                  </span>
+                  :null
                 </div>
               </div>
               <hr />
