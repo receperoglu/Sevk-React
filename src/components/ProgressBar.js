@@ -1,5 +1,4 @@
 import React from "react";
-
 export default function ProgressBar({ isVisible }) {
   return (
     <div
@@ -16,5 +15,5 @@ export default function ProgressBar({ isVisible }) {
       <div>•</div>
       <div>•</div>
     </div>
-  );
+  )
 }

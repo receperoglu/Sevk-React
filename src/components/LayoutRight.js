@@ -46,5 +46,5 @@ export default function LayoutRight({ CancelShare, isShowLayoutRight }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

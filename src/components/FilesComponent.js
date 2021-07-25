@@ -9,16 +9,13 @@ export default function FilesComponent({ Files, showPicturePreview }) {
   const [FilesVisible, setFilesVisible] = useState(true);
   const [documents, setdocuments] = useState([]);
   const [pictures, setpictures] = useState([]);
-
   const toggleView = () => {
     setFilesVisible(!FilesVisible);
   };
-
   useEffect(() => {
     setdocuments(Files.filter((f) => "Document" === f.FileType));
     setpictures(Files.filter((f) => "Picture" === f.FileType));
   }, [Files]);
-
   return (
     <div className={Files.length === 0 ? "hide" : "col-xs-12 col-md-12"}>
       <div
@@ -35,12 +32,12 @@ export default function FilesComponent({ Files, showPicturePreview }) {
         {Documents(documents)}
       </div>
     </div>
-  );
+  )
 }
 function Documents(documents) {
   return (
     <div>
-      <h2 className="padleft5 col-xs-12">Belgeler</h2>
+      <h2 className="padd0 col-xs-12">Belgeler</h2>
       {documents.map((f) => (
         <div key={f.id} className="DocumentContainerDiv col-md-2 col-xs-4">
           <div className="FileBorder">
@@ -67,12 +64,12 @@ function Documents(documents) {
         </div>
       ))}
     </div>
-  );
+  )
 }
 function Pictures(pictures, showPicturePreview) {
   return (
     <div>
-      <h2 className="padleft5 col-xs-12"> Resimler</h2>
+      <h2 className="padd0 col-xs-12"> Resimler</h2>
       {pictures.map((f) => (
         <div key={f.id} className="DocumentContainerDiv col-md-2 col-xs-4  ">
           <div className="FileBorder">
@@ -92,5 +89,5 @@ function Pictures(pictures, showPicturePreview) {
         </div>
       ))}
     </div>
-  );
+  )
 }

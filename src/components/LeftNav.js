@@ -38,5 +38,5 @@ export default function LeftNav({ CreateArticelShow, MenuStatu }) {
         </a>
       </div>
     </nav>
-  );
+  )
 }

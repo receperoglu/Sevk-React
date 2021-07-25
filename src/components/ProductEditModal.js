@@ -1,15 +1,19 @@
 import React from "react";
-
+import ProgressBar from "./ProgressBar";
 export default function ProductEditModal({
   isShowProductEdit,
   Typeid,
   Dimensions,
   Piece,
   ChangeProductType,
+  ChangePiece,
+  ChangeDimensions,
+  ChangeColor,
   CancelEdit,
   UpdateOrder,
   Color,
-  ProductTypes
+  ProductTypes,
+  isShow,
 }) {
   return (
     <div
@@ -44,7 +48,7 @@ export default function ProductEditModal({
                     type="number"
                     value={Piece}
                     className="Piece ms-TextField-field"
-                    onChange={(e) => ChangeProductType(e.target.value)}
+                    onChange={(e) => ChangePiece(e.target.value)}
                   />
                 </div>
                 <div className="col-md-2 fleft">
@@ -54,7 +58,7 @@ export default function ProductEditModal({
                   <input
                     type="text"
                     defaultValue={Dimensions}
-                    onChange={(e) => ChangeProductType(e.target.value)}
+                    onChange={(e) => ChangeDimensions(e.target.value)}
                     className="Dim ms-TextField-field"
                   />
                 </div>
@@ -65,7 +69,7 @@ export default function ProductEditModal({
                   <input
                     type="text"
                     defaultValue={Color}
-                    onChange={(e) => ChangeProductType(e.target.value)}
+                    onChange={(e) => ChangeColor(e.target.value)}
                     className="Color ms-TextField-field"
                   />
                 </div>
@@ -86,14 +90,24 @@ export default function ProductEditModal({
                   </select>
                 </div>
                 <div className="col-md-12 text-right fleft">
-                  <span className="Transfer TransferBTN ms-Button ms-Button--primary">
-                    <span
-                      onClick={() => UpdateOrder()}
-                      className="transfersavetext"
-                    >
-                      Kaydet
+                  {isShow ? (
+                    <ProgressBar isVisible={isShow} />
+                  ) : (
+                    <span className="Transfer TransferBTN ms-Button ms-Button--primary">
+                      <span
+                        onClick={() => UpdateOrder()}
+                        className="transfersavetext"
+                      >
+                        <i
+                          data-icon-name="StatusCircleCheckmark "
+                          className="FabricMDL2Icons"
+                        >
+                          
+                        </i>
+                        Güncelle
+                      </span>
                     </span>
-                  </span>
+                  )}
                 </div>
               </div>
               <hr />
@@ -102,5 +116,5 @@ export default function ProductEditModal({
         </div>
       </div>
     </div>
-  );
+  )
 }

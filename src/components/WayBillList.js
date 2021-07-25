@@ -51,5 +51,5 @@ export default function WayBillList({ isMobile, Waybill }) {
         </tbody>
       </table>
     </div>
-  );
+  )
 }

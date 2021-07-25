@@ -118,5 +118,5 @@ export default function ProductNewModal({
         </div>
       </div>
     </div>
-  );
+  )
 }

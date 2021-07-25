@@ -18,7 +18,6 @@ export default function CallOut({
     settotalPice(waybillPiece);
     setLoopCount(OneWayBill.length);
   }, [OneWayBill]);
-
   return (
     <div
       style={{ top: top, left: left }}
@@ -49,12 +48,11 @@ export default function CallOut({
               </div>
             </div>
           </div>
-
           {WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece)}
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
@@ -85,5 +83,5 @@ function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
         ))}
       </tbody>
     </table>
-  );
+  )
 }

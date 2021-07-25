@@ -32,7 +32,7 @@ function Mobile(Articels,GetOrders) {
         ))}
       </tbody>
     </table>
-  );
+  )
 }
 function Desktop(Articels,GetOrders) {
   return (
@@ -62,5 +62,5 @@ function Desktop(Articels,GetOrders) {
         ))}
       </tbody>
     </table>
-  );
+  )
 }

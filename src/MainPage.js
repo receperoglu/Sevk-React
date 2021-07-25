@@ -379,11 +379,15 @@ export default function MainPage() {
       var FirstClicked = "Articel" + articelid;
       document.getElementById(FirstClicked).classList.add("ActiveArticelRow");
     } else {
-      var PrevClicked = "Articel" + ActiveArticel;
-      document.getElementById(PrevClicked).classList.remove("ActiveArticelRow");
-      setActiveArticel(articelid);
-      var Clicked = "Articel" + articelid;
-      document.getElementById(Clicked).classList.add("ActiveArticelRow");
+      try {
+        var PrevClicked = "Articel" + ActiveArticel;
+        document
+          .getElementById(PrevClicked)
+          .classList.remove("ActiveArticelRow");
+        setActiveArticel(articelid);
+        var Clicked = "Articel" + articelid;
+        document.getElementById(Clicked).classList.add("ActiveArticelRow");
+      } catch (error) {}
     }
 
     document.getElementById("SecondScreen").classList.remove("hide");
@@ -458,7 +462,7 @@ export default function MainPage() {
   const PostOrdersave = async () => {
     var url =
       "abi/post/AddOrder.ashx?ArticelId=" +
-      ArticelId +
+      ActiveArticel +
       "&ProductType=" +
       TypeId +
       "&Dimensions=" +
@@ -471,11 +475,22 @@ export default function MainPage() {
       Piece +
       "&SaleType=1&Articel=test";
 
-    FetchFunc(url);
+    fetch(url, {
+      method: "GET",
+    })
+      .then((response) => {
+        GetOrders(ActiveArticel, CorpId, ArticelName, CorpName);
+        setisShowProductEdit(false);
+        setisShow(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setProductNewLoading(false);
     GetOrders(ArticelId, ArticelName, CorpName);
   };
   const PostOrderUpdate = async () => {
+    setisShow(true);
     var url =
       "abi/post/UpdateOrder.ashx?OrderId=" +
       OrderId +
@@ -487,21 +502,17 @@ export default function MainPage() {
       Color +
       "&Piece=" +
       Piece;
-    const response = await fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": url,
-        Authorization: "bearer ",
-      },
-    });
-    console.log(response);
-
-    setisShowProductEdit(false);
-    GetOrders(ArticelId, ArticelName, CorpName);
+    fetch(url, {
+      method: "GET",
+    })
+      .then((response) => {
+        GetOrders(ActiveArticel, CorpId, ArticelName, CorpName);
+        setisShowProductEdit(false);
+        setisShow(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="padd0 col-md-12">
@@ -601,8 +612,8 @@ export default function MainPage() {
       />
       <ProductOutModal
         OrderList={Orders}
-        ArticelName={ArticelName}
         ChangePiece={ChangePiece}
+        ArticelName={ArticelName}
         ChangeWeight={ChangeWeight}
         CancelProduct={CancelProduct}
         SaveProductOut={SaveProductOut}
@@ -613,14 +624,19 @@ export default function MainPage() {
         Color={Color}
         Piece={Piece}
         Typeid={TypeId}
+        isShow={isShow}
         OrderId={OrderId}
         CancelEdit={CancelEdit}
         Dimensions={Dimensions}
+        ChangeColor={ChangeColor}
+        ChangePiece={ChangePiece}
         UpdateOrder={UpdateOrder}
         ProductTypes={ProductTypes}
         ProductTypeName={ProductTypeName}
         isShowProductEdit={isShowProductEdit}
-        ChangeProductType={ChangeProductType}
+        ChangeProductType={ChangeProductType}       
+        ChangeDimensions={ChangeDimensions}    
+        
       />
       <CallOut
         top={y}

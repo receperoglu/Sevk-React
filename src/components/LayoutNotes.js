@@ -41,5 +41,5 @@ export default function LayoutNotes({  isShowLayoutNote,
         </div>
       </div>
     </div>
-  );
+  )
 }

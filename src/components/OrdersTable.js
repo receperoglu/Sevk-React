@@ -94,5 +94,5 @@ export default function OrdersTable({
         </table>
       )}
     </div>
-  );
+  )
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
-
 export default function CreateArticelModal({
   IsCreateArticelShow,
   CancelCreateArticel,
@@ -37,7 +36,6 @@ export default function CreateArticelModal({
               <div className="ProductModalSub ProductOut">
                 <div>
                   <h4>Yeni Artikel Oluştur</h4>
-
                   <br />
                 </div>
                 <hr />
@@ -87,7 +85,6 @@ export default function CreateArticelModal({
                     </div>
                   </div>
                 </div>
-
                 <div className="padd0 col-xs-12 text-right fleft">
                   <div
                     className={
@@ -99,7 +96,6 @@ export default function CreateArticelModal({
                   >
                     <ProgressBar />
                   </div>
-
                   <span
                     className={
                       isShowCreateArticel
@@ -122,5 +118,5 @@ export default function CreateArticelModal({
         </div>
       </div>
     </div>
-  );
+  )
 }

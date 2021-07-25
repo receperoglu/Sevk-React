@@ -6,7 +6,7 @@ export default function ProductOutModal({
   ChangePiece,
   OrderList,
   ChangeWeight,
-  SaveProductOut,
+  SaveProductOut
 }) {
   return (
     <div
@@ -90,5 +90,5 @@ export default function ProductOutModal({
         </div>
       </div>
     </div>
-  );
+  )
 }

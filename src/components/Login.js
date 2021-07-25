@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-
 import Cookies from "js-cookie";
-
 export default function Login() {
   const [name, setname] = useState("");
   const [pass, setpass] = useState("");
   const [result, setresult] = useState("");
-
   const LoginProccess = async () => {
     const response = await fetch("https://api.bymomani.com/token", {
       method: "POST",
@@ -34,7 +31,6 @@ export default function Login() {
   const ChangePass = (value) => {
     setpass(value);
   };
-
   return (
     <div
       style={{
@@ -98,5 +94,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  );
+  )
 }

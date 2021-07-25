@@ -14,7 +14,6 @@ export default function PicturePreview({
     }
     setrotation(newRotation);
   };
-
   return (
     <div
       className={isShowPicturePreview ? "ma5-imgbox PicturePreview" : "hide"}
@@ -40,7 +39,6 @@ export default function PicturePreview({
         style={{ transform: `rotate(${rotation}deg)` }}
         alt="Resim"
       />
-
       <div className="resources-action-bar resources-action-bar_visible resources-action-bar_fixed resources-action-bar_delay resources-action-bar_theme_black js-prevent-deselect ufo-resources-action-bar OpenedPictureTool">
         <div className="resources-action-bar__body">
           <div className="resources-action-bar__side-left">
@@ -202,5 +200,5 @@ export default function PicturePreview({
         </div>
       </div>
     </div>
-  );
+  )
 }
