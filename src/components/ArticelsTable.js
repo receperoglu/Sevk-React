@@ -15,7 +15,7 @@ function Mobile(Articels,GetOrders) {
       <tbody>
         {Articels.map((a) => (
           <tr
-            className="ArticelRow"
+            className="ArticelRow "
             id={"Articel" + a.id}
             key={a.id}
             onClick={() =>

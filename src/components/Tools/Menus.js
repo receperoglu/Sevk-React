@@ -81,14 +81,14 @@ export default function ({
             iconclassname="ButtonIcon icon-93"
           />
           <MenuItem
-            click={choosePicture}
+            click={chooseFile}
             icon="Attach"
             text="Belge Ekle"
             symbol=""
             iconclassname=" ms-Button-icon  Paylas"
           />
           <MenuItem
-            click={chooseFile}
+            click={choosePicture}
             icon="Photo2Add"
             text="Resim Ekle"
             symbol=""

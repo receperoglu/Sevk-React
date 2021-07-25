@@ -13,10 +13,12 @@ import WayBillList from "./components/WayBillList";
 import LayoutNote from "./components/LayoutNotes";
 import CallOut from "./components/CallOut";
 import TopBar from "./components/TopBar";
-import Menus from "./components/Tools/Menus";
+import DocumentPreview from "./components/DocumentPreview";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 export default function MainPage() {
+  const [Url, setUrl] = useState([]);
+  const [Vtype,setVtype]=useState(false);
   const [Corps, setCorps] = useState([]);
   const [Files, setFiles] = useState([]);
   const [Orders, setOrders] = useState([]);
@@ -65,6 +67,7 @@ export default function MainPage() {
   const [IsCreateArticelShow, setIsCreateArticelShow] = useState(false);
   const [isShowCreateArticel, setisShowCreateArticel] = useState(false);
   const [isShowPicturePreview, setisShowPicturePreview] = useState(false);
+  const [isShowDocumentPreview, setisShowDocumentPreview] = useState(false);
   useEffect(() => {
     async function fetchArticels() {
       var data = await FetchFunc(USER_SERVICE_URL + "Articels");
@@ -82,6 +85,9 @@ export default function MainPage() {
     }
     window.addEventListener("resize", updateDimensions);
   }, []);
+  const toggleVtype=()=>{
+    setVtype(!Vtype)
+  }
   const ChangeProductType = (typeid) => {
     setTypeId(typeid);
   };
@@ -325,10 +331,18 @@ export default function MainPage() {
   const hidePicturePreview = () => {
     setisShowPicturePreview(false);
   };
+  const hideDocumentPreview = () => {
+    setUrl([]);
+    setisShowDocumentPreview(false);
+  };
   const showPicturePreview = (path, RawPath) => {
     setPath(path);
     setRawPath(RawPath);
     setisShowPicturePreview(true);
+  };
+  const showDocumentPreview = (url) => {
+    setUrl(url);
+    setisShowDocumentPreview(true);
   };
   const getProductType = async () => {
     setProductTypes(await FetchFunc("abi/post/ProductType.ashx"));
@@ -569,7 +583,13 @@ export default function MainPage() {
           CallOutonMouseMove={CallOutonMouseMove}
           GetWaybillforOrder={GetWaybillforOrder}
         />
-        <FilesComponent Files={Files} showPicturePreview={showPicturePreview} />
+        <FilesComponent
+          Files={Files}
+          showPicturePreview={showPicturePreview}
+          showDocumentPreview={showDocumentPreview}
+          toggleVtype={toggleVtype}
+          Vtype={Vtype}
+        />
         <WayBillList Waybill={Waybill} isMobile={isMobile} />
         <LayoutRight
           CancelShare={CancelShare}
@@ -656,6 +676,11 @@ export default function MainPage() {
         RotatePicture={RotatePicture}
         hidePicturePreview={hidePicturePreview}
         isShowPicturePreview={isShowPicturePreview}
+      />
+      <DocumentPreview
+        File={Url}
+        hideDocumentPreview={hideDocumentPreview}
+        isShowDocumentPreview={isShowDocumentPreview}
       />
       <input
         type="file"
