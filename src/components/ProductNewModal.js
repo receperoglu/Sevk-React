@@ -1,6 +1,6 @@
 import React from "react";
 import ProgressBar from "./ProgressBar";
-import CancelBtn from "./Tools/CancelBtn"
+import CancelBtn from "./Tools/CancelBtn";
 export default function ProductNewModal({
   SaveOrder,
   ProductNewLoading,
@@ -18,23 +18,19 @@ export default function ProductNewModal({
         <div className="root-345">
           <div className="ms-Dialog-main  main-412">
             <CancelBtn click={CancelNewProduct} />
-            <div>
-              <h4>Yeni Ürün Ekle</h4>
-              <br />
-            </div>
+            <h4>Yeni Ürün Ekle</h4>
+            <br />
             <hr />
-            <div className="col-md-12 fleft">
-              <select
-                className="ms-TextField-field"
-                onChange={(e) => ChangeProductType(e.target.value)}
-              >
-                {ProductTypes.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.Name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <select
+              className="ms-TextField-field"
+              onChange={(e) => ChangeProductType(e.target.value)}
+            >
+              {ProductTypes.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.Name}
+                </option>
+              ))}
+            </select>
             <div className="col-md-12">
               <div className="clearfix OrderRow">
                 <div className="col-md-2 fleft">
@@ -67,9 +63,8 @@ export default function ProductNewModal({
                     className="Color ms-TextField-field"
                   />
                 </div>
-                <div className="col-md-12 text-right fleft">
-                  <ProgressBar isVisible={ProductNewLoading} />
-                  ProductNewLoading?
+                <ProgressBar isVisible={ProductNewLoading} />
+                {ProductNewLoading ? null : (
                   <span className="Transfer TransferBTN ms-Button ms-Button--primary">
                     <span
                       onClick={() => SaveOrder()}
@@ -78,8 +73,7 @@ export default function ProductNewModal({
                       Kaydet
                     </span>
                   </span>
-                  :null
-                </div>
+                )}
               </div>
               <hr />
             </div>
