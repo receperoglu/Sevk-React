@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import LeftNav from "./LeftNav";
+import MenuItem from "./Tools/MenuItem";
 export default function TopBar({
   ArticelId,
   CorpName,
@@ -14,6 +15,7 @@ export default function TopBar({
   productOutShow,
   chooseFile,
   closeTopBar,
+  choosePicture,
 }) {
   const [MenuStatu, setMenuStatu] = useState(false);
   const MenuToggler = () => {
@@ -131,216 +133,78 @@ export default function TopBar({
                         isMobile ? "hide" : "ms-OverflowSet-item  TopBarObject "
                       }
                     >
-                      <button
-                        className="ms-Button--commandBar"
-                        type="button"
-                        onClick={() => {
-                          toggleView();
-                        }}
-                      >
-                        <div
-                          className="ms-Button-flexContainer flexContainer-46"
-                          data-automationid="splitbuttonprimary"
-                        >
-                          <i
-                            data-icon-name="FullScreen"
-                            className="ms-Button-icon icon-144s"
-                          >
-                            
-                          </i>
-                        </div>
-                      </button>
+                      <MenuItem
+                        click={toggleView}
+                        icon="FullScreen"
+                        text=""
+                        symbol=""
+                        iconclassname="icon-144s"
+                      />
                     </div>
-                    <div className="TopBarObject hide">
-                      <button type="button" className="ms-Button--commandBar">
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="Add"
-                            className="ButtonIcon icon-93"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Yeni</div>
-                          </div>
-                          <i
-                            data-icon-name="ChevronDown"
-                            className="ms-Button-menuIcon menuIcon-94"
-                          >
-                            
-                          </i>
-                        </div>
-                      </button>
-                    </div>
-                    <div
-                      className="TopBarObject"
-                      onClick={() => NewProductShow()}
-                    >
-                      <button type="button" className="ms-Button--commandBar">
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="Add"
-                            className="ButtonIcon icon-93"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer ">
-                            <div>Ekle</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                    <div className="TopBarObject SubTools">
-                      <button
-                        onClick={() => {
-                          PrintNow();
-                        }}
-                        type="button"
-                        className="ms-Button--commandBar"
-                      >
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="Print"
-                            className="ms-Button-icon icon-144s"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Yazdır</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                    <div
-                      className="TopBarObject"
-                      onClick={() => LayoutRightShow()}
-                    >
-                      <button type="button" className="ms-Button--commandBar">
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="Share"
-                            className="ms-Button-icon Paylas"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Paylaş</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                    <div className="TopBarObject">
-                      <button
-                        type="button"
-                        onClick={() => LayoutNoteShow()}
-                        className="ms-Button--commandBar"
-                      >
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="StackIndicator"
-                            className="nott fleft icon-68"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Notlar</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                    <div className="TopBarObject">
-                      <button type="button" className="ms-Button--commandBar">
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="OpenInNewWindow"
-                            className="ms-Button-icon fleft   iconnewWindow"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Yeni Sekme</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                    <div
-                      className="TopBarObject"
-                      onClick={() => productOutShow()}
-                    >
-                      <button type="button" className="ms-Button--commandBar">
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="Tag"
-                            className="ms-Button-icon fleft FabricMDL2Icons"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Çıkış Yap</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                    <div className="TopBarObject">
-                      <button
-                        onClick={() => {
-                          chooseFile("Document");
-                        }}
-                        type="button"
-                        className="ms-Button--commandBar"
-                      >
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="Attach"
-                            className="ms-Icon   ms-Button-icon  Paylas"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Belge Ekle</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                    <div className="TopBarObject">
-                      <button
-                        onClick={() => {
-                          chooseFile("Picture");
-                        }}
-                        type="button"
-                        className="ms-Button--commandBar"
-                      >
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="Picture_20"
-                            className="ms-Icon root-32 ms-Button-icon icon-216"
-                          >
-                            <img
-                              src="https://recep.space/photo.png"
-                              alt="Foto Ekle"
-                            />
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Resim Ekle</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                    <div className="TopBarObject" onClick={() => closeTopBar()}>
-                      <button type="button" className="ms-Button--commandBar">
-                        <div className="ms-Button-flexContainer ">
-                          <i
-                            data-icon-name="Cancel"
-                            className="ms-Button-icon FabricMDL2Icons"
-                          >
-                            
-                          </i>
-                          <div className="ms-Button-textContainer  ">
-                            <div>Kapat</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
+
+                    <MenuItem
+                      click={NewProductShow}
+                      icon="Add"
+                      text="Ekle"
+                      symbol=""
+                      iconclassname="ButtonIcon icon-93"
+                    />
+                    <MenuItem
+                      click={PrintNow}
+                      icon="Print"
+                      text="Yazdır"
+                      symbol=""
+                      iconclassname="ms-Button-icon icon-144s"
+                    />
+                    <MenuItem
+                      click={LayoutRightShow}
+                      icon="Share"
+                      text="Paylaş"
+                      symbol=""
+                      iconclassname="ButtonIcon icon-93"
+                    />
+                    <MenuItem
+                      click={LayoutNoteShow}
+                      icon="StackIndicator"
+                      text="Notlar"
+                      symbol=""
+                      iconclassname="nott fleft icon-68"
+                    />
+                    <MenuItem
+                      click={LayoutNoteShow}
+                      icon="OpenInNewWindow"
+                      text="Yeni Sekme"
+                      symbol=""
+                      iconclassname="ms-Button-icon fleft   iconnewWindow"
+                    />
+                    <MenuItem
+                      click={productOutShow}
+                      icon="Tag"
+                      text="Çıkış Yap"
+                      symbol=""
+                      iconclassname="ButtonIcon icon-93"
+                    />
+                    <MenuItem
+                      click={choosePicture}
+                      icon="Attach"
+                      text="Belge Ekle"
+                      symbol=""
+                      iconclassname=" ms-Button-icon  Paylas"
+                    />
+                    <MenuItem
+                      click={chooseFile}
+                      icon="Photo2Add"
+                      text="Resim Ekle"
+                      symbol=""
+                      iconclassname="ms-Button-icon FabricMDL2Icons-13"
+                    />
+                    <MenuItem
+                      click={closeTopBar}
+                      icon="Cancel"
+                      text="Kapat"
+                      symbol=""
+                      iconclassname="ms-Button-icon FabricMDL2Icons"
+                    />
                   </div>
                 </div>
               </div>

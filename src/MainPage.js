@@ -179,8 +179,13 @@ export default function MainPage() {
       setChangeView(!ChangeView);
     }
   };
-  const chooseFile = (type) => {
-    setFileType(type);
+  const chooseFile = () => {
+    setFileType("File");
+    var file = document.getElementById("FileNew");
+    file.click();
+  };
+  const choosePicture = () => {
+    setFileType("Picture");
     var file = document.getElementById("FileNew");
     file.click();
   };
@@ -527,6 +532,7 @@ export default function MainPage() {
         filterCorp={filterCorp}
         closeTopBar={closeTopBar}
         isShowTopBar={isShowTopBar}
+        choosePicture={choosePicture}
         LayoutNoteShow={LayoutNoteShow}
         productOutShow={productOutShow}
         NewProductShow={NewProductShow}
@@ -634,9 +640,8 @@ export default function MainPage() {
         ProductTypes={ProductTypes}
         ProductTypeName={ProductTypeName}
         isShowProductEdit={isShowProductEdit}
-        ChangeProductType={ChangeProductType}       
-        ChangeDimensions={ChangeDimensions}    
-        
+        ChangeProductType={ChangeProductType}
+        ChangeDimensions={ChangeDimensions}
       />
       <CallOut
         top={y}
