@@ -249,14 +249,13 @@ export default function MainPage() {
   const LayoutRightShow = () => {
     setisShowLayoutRight(true);
     setisShowTopBar(false);
-    document.getElementById("LayoutRight").style.width = "300px";
+    
   };
   const LayoutNoteShow = () => {
     setisShowLayoutNote(true);
     setisShowLayoutRight(false);
     setisShowTopBar(false);
-    document.getElementById("LayoutNote").style.width = "300px";
-  };
+   };
   const productOutShow = () => {
     setisShowProductOut(true);
   };
@@ -285,14 +284,12 @@ export default function MainPage() {
     setisShowLayoutRight(false);
     setisShowTopBar(true);
 
-    document.getElementById("LayoutRight").style.width = "0px";
-  };
+   };
   const CancelNote = () => {
     setisShowLayoutRight(false);
     setisShowLayoutNote(false);
     setisShowTopBar(true);
-    document.getElementById("LayoutNote").style.width = "0px";
-  };
+   };
   const closeTopBar = () => {
     setisShowTopBar(false);
     setisShowCallOut(false);
@@ -364,8 +361,8 @@ export default function MainPage() {
   };
   const GetOrders = async (articelid, CorpId, ArticelName, CorpName) => {
     setOrders([]);
-    document.getElementById("LayoutRight").style.width = "0px";
-    document.getElementById("LayoutNote").style.width = "0px";
+    
+
     setisShow(true);
     setCorpId(CorpId);
     GetWaybillAsync(articelid);

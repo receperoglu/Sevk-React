@@ -1,10 +1,7 @@
 import React from "react";
 export default function LayoutRight({ CancelShare, isShowLayoutRight }) {
-  return (
-    <div
-      id="LayoutRight"
-      className={isShowLayoutRight ? "BaseDrive effect RightLayout" : "hide"}
-    >
+  return isShowLayoutRight ? (
+    <div className="BaseDrive effect RightLayout">
       <div className=" nopad col-xs-12">
         <div className="col-xs-8 padd0">
           <h3 className="LayoutHead padd10">Paylaş</h3>
@@ -46,5 +43,5 @@ export default function LayoutRight({ CancelShare, isShowLayoutRight }) {
         </div>
       </div>
     </div>
-  )
+  ) : null;
 }

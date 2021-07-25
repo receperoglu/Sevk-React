@@ -5,8 +5,8 @@ export default function WayBillList({ isMobile, Waybill }) {
   const toggleWayBillList = () => {
     setWayBillVisible(!WayBillVisible);
   };
-  return (
-    <div className={Waybill.length === 0 ? "hide" : ""}>
+  return Waybill.length === 0 ? null : (
+    <div>
       <div onClick={() => toggleWayBillList()} className="PartHead">
         İrsaliyeler
         <Arrow Direction={WayBillVisible} />
@@ -51,5 +51,5 @@ export default function WayBillList({ isMobile, Waybill }) {
         </tbody>
       </table>
     </div>
-  )
+  );
 }

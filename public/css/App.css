@@ -784,7 +784,6 @@ body {
 }
 .RightLayout {
   height: 500px;
-  width: 0;
   position: fixed;
   z-index: 1039;
   right: 0;
@@ -1725,11 +1724,11 @@ i.ButtonIcon {
 .ms-Button-icon {
   display: flex !important;
 }
-#LayoutNote,
-#LayoutRight {
+ 
+.RightLayout {
   height: 100%;
   padding: 10px;
-  width: 0;
+  width: 300px;
   position: fixed;
   z-index: 1039;
   right: 0;

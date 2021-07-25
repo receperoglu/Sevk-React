@@ -13,15 +13,11 @@ export default function OrdersTable({
   const toggleOrderList = () => {
     setOrderVisible(!OrderVisible);
   };
-  return (
+  return isDetailActive ? (
     <div>
       <div
         onClick={() => toggleOrderList()}
-        className={
-          isDetailActive
-            ? "ArticelNameHead SSOrder text-capitalize PartHead"
-            : "hide"
-        }
+        className="ArticelNameHead SSOrder text-capitalize PartHead"
       >
         {ArticelName}
         <Arrow Direction={OrderVisible} />
@@ -45,13 +41,10 @@ export default function OrdersTable({
           </thead>
           <tbody aria-live="polite">
             {Orders.map((o) => (
-              <tr 
-                key={o.id}                
-                id={"Order" + o.id}
-              >
+              <tr key={o.id} id={"Order" + o.id}>
                 <td>
                   <div onClick={CallOutonMouseMove.bind(this)}>
-                    <span                    
+                    <span
                       onClick={() =>
                         GetWaybillforOrder(
                           o.id,
@@ -94,5 +87,5 @@ export default function OrdersTable({
         </table>
       )}
     </div>
-  )
+  ) : null;
 }

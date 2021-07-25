@@ -4,7 +4,7 @@ export default function PicturePreview({
   isShowPicturePreview,
   Path,
   Articel,
-  hidePicturePreview
+  hidePicturePreview,
 }) {
   const [rotation, setrotation] = useState(0);
   const rotate = () => {
@@ -15,9 +15,8 @@ export default function PicturePreview({
     setrotation(newRotation);
   };
   return (
-    <div
-      className={isShowPicturePreview ? "ma5-imgbox PicturePreview" : "hide"}
-    >
+    isShowPicturePreview ?
+    <div className="ma5-imgbox PicturePreview">
       <div
         className={
           isRotating ? "show ProgressSpinnerFlat PictureLoading" : "hide"
@@ -199,6 +198,6 @@ export default function PicturePreview({
           </div>
         </div>
       </div>
-    </div>
-  )
+    </div>:null
+  );
 }

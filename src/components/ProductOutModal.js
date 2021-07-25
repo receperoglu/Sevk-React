@@ -8,12 +8,8 @@ export default function ProductOutModal({
   ChangeWeight,
   SaveProductOut,
 }) {
-  return (
-    <div
-      className={
-        isShowProductOut ? "ms-Layer ms-Layer--fixed  effect layer-351" : "hide"
-      }
-    >
+  return ( isShowProductOut ?
+    <div className="ms-Layer ms-Layer--fixed  effect layer-351">
       <div className="root-345">
         <div className="ms-Dialog-main  main-412">
           <i
@@ -84,6 +80,6 @@ export default function ProductOutModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>:null
   );
 }

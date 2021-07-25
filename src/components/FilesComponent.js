@@ -32,10 +32,10 @@ export default function FilesComponent({ Files, showPicturePreview }) {
         {Documents(documents)}
       </div>
     </div>
-  )
+  );
 }
 function Documents(documents) {
-  return (
+  return document.length === 0 ? null : (
     <div>
       <h2 className="padd0 col-xs-12">Belgeler</h2>
       {documents.map((f) => (
@@ -64,10 +64,10 @@ function Documents(documents) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 function Pictures(pictures, showPicturePreview) {
-  return (
+  return pictures.length === 0 ? null : (
     <div>
       <h2 className="padd0 col-xs-12"> Resimler</h2>
       {pictures.map((f) => (
@@ -89,5 +89,5 @@ function Pictures(pictures, showPicturePreview) {
         </div>
       ))}
     </div>
-  )
+  );
 }

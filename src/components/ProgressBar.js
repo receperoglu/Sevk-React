@@ -15,5 +15,5 @@ export default function ProgressBar({ isVisible }) {
       <div>•</div>
       <div>•</div>
     </div>
-  )
+  );
 }

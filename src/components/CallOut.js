@@ -18,14 +18,10 @@ export default function CallOut({
     settotalPice(waybillPiece);
     setLoopCount(OneWayBill.length);
   }, [OneWayBill]);
-  return (
+  return isShowCallOut ? (
     <div
       style={{ top: top, left: left }}
-      className={
-        isShowCallOut
-          ? "ms-ContextualHost effect is-positioned ms-ContextualHost--arrowLeft is-open "
-          : "hide"
-      }
+      className="ms-ContextualHost effect is-positioned ms-ContextualHost--arrowLeft is-open "
     >
       <div className="ms-ContextualHost-main">
         <div className="ms-Callout  ms-Callout--OOBE">
@@ -52,7 +48,7 @@ export default function CallOut({
         </div>
       </div>
     </div>
-  )
+  ) : null;
 }
 
 function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
@@ -83,5 +79,5 @@ function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
         ))}
       </tbody>
     </table>
-  )
+  );
 }

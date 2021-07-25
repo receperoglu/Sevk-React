@@ -1,19 +1,21 @@
 import React from "react";
-export default function LayoutNotes({  isShowLayoutNote,
+export default function LayoutNotes({
+  isShowLayoutNote,
   CancelNote,
   UpdateArticelNote,
   ArticelNotes,
-  SaveNotes}) {
-  return (
-    <div
-      id="LayoutNote"
-      className={isShowLayoutNote ? "effect RightLayout" : "hide"}
-    >
+  SaveNotes,
+}) {
+  return isShowLayoutNote ? (
+    <div className="effect RightLayout">
       <div className="col-xs-12">
         <div className="col-xs-8 padd0">
           <h3 className="LayoutHead padd10">Not</h3>
         </div>
-        <div style={{lineHeight:"102px"}} className="col-xs-4 padd0 text-center">
+        <div
+          style={{ lineHeight: "102px" }}
+          className="col-xs-4 padd0 text-center"
+        >
           <i
             data-icon-name="Cancel"
             onClick={() => CancelNote()}
@@ -26,13 +28,13 @@ export default function LayoutNotes({  isShowLayoutNote,
       </div>
       <div className="col-md-12 fleft">
         <div className="LayoutType" id="ShareNow" style={{ display: "inline" }}>
-        <textarea
+          <textarea
             className="NotesArea  ms-TextField-field"
             style={{ width: "100%", height: "250px" }}
             value={ArticelNotes}
             onChange={(e) => UpdateArticelNote(e.target.value)}
           ></textarea>
-           <div
+          <div
             onClick={() => SaveNotes()}
             className="text-center Transfer btn-block TransferBTN ms-Button ms-Button--primary"
           >
@@ -41,5 +43,5 @@ export default function LayoutNotes({  isShowLayoutNote,
         </div>
       </div>
     </div>
-  )
+  ) : null;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 export default function LeftNav({ CreateArticelShow, MenuStatu }) {
-  return (
-    <nav className={MenuStatu ? "od-BasePage-leftNav" : "hide"}>
+  return MenuStatu ? (
+    <nav className="od-BasePage-leftNav">
       <div className="LeftNav-fadient text-center">
         <br />
         <span className="Transfer TransferBTN ms-Button ms-Button--primary">
@@ -38,5 +38,5 @@ export default function LeftNav({ CreateArticelShow, MenuStatu }) {
         </a>
       </div>
     </nav>
-  )
+  ) : null;
 }

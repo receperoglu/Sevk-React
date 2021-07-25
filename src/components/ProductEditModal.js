@@ -16,10 +16,9 @@ export default function ProductEditModal({
   isShow,
 }) {
   return (
+    isShowProductEdit ?
     <div      
-      className={
-        isShowProductEdit ? "ms-Layer ms-Layer--fixed effect layer-351" : "hide"
-      }
+      className="ms-Layer ms-Layer--fixed effect layer-351"
     >
       <div className="root-345">
         <div className="ms-Dialog-main  main-412">
@@ -110,5 +109,6 @@ export default function ProductEditModal({
         </div>
       </div>
     </div>
-  );
+ :null
+ );
 }

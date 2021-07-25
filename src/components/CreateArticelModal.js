@@ -11,13 +11,8 @@ export default function CreateArticelModal({
   isShowCreateArticel,
   SaveArticel,
 }) {
-  return (
-    <div
-      id="ProductModal"
-      className={
-        IsCreateArticelShow ? "ms-Layer ms-Layer--fixed layer-351" : "hide"
-      }
-    >
+  return IsCreateArticelShow ? (
+    <div id="ProductModal" className="ms-Layer ms-Layer--fixed layer-351">
       <div className="root-345">
         <div className="ms-Dialog-main  main-412">
           <div>
@@ -113,5 +108,5 @@ export default function CreateArticelModal({
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
