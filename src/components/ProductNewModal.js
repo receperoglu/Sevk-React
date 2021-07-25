@@ -11,8 +11,7 @@ export default function ProductNewModal({
   ChangeDimensions,
 }) {
   return (
-    <div
-      id="ProductModal"
+    <div     
       className={
         IsNewProductShow ? "ms-Layer ms-Layer--fixed effect layer-351" : "hide"
       }
@@ -115,5 +114,5 @@ export default function ProductNewModal({
         </div>
       </div>
     </div>
-  )
+  );
 }
