@@ -26,7 +26,7 @@ export default function CallOut({
     >
       <div className="ms-ContextualHost-main">
         <div className="ms-Callout  ms-Callout--OOBE">
-          <CancelBtn click={CancelCallOut} />
+          <CancelBtn cssclass="CallOutClose" click={CancelCallOut} />
           <div className="ms-Callout-header">
             <div className="ms-Callout-title">
               {totalPiece === 0 ? " Henüz Sevkiyat Yapılmamış" : ""}
@@ -47,9 +47,9 @@ export default function CallOut({
 }
 
 function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
-  return (
+  return totalPiece === 0 ? null : (
     <table className="table padd0  table-hover alert alert-primary">
-      <thead className={totalPiece === 0 ? "hide" : ""}>
+      <thead>
         <tr className="alert alert-success">
           <td>Adet</td>
           <td>Ağırlık</td>

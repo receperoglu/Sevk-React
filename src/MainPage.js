@@ -75,6 +75,11 @@ export default function MainPage() {
     getProductType();
     getCorps();
     getSalesTypes();
+    if (window.innerWidth <= 1024) {
+      setisMobile(true);
+    } else {
+      setisMobile(false);
+    }
     window.addEventListener("resize", updateDimensions);
   }, []);
   const ChangeProductType = (typeid) => {
@@ -258,7 +263,7 @@ export default function MainPage() {
   };
   const productOutShow = () => {
     setisShowProductOut(true);
-  };  
+  };
   const CancelCallOut = () => {
     setisShowCallOut(false);
   };
