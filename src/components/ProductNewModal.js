@@ -1,4 +1,5 @@
 import React from "react";
+import ProgressBar from "./ProgressBar"
 export default function ProductNewModal({
   SaveOrder,
   ProductNewLoading,
@@ -10,7 +11,7 @@ export default function ProductNewModal({
   ChangeProductType,
   ChangeDimensions,
 }) {
-  return ( IsNewProductShow ?
+  return IsNewProductShow ? (
     <div className="ms-Layer ms-Layer--fixed effect layer-351">
       <div className="ms-Fabric ms-Layer-content content-120">
         <div className="root-345">
@@ -72,36 +73,16 @@ export default function ProductNewModal({
                   />
                 </div>
                 <div className="col-md-12 text-right fleft">
-                  <div
-                    className={
-                      ProductNewLoading
-                        ? "show ProgressSpinnerFlat"
-                        : "opaq0 ProgressSpinnerFlat"
-                    }
-                    role="progressbar"
-                  >
-                    <div aria-hidden="true">•</div>
-                    <div aria-hidden="true">•</div>
-                    <div aria-hidden="true">•</div>
-                    <div aria-hidden="true">•</div>
-                    <div aria-hidden="true">•</div>
-                    <div aria-hidden="true">•</div>
-                    <div aria-hidden="true">•</div>
-                  </div>
-                  <span
-                    className={
-                      ProductNewLoading
-                        ? "hide"
-                        : "Transfer TransferBTN ms-Button ms-Button--primary"
-                    }
-                  >
+                  <ProgressBar isVisible={ProductNewLoading} />
+                  ProductNewLoading?
+                  <span className="Transfer TransferBTN ms-Button ms-Button--primary">
                     <span
                       onClick={() => SaveOrder()}
                       className="transfersavetext"
                     >
                       Kaydet
                     </span>
-                  </span>
+                  </span>:null
                 </div>
               </div>
               <hr />
@@ -109,6 +90,6 @@ export default function ProductNewModal({
           </div>
         </div>
       </div>
-    </div>:null
-  );
+    </div>
+  ) : null;
 }

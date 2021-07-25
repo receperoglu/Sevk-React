@@ -15,11 +15,8 @@ export default function ProductEditModal({
   ProductTypes,
   isShow,
 }) {
-  return (
-    isShowProductEdit ?
-    <div      
-      className="ms-Layer ms-Layer--fixed effect layer-351"
-    >
+  return isShowProductEdit ? (
+    <div className="ms-Layer ms-Layer--fixed effect layer-351">
       <div className="root-345">
         <div className="ms-Dialog-main  main-412">
           <i
@@ -68,7 +65,6 @@ export default function ProductEditModal({
                 className="Color ms-TextField-field"
               />
             </div>
-
             <div className="col-md-12 fleft">
               <select
                 key={Typeid}
@@ -109,6 +105,5 @@ export default function ProductEditModal({
         </div>
       </div>
     </div>
- :null
- );
+  ) : null;
 }
