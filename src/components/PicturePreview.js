@@ -31,9 +31,8 @@ export default function PicturePreview({
           <div className="resources-action-bar__side-left">
             <div className="resources-info-dropdown">
               <i
-                data-icon-name="Info"
-                aria-hidden="true"
-                class="FabricMDL2Icons"
+                data-icon-name="Info"              
+                className="FabricMDL2Icons"
               >
                 
               </i>
@@ -92,9 +91,8 @@ export default function PicturePreview({
                     >
                       <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
                         <i
-                          data-icon-name="Delete"
-                          aria-hidden="true"
-                          class="FabricMDL2Icons"
+                          data-icon-name="Delete"                          
+                          className="FabricMDL2Icons"
                         >
                           
                         </i>
