@@ -22,11 +22,8 @@ export default function ProductEditModal({
         isShowProductEdit ? "ms-Layer ms-Layer--fixed effect layer-351" : "hide"
       }
     >
-      <div className="ms-Fabric ms-Layer-content content-120">
-        <div role="dialog">
-          <div className="ms-Modal is-open root-345">
-            <div className="ms-Overlay ms-Overlay--dark root-414"></div>
-            <div className="ms-Dialog-main   main-412">
+     <div className="root-345">
+        <div className="ms-Dialog-main  main-412">
               <i
                 data-icon-name="Cancel"
                 onClick={() => CancelEdit()}
@@ -113,8 +110,6 @@ export default function ProductEditModal({
               <hr />
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </div>       
   )
 }
