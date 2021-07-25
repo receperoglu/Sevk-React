@@ -13,8 +13,8 @@ export default function FilesComponent({ Files, showPicturePreview }) {
     setFilesVisible(!FilesVisible);
   };
   useEffect(() => {
-    setdocuments(Files.filter((f) => "Document" === f.FileType));
-    setpictures(Files.filter((f) => "Picture" === f.FileType));
+    setdocuments(Files.filter((f) => f.FileType === "Document"));
+    setpictures(Files.filter((f) => f.FileType === "Picture"));
   }, [Files]);
   return (
     <div className={Files.length === 0 ? "hide" : "col-xs-12 col-md-12"}>
