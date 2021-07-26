@@ -15,7 +15,7 @@ export default function WayBillList({ isMobile, Waybill }) {
         className={WayBillVisible ? "MotionDetails table table-hover " : "hide"}
       >
         <thead>
-          <tr className="alert alert-success">
+          <tr className=" ms-DetailsHeader-cellName cellName-112">
             <td>Adet</td>
             <td>KG</td>
             <td>Ölçü</td>

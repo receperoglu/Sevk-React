@@ -50,7 +50,7 @@ function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
   return totalPiece === 0 ? null : (
     <table className="table padd0  table-hover alert alert-primary">
       <thead>
-        <tr className="alert alert-success">
+        <tr className=" ms-DetailsHeader-cellName cellName-112">
           <td>Adet</td>
           <td>Ağırlık</td>
           <td>Tarih</td>

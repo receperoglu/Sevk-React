@@ -116,12 +116,12 @@ function ListView(
                   </div>
                 </div>
                 <div className="od-DetailsRow-cell--Name ms-DetailsRow-cell cell-118 flex_fold">
-                  <a
-                    href="#"
+                  <span
+                   
                     className="ms-Link nameField_520cf44c clickable_520cf44c root-125"
                   >
                     {file.FileName}
-                  </a>
+                  </span>
                 </div>
                 <div className="od-DetailsRow-cell--DateTime ms-DetailsRow-cell cell-118 cellUnpadded-116">
                   {file.CreatedDate}

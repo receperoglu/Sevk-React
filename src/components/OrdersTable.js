@@ -31,7 +31,7 @@ export default function OrdersTable({
           }
         >
           <thead>
-            <tr className="alert alert-success">
+            <tr className=" ms-DetailsHeader-cellName cellName-112">
               <td>Adet</td>
               <td>Ölçü</td>
               <td>Renk</td>

@@ -5,8 +5,8 @@ export default function ArticelsTable({ Articels, GetOrders, isMobile }) {
 function Mobile(Articels,GetOrders) {
   return (
     <table className="Articels table table-hover">
-      <thead>
-        <tr className="tablehead">
+      <thead className="ms-DetailsHeader-cellName cellName-112">
+        <tr className="">
           <td className="col-md-12">
             Firma<br></br>Articel / Sipariş
           </td>
@@ -38,7 +38,7 @@ function Desktop(Articels,GetOrders) {
   return (
     <table className="Articels table table-hover">
       <thead>
-        <tr className="tablehead">
+        <tr className=" ms-DetailsHeader-cellName cellName-112">
           <td className="col-md-6">Firma</td>
           <td className="col-md-6">Articel / Sipariş</td>
         </tr>

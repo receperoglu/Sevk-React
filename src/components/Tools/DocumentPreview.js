@@ -24,6 +24,7 @@ export default function DocumentPreview({
         <CancelBtn click={hideDocumentPreview} />
       </div>
       <iframe
+      title="title"
         style={{
           width: "100%",
           height: "100%",
