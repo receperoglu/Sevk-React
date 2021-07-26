@@ -68,20 +68,23 @@ export default function MainPage() {
   const [isShowCreateArticel, setisShowCreateArticel] = useState(false);
   const [isShowPicturePreview, setisShowPicturePreview] = useState(false);
   const [isShowDocumentPreview, setisShowDocumentPreview] = useState(false);
+  const checkLocalStorage = (item) => {
+    if (localStorage.getItem(item)) { return true }
+  };
+  const getLocalStorage = (item) => {
+    return JSON.parse(localStorage.getItem(item));
+  };
   useEffect(() => {
-    if (localStorage.getItem("Articels")) {
-      setArticels(JSON.parse(localStorage.getItem("Articels")));
+    if (checkLocalStorage("Articels")) {
+      setArticels(getLocalStorage("Articels"));
       setisShow(false);
     } else {
       async function fetchArticels() {
         var data = await FetchFunc(USER_SERVICE_URL + "Articels");
-        setArticels(data);
-        console.log(data);
         localStorage.setItem("Articels", JSON.stringify(data));
+        setArticels(data);
         setisShow(false);
         getProductType();
-        getCorps();
-        getSalesTypes();
       }
       fetchArticels();
     }
@@ -352,17 +355,20 @@ export default function MainPage() {
     setisShowDocumentPreview(true);
   };
   const getProductType = async () => {
-    if (localStorage.getItem("ProductTypes")) {
-      setProductTypes(JSON.parse(localStorage.getItem("ProductTypes")));
+    if (checkLocalStorage("ProductTypes")) {
+      setProductTypes(getLocalStorage("ProductTypes"));
+      setisShow(false);
     } else {
       var ProductTypes = await FetchFunc("abi/post/ProductType.ashx");
       setProductTypes(ProductTypes);
       localStorage.setItem("ProductTypes", JSON.stringify(ProductTypes));
     }
+    getCorps();
   };
   const getCorps = async () => {
-    if (localStorage.getItem("Corps")) {
-      setCorps(JSON.parse(localStorage.getItem("Corps")));
+    if (checkLocalStorage("Corps")) {
+      setCorps(getLocalStorage("Corps"));
+      setisShow(false);
     } else {
       var CorpUrl = "abi/post/CorpList.ashx";
       const response = await fetch(CorpUrl, {
@@ -380,10 +386,12 @@ export default function MainPage() {
       setCorps(CorpsJson);
       localStorage.setItem("Corps", JSON.stringify(CorpsJson));
     }
+    getSalesTypes();
   };
   const getSalesTypes = async () => {
-    if (localStorage.getItem("SalesTypes")) {
-      setSalesTypes(JSON.parse(localStorage.getItem("SalesTypes")));
+    if (checkLocalStorage("SalesTypes")) {
+      setSalesTypes(getLocalStorage("SalesTypes"));
+      setisShow(false);
     } else {
       var saletypes = await FetchFunc("abi/post/SaleType.ashx");
       setSalesTypes(saletypes);

@@ -5,7 +5,7 @@ import MenuItem from "./Layout/MenuItem";
 const BaseUrl = "http://recep.space/abi/dosyalar/";
 const ThumbUrl = "http://recep.space/thumbs/";
 const icoUrl =
-  "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/";
+  "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/64/";
 
 export default function FilesComponent({
   Files,
@@ -95,7 +95,10 @@ function ListView(
             </div>
           </div>
           {Files.map((file) => (
-            <div className="ms-FocusZone effect css-53 ms-DetailsRow is-contentUnselectable od--hasContextMenu root-115">
+            <div
+              key={file.id}
+              className="ms-FocusZone effect css-53 ms-DetailsRow is-contentUnselectable od--hasContextMenu root-115"
+            >
               <div className="ms-DetailsRow-fields fields-122">
                 <div className="od-DetailsRow-cell--FileIcon ms-DetailsRow-cell cell-118 flex_half">
                   <div className="FileTypeIcon text-left">
@@ -109,17 +112,14 @@ function ListView(
                       }}
                       src={
                         file.FileType === "Picture"
-                          ? `${icoUrl}32/photo.png`
-                          : `${icoUrl + "32/" + file.ext.substring(1)}.png`
+                          ? `${icoUrl}/photo.png`
+                          : `${icoUrl + file.ext.substring(1)}.png`
                       }
                     />
                   </div>
                 </div>
                 <div className="od-DetailsRow-cell--Name ms-DetailsRow-cell cell-118 flex_fold">
-                  <span
-                   
-                    className="ms-Link nameField_520cf44c clickable_520cf44c root-125"
-                  >
+                  <span className="ms-Link nameField_520cf44c clickable_520cf44c root-125">
                     {file.FileName}
                   </span>
                 </div>
@@ -175,13 +175,14 @@ function Documents(documents, showDocumentPreview) {
     <div>
       <h2 className="padd0 col-xs-12">Belgeler</h2>
       {documents.map((f) => (
-        <div key={f.id} className="DocumentContainerDiv effect col-md-2 col-xs-4">
+        <div
+          key={f.id}
+          className="DocumentContainerDiv effect col-md-2 col-xs-4"
+        >
           <div className="FileBorder">
             <div
               style={{
-                backgroundImage: `url(${
-                  icoUrl + "64/" + f.ext.substring(1)
-                }.png)`,
+                backgroundImage: `url(${icoUrl + f.ext.substring(1)}.png)`,
               }}
               className="padd0 filepreview "
             >
@@ -210,7 +211,10 @@ function Pictures(pictures, showPicturePreview) {
     <div>
       <h2 className="padd0 col-xs-12"> Resimler</h2>
       {pictures.map((f) => (
-        <div key={f.id} className="DocumentContainerDiv effect col-md-2 col-xs-4  ">
+        <div
+          key={f.id}
+          className="DocumentContainerDiv effect col-md-2 col-xs-4  "
+        >
           <div className="FileBorder">
             <div
               onClick={() => {
@@ -240,7 +244,6 @@ function ChangeView(toggleVtype) {
         symbol=""
         iconclassname="icon-144s"
       />
-   
     </div>
   );
 }
