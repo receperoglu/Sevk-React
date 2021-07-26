@@ -69,15 +69,22 @@ export default function MainPage() {
   const [isShowPicturePreview, setisShowPicturePreview] = useState(false);
   const [isShowDocumentPreview, setisShowDocumentPreview] = useState(false);
   useEffect(() => {
-    async function fetchArticels() {
-      var data = await FetchFunc(USER_SERVICE_URL + "Articels");
-      setArticels(data);
+    if (localStorage.getItem("Articels")) {
+      setArticels(JSON.parse(localStorage.getItem("Articels")));
       setisShow(false);
+    } else {
+      async function fetchArticels() {
+        var data = await FetchFunc(USER_SERVICE_URL + "Articels");
+        setArticels(data);
+        console.log(data);
+        localStorage.setItem("Articels", JSON.stringify(data));
+        setisShow(false);
+        getProductType();
+        getCorps();
+        getSalesTypes();
+      }
+      fetchArticels();
     }
-    fetchArticels();
-    getProductType();
-    getCorps();
-    getSalesTypes();
     if (window.innerWidth <= 1024) {
       setisMobile(true);
     } else {
@@ -345,26 +352,44 @@ export default function MainPage() {
     setisShowDocumentPreview(true);
   };
   const getProductType = async () => {
-    setProductTypes(await FetchFunc("abi/post/ProductType.ashx"));
+    if (localStorage.getItem("ProductTypes")) {
+      setProductTypes(JSON.parse(localStorage.getItem("ProductTypes")));
+    } else {
+      var ProductTypes = await FetchFunc("abi/post/ProductType.ashx");
+      setProductTypes(ProductTypes);
+      localStorage.setItem("ProductTypes", JSON.stringify(ProductTypes));
+    }
   };
   const getCorps = async () => {
-    var CorpUrl = "abi/post/CorpList.ashx";
-    const response = await fetch(CorpUrl, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": CorpUrl,
-        Authorization: "bearer ",
-      },
-    });
-
-    setCorps(await response.json());
+    if (localStorage.getItem("Corps")) {
+      setCorps(JSON.parse(localStorage.getItem("Corps")));
+    } else {
+      var CorpUrl = "abi/post/CorpList.ashx";
+      const response = await fetch(CorpUrl, {
+        method: "POST",
+        cache: "no-cache",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "access-control-allow-credentials": false,
+          "Access-Control-Allow-Origin": CorpUrl,
+          Authorization: "bearer ",
+        },
+      });
+      var CorpsJson = await response.json();
+      setCorps(CorpsJson);
+      localStorage.setItem("Corps", JSON.stringify(CorpsJson));
+    }
   };
   const getSalesTypes = async () => {
-    setSalesTypes(await FetchFunc("abi/post/SaleType.ashx"));
+    if (localStorage.getItem("SalesTypes")) {
+      setSalesTypes(JSON.parse(localStorage.getItem("SalesTypes")));
+    } else {
+      var saletypes = await FetchFunc("abi/post/SaleType.ashx");
+      setSalesTypes(saletypes);
+      setProductTypes(saletypes);
+      localStorage.setItem("SalesTypes", JSON.stringify(saletypes));
+    }
   };
   const getNotes = async (ArticelId) => {
     fetch("abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
