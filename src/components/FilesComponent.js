@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Arrow from "./Tools/Arrow";
-import MenuItem from "./Tools/MenuItem";
+import Arrow from "./Layout/Arrow";
+import MenuItem from "./Layout/MenuItem";
 
 const BaseUrl = "http://recep.space/abi/dosyalar/";
 const ThumbUrl = "http://recep.space/thumbs/";
@@ -95,7 +95,7 @@ function ListView(
             </div>
           </div>
           {Files.map((file) => (
-            <div className="ms-FocusZone css-53 ms-DetailsRow is-contentUnselectable od--hasContextMenu root-115">
+            <div className="ms-FocusZone effect css-53 ms-DetailsRow is-contentUnselectable od--hasContextMenu root-115">
               <div className="ms-DetailsRow-fields fields-122">
                 <div className="od-DetailsRow-cell--FileIcon ms-DetailsRow-cell cell-118 flex_half">
                   <div className="FileTypeIcon text-left">
@@ -175,7 +175,7 @@ function Documents(documents, showDocumentPreview) {
     <div>
       <h2 className="padd0 col-xs-12">Belgeler</h2>
       {documents.map((f) => (
-        <div key={f.id} className="DocumentContainerDiv col-md-2 col-xs-4">
+        <div key={f.id} className="DocumentContainerDiv effect col-md-2 col-xs-4">
           <div className="FileBorder">
             <div
               style={{
@@ -210,7 +210,7 @@ function Pictures(pictures, showPicturePreview) {
     <div>
       <h2 className="padd0 col-xs-12"> Resimler</h2>
       {pictures.map((f) => (
-        <div key={f.id} className="DocumentContainerDiv col-md-2 col-xs-4  ">
+        <div key={f.id} className="DocumentContainerDiv effect col-md-2 col-xs-4  ">
           <div className="FileBorder">
             <div
               onClick={() => {

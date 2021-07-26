@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Arrow from "./Tools/Arrow";
+import Arrow from "./Layout/Arrow";
 export default function OrdersTable({
   ArticelName,
   Orders,

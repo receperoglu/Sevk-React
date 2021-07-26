@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ProgressBar from "./ProgressBar";
-import CancelBtn from "./Tools/CancelBtn";
+import CancelBtn from "./CancelBtn";
 export default function PicturePreview({
   isRotating,
   isShowPicturePreview,

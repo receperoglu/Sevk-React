@@ -1,7 +1,7 @@
 import React from "react";
-import ProgressBar from "./ProgressBar";
-import CancelBtn from "./Tools/CancelBtn";
-export default function ProductEditModal({
+import ProgressBar from "../Tools/ProgressBar";
+import CancelBtn from "../Tools/CancelBtn";
+export default function Edit({
   isShowProductEdit,
   Typeid,
   Dimensions,

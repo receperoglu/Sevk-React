@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LeftNav from "./LeftNav";
-import Menus from "./Tools/Menus";
+import Menus from "./Menus";
 export default function TopBar({
   ArticelId,
   CorpName,

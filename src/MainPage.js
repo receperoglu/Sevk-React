@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import CreateArticelModal from "./components/CreateArticelModal";
-import ProductEditModal from "./components/ProductEditModal";
-import ProductNewModal from "./components/ProductNewModal";
-import ProductOutModal from "./components/ProductOutModal";
+import DocumentPreview from "./components/Tools/DocumentPreview";
+import PicturePreview from "./components/Tools/PicturePreview";
 import FilesComponent from "./components/FilesComponent";
-import PicturePreview from "./components/PicturePreview";
+import ProgressBar from "./components/Tools/ProgressBar";
 import ArticelsTable from "./components/ArticelsTable";
+import EditModal from "./components/ProductModal/Edit";
+import NewModal from "./components/ProductModal/New";
+import OutModal from "./components/ProductModal/Out";
 import LayoutRight from "./components/LayoutRight";
 import OrdersTable from "./components/OrdersTable";
-import ProgressBar from "./components/ProgressBar";
 import WayBillList from "./components/WayBillList";
 import LayoutNote from "./components/LayoutNotes";
-import CallOut from "./components/CallOut";
-import TopBar from "./components/TopBar";
-import DocumentPreview from "./components/DocumentPreview";
+import CallOut from "./components/Layout/CallOut";
+import TopBar from "./components/Layout/TopBar";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 export default function MainPage() {
   const [Url, setUrl] = useState([]);
-  const [Vtype,setVtype]=useState(false);
+  const [Vtype, setVtype] = useState(false);
   const [Corps, setCorps] = useState([]);
   const [Files, setFiles] = useState([]);
   const [Orders, setOrders] = useState([]);
@@ -85,9 +85,9 @@ export default function MainPage() {
     }
     window.addEventListener("resize", updateDimensions);
   }, []);
-  const toggleVtype=()=>{
-    setVtype(!Vtype)
-  }
+  const toggleVtype = () => {
+    setVtype(!Vtype);
+  };
   const ChangeProductType = (typeid) => {
     setTypeId(typeid);
   };
@@ -621,7 +621,7 @@ export default function MainPage() {
         IsCreateArticelShow={IsCreateArticelShow}
         CancelCreateArticel={CancelCreateArticel}
       />
-      <ProductNewModal
+      <NewModal
         SaveOrder={SaveOrder}
         ChangePiece={ChangePiece}
         ChangeColor={ChangeColor}
@@ -632,7 +632,7 @@ export default function MainPage() {
         ChangeProductType={ChangeProductType}
         ProductNewLoading={ProductNewLoading}
       />
-      <ProductOutModal
+      <OutModal
         OrderList={Orders}
         ChangePiece={ChangePiece}
         ArticelName={ArticelName}
@@ -642,7 +642,7 @@ export default function MainPage() {
         ChangeWayBillId={ChangeWayBillId}
         isShowProductOut={isShowProductOut}
       />
-      <ProductEditModal
+      <EditModal
         Color={Color}
         Piece={Piece}
         Typeid={TypeId}

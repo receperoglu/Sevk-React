@@ -1,7 +1,7 @@
 import React from "react";
-import ProgressBar from "./ProgressBar";
-import CancelBtn from "./Tools/CancelBtn";
-export default function ProductNewModal({
+import ProgressBar from "../Tools/ProgressBar";
+import CancelBtn from "../Tools/CancelBtn";
+export default function New({
   SaveOrder,
   ProductNewLoading,
   ChangeColor,

@@ -1,6 +1,6 @@
 import React from "react";
-import CancelBtn from "./Tools/CancelBtn";
-export default function ProductOutModal({
+import CancelBtn from "../Tools/CancelBtn";
+export default function Out({
   isShowProductOut,
   CancelProduct,
   ChangeWayBillId,

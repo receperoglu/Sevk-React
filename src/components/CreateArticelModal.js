@@ -1,5 +1,5 @@
 import React from "react";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "./Tools/ProgressBar";
 import CancelBtn from "./Tools/CancelBtn";
 export default function CreateArticelModal({
   IsCreateArticelShow,

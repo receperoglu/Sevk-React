@@ -10,17 +10,11 @@ class Arrow extends Component {
     return (
       <span>
         {this.props.Direction ? (
-          <i
-            data-icon-name="ChevronUp"           
-            className="FabricMDL2Icons fright"
-          >
+          <i data-icon-name="ChevronUp" className="FabricMDL2Icons fright">
             
           </i>
         ) : (
-          <i
-            data-icon-name="ChevronDown"          
-            className="FabricMDL2Icons fright"
-          >
+          <i data-icon-name="ChevronDown" className="FabricMDL2Icons fright">
             
           </i>
         )}

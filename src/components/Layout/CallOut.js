@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CancelBtn from "./Tools/CancelBtn";
+import CancelBtn from "../Tools/CancelBtn";
 export default function CallOut({
   isShowCallOut,
   top,
