@@ -41,35 +41,17 @@ export default function FilesComponent({
               showPicturePreview,
               showDocumentPreview
             )
-          : ListView(
-              Files,
-              showPicturePreview,
-              BaseUrl,
-              icoUrl,
-              showDocumentPreview
-            )}
+          : ListView(Files, showPicturePreview, showDocumentPreview)}
       </div>
     </div>
   );
 }
-function ListView(
-  Files,
-  showPicturePreview,
-  BaseUrl,
-  icoUrl,
-  showDocumentPreview
-) {
+function ListView(Files, showPicturePreview, showDocumentPreview) {
   return (
     <div>
       <div className="od-ItemContent-list">
         {ListViewHeader}
-        {ListViewRender(
-          Files,
-          showPicturePreview,
-          showDocumentPreview,
-          BaseUrl,
-          icoUrl
-        )}
+        {ListViewRender(Files, showPicturePreview, showDocumentPreview)}
       </div>
     </div>
   );
@@ -84,13 +66,7 @@ function ListViewHeader() {
     </div>
   );
 }
-function ListViewRender(
-  Files,
-  showPicturePreview,
-  showDocumentPreview,
-  BaseUrl,
-  icoUrl
-) {
+function ListViewRender(Files, showPicturePreview, showDocumentPreview) {
   return Files.map((file) => (
     <div key={file.id} className="effect   ms-DetailsRow">
       <div className="displayflex">
@@ -114,7 +90,9 @@ function ListViewRender(
           <span className="flex1">{file.FileName}</span>
         </div>
         <div className="flex1">{file.CreatedDate}</div>
-        <div className="flex_half text-right">{DownloadBtn(BaseUrl + file.Path)}</div>
+        <div className="flex_half text-right">
+          {DownloadBtn(BaseUrl + file.Path)}
+        </div>
       </div>
     </div>
   ));
@@ -160,13 +138,16 @@ function Documents(documents, showDocumentPreview) {
 function DownloadBtn(Link) {
   return (
     <a href={Link} target="blank">
-      <i data-icon-name="Download" className="FabricMDL2Icons">
-        
-      </i>
+      <MenuItem
+        click=""
+        icon="Download"
+        text=""
+        symbol=""
+        iconclassname="FabricMDL2Icons"
+      />
     </a>
   );
 }
-
 function FileName(view, f) {
   return (
     <span
