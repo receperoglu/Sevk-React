@@ -114,7 +114,7 @@ function ListViewRender(
           <span className="flex1">{file.FileName}</span>
         </div>
         <div className="flex1">{file.CreatedDate}</div>
-        <div className="flex_half">{DownloadBtn(BaseUrl + f.Path)}</div>
+        <div className="flex_half text-right">{DownloadBtn(BaseUrl + file.Path)}</div>
       </div>
     </div>
   ));
@@ -159,7 +159,7 @@ function Documents(documents, showDocumentPreview) {
 }
 function DownloadBtn(Link) {
   return (
-    <a className="DownloadBtn" href={Link} target="blank">
+    <a href={Link} target="blank">
       <i data-icon-name="Download" className="FabricMDL2Icons">
         
       </i>
@@ -208,7 +208,7 @@ function Pictures(pictures, showPicturePreview) {
 }
 function ChangeView(toggleVtype) {
   return (
-    <div className="fright">
+    <div className="col-md-12 text-center">
       <MenuItem
         click={toggleVtype}
         icon="FullScreen"
