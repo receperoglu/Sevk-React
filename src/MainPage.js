@@ -15,12 +15,12 @@ import LayoutNote from "./components/LayoutNotes";
 import CallOut from "./components/Layout/CallOut";
 import TopBar from "./components/Layout/TopBar";
 import Error from "./components/Layout/Error";
+import LocalStore from "./components/Tools/LocalStore";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 export default function MainPage() {
   const [Url, setUrl] = useState([]);
   const [Vtype, setVtype] = useState(false);
-  const [Corps, setCorps] = useState([]);
   const [Files, setFiles] = useState([]);
   const [Orders, setOrders] = useState([]);
   const [Waybill, setWaybill] = useState([]);
@@ -69,17 +69,10 @@ export default function MainPage() {
   const [isShowCreateArticel, setisShowCreateArticel] = useState(false);
   const [isShowPicturePreview, setisShowPicturePreview] = useState(false);
   const [isShowDocumentPreview, setisShowDocumentPreview] = useState(false);
-  const checkLocalStorage = (item) => {
-    if (localStorage.getItem(item)) {
-      return true;
-    }
-  };
-  const getLocalStorage = (item) => {
-    return JSON.parse(localStorage.getItem(item));
-  };
+
   useEffect(() => {
-    if (checkLocalStorage("Articels")) {
-      setArticels(getLocalStorage("Articels"));
+    if (LocalStore.check("Articels")) {
+      setArticels(LocalStore.get("Articels"));
       setisShow(false);
     } else {
       async function fetchArticels() {
@@ -91,13 +84,16 @@ export default function MainPage() {
       }
       fetchArticels();
     }
+    CheckMobile();
+    window.addEventListener("resize", updateDimensions);
+  }, []);
+  const CheckMobile = () => {
     if (window.innerWidth <= 1024) {
       setisMobile(true);
     } else {
       setisMobile(false);
     }
-    window.addEventListener("resize", updateDimensions);
-  }, []);
+  };
   const toggleVtype = () => {
     setVtype(!Vtype);
   };
@@ -180,11 +176,7 @@ export default function MainPage() {
   };
   const updateDimensions = () => {
     setisShowCallOut(false);
-    if (window.innerWidth <= 1024) {
-      setisMobile(true);
-    } else {
-      setisMobile(false);
-    }
+    CheckMobile();
   };
   const FetchJson = async (Url) => {
     var response = "";
@@ -205,14 +197,7 @@ export default function MainPage() {
     }
     return response.json();
   };
-  const CorpSearch = (event) => {
-    let value = event.target.value.toLowerCase();
-    let result = [];
-    result = Articels.filter((data) => {
-      return data.ArticelName.toLowerCase().search(value) !== -1;
-    });
-    setArticels(result);
-  };
+
   const UpdateArticelNote = (note) => {
     setArticelNotes(note);
   };
@@ -260,7 +245,6 @@ export default function MainPage() {
       .then((response) => response.json())
       .then((result) => {
         setisShow(false);
-
         GetOrders(ActiveArticel, CorpId, ArticelName, CorpName);
       })
       .catch((error) => {
@@ -388,42 +372,19 @@ export default function MainPage() {
     setisShowDocumentPreview(true);
   };
   const getProductType = async () => {
-    if (checkLocalStorage("ProductTypes")) {
-      setProductTypes(getLocalStorage("ProductTypes"));
+    if (LocalStore.check("ProductTypes")) {
+      setProductTypes(LocalStore.get("ProductTypes"));
       setisShow(false);
     } else {
       var ProductTypes = await FetchJson("abi/post/ProductType.ashx");
       setProductTypes(ProductTypes);
       localStorage.setItem("ProductTypes", JSON.stringify(ProductTypes));
     }
-    getCorps();
-  };
-  const getCorps = async () => {
-    if (checkLocalStorage("Corps")) {
-      setCorps(getLocalStorage("Corps"));
-      setisShow(false);
-    } else {
-      var CorpUrl = "abi/post/CorpList.ashx";
-      const response = await fetch(CorpUrl, {
-        method: "POST",
-        cache: "no-cache",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "access-control-allow-credentials": false,
-          "Access-Control-Allow-Origin": CorpUrl,
-          Authorization: "bearer ",
-        },
-      });
-      var CorpsJson = await response.json();
-      setCorps(CorpsJson);
-      localStorage.setItem("Corps", JSON.stringify(CorpsJson));
-    }
     getSalesTypes();
   };
   const getSalesTypes = async () => {
-    if (checkLocalStorage("SalesTypes")) {
-      setSalesTypes(getLocalStorage("SalesTypes"));
+    if (LocalStore.check("SalesTypes")) {
+      setSalesTypes(LocalStore.get("SalesTypes"));
       setisShow(false);
     } else {
       var saletypes = await FetchJson("abi/post/SaleType.ashx");
@@ -441,7 +402,6 @@ export default function MainPage() {
   };
   const GetOrders = async (articelid, CorpId, ArticelName, CorpName) => {
     setOrders([]);
-
     setisShow(true);
     setCorpId(CorpId);
     GetWaybillAsync(articelid);
@@ -457,8 +417,12 @@ export default function MainPage() {
     setisshowOrder(true);
     if (ActiveArticel === 0) {
       setActiveArticel(articelid);
-      var FirstClicked = "Articel" + articelid;
-      document.getElementById(FirstClicked).classList.add("ActiveArticelRow");
+      try {
+        var FirstClicked = "Articel" + articelid;
+        document.getElementById(FirstClicked).classList.add("ActiveArticelRow");
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       try {
         var PrevClicked = "Articel" + ActiveArticel;
@@ -600,12 +564,10 @@ export default function MainPage() {
   return (
     <div className="padd0 col-md-12">
       <TopBar
-        Corps={Corps}
         isMobile={isMobile}
         CorpName={CorpName}
         ArticelId={ArticelId}
         chooseFile={chooseFile}
-        CorpSearch={CorpSearch}
         toggleView={toggleView}
         filterCorp={filterCorp}
         closeTopBar={closeTopBar}
@@ -675,7 +637,6 @@ export default function MainPage() {
         isShowLayoutNote={isShowLayoutNote}
       />
       <CreateArticelModal
-        Corps={Corps}
         Piece={Piece}
         Color={Color}
         Typeid={TypeId}
@@ -703,16 +664,6 @@ export default function MainPage() {
         ChangeProductType={ChangeProductType}
         ProductNewLoading={ProductNewLoading}
       />
-      <OutModal
-        OrderList={Orders}
-        ChangePiece={ChangePiece}
-        ArticelName={ArticelName}
-        ChangeWeight={ChangeWeight}
-        CancelProduct={CancelProduct}
-        SaveProductOut={SaveProductOut}
-        ChangeWayBillId={ChangeWayBillId}
-        isShowProductOut={isShowProductOut}
-      />
       <EditModal
         Color={Color}
         Piece={Piece}
@@ -729,6 +680,16 @@ export default function MainPage() {
         isShowProductEdit={isShowProductEdit}
         ChangeProductType={ChangeProductType}
         ChangeDimensions={ChangeDimensions}
+      />
+      <OutModal
+        OrderList={Orders}
+        ChangePiece={ChangePiece}
+        ArticelName={ArticelName}
+        ChangeWeight={ChangeWeight}
+        CancelProduct={CancelProduct}
+        SaveProductOut={SaveProductOut}
+        ChangeWayBillId={ChangeWayBillId}
+        isShowProductOut={isShowProductOut}
       />
       <CallOut
         top={y}
