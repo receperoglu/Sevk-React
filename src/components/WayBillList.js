@@ -35,18 +35,19 @@ export default function WayBillList({ isMobile, Waybill, GetWayBillPhoto }) {
               <td> {w.Weight} </td>
               <td> {w.Dimensions} </td>
               <td className={isMobile ? "minifont" : ""}>{w.Color}</td>
-              <td className="pointer">
-                <span
+              <td >
+                <span className="pointer"
                   onClick={() => {
                     GetWayBillPhoto(w.WayBillId);
                   }}
                 >
                   {w.CreatedDate}
-                  <span className={isMobile ? "" : "hide"}>{w.WayBillId}</span>
+                  <span className={isMobile ? "pointer" : "hide"}>{w.WayBillId}</span>
                 </span>
               </td>
               <td className={isMobile ? "hide" : ""}>
                 <span
+                 className="pointer"
                   onClick={() => {
                     GetWayBillPhoto(w.WayBillId);
                   }}

@@ -14,6 +14,7 @@ import WayBillList from "./components/WayBillList";
 import LayoutNote from "./components/LayoutNotes";
 import CallOut from "./components/Layout/CallOut";
 import TopBar from "./components/Layout/TopBar";
+import Error from "./components/Layout/Error";
 
 const USER_SERVICE_URL = "StartApi.ashx?Platform=Android&ProcessType=";
 export default function MainPage() {
@@ -37,7 +38,7 @@ export default function MainPage() {
   const [ArticelName, setArticelName] = useState("");
   const [ArticelNotes, setArticelNotes] = useState("");
   const [ProductTypeName, setProductTypeName] = useState("");
-
+  const [isError, setisError] = useState(false);
   const [x, setx] = useState(0);
   const [y, sety] = useState(0);
   const [Piece, setPiece] = useState(0);
@@ -164,12 +165,16 @@ export default function MainPage() {
       .then((res) => res.json())
       .then(
         (response) => {
-          var url = "https://recep.space/abi/dosyalar/" + response[0].Path;
-          console.log(url);
-          showPicturePreview(url, url);
+          try {
+            var url = "https://recep.space/abi/dosyalar/" + response[0].Path;
+            console.log(url);
+            showPicturePreview(url, url);
+          } catch (error) {
+            setisError(true);
+          }
         },
         (error) => {
-          console.log(error);
+          setisError(true);
         }
       );
   };
@@ -182,17 +187,22 @@ export default function MainPage() {
     }
   };
   const FetchJson = async (Url) => {
-    const response = await fetch(Url, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": Url,
-        Authorization: "bearer ",
-      },
-    });
+    var response = "";
+    try {
+      response = await fetch(Url, {
+        method: "POST",
+        cache: "no-cache",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "access-control-allow-credentials": false,
+          "Access-Control-Allow-Origin": Url,
+          Authorization: "bearer ",
+        },
+      });
+    } catch (error) {
+      setisError(true);
+    }
     return response.json();
   };
   const CorpSearch = (event) => {
@@ -254,7 +264,7 @@ export default function MainPage() {
         GetOrders(ActiveArticel, CorpId, ArticelName, CorpName);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        setisError(true);
       });
   };
   const NewProductShow = () => {
@@ -272,6 +282,7 @@ export default function MainPage() {
       var selectedId = "Articel" + ActiveArticel;
       document.getElementById(selectedId).classList.remove("ActiveArticelRow");
     } catch (error) {
+      setisError(true);
       console.log(error);
     }
   };
@@ -457,7 +468,9 @@ export default function MainPage() {
         setActiveArticel(articelid);
         var Clicked = "Articel" + articelid;
         document.getElementById(Clicked).classList.add("ActiveArticelRow");
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     document.getElementById("SecondScreen").classList.remove("hide");
@@ -728,6 +741,7 @@ export default function MainPage() {
         ProductTypeName={ProductTypeName}
         GetWayBillPhoto={GetWayBillPhoto}
       />
+      <Error setisError={setisError} isError={isError} />
       <PicturePreview
         Path={Path}
         Articel={ArticelName}
