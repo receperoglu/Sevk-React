@@ -2,6 +2,7 @@ import React from "react";
 import ProgressBar from "./Tools/ProgressBar";
 import CancelBtn from "./Tools/CancelBtn";
 import BlueButton from "./Tools/BlueButton";
+import CreateOption from "./Tools/CreateOption";
 export default function CreateArticelModal({
   IsCreateArticelShow,
   CancelCreateArticel,
@@ -21,8 +22,11 @@ export default function CreateArticelModal({
           <div className="ProductModalSub ProductOut">
             <h4>Yeni Artikel Oluştur</h4>
             <hr />
-            {CorpList(ChangeCorpId, Corps)}
-            {SalesType(ChangeSalesType, SalesTypes)}
+            <CreateOption change={ChangeCorpId} Json={Corps} />
+            <div className="padd0 col-xs-12 fleft">
+              <span> Tipi</span>
+              <CreateOption change={ChangeSalesType} Json={SalesTypes} />
+            </div>
             <div className="padd0 col-xs-12 ">
               <span>Artikel </span>
               <input
@@ -48,38 +52,4 @@ function Proccess(isShowCreateArticel, SaveArticel) {
       )}
     </div>
   );
-}
-function CorpList(ChangeCorpId, Corps) {
-  return (
-    <div className="padd0 col-xs-12 ">
-      <span>Firma</span>
-      <select
-        className="ms-TextField-field"
-        onChange={(e) => ChangeCorpId(e.target.value)}
-      >
-        {Corps.map((p) => (
-          <option key={p.id} value={p.id}>
-            {p.Name}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
-function SalesType(ChangeSalesType, SalesTypes) {
-  return (
-    <div className="padd0 col-xs-12 fleft">
-      <span> Tipi</span>
-      <select
-        className="ms-TextField-field field-320"
-        onChange={(e) => ChangeSalesType(e.target.value)}
-      >
-        {SalesTypes.map((p) => (
-          <option key={p.id} value={p.id}>
-            {p.Name}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
+} 

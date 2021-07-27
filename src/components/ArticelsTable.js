@@ -16,33 +16,26 @@ function Mobile(Articels, GetOrders) {
           </td>
         </tr>
       </thead>
-
-      {MobileRender(Articels, GetOrders)}
+      <tbody>{MobileRender(Articels, GetOrders)}</tbody>
     </table>
   );
 }
 function MobileRender(Articels, GetOrders) {
-  return (
-    <tbody>
-      {Articels.map((a) => (
-        <tr
-          className="ArticelRow "
-          id={"Articel" + a.id}
-          key={a.id}
-          onClick={() =>
-            GetOrders(a.id, a.CorpId, a.ArticelName, a.CustomerName)
-          }
-        >
-          <td style={{ whiteSpace: "break-spaces" }}>
-            {a.CustomerName}
-            <br></br>
-            <span className="ArticelId">AT-{a.id}</span>
-            {a.ArticelName}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  );
+  return Articels.map((a) => (
+    <tr
+      className="ArticelRow "
+      id={"Articel" + a.id}
+      key={a.id}
+      onClick={() => GetOrders(a.id, a.CorpId, a.ArticelName, a.CustomerName)}
+    >
+      <td style={{ whiteSpace: "break-spaces" }}>
+        {a.CustomerName}
+        <br></br>
+        <span className="ArticelId">AT-{a.id}</span>
+        {a.ArticelName}
+      </td>
+    </tr>
+  ));
 }
 function Desktop(Articels, GetOrders) {
   return (
@@ -53,24 +46,23 @@ function Desktop(Articels, GetOrders) {
           <td className="col-md-6">Articel / Sipariş</td>
         </tr>
       </thead>
-      <tbody>
-        {Articels.map((a) => (
-          <tr
-            className="ArticelRow"
-            id={"Articel" + a.id}
-            key={a.id}
-            onClick={() =>
-              GetOrders(a.id, a.CorpId, a.ArticelName, a.CustomerName)
-            }
-          >
-            <td style={{ whiteSpace: "break-spaces" }}>{a.CustomerName}</td>
-            <td>
-              <span className="ArticelId">AT-{a.id}</span>
-              {a.ArticelName}
-            </td>
-          </tr>
-        ))}
-      </tbody>
+      <tbody>{DesktopRender(Articels, GetOrders)}</tbody>
     </table>
   );
+}
+function DesktopRender(Articels, GetOrders) {
+  return Articels.map((a) => (
+    <tr
+      className="ArticelRow"
+      id={"Articel" + a.id}
+      key={a.id}
+      onClick={() => GetOrders(a.id, a.CorpId, a.ArticelName, a.CustomerName)}
+    >
+      <td style={{ whiteSpace: "break-spaces" }}>{a.CustomerName}</td>
+      <td>
+        <span className="ArticelId">AT-{a.id}</span>
+        {a.ArticelName}
+      </td>
+    </tr>
+  ));
 }

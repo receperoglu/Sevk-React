@@ -2,6 +2,7 @@ import React from "react";
 import ProgressBar from "../Tools/ProgressBar";
 import CancelBtn from "../Tools/CancelBtn";
 import BlueButton from "../Tools/BlueButton";
+import CreateOption from "../Tools/CreateOption";
 export default function New({
   SaveOrder,
   ProductNewLoading,
@@ -23,17 +24,8 @@ export default function New({
             <hr />
             <div className="col-md-12">
               <div className="clearfix OrderRow">
-                <div className="col-xs-12 fleft">
-                  <select
-                    className="ms-TextField-field"
-                    onChange={(e) => ChangeProductType(e.target.value)}
-                  >
-                    {ProductTypes.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.Name}
-                      </option>
-                    ))}
-                  </select>
+                <div className="col-xs-12 fleft">                 
+                  <CreateOption change={ChangeProductType} Json={ProductTypes}/>
                 </div>
                 <div className="col-xs-12 fleft">
                   <span>Adet</span>
