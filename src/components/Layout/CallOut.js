@@ -29,14 +29,17 @@ export default function CallOut({
           <CancelBtn cssclass="CallOutClose" click={CancelCallOut} />
           <div className="ms-Callout-header">
             <div className="ms-Callout-title">
-              {totalPiece === 0 ? " Henüz Sevkiyat Yapılmamış" : ""}
-              <div className={totalPiece === 0 ? "hide" : ""}>
-                {totalPiece} Adet.
-                {LoopCount} Kez Sevk Edildi.
-                <br />
-                {Dimensions} {Color} <br />
-                {ProductTypeName}
-              </div>
+              {totalPiece === 0 ? (
+                "Henüz Sevkiyat Yapılmamış"
+              ) : (
+                <span>
+                  {totalPiece} Adet.
+                  {LoopCount} Kez Sevk Edildi.
+                  <br />
+                  {Dimensions} {Color} <br />
+                  {ProductTypeName}
+                </span>
+              )}
             </div>
           </div>
           {WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece)}

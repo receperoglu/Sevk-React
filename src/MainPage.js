@@ -69,7 +69,9 @@ export default function MainPage() {
   const [isShowPicturePreview, setisShowPicturePreview] = useState(false);
   const [isShowDocumentPreview, setisShowDocumentPreview] = useState(false);
   const checkLocalStorage = (item) => {
-    if (localStorage.getItem(item)) { return true }
+    if (localStorage.getItem(item)) {
+      return true;
+    }
   };
   const getLocalStorage = (item) => {
     return JSON.parse(localStorage.getItem(item));
@@ -80,7 +82,7 @@ export default function MainPage() {
       setisShow(false);
     } else {
       async function fetchArticels() {
-        var data = await FetchFunc(USER_SERVICE_URL + "Articels");
+        var data = await FetchJson(USER_SERVICE_URL + "Articels");
         localStorage.setItem("Articels", JSON.stringify(data));
         setArticels(data);
         setisShow(false);
@@ -142,14 +144,34 @@ export default function MainPage() {
     setColor(color);
     setProductTypeName(producttypename);
     setisShow(true);
-    setOneWayBill(
-      await FetchFunc(
-        USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId
-      )
-    );
+    if (OrderId === 0) {
+      setOneWayBill([]);
+    } else {
+      setOneWayBill(
+        await FetchJson(
+          USER_SERVICE_URL + "Motion&MotionType=One&OrderId=" + OrderId
+        )
+      );
+    }
+
     setisShow(false);
     setisShowCallOut(true);
     document.getElementById(element).classList.remove("OrderProccessing");
+  };
+  const GetWayBillPhoto = async (WayBillId) => {
+    var PhotoUrl = "abi/post/WayBillPhoto.ashx?WayBillId=" + WayBillId;
+    fetch(PhotoUrl)
+      .then((res) => res.json())
+      .then(
+        (response) => {
+          var url = "http://recep.space/abi/dosyalar/" + response[0].Path;
+          console.log(url);
+          showPicturePreview(url, url);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
   const updateDimensions = () => {
     setisShowCallOut(false);
@@ -159,7 +181,7 @@ export default function MainPage() {
       setisMobile(false);
     }
   };
-  const FetchFunc = async (Url) => {
+  const FetchJson = async (Url) => {
     const response = await fetch(Url, {
       method: "POST",
       cache: "no-cache",
@@ -359,7 +381,7 @@ export default function MainPage() {
       setProductTypes(getLocalStorage("ProductTypes"));
       setisShow(false);
     } else {
-      var ProductTypes = await FetchFunc("abi/post/ProductType.ashx");
+      var ProductTypes = await FetchJson("abi/post/ProductType.ashx");
       setProductTypes(ProductTypes);
       localStorage.setItem("ProductTypes", JSON.stringify(ProductTypes));
     }
@@ -393,9 +415,8 @@ export default function MainPage() {
       setSalesTypes(getLocalStorage("SalesTypes"));
       setisShow(false);
     } else {
-      var saletypes = await FetchFunc("abi/post/SaleType.ashx");
+      var saletypes = await FetchJson("abi/post/SaleType.ashx");
       setSalesTypes(saletypes);
-      setProductTypes(saletypes);
       localStorage.setItem("SalesTypes", JSON.stringify(saletypes));
     }
   };
@@ -444,7 +465,7 @@ export default function MainPage() {
     document.getElementById("FirstScreen").classList.add("col-md-4");
     document.getElementById("FirstScreen").classList.remove("col-md-12");
     var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + articelid;
-    setOrders(await FetchFunc(FullUrl));
+    setOrders(await FetchJson(FullUrl));
     setisShow(false);
     setisshowOrder(true);
   };
@@ -452,7 +473,7 @@ export default function MainPage() {
     setWaybill([]);
     setisShow(true);
     setWaybill(
-      await FetchFunc(
+      await FetchJson(
         USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId
       )
     );
@@ -461,7 +482,7 @@ export default function MainPage() {
   const GetFilesAsync = async (ArticelId) => {
     setFiles([]);
     var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
-    var data = await FetchFunc(url);
+    var data = await FetchJson(url);
     setFiles(data);
   };
   const GetOrderEdit = (id, dimensions, color, piece, typeName, TypeId) => {
@@ -488,7 +509,7 @@ export default function MainPage() {
       "&ArticelId=" +
       ArticelId;
 
-    await FetchFunc(url);
+    await FetchJson(url);
   };
   const PostArticelsave = async () => {
     var url =
@@ -623,19 +644,23 @@ export default function MainPage() {
           toggleVtype={toggleVtype}
           Vtype={Vtype}
         />
-        <WayBillList Waybill={Waybill} isMobile={isMobile} />
-        <LayoutRight
-          CancelShare={CancelShare}
-          isShowLayoutRight={isShowLayoutRight}
-        />
-        <LayoutNote
-          SaveNotes={SaveNotes}
-          CancelNote={CancelNote}
-          UpdateArticelNote={UpdateArticelNote}
-          ArticelNotes={ArticelNotes}
-          isShowLayoutNote={isShowLayoutNote}
+        <WayBillList
+          Waybill={Waybill}
+          GetWayBillPhoto={GetWayBillPhoto}
+          isMobile={isMobile}
         />
       </div>
+      <LayoutRight
+        CancelShare={CancelShare}
+        isShowLayoutRight={isShowLayoutRight}
+      />
+      <LayoutNote
+        SaveNotes={SaveNotes}
+        CancelNote={CancelNote}
+        UpdateArticelNote={UpdateArticelNote}
+        ArticelNotes={ArticelNotes}
+        isShowLayoutNote={isShowLayoutNote}
+      />
       <CreateArticelModal
         Corps={Corps}
         Piece={Piece}
@@ -701,6 +726,7 @@ export default function MainPage() {
         CancelCallOut={CancelCallOut}
         isShowCallOut={isShowCallOut}
         ProductTypeName={ProductTypeName}
+        GetWayBillPhoto={GetWayBillPhoto}
       />
       <PicturePreview
         Path={Path}

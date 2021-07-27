@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Arrow from "./Layout/Arrow";
-export default function WayBillList({ isMobile, Waybill }) {
+export default function WayBillList({ isMobile, Waybill, GetWayBillPhoto }) {
   const [WayBillVisible, setWayBillVisible] = useState(true);
   const toggleWayBillList = () => {
     setWayBillVisible(!WayBillVisible);
@@ -36,15 +36,23 @@ export default function WayBillList({ isMobile, Waybill }) {
               <td> {w.Dimensions} </td>
               <td className={isMobile ? "minifont" : ""}>{w.Color}</td>
               <td className="pointer">
-                <span>
+                <span
+                  onClick={() => {
+                    GetWayBillPhoto(w.WayBillId);
+                  }}
+                >
                   {w.CreatedDate}
-                  <span className={isMobile ? "" : "hide"}>
-                    ( {w.WayBillId} )
-                  </span>
+                  <span className={isMobile ? "" : "hide"}>{w.WayBillId}</span>
                 </span>
               </td>
               <td className={isMobile ? "hide" : ""}>
-                <span> {w.WayBillId} </span>
+                <span
+                  onClick={() => {
+                    GetWayBillPhoto(w.WayBillId);
+                  }}
+                >
+                  {w.WayBillId}
+                </span>
               </td>
             </tr>
           ))}
