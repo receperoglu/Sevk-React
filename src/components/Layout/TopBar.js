@@ -6,7 +6,6 @@ export default function TopBar({
   CorpName,
   CreateArticelShow,
   isShowTopBar,
-  CorpSearch,
   isMobile,
   toggleView,
   NewProductShow,
@@ -53,26 +52,6 @@ export default function TopBar({
               </a>
             </div>
           </div>
-          <div className="QiA1DX84m4l79Lx_jjDtW">
-            <div className="MobileCommandOptions hide">
-              <button
-                className="riRHDuln2VrIU8dSpyxJ2 ShellFabricMDL2Icons o365sx-button"
-                type="button"
-              >
-                <div className="ThemeBase">
-                  <span></span>
-                </div>
-              </button>
-            </div>
-            <div className="Mobiles MobileCommandOptions hide">
-              <button
-                className="riRHDuln2VrIU8dSpyxJ2 o365sx-waffle"
-                type="button"
-              >
-                <span className="Icon--WaffleOffice365 Icon-font-size-16"></span>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
       <div className="od-BasePage-topBar">
@@ -84,27 +63,7 @@ export default function TopBar({
                 : "od-TopBar-item od-TopBar-search od-BasePage-search fleft"
             }
           >
-            <div className="od-Search">
-              <div className="od-SearchBox">
-                <span
-                  style={{ width: "200px" }}
-                  className="od-SearchBox-search"
-                >
-                  <input
-                    className="SearchInput"
-                    type="text"
-                    placeholder="Her şeyi ara"
-                    onChange={(event) => CorpSearch(event)}
-                  />
-                  <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
-                    <span className="Icon SearchIcon css-42"></span>
-                  </span>
-                </span>
-                <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
-                  <span className="Icon SearchIcon css-43"></span>
-                </span>
-              </div>
-            </div>
+            {SearchArea}
           </div>
           <div className="od-TopBar-item od-TopBar-commandBar od-BasePage-commandBar">
             <Menus
@@ -126,6 +85,27 @@ export default function TopBar({
         </div>
       </div>
       <LeftNav CreateArticelShow={CreateArticelShow} MenuStatu={MenuStatu} />
+    </div>
+  );
+}
+function SearchArea() {
+  return (
+    <div className="od-Search">
+      <div className="od-SearchBox">
+        <span style={{ width: "200px" }} className="od-SearchBox-search">
+          <input
+            className="SearchInput"
+            type="text"
+            placeholder="Her şeyi ara"
+          />
+          <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
+            <span className="Icon SearchIcon css-42"></span>
+          </span>
+        </span>
+        <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
+          <span className="Icon SearchIcon css-43"></span>
+        </span>
+      </div>
     </div>
   );
 }

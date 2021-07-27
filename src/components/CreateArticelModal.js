@@ -20,8 +20,7 @@ export default function CreateArticelModal({
       if (LocalStore.check("Corps")) {
         setCorps(LocalStore.get("Corps"));
       } else {
-        var CorpUrl = "abi/post/CorpList.ashx";
-        const response = await fetch(CorpUrl, {
+        const response = await fetch("abi/post/CorpList.ashx", {
           method: "GET",
         });
         var CorpsJson = await response.json();
