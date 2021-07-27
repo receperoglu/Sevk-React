@@ -39,7 +39,17 @@ export default function PicturePreview({
             </div>
           </div>
           <div className="resources-action-bar__side-right">
-            {Share(Path,Articel)}
+            {Btn(
+              "E-posta",
+              `mailto:receperoglu1@hotmail.com?subject=${Articel}&body=$
+      {Path}`,
+              "OutlookLogo"
+            )}
+            {Btn(
+              "Whatsapp",
+              `https://api.whatsapp.com/send?text=${Path}`,
+              "WordLogo"
+            )}{" "}
             <div className="groupable-buttons">
               <div className="groupable-buttons__visible-buttons">
                 <span className="hover-dropdown">
@@ -90,47 +100,25 @@ export default function PicturePreview({
     </div>
   ) : null;
 }
-function Share(Path,Articel) {
+function Btn(text, url, icon) {
   return (
-    <div>
-      <span>
-        <a
-          className="BaseDriveContainer fleft  col-xs-4 col-md-4 ShareMail"
-          href={`mailto:receperoglu1@hotmail.com?subject=${Articel}&body=${Path}`}
+    <span>
+      <a
+        className="BaseDriveContainer fleft  col-xs-4 col-md-4 ShareMail"
+        href={url}
+      >
+        <div
+          className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal "
+          type="button"
         >
-          <div
-            className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal "
-            type="button"
-          >
-            <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-              <div className="BaseDrive fleft">
-                <span className="ms-Icon--OutlookLogo DriveIcon ms-svg-Icon"></span>
-              </div>
-            </span>
-            <span className="button2__text">E-Posta</span>
-          </div>
-        </a>
-      </span>
-      <span>
-        <a
-          className="BaseDriveContainer  col-xs-4 col-md-4 sidepre ShareWhatsapp"
-          href={`https://api.whatsapp.com/send?text=${Path}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <div
-            className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal "
-            type="button"
-          >
-            <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-              <div className="BaseDrive fleft">
-                <span className="ms-Icon--WordLogo DriveIcon ms-svg-Icon "></span>
-              </div>
-            </span>
-            <span className="button2__text">Whatsapp</span>
-          </div>
-        </a>
-      </span>
-    </div>
+          <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
+            <div className="BaseDrive fleft">
+              <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}></span>
+            </div>
+          </span>
+          <span className="button2__text">{text}</span>
+        </div>
+      </a>
+    </span>
   );
 }
