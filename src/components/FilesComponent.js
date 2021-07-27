@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Arrow from "./Layout/Arrow";
 import MenuItem from "./Layout/MenuItem";
 
-const BaseUrl = "http://recep.space/abi/dosyalar/";
-const ThumbUrl = "http://recep.space/thumbs/";
+const BaseUrl = "https://recep.space/abi/dosyalar/";
+const ThumbUrl = "https://recep.space/thumbs/";
 const icoUrl =
   "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/64/";
 

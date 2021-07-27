@@ -1,9 +1,9 @@
 import React from "react";
 import CancelBtn from "./CancelBtn";
-const BaseUrl = "http://recep.space/abi/dosyalar/";
+const BaseUrl = "https://recep.space/abi/dosyalar/";
 
 const DocumentViewUrl =
-  "https://view.officeapps.live.com/op/embed.aspx?src=http://recep.space/abi/dosyalar/";
+  "https://view.officeapps.live.com/op/embed.aspx?src=https://recep.space/abi/dosyalar/";
 export default function DocumentPreview({
   File,
   hideDocumentPreview,

@@ -164,7 +164,7 @@ export default function MainPage() {
       .then((res) => res.json())
       .then(
         (response) => {
-          var url = "http://recep.space/abi/dosyalar/" + response[0].Path;
+          var url = "https://recep.space/abi/dosyalar/" + response[0].Path;
           console.log(url);
           showPicturePreview(url, url);
         },
