@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Arrow from "./Layout/Arrow";
+import HeadSection from "./Layout/HeadSection";
 export default function WayBillList({ isMobile, Waybill, GetWayBillPhoto }) {
   const [WayBillVisible, setWayBillVisible] = useState(true);
   const toggleWayBillList = () => {
@@ -7,10 +7,11 @@ export default function WayBillList({ isMobile, Waybill, GetWayBillPhoto }) {
   };
   return Waybill.length === 0 ? null : (
     <div>
-      <div onClick={() => toggleWayBillList()} className="PartHead">
-        İrsaliyeler
-        <Arrow Direction={WayBillVisible} />
-      </div>
+      <HeadSection
+        click={toggleWayBillList}
+        text="İrsaliyeler"
+        isVisible={WayBillVisible}
+      />
       <table
         className={WayBillVisible ? "MotionDetails table table-hover " : "hide"}
       >
@@ -20,45 +21,44 @@ export default function WayBillList({ isMobile, Waybill, GetWayBillPhoto }) {
             <td>KG</td>
             <td>Ölçü</td>
             <td>Renk</td>
-            <td>
-              Tarih <br />
-            </td>
-            <td className={isMobile ? "hide" : ""}>
-              İrsaliye <br />
-            </td>
+            <td>Tarih</td>
+            <td className={isMobile ? "hide" : ""}>İrsaliye</td>
           </tr>
         </thead>
         <tbody aria-live="polite">
-          {Waybill.map((w) => (
-            <tr key={w.id}>
-              <td> {w.Piece} </td>
-              <td> {w.Weight} </td>
-              <td> {w.Dimensions} </td>
-              <td className={isMobile ? "minifont" : ""}>{w.Color}</td>
-              <td >
-                <span className="pointer"
-                  onClick={() => {
-                    GetWayBillPhoto(w.WayBillId);
-                  }}
-                >
-                  {w.CreatedDate}
-                  <span className={isMobile ? "pointer" : "hide"}>{w.WayBillId}</span>
-                </span>
-              </td>
-              <td className={isMobile ? "hide" : ""}>
-                <span
-                 className="pointer"
-                  onClick={() => {
-                    GetWayBillPhoto(w.WayBillId);
-                  }}
-                >
-                  {w.WayBillId}
-                </span>
-              </td>
-            </tr>
-          ))}
+          {TrRender(GetWayBillPhoto, isMobile, Waybill)}
         </tbody>
       </table>
     </div>
   );
+}
+function TrRender(GetWayBillPhoto, isMobile, Waybill) {
+  return Waybill.map((w) => (
+    <tr key={w.id}>
+      <td> {w.Piece} </td>
+      <td> {w.Weight} </td>
+      <td> {w.Dimensions} </td>
+      <td className={isMobile ? "minifont " : ""}>{w.Color}</td>
+      <td>
+        <span
+          className="pointer"
+          onClick={() => {
+            GetWayBillPhoto(w.WayBillId);
+          }}
+        >
+          {w.CreatedDate}
+          <span className={isMobile ? "pointer" : "hide"}>{w.WayBillId}</span>
+        </span>
+      </td>
+      <td className={isMobile ? "hide" : "pointer"}>
+        <span
+          onClick={() => {
+            GetWayBillPhoto(w.WayBillId);
+          }}
+        >
+          {w.WayBillId}
+        </span>
+      </td>
+    </tr>
+  ));
 }

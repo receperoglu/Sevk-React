@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Arrow from "./Layout/Arrow";
+import HeadSection from "./Layout/HeadSection";
 export default function OrdersTable({
   ArticelName,
   Orders,
@@ -15,13 +15,11 @@ export default function OrdersTable({
   };
   return isDetailActive ? (
     <div>
-      <div
-        onClick={() => toggleOrderList()}
-        className="ArticelNameHead SSOrder text-capitalize PartHead"
-      >
-        {ArticelName}
-        <Arrow Direction={OrderVisible} />
-      </div>
+      <HeadSection
+        click={toggleOrderList}
+        text={ArticelName}
+        isVisible={OrderVisible}
+      />
       {Orders.length === 0 ? (
         ""
       ) : (

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Arrow from "./Layout/Arrow";
+import HeadSection from "./Layout/HeadSection";
 import MenuItem from "./Layout/MenuItem";
 
-const BaseUrl = "https://recep.space/abi/dosyalar/";
-const ThumbUrl = "https://recep.space/thumbs/";
-const icoUrl =
+export const BaseUrl = "https://recep.space/abi/dosyalar/";
+export const ThumbUrl = "https://recep.space/thumbs/";
+export const icoUrl =
   "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/64/";
 
 export default function FilesComponent({
@@ -27,6 +27,11 @@ export default function FilesComponent({
   }, [Files]);
   return (
     <div className={Files.length === 0 ? "hide" : "col-xs-12 col-md-12"}>
+      <HeadSection
+        click={toggleView}
+        text="Dökümanlar"
+        isVisible={FilesVisible}
+      />
       {Vtype
         ? GridView(
             documents,
@@ -62,15 +67,6 @@ function ListView(
 ) {
   return (
     <div>
-      <div
-        className="PartHead"
-        onClick={() => {
-          toggleView();
-        }}
-      >
-        Dökümanlar
-        <Arrow Direction={FilesVisible} />
-      </div>
       <div className={FilesVisible ? "effect" : "hide"}>
         {ChangeView(toggleVtype)}
         <div className="od-FolderItemContent-list od-ItemContent-list">
@@ -94,53 +90,60 @@ function ListView(
               </span>
             </div>
           </div>
-          {Files.map((file) => (
-            <div
-              key={file.id}
-              className="ms-FocusZone effect css-53 ms-DetailsRow is-contentUnselectable od--hasContextMenu root-115"
-            >
-              <div className="ms-DetailsRow-fields fields-122">
-                <div className="od-DetailsRow-cell--FileIcon ms-DetailsRow-cell cell-118 flex_half">
-                  <div className="FileTypeIcon text-left">
-                    <img
-                      className="FileTypeIcon-icon"
-                      alt=""
-                      onClick={() => {
-                        file.FileType === "Picture"
-                          ? showPicturePreview(BaseUrl + file.Path, file.Path)
-                          : showDocumentPreview(file);
-                      }}
-                      src={
-                        file.FileType === "Picture"
-                          ? `${icoUrl}/photo.png`
-                          : `${icoUrl + file.ext.substring(1)}.png`
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="od-DetailsRow-cell--Name ms-DetailsRow-cell cell-118 flex_fold">
-                  <span className="ms-Link nameField_520cf44c clickable_520cf44c root-125">
-                    {file.FileName}
-                  </span>
-                </div>
-                <div className="od-DetailsRow-cell--DateTime ms-DetailsRow-cell cell-118 cellUnpadded-116">
-                  {file.CreatedDate}
-                </div>
-
-                <div className="od-DetailsRow-cell--FileSize ms-DetailsRow-cell cell-118 cellUnpadded-116 flex_half">
-                  <a href={BaseUrl + file.Path} target="blank">
-                    <i data-icon-name="Download" className="FabricMDL2Icons">
-                      
-                    </i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
+          {ListViewRender(
+            Files,
+            showPicturePreview,
+            showDocumentPreview,
+            BaseUrl,
+            icoUrl
+          )}
         </div>
       </div>
     </div>
   );
+}
+function ListViewRender(
+  Files,
+  showPicturePreview,
+  showDocumentPreview,
+  BaseUrl,
+  icoUrl
+) {
+  return Files.map((file) => (
+    <div key={file.id} className="effect   ms-DetailsRow">
+      <div className="displayflex">
+        <div className="flex_half">
+          <div className="FileTypeIcon text-left">
+            <img
+              className="FileTypeIcon-icon"
+              alt=""
+              onClick={() => {
+                file.FileType === "Picture"
+                  ? showPicturePreview(BaseUrl + file.Path, file.Path)
+                  : showDocumentPreview(file);
+              }}
+              src={
+                file.FileType === "Picture"
+                  ? `${icoUrl}/photo.png`
+                  : `${icoUrl + file.ext.substring(1)}.png`
+              }
+            />
+          </div>
+        </div>
+        <div className="flex_fold">
+          <span className="flex1">{file.FileName}</span>
+        </div>
+        <div className="flex1">{file.CreatedDate}</div>
+        <div className="flex_half">
+          <a href={BaseUrl + file.Path} target="blank">
+            <i data-icon-name="Download" className="FabricMDL2Icons">
+              
+            </i>
+          </a>
+        </div>
+      </div>
+    </div>
+  ));
 }
 function GridView(
   documents,
@@ -153,15 +156,6 @@ function GridView(
 ) {
   return (
     <div>
-      <div
-        className="PartHead"
-        onClick={() => {
-          toggleView();
-        }}
-      >
-        Dökümanlar
-        <Arrow Direction={FilesVisible} />
-      </div>
       <div className={FilesVisible ? "effect" : "hide"}>
         {ChangeView(toggleVtype)}
         {Pictures(pictures, showPicturePreview)}
@@ -213,7 +207,7 @@ function Pictures(pictures, showPicturePreview) {
       {pictures.map((f) => (
         <div
           key={f.id}
-          className="DocumentContainerDiv effect col-md-2 col-xs-4  "
+          className="DocumentContainerDiv effect col-md-2 col-xs-4"
         >
           <div className="FileBorder">
             <div

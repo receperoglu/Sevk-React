@@ -36,7 +36,6 @@ export default function PicturePreview({
               >
                 
               </i>
-
               <div className="resources-info-dropdown__text-wrap">
                 <span className="clamped-text">{Articel}</span>
               </div>
