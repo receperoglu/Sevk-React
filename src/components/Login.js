@@ -60,7 +60,7 @@ export default function Login() {
             <div style={{ textAlign: "center" }}>
               <h2>Giriş Yap</h2>
             </div>
-            <b>E-posta</b>{" "}
+            <b>E-posta</b>
             <div style={{ clear: "both" }}>
               <br />
             </div>
@@ -94,5 +94,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
