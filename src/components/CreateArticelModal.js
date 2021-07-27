@@ -1,6 +1,7 @@
 import React from "react";
 import ProgressBar from "./Tools/ProgressBar";
 import CancelBtn from "./Tools/CancelBtn";
+import BlueButton from "./Tools/BlueButton";
 export default function CreateArticelModal({
   IsCreateArticelShow,
   CancelCreateArticel,
@@ -70,14 +71,7 @@ export default function CreateArticelModal({
             <div className="padd0 col-xs-12 text-right fleft">
               <ProgressBar isVisible={isShowCreateArticel} />
               {isShowCreateArticel ? null : (
-                <span className="Transfer TransferBTN ms-Button ms-Button--primary">
-                  <span
-                    onClick={() => SaveArticel()}
-                    className="transfersavetext"
-                  >
-                    Kaydet
-                  </span>
-                </span>
+                <BlueButton click={SaveArticel} text="Kaydet" />
               )}
             </div>
             <hr />

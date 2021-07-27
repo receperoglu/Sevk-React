@@ -1,4 +1,5 @@
 import React from "react";
+import BlueButton from "../Tools/BlueButton";
 import CancelBtn from "../Tools/CancelBtn";
 export default function Out({
   isShowProductOut,
@@ -53,18 +54,7 @@ export default function Out({
                       />
                     </div>
                     <div className="col-xs-2 padd0 text-center fleft">
-                      <span
-                        title="Kaydet"
-                        onClick={() => SaveProductOut(o.id)}
-                        className="TransferBTN ms-Button w60 ms-Button--primary"
-                      >
-                        <i
-                          data-icon-name="StatusCircleCheckmark "
-                          className="FabricMDL2Icons"
-                        >
-                          
-                        </i>
-                      </span>
+                      <BlueButton click={SaveProductOut(o.id)} text="Kaydet" />
                     </div>
                   </div>
                   <hr />

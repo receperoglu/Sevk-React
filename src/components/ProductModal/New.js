@@ -1,6 +1,7 @@
 import React from "react";
 import ProgressBar from "../Tools/ProgressBar";
 import CancelBtn from "../Tools/CancelBtn";
+import BlueButton from "../Tools/BlueButton";
 export default function New({
   SaveOrder,
   ProductNewLoading,
@@ -65,14 +66,7 @@ export default function New({
                 </div>
                 <ProgressBar isVisible={ProductNewLoading} />
                 {ProductNewLoading ? null : (
-                  <span className="Transfer TransferBTN ms-Button ms-Button--primary">
-                    <span
-                      onClick={() => SaveOrder()}
-                      className="transfersavetext"
-                    >
-                      Kaydet
-                    </span>
-                  </span>
+                  <BlueButton text="Kaydet" click={SaveOrder} />
                 )}
               </div>
               <hr />

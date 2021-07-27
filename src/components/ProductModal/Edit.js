@@ -1,6 +1,7 @@
 import React from "react";
 import ProgressBar from "../Tools/ProgressBar";
 import CancelBtn from "../Tools/CancelBtn";
+import BlueButton from "../Tools/BlueButton";
 export default function Edit({
   isShowProductEdit,
   Typeid,
@@ -79,20 +80,7 @@ export default function Edit({
               {isShow ? (
                 <ProgressBar isVisible={isShow} />
               ) : (
-                <span className="Transfer TransferBTN ms-Button ms-Button--primary">
-                  <span
-                    onClick={() => UpdateOrder()}
-                    className="transfersavetext"
-                  >
-                    <i
-                      data-icon-name="StatusCircleCheckmark "
-                      className="FabricMDL2Icons"
-                    >
-                      
-                    </i>
-                    Güncelle
-                  </span>
-                </span>
+                <BlueButton text="Güncelle" click={UpdateOrder} />
               )}
             </div>
           </div>
