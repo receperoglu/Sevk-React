@@ -52,19 +52,12 @@ export default function CallOut({
 function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
   return totalPiece === 0 ? null : (
     <table className="table padd0  table-hover alert alert-primary">
-      <thead>
-        <tr className=" ms-DetailsHeader-cellName cellName-112">
-          <td>Adet</td>
-          <td>Ağırlık</td>
-          <td>Tarih</td>
-          <td>İrsaliye</td>
-        </tr>
-      </thead>
+      {TableHead}
       <tbody>
         {OneWayBill.map((w) => (
           <tr key={w.id}>
             <td>
-              <b> </b> {w.Piece}
+              <b> {w.Piece}</b>
             </td>
             <td>{w.Weight} KG </td>
             <td> {w.CreatedDate} </td>
@@ -77,5 +70,17 @@ function WayBillTable(OneWayBill, GetWayBillPhoto, totalPiece) {
         ))}
       </tbody>
     </table>
+  );
+}
+function TableHead() {
+  return (
+    <thead>
+      <tr className=" ms-DetailsHeader-cellName cellName-112">
+        <td>Adet</td>
+        <td>Ağırlık</td>
+        <td>Tarih</td>
+        <td>İrsaliye</td>
+      </tr>
+    </thead>
   );
 }
