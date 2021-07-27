@@ -67,24 +67,7 @@ export default function PicturePreview({
                     </button>
                   </div>
                 </span>
-                <span
-                  onClick={() => {
-                    rotate();
-                  }}
-                  className="hover-dropdown"
-                >
-                  <div className="hover-tooltip__tooltip-anchor">
-                    <button
-                      className="button2  button2_size_n button2_theme_clear-inverse   "
-                      type="button"
-                    >
-                      <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-                        <i className="fa fa-repeat"></i>
-                      </span>
-                      <span className="button2__text">Döndür</span>
-                    </button>
-                  </div>
-                </span>
+                {Rotate(rotate)}
               </div>
               <div className="groupable-buttons__more-button-wrap">
                 <span className="hover-dropdown">
@@ -99,6 +82,28 @@ export default function PicturePreview({
       </div>
     </div>
   ) : null;
+}
+function Rotate(rotate) {
+  return (
+    <span
+      onClick={() => {
+        rotate();
+      }}
+      className="hover-dropdown"
+    >
+      <div className="hover-tooltip__tooltip-anchor">
+        <button
+          className="button2  button2_size_n button2_theme_clear-inverse   "
+          type="button"
+        >
+          <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
+            <i className="fa fa-repeat"></i>
+          </span>
+          <span className="button2__text">Döndür</span>
+        </button>
+      </div>
+    </span>
+  );
 }
 function Btn(text, url, icon) {
   return (

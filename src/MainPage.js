@@ -94,6 +94,16 @@ export default function MainPage() {
       setisMobile(false);
     }
   };
+  const GetWaybillAsync = async (ArticelId) => {
+    setWaybill([]);
+    setisShow(true);
+    setWaybill(
+      await FetchJson(
+        USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId
+      )
+    );
+    setisShow(false);
+  };
   const toggleVtype = () => {
     setVtype(!Vtype);
   };
@@ -197,7 +207,6 @@ export default function MainPage() {
     }
     return response.json();
   };
-
   const UpdateArticelNote = (note) => {
     setArticelNotes(note);
   };
@@ -347,7 +356,10 @@ export default function MainPage() {
       processData: false,
       body: formData,
     })
-      .then((response) => setPath(Path))
+      .then((response) => {
+        setPath(Path);
+        console.log(response);
+      })
       .then((data) => console.log(data));
     setisRotating(false);
   };
@@ -404,7 +416,7 @@ export default function MainPage() {
     setOrders([]);
     setisShow(true);
     setCorpId(CorpId);
-    GetWaybillAsync(articelid);
+    await GetWaybillAsync(articelid);
     getNotes(articelid);
     GetFilesAsync(articelid);
     setisShowTopBar(true);
@@ -420,9 +432,7 @@ export default function MainPage() {
       try {
         var FirstClicked = "Articel" + articelid;
         document.getElementById(FirstClicked).classList.add("ActiveArticelRow");
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     } else {
       try {
         var PrevClicked = "Articel" + ActiveArticel;
@@ -432,9 +442,7 @@ export default function MainPage() {
         setActiveArticel(articelid);
         var Clicked = "Articel" + articelid;
         document.getElementById(Clicked).classList.add("ActiveArticelRow");
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
 
     document.getElementById("SecondScreen").classList.remove("hide");
@@ -446,16 +454,7 @@ export default function MainPage() {
     setisShow(false);
     setisshowOrder(true);
   };
-  const GetWaybillAsync = async (ArticelId) => {
-    setWaybill([]);
-    setisShow(true);
-    setWaybill(
-      await FetchJson(
-        USER_SERVICE_URL + "Motion&MotionType=Multi&OrderId=" + ArticelId
-      )
-    );
-    setisShow(false);
-  };
+
   const GetFilesAsync = async (ArticelId) => {
     setFiles([]);
     var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
@@ -521,19 +520,7 @@ export default function MainPage() {
       "&Piece=" +
       Piece +
       "&SaleType=1&Articel=test";
-
-    fetch(url, {
-      method: "GET",
-    })
-      .then((response) => {
-        GetOrders(ActiveArticel, CorpId, ArticelName, CorpName);
-        setisShowProductEdit(false);
-        setisShow(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setProductNewLoading(false);
+    await UpdateOrAddOrder(url);
     GetOrders(ArticelId, ArticelName, CorpName);
   };
   const PostOrderUpdate = async () => {
@@ -549,6 +536,10 @@ export default function MainPage() {
       Color +
       "&Piece=" +
       Piece;
+
+    await UpdateOrAddOrder(url);
+  };
+  const UpdateOrAddOrder = async (url) => {
     fetch(url, {
       method: "GET",
     })
@@ -556,10 +547,9 @@ export default function MainPage() {
         GetOrders(ActiveArticel, CorpId, ArticelName, CorpName);
         setisShowProductEdit(false);
         setisShow(false);
+        return true;
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   return (
     <div className="padd0 col-md-12">
