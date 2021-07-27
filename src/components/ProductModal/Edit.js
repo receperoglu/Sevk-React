@@ -2,6 +2,7 @@ import React from "react";
 import ProgressBar from "../Tools/ProgressBar";
 import CancelBtn from "../Tools/CancelBtn";
 import BlueButton from "../Tools/BlueButton";
+import CreateOption from "../Tools/CreateOption";
 export default function Edit({
   isShowProductEdit,
   Typeid,
@@ -60,7 +61,11 @@ export default function Edit({
             <div className="col-md-2 fleft">
               <span>Tip</span>
             </div>
-            {RenderTypes(ChangeProductType, Typeid, ProductTypes)}
+            <CreateOption
+              Json={ProductTypes}
+              value={Typeid}
+              change={ChangeProductType}
+            />
             {Proccess(isShow, UpdateOrder)}
           </div>
           <hr />
@@ -79,21 +84,4 @@ function Proccess(isShow, UpdateOrder) {
       )}
     </div>
   );
-}
-function RenderTypes(ChangeProductType, Typeid, ProductTypes) {
-  return (
-    <div className="col-md-10 fleft">
-      <select
-        className="ms-TextField-field"
-        onChange={(e) => ChangeProductType(e.target.value)}
-        value={Typeid}
-      >
-        {ProductTypes.map((p) => (
-          <option key={p.id} value={p.id}>
-            {p.Name}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
+} 

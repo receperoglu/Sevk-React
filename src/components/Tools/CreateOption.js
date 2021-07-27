@@ -1,9 +1,10 @@
 import React from "react";
 
-export default function CreateOption({Json,change}) {
+export default function CreateOption({Json,change,value}) {
   return (
     <select
       className="ms-TextField-field"
+      value={value}
       onChange={(e) => change(e.target.value)}
     >
       {Json.map((p) => (
@@ -12,5 +13,6 @@ export default function CreateOption({Json,change}) {
         </option>
       ))}
     </select>
+    
   );
 }
