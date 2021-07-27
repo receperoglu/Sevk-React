@@ -23,13 +23,9 @@ export default function OrdersTable({
       {Orders.length === 0 ? (
         ""
       ) : (
-        <table
-          className={
-            OrderVisible ? "pointer OrderDetailTable table table-hover" : "hide"
-          }
-        >
+        <table className={OrderVisible ? "pointer table table-hover" : "hide"}>
           <thead>
-            <tr className=" ms-DetailsHeader-cellName cellName-112">
+            <tr className="ms-DetailsHeader-cellName cellName-112">
               <td>Adet</td>
               <td>Ölçü</td>
               <td>Renk</td>
@@ -42,43 +38,13 @@ export default function OrdersTable({
               <tr key={o.id} id={"Order" + o.id}>
                 <td>
                   <div onClick={CallOutonMouseMove.bind(this)}>
-                    <span
-                      onClick={() =>
-                        GetWaybillforOrder(
-                          o.id,
-                          o.Dimensions,
-                          o.Color,
-                          o.ProductTypeName,
-                          this
-                        )
-                      }
-                    >
-                      {o.Piece} {o.Metrics}
-                    </span>
+                    {GetCallOut(GetWaybillforOrder, o)}
                   </div>
                 </td>
                 <td>{o.Dimensions}</td>
                 <td className={isMobile ? "minifont" : ""}>{o.Color}</td>
                 <td>{o.ProductTypeName}</td>
-                <td>
-                  <i
-                    onClick={() =>
-                      GetOrderEdit(
-                        o.id,
-                        o.Dimensions,
-                        o.Color,
-                        o.Piece,
-                        o.ProductTypeName,
-                        o.Typeid
-                      )
-                    }
-                    data-icon-name="Edit"
-                    role="presentation"
-                    className="ms-Button-icon fleft icon-73"
-                  >
-                    
-                  </i>
-                </td>
+                <td> {EditBtn(o, GetOrderEdit)} </td>
               </tr>
             ))}
           </tbody>
@@ -86,4 +52,36 @@ export default function OrdersTable({
       )}
     </div>
   ) : null;
+}
+function EditBtn(o, GetOrderEdit) {
+  return (
+    <i
+      onClick={() =>
+        GetOrderEdit(
+          o.id,
+          o.Dimensions,
+          o.Color,
+          o.Piece,
+          o.ProductTypeName,
+          o.Typeid
+        )
+      }
+      data-icon-name="Edit"
+      role="presentation"
+      className="ms-Button-icon fleft icon-73"
+    >
+      
+    </i>
+  );
+}
+function GetCallOut(GetWaybillforOrder, o) {
+  return (
+    <span
+      onClick={() =>
+        GetWaybillforOrder(o.id, o.Dimensions, o.Color, o.ProductTypeName, this)
+      }
+    >
+      {o.Piece} {o.Metrics}
+    </span>
+  );
 }
