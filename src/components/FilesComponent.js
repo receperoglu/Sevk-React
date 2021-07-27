@@ -32,59 +32,55 @@ export default function FilesComponent({
         text="Dökümanlar"
         isVisible={FilesVisible}
       />
-      {Vtype
-        ? GridView(
-            documents,
-            pictures,
-            showPicturePreview,
-            toggleView,
-            FilesVisible,
-            showDocumentPreview,
-            toggleVtype
-          )
-        : ListView(
-            Files,
-            showPicturePreview,
-            FilesVisible,
-            BaseUrl,
-            toggleView,
-            icoUrl,
-            showDocumentPreview,
-            toggleVtype
-          )}
+      <div className={FilesVisible ? "effect" : "hide"}>
+        {ChangeView(toggleVtype)}
+        {Vtype
+          ? GridView(
+              documents,
+              pictures,
+              showPicturePreview,
+              showDocumentPreview
+            )
+          : ListView(
+              Files,
+              showPicturePreview,
+              BaseUrl,
+              icoUrl,
+              showDocumentPreview
+            )}
+      </div>
     </div>
   );
 }
 function ListView(
   Files,
   showPicturePreview,
-  FilesVisible,
   BaseUrl,
-  toggleView,
   icoUrl,
-  showDocumentPreview,
-  toggleVtype
+  showDocumentPreview
 ) {
   return (
     <div>
-      <div className={FilesVisible ? "effect" : "hide"}>
-        {ChangeView(toggleVtype)}
-        <div className="od-ItemContent-list">
-          <div className="css-53 ms-DetailsHeader root-76">
-            <div className="root-109 cellName-112 flex_half"></div>
-            <div className="root-109 cellName-112 flex_fold">Dosya Adı</div>
-            <div className="root-109 cellName-112 flex_one">Tarih</div>
-            <div className="root-109 cellName-112 flex_half">İndir</div>
-          </div>
-          {ListViewRender(
-            Files,
-            showPicturePreview,
-            showDocumentPreview,
-            BaseUrl,
-            icoUrl
-          )}
-        </div>
+      <div className="od-ItemContent-list">
+        {ListViewHeader}
+        {ListViewRender(
+          Files,
+          showPicturePreview,
+          showDocumentPreview,
+          BaseUrl,
+          icoUrl
+        )}
       </div>
+    </div>
+  );
+}
+function ListViewHeader() {
+  return (
+    <div className="css-53 ms-DetailsHeader root-76">
+      <div className="root-109 cellName-112 flex_half"></div>
+      <div className="root-109 cellName-112 flex_fold">Dosya Adı</div>
+      <div className="root-109 cellName-112 flex_one">Tarih</div>
+      <div className="root-109 cellName-112 flex_half">İndir</div>
     </div>
   );
 }
@@ -118,13 +114,7 @@ function ListViewRender(
           <span className="flex1">{file.FileName}</span>
         </div>
         <div className="flex1">{file.CreatedDate}</div>
-        <div className="flex_half">
-          <a href={BaseUrl + file.Path} target="blank">
-            <i data-icon-name="Download" className="FabricMDL2Icons">
-              
-            </i>
-          </a>
-        </div>
+        <div className="flex_half">{DownloadBtn(BaseUrl + f.Path)}</div>
       </div>
     </div>
   ));
@@ -133,17 +123,12 @@ function GridView(
   documents,
   pictures,
   showPicturePreview,
-  FilesVisible,
-  showDocumentPreview,
-  toggleVtype
+  showDocumentPreview
 ) {
   return (
     <div>
-      <div className={FilesVisible ? "effect" : "hide"}>
-        {ChangeView(toggleVtype)}
-        {Pictures(pictures, showPicturePreview)}
-        {Documents(documents, showDocumentPreview)}
-      </div>
+      {Pictures(pictures, showPicturePreview)}
+      {Documents(documents, showDocumentPreview)}
     </div>
   );
 }
@@ -163,24 +148,35 @@ function Documents(documents, showDocumentPreview) {
               }}
               className="padd0 filepreview "
             >
-              <span
-                className="FileLink "
-                onClick={() => {
-                  showDocumentPreview(f);
-                }}
-              >
-                {f.FileName.substring(0, 12)}
-              </span>
-              <a className="DownloadBtn" href={BaseUrl + f.Path} target="blank">
-                <i data-icon-name="Download" className="FabricMDL2Icons">
-                  
-                </i>
-              </a>
+              {FileName(showDocumentPreview, f)}
+              {DownloadBtn(BaseUrl + f.Path)}
             </div>
           </div>
         </div>
       ))}
     </div>
+  );
+}
+function DownloadBtn(Link) {
+  return (
+    <a className="DownloadBtn" href={Link} target="blank">
+      <i data-icon-name="Download" className="FabricMDL2Icons">
+        
+      </i>
+    </a>
+  );
+}
+
+function FileName(view, f) {
+  return (
+    <span
+      className="FileLink "
+      onClick={() => {
+        view(f);
+      }}
+    >
+      {f.FileName.substring(0, 12)}
+    </span>
   );
 }
 function Pictures(pictures, showPicturePreview) {
@@ -202,9 +198,8 @@ function Pictures(pictures, showPicturePreview) {
               }}
               className="PictureDiv"
             ></div>
-            <a href={BaseUrl + f.Path} target="blank">
-              {f.FileName.substring(0, 12)}
-            </a>
+            {DownloadBtn(BaseUrl + f.Path)}
+            {FileName(showPicturePreview, f)}
           </div>
         </div>
       ))}
