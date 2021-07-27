@@ -22,11 +22,7 @@ export default function Edit({
       <div className="root-345">
         <div className="ms-Dialog-main  main-412">
           <CancelBtn click={CancelEdit} />
-          <div>
-            <h4>Ürün Düzenleme</h4>
-            <br />
-          </div>
-          <hr />
+          <h4>Ürün Düzenleme</h4>
           <div className="clearfix OrderRow">
             <div className="col-md-2 fleft">
               <span>Adet</span>
@@ -61,32 +57,43 @@ export default function Edit({
                 className="Color ms-TextField-field"
               />
             </div>
-            <div className="col-md-12 fleft">
-              <select
-                key={Typeid}
-                className="ms-TextField-field"
-                onChange={(e) => ChangeProductType(e.target.value)}
-                value={Typeid}
-                id="ProductType"
-              >
-                {ProductTypes.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.Name}
-                  </option>
-                ))}
-              </select>
+            <div className="col-md-2 fleft">
+              <span>Tip</span>
             </div>
-            <div className="col-md-12 text-right fleft">
-              {isShow ? (
-                <ProgressBar isVisible={isShow} />
-              ) : (
-                <BlueButton text="Güncelle" click={UpdateOrder} />
-              )}
-            </div>
+            {RenderTypes(ChangeProductType, Typeid, ProductTypes)}
+            {Proccess(isShow, UpdateOrder)}
           </div>
           <hr />
         </div>
       </div>
     </div>
   ) : null;
+}
+function Proccess(isShow, UpdateOrder) {
+  return (
+    <div className="col-md-12 text-right fleft">
+      {isShow ? (
+        <ProgressBar isVisible={isShow} />
+      ) : (
+        <BlueButton text="Güncelle" click={UpdateOrder} />
+      )}
+    </div>
+  );
+}
+function RenderTypes(ChangeProductType, Typeid, ProductTypes) {
+  return (
+    <div className="col-md-10 fleft">
+      <select
+        className="ms-TextField-field"
+        onChange={(e) => ChangeProductType(e.target.value)}
+        value={Typeid}
+      >
+        {ProductTypes.map((p) => (
+          <option key={p.id} value={p.id}>
+            {p.Name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 }

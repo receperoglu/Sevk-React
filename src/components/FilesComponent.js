@@ -69,26 +69,12 @@ function ListView(
     <div>
       <div className={FilesVisible ? "effect" : "hide"}>
         {ChangeView(toggleVtype)}
-        <div className="od-FolderItemContent-list od-ItemContent-list">
-          <div className="ms-FocusZone css-53 ms-DetailsHeader root-76">
-            <div className="ms-DetailsHeader-cell is-actionable od-DetailsHeader-cell--Name od-DetailsHeader-cell root-109 flex_half">
-              <span className="ms-DetailsHeader-cellName cellName-112"></span>
-            </div>
-            <div className="ms-DetailsHeader-cell is-actionable od-DetailsHeader-cell--Name od-DetailsHeader-cell root-109 flex_fold">
-              <span className="ms-DetailsHeader-cellName cellName-112">
-                Dosya Adı
-              </span>
-            </div>
-            <div className="ms-DetailsHeader-cell is-actionable od-DetailsHeader-cell--FileSize od-DetailsHeader-cell root-109">
-              <span className="ms-DetailsHeader-cellName cellName-112">
-                Tarih
-              </span>
-            </div>
-            <div className="ms-DetailsHeader-cell is-actionable od-DetailsHeader-cell--FileSize od-DetailsHeader-cell root-109 flex_half">
-              <span className="ms-DetailsHeader-cellName cellName-112">
-                İndir
-              </span>
-            </div>
+        <div className="od-ItemContent-list">
+          <div className="css-53 ms-DetailsHeader root-76">
+            <div className="root-109 cellName-112 flex_half"></div>
+            <div className="root-109 cellName-112 flex_fold">Dosya Adı</div>
+            <div className="root-109 cellName-112 flex_one">Tarih</div>
+            <div className="root-109 cellName-112 flex_half">İndir</div>
           </div>
           {ListViewRender(
             Files,
@@ -113,22 +99,20 @@ function ListViewRender(
     <div key={file.id} className="effect   ms-DetailsRow">
       <div className="displayflex">
         <div className="flex_half">
-          <div className="FileTypeIcon text-left">
-            <img
-              className="FileTypeIcon-icon"
-              alt=""
-              onClick={() => {
-                file.FileType === "Picture"
-                  ? showPicturePreview(BaseUrl + file.Path, file.Path)
-                  : showDocumentPreview(file);
-              }}
-              src={
-                file.FileType === "Picture"
-                  ? `${icoUrl}/photo.png`
-                  : `${icoUrl + file.ext.substring(1)}.png`
-              }
-            />
-          </div>
+          <img
+            className="FileTypeIcon-icon"
+            alt=""
+            onClick={() => {
+              file.FileType === "Picture"
+                ? showPicturePreview(BaseUrl + file.Path, file.Path)
+                : showDocumentPreview(file);
+            }}
+            src={
+              file.FileType === "Picture"
+                ? `${icoUrl}/photo.png`
+                : `${icoUrl + file.ext.substring(1)}.png`
+            }
+          />
         </div>
         <div className="flex_fold">
           <span className="flex1">{file.FileName}</span>
@@ -149,7 +133,6 @@ function GridView(
   documents,
   pictures,
   showPicturePreview,
-  toggleView,
   FilesVisible,
   showDocumentPreview,
   toggleVtype

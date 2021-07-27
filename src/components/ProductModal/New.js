@@ -20,44 +20,39 @@ export default function New({
           <div className="ms-Dialog-main  main-412">
             <CancelBtn click={CancelNewProduct} />
             <h4>Yeni Ürün Ekle</h4>
-            <br />
             <hr />
-            <select
-              className="ms-TextField-field"
-              onChange={(e) => ChangeProductType(e.target.value)}
-            >
-              {ProductTypes.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.Name}
-                </option>
-              ))}
-            </select>
             <div className="col-md-12">
               <div className="clearfix OrderRow">
-                <div className="col-md-2 fleft">
-                  <span>Adet</span>
+                <div className="col-xs-12 fleft">
+                  <select
+                    className="ms-TextField-field"
+                    onChange={(e) => ChangeProductType(e.target.value)}
+                  >
+                    {ProductTypes.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.Name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <div className="col-md-10 fleft">
+                <div className="col-xs-12 fleft">
+                  <span>Adet</span>
                   <input
                     type="number"
                     onChange={(e) => ChangePiece(e.target.value)}
                     className="Piece ms-TextField-field"
                   />
                 </div>
-                <div className="col-md-2 fleft">
+                <div className="col-xs-12 fleft">
                   <span>Ölçü</span>
-                </div>
-                <div className="col-md-10 fleft">
                   <input
                     type="text"
                     onChange={(e) => ChangeDimensions(e.target.value)}
                     className="Dim ms-TextField-field"
                   />
                 </div>
-                <div className="col-md-2 fleft">
+                <div className="col-xs-12 fleft">
                   <span>Renk</span>
-                </div>
-                <div className="col-md-10 fleft">
                   <input
                     type="text"
                     onChange={(e) => ChangeColor(e.target.value)}

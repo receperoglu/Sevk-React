@@ -20,64 +20,66 @@ export default function CreateArticelModal({
           <CancelBtn click={CancelCreateArticel} />
           <div className="ProductModalSub ProductOut">
             <h4>Yeni Artikel Oluştur</h4>
-            <br />
             <hr />
+            {CorpList(ChangeCorpId, Corps)}
+            {SalesType(ChangeSalesType, SalesTypes)}
             <div className="padd0 col-xs-12 ">
-              <div className="padd0 col-xs-2 ">
-                <span>Firma</span>
-              </div>
-              <div className="padd0 col-xs-10 ">
-                <select
-                  className="ms-TextField-field"
-                  onChange={(e) => ChangeCorpId(e.target.value)}
-                >
-                  {Corps.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.Name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <span>Artikel </span>
+              <input
+                type="text"
+                onChange={(e) => ChangeArticelName(e.target.value)}
+                className="ms-TextField-field"
+              />
             </div>
-            <div className="padd0 col-xs-12">
-              <div className="padd0 col-xs-2 fleft">
-                <span> Tipi</span>
-              </div>
-              <div className="padd0 col-xs-10 fleft">
-                <select
-                  className="ms-TextField-field field-320"
-                  onChange={(e) => ChangeSalesType(e.target.value)}
-                >
-                  {SalesTypes.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.Name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="padd0 col-xs-12 ">
-                <div className="padd0 col-xs-2 fleft">
-                  <span>Artikel </span>
-                </div>
-                <div className="padd0 col-xs-10 fleft">
-                  <input
-                    type="text"
-                    onChange={(e) => ChangeArticelName(e.target.value)}
-                    className="ms-TextField-field"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="padd0 col-xs-12 text-right fleft">
-              <ProgressBar isVisible={isShowCreateArticel} />
-              {isShowCreateArticel ? null : (
-                <BlueButton click={SaveArticel} text="Kaydet" />
-              )}
-            </div>
+            {Proccess(isShowCreateArticel, SaveArticel)}
             <hr />
           </div>
         </div>
       </div>
     </div>
   ) : null;
+}
+function Proccess(isShowCreateArticel, SaveArticel) {
+  return (
+    <div className="padd0 col-xs-12 text-right fleft">
+      <ProgressBar isVisible={isShowCreateArticel} />
+      {isShowCreateArticel ? null : (
+        <BlueButton click={SaveArticel} text="Kaydet" />
+      )}
+    </div>
+  );
+}
+function CorpList(ChangeCorpId, Corps) {
+  return (
+    <div className="padd0 col-xs-12 ">
+      <span>Firma</span>
+      <select
+        className="ms-TextField-field"
+        onChange={(e) => ChangeCorpId(e.target.value)}
+      >
+        {Corps.map((p) => (
+          <option key={p.id} value={p.id}>
+            {p.Name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+function SalesType(ChangeSalesType, SalesTypes) {
+  return (
+    <div className="padd0 col-xs-12 fleft">
+      <span> Tipi</span>
+      <select
+        className="ms-TextField-field field-320"
+        onChange={(e) => ChangeSalesType(e.target.value)}
+      >
+        {SalesTypes.map((p) => (
+          <option key={p.id} value={p.id}>
+            {p.Name}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 }

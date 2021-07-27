@@ -30,10 +30,7 @@ export default function PicturePreview({
         <div className="resources-action-bar__body">
           <div className="resources-action-bar__side-left">
             <div className="resources-info-dropdown">
-              <i
-                data-icon-name="Info"              
-                className="FabricMDL2Icons"
-              >
+              <i data-icon-name="Info" className="FabricMDL2Icons">
                 
               </i>
               <div className="resources-info-dropdown__text-wrap">
@@ -42,44 +39,7 @@ export default function PicturePreview({
             </div>
           </div>
           <div className="resources-action-bar__side-right">
-            <span>
-              <a
-                className="BaseDriveContainer fleft  col-xs-4 col-md-4 ShareMail"
-                href={`mailto:receperoglu1@hotmail.com?subject=${Articel}&body=${Path}`}
-              >
-                <div
-                  className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal "
-                  type="button"
-                >
-                  <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-                    <div className="BaseDrive fleft">
-                      <span className="ms-Icon--OutlookLogo DriveIcon ms-svg-Icon"></span>
-                    </div>
-                  </span>
-                  <span className="button2__text">E-Posta</span>
-                </div>
-              </a>
-            </span>
-            <span>
-              <a
-                className="BaseDriveContainer  col-xs-4 col-md-4 sidepre ShareWhatsapp"
-                href={`https://api.whatsapp.com/send?text=${Path}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div
-                  className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal "
-                  type="button"
-                >
-                  <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-                    <div className="BaseDrive fleft">
-                      <span className="ms-Icon--WordLogo DriveIcon ms-svg-Icon "></span>
-                    </div>
-                  </span>
-                  <span className="button2__text">Whatsapp</span>
-                </div>
-              </a>
-            </span>
+            {Share(Path,Articel)}
             <div className="groupable-buttons">
               <div className="groupable-buttons__visible-buttons">
                 <span className="hover-dropdown">
@@ -89,10 +49,7 @@ export default function PicturePreview({
                       type="button"
                     >
                       <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-                        <i
-                          data-icon-name="Delete"                          
-                          className="FabricMDL2Icons"
-                        >
+                        <i data-icon-name="Delete" className="FabricMDL2Icons">
                           
                         </i>
                       </span>
@@ -132,4 +89,48 @@ export default function PicturePreview({
       </div>
     </div>
   ) : null;
+}
+function Share(Path,Articel) {
+  return (
+    <div>
+      <span>
+        <a
+          className="BaseDriveContainer fleft  col-xs-4 col-md-4 ShareMail"
+          href={`mailto:receperoglu1@hotmail.com?subject=${Articel}&body=${Path}`}
+        >
+          <div
+            className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal "
+            type="button"
+          >
+            <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
+              <div className="BaseDrive fleft">
+                <span className="ms-Icon--OutlookLogo DriveIcon ms-svg-Icon"></span>
+              </div>
+            </span>
+            <span className="button2__text">E-Posta</span>
+          </div>
+        </a>
+      </span>
+      <span>
+        <a
+          className="BaseDriveContainer  col-xs-4 col-md-4 sidepre ShareWhatsapp"
+          href={`https://api.whatsapp.com/send?text=${Path}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <div
+            className="button2 button2_view_default button2_tone_transparent button2_size_n button2_theme_normal "
+            type="button"
+          >
+            <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
+              <div className="BaseDrive fleft">
+                <span className="ms-Icon--WordLogo DriveIcon ms-svg-Icon "></span>
+              </div>
+            </span>
+            <span className="button2__text">Whatsapp</span>
+          </div>
+        </a>
+      </span>
+    </div>
+  );
 }
