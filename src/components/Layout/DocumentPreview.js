@@ -1,5 +1,5 @@
 import React from "react";
-import CancelBtn from "./CancelBtn";
+import CancelBtn from "../Tools/CancelBtn";
 const BaseUrl = "https://recep.space/abi/dosyalar/";
 
 const DocumentViewUrl =

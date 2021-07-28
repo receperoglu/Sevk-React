@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CreateArticelModal from "./components/CreateArticelModal";
-import DocumentPreview from "./components/Tools/DocumentPreview";
-import PicturePreview from "./components/Tools/PicturePreview";
+import DocumentPreview from "./components/Layout/DocumentPreview";
+import PicturePreview from "./components/Layout/PicturePreview";
 import FilesComponent from "./components/FilesComponent";
 import ProgressBar from "./components/Tools/ProgressBar";
 import ArticelsTable from "./components/ArticelsTable";

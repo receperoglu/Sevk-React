@@ -138,13 +138,9 @@ function Documents(documents, showDocumentPreview) {
 function DownloadBtn(Link) {
   return (
     <a href={Link} target="blank">
-      <MenuItem
-        click=""
-        icon="Download"
-        text=""
-        symbol=""
-        iconclassname="FabricMDL2Icons"
-      />
+      <i data-icon-name="Download" class="FabricMDL2Icons">
+        
+      </i>
     </a>
   );
 }

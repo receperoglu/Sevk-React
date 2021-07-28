@@ -1,4 +1,5 @@
 import React from "react";
+import LayoutHead from "./Layout/LayoutHead"
  export default function LayoutNotes({
   isShowLayoutNote,
   CancelNote,

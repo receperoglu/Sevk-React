@@ -17,7 +17,7 @@ import LayoutHead from "./Layout/LayoutHead";
 function CreateShareBtn(icon, text) {
   return (
     <span className="BaseDriveContainer">
-      <span className={`DriveIcon ms-svg-Icon ms-Icon--(${icon})`}></span>
+      <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}></span>
       <div className="DriveTextContainer">
         <span>{text}</span>
       </div>
