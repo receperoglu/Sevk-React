@@ -404,6 +404,19 @@ export default function MainPage() {
       localStorage.setItem("SalesTypes", JSON.stringify(saletypes));
     }
   };
+  const ArticelDetatil = () => {
+    setisShow(true);
+    setisShowTopBar(true);
+    setisShowLayoutNote(false);
+    setisShowLayoutRight(false);
+    setisShowCallOut(false);
+    setisDetailActive(true);
+    setisshowOrder(true);
+    document.getElementById("SecondScreen").classList.remove("hide");
+    document.getElementById("SecondScreen").classList.add("col-md-8");
+    document.getElementById("FirstScreen").classList.add("col-md-4");
+    document.getElementById("FirstScreen").classList.remove("col-md-12");
+  };
   const getNotes = async (ArticelId) => {
     fetch("abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
       .then((response) => response.text())
@@ -414,19 +427,13 @@ export default function MainPage() {
   };
   const GetOrders = async (articelid, CorpId, ArticelName, CorpName) => {
     setOrders([]);
-    setisShow(true);
     setCorpId(CorpId);
     await GetWaybillAsync(articelid);
     getNotes(articelid);
     GetFilesAsync(articelid);
-    setisShowTopBar(true);
+    ArticelDetatil();
     setArticelName(ArticelName);
     setCorpName(CorpName);
-    setisShowLayoutNote(false);
-    setisShowLayoutRight(false);
-    setisShowCallOut(false);
-    setisDetailActive(true);
-    setisshowOrder(true);
     if (ActiveArticel === 0) {
       setActiveArticel(articelid);
       try {
@@ -445,10 +452,6 @@ export default function MainPage() {
       } catch (error) {}
     }
 
-    document.getElementById("SecondScreen").classList.remove("hide");
-    document.getElementById("SecondScreen").classList.add("col-md-8");
-    document.getElementById("FirstScreen").classList.add("col-md-4");
-    document.getElementById("FirstScreen").classList.remove("col-md-12");
     var FullUrl = USER_SERVICE_URL + "Orders&ArticelId=" + articelid;
     setOrders(await FetchJson(FullUrl));
     setisShow(false);
