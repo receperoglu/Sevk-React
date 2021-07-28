@@ -34,28 +34,22 @@ export default function FilesComponent({
       />
       <div className={FilesVisible ? "effect" : "hide"}>
         {ChangeView(toggleVtype)}
-        {Vtype
-          ? GridView(
-              documents,
-              pictures,
-              showPicturePreview,
-              showDocumentPreview
-            )
-          : ListView(Files, showPicturePreview, showDocumentPreview)}
+        {Vtype ? (
+          <div>
+            {Pictures(pictures, showPicturePreview)}
+            {Documents(documents, showDocumentPreview)}
+          </div>
+        ) : (
+          <div className="od-ItemContent-list">
+            {ListViewHeader}
+            {ListViewRender(Files, showPicturePreview, showDocumentPreview)}
+          </div>
+        )}
       </div>
     </div>
   );
 }
-function ListView(Files, showPicturePreview, showDocumentPreview) {
-  return (
-    <div>
-      <div className="od-ItemContent-list">
-        {ListViewHeader}
-        {ListViewRender(Files, showPicturePreview, showDocumentPreview)}
-      </div>
-    </div>
-  );
-}
+
 function ListViewHeader() {
   return (
     <div className="css-53 ms-DetailsHeader root-76">
@@ -97,19 +91,7 @@ function ListViewRender(Files, showPicturePreview, showDocumentPreview) {
     </div>
   ));
 }
-function GridView(
-  documents,
-  pictures,
-  showPicturePreview,
-  showDocumentPreview
-) {
-  return (
-    <div>
-      {Pictures(pictures, showPicturePreview)}
-      {Documents(documents, showDocumentPreview)}
-    </div>
-  );
-}
+
 function Documents(documents, showDocumentPreview) {
   return document.length === 0 ? null : (
     <div>
