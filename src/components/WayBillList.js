@@ -15,21 +15,26 @@ export default function WayBillList({ isMobile, Waybill, GetWayBillPhoto }) {
       <table
         className={WayBillVisible ? "MotionDetails table table-hover " : "hide"}
       >
-        <thead>
-          <tr className=" ms-DetailsHeader-cellName cellName-112">
-            <td>Adet</td>
-            <td>KG</td>
-            <td>Ölçü</td>
-            <td>Renk</td>
-            <td>Tarih</td>
-            <td className={isMobile ? "hide" : ""}>İrsaliye</td>
-          </tr>
-        </thead>
+        {Thead(isMobile)}
         <tbody aria-live="polite">
           {TrRender(GetWayBillPhoto, isMobile, Waybill)}
         </tbody>
       </table>
     </div>
+  );
+}
+function Thead(isMobile) {
+  return (
+    <thead>
+      <tr className=" ms-DetailsHeader-cellName cellName-112">
+        <td>Adet</td>
+        <td>KG</td>
+        <td>Ölçü</td>
+        <td>Renk</td>
+        <td>Tarih</td>
+        <td className={isMobile ? "hide" : ""}>İrsaliye</td>
+      </tr>
+    </thead>
   );
 }
 function TrRender(GetWayBillPhoto, isMobile, Waybill) {

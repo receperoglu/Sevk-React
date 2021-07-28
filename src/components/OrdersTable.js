@@ -24,15 +24,7 @@ export default function OrdersTable({
         ""
       ) : (
         <table className={OrderVisible ? "pointer table table-hover" : "hide"}>
-          <thead>
-            <tr className="ms-DetailsHeader-cellName cellName-112">
-              <td>Adet</td>
-              <td>Ölçü</td>
-              <td>Renk</td>
-              <td>Tip</td>
-              <td>#</td>
-            </tr>
-          </thead>
+          {OrderHead}
           <tbody aria-live="polite">
             {Orders.map((o) => (
               <tr key={o.id} id={"Order" + o.id}>
@@ -52,6 +44,19 @@ export default function OrdersTable({
       )}
     </div>
   ) : null;
+}
+function OrderHead() {
+  return (
+    <thead>
+      <tr className="ms-DetailsHeader-cellName cellName-112">
+        <td>Adet</td>
+        <td>Ölçü</td>
+        <td>Renk</td>
+        <td>Tip</td>
+        <td>#</td>
+      </tr>
+    </thead>
+  );
 }
 function EditBtn(o, GetOrderEdit) {
   return (
