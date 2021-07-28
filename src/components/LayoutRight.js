@@ -1,38 +1,26 @@
 import React from "react";
-import CancelBtn from "./Tools/CancelBtn";
-export default function LayoutRight({ CancelShare, isShowLayoutRight }) {
+import LayoutHead from "./Layout/LayoutHead";
+ export default function LayoutRight({ CancelShare, isShowLayoutRight }) {
   return isShowLayoutRight ? (
     <div className="BaseDrive effect RightLayout">
-      <div className=" nopad col-xs-12">
-        <div className="col-xs-8 padd0">
-          <h3 className="LayoutHead padd10">Paylaş</h3>
-        </div>
-        <div className="col-xs-4 padd0 cancelcontainer text-center">
-          <CancelBtn click={CancelShare} />
-        </div>
-      </div>
+     <LayoutHead click={CancelShare} text="Paylaş"/>
       <div className="col-md-12 fleft">
         <div className="LayoutType">
-          <span className="BaseDriveContainer">
-            <span className="ms-Icon--OutlookLogo DriveIcon ms-svg-Icon"></span>
-            <div className="DriveTextContainer">
-              <span>E-Posta Gönder</span>
-            </div>
-          </span>
-          <span className="BaseDriveContainer">
-            <span className="ms-Icon--OneDrive DriveIcon ms-svg-Icon  "></span>
-            <div className="DriveTextContainer">
-              <span>Kaydet</span>
-            </div>
-          </span>
-          <span className="BaseDriveContainer">
-            <span className="ms-Icon--WordLogo DriveIcon ms-svg-Icon"></span>
-            <div className="DriveTextContainer">
-              <span>WhatsApp ile Gönder</span>
-            </div>
-          </span>
+          {CreateShareBtn("OutlookLogo", "E-posta Gönder")}
+          {CreateShareBtn("OneDrive", "Kaydet")}
+          {CreateShareBtn("WordLogo", "WhatsApp ile Gönder")}
         </div>
       </div>
     </div>
   ) : null;
+}
+function CreateShareBtn(icon, text) {
+  return (
+    <span className="BaseDriveContainer">
+      <span className={`DriveIcon ms-svg-Icon ms-Icon--(${icon})`}></span>
+      <div className="DriveTextContainer">
+        <span>{text}</span>
+      </div>
+    </span>
+  );
 }
