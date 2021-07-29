@@ -1,13 +1,13 @@
 import React from "react";
-
 export default function Arrow({ Direction }) {
-  return Direction ? (
-    <i data-icon-name="ChevronUp" className="FabricMDL2Icons fright">
-      
-    </i>
-  ) : (
-    <i data-icon-name="ChevronDown" className="FabricMDL2Icons fright">
-      
+  return Direction
+    ? getIcon("ChevronUp", "")
+    : getIcon("ChevronDown", "");
+}
+function getIcon(name, symbol) {
+  return (
+    <i data-icon-name={name} className="FabricMDL2Icons fright">
+      {symbol}
     </i>
   );
 }

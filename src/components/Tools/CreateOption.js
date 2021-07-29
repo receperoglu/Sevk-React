@@ -12,7 +12,6 @@ export default function CreateOption({Json,change,value}) {
           {p.Name}
         </option>
       ))}
-    </select>
-    
+    </select>    
   );
 }
