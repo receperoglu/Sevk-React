@@ -3,43 +3,39 @@ import LayoutHead from "./Layout/LayoutHead";
 import SevkConsumer from "../store/context";
 import BlueButton from "./Tools/BlueButton";
 export default function LayoutNotes() {
-  const toggleNote = (dispatch) => {
-    dispatch({
-      type: "toggleNote",
-      payload: false,
-    });
-  };
-  const SaveNotes = (dispatch) => {
-    dispatch({
-      type: "SaveNotes",
-      payload: false,
-    });
-  };
   return (
     <SevkConsumer>
       {(value) => {
-        const {
-          ShowLayoutNote,
-          UpdateArticelNote,
-          ArticelNotes,
-
-          dispatch,
-        } = value;
+        const { ShowLayoutNote, ArticelNotes, dispatch } = value;
+        const UpdateArticelNote = (input) => {
+          dispatch({ type: "UpdateArticelNote", payload: input });
+        };
+        const toggleNote = () => {
+          dispatch({
+            type: "toggleNote",
+            payload: false,
+          });
+        };
+        const SaveNotes = () => {
+          dispatch({
+            type: "SaveNotes",
+            payload: false,
+          });
+        };
         return ShowLayoutNote ? (
           <div className="effect RightLayout">
-            <LayoutHead click={toggleNote.bind(this, dispatch)} text="Notlar" />
+            <LayoutHead click={toggleNote} text="Notlar" />
             <div className="col-md-12 fleft">
               <div className="LayoutType">
-                <textarea
-                  className="NotesArea  ms-TextField-field"
+                <input
+                  type="text"
+                  defaultValue={ArticelNotes}
+                  onChange={UpdateArticelNote}
                   style={{ width: "100%", height: "250px" }}
-                  value={ArticelNotes}
-                  onChange={(e) => UpdateArticelNote(e.target.value)}
-                ></textarea>
-                <BlueButton
-                  text="Güncelle"
-                  click={SaveNotes.bind(this, dispatch)}
+                  className="NotesArea  ms-TextField-field"
+                  multiple={true}
                 />
+                <BlueButton text="Güncelle" click={SaveNotes} />
               </div>
             </div>
           </div>

@@ -11,35 +11,8 @@ export default function () {
     const newWindow = window.open(PrintUrl, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
   };
-  const chooseFile = (dispatch, type) => {
+  const chooseFile = (dispatch,type) => {
     dispatch({ type: "chooseFile", payload: type });
-  };
-  const toggleView = (dispatch) => {
-    dispatch({ type: "toggleView", payload: null });
-  };
-  const closeTopBar = (dispatch) => {
-    dispatch({
-      type: "closeTopBar",
-      payload: null,
-    });
-  };
-  const toggleNote = (dispatch) => {
-    dispatch({
-      type: "toggleNote",
-      payload: true,
-    });
-  };
-  const toggleShare = (dispatch) => {
-    dispatch({
-      type: "toggleShare",
-      payload: true,
-    });
-  };
-  const toggleAddProduct = (dispatch) => {
-    dispatch({ type: "toggleAddProduct", payload: true });
-  };
-  const toggleOut = (dispatch) => {
-    dispatch({ type: "toggleOut", payload: { statu: true, Order: [] } });
   };
   return (
     <SevkConsumer>
@@ -52,13 +25,41 @@ export default function () {
           CorpName,
           dispatch,
         } = value;
+       
+        const toggleView = () => {
+          dispatch({ type: "toggleView", payload: null });
+        };
+        const closeTopBar = () => {
+          dispatch({
+            type: "closeTopBar",
+            payload: null,
+          });
+        };
+        const toggleNote = () => {
+          dispatch({
+            type: "toggleNote",
+            payload: true,
+          });
+        };
+        const toggleShare = () => {
+          dispatch({
+            type: "toggleShare",
+            payload: true,
+          });
+        };
+        const toggleAddProduct = () => {
+          dispatch({ type: "toggleAddProduct", payload: true });
+        };
+        const toggleOut = () => {
+          dispatch({ type: "toggleOut", payload: { statu: true, Order: [] } });
+        };
         return ShowTopBar ? (
           <div className="fright padd0">
             <div className="css-74 ms-CommandBar root-79">
               <div className="TopBarCommandLeft">
                 {isMobile ? null : (
                   <MenuItem
-                    click={toggleView.bind(this, dispatch)}
+                    click={toggleView}
                     icon="FullScreen"
                     text=""
                     symbol=""
@@ -66,7 +67,7 @@ export default function () {
                   />
                 )}
                 <MenuItem
-                  click={toggleAddProduct.bind(this, dispatch)}
+                  click={toggleAddProduct}
                   icon="Add"
                   text="Ekle"
                   symbol=""
@@ -82,14 +83,14 @@ export default function () {
                   iconclassname="ms-Button-icon icon-144s"
                 />
                 <MenuItem
-                  click={toggleShare.bind(this, dispatch)}
+                  click={toggleShare}
                   icon="Share"
                   text="Paylaş"
                   symbol=""
                   iconclassname="ButtonIcon icon-93"
                 />
                 <MenuItem
-                  click={toggleNote.bind(this, dispatch)}
+                  click={toggleNote}
                   icon="StackIndicator"
                   text="Notlar"
                   symbol=""
@@ -103,28 +104,28 @@ export default function () {
                   iconclassname="ms-Button-icon fleft   iconnewWindow"
                 />
                 <MenuItem
-                  click={toggleOut.bind(this, dispatch)}
+                  click={toggleOut}
                   icon="Tag"
                   text="Çıkış Yap"
                   symbol=""
                   iconclassname="ButtonIcon icon-93"
                 />
                 <MenuItem
-                  click={chooseFile.bind(this, dispatch, "Document")}
+                  click={chooseFile.bind(this,dispatch,"Document")}
                   icon="Attach"
                   text="Belge Ekle"
                   symbol=""
                   iconclassname=" ms-Button-icon  Paylas"
                 />
                 <MenuItem
-                  click={chooseFile.bind(this, dispatch, "Picture")}
+                  click={chooseFile.bind(this,dispatch,"Picture")}
                   icon="Photo2Add"
                   text="Resim Ekle"
                   symbol=""
                   iconclassname="ms-Button-icon FabricMDL2Icons-13"
                 />
                 <MenuItem
-                  click={closeTopBar.bind(this, dispatch)}
+                  click={closeTopBar}
                   icon="Cancel"
                   text="Kapat"
                   symbol=""

@@ -24,7 +24,7 @@ export default function MainPage() {
           Loading,
           isMobile,
           ChangeView,
-          isDetailActive,
+          DetailActive,
           toggleVtype,
           Vtype,
           isError,
@@ -33,7 +33,7 @@ export default function MainPage() {
           <div className="padd0 col-md-12">
             <TopBar />
             <ProgressBar isVisible={Loading} />
-            <div className={isMobile && isDetailActive ? "hide" : ""}>
+            <div className={isMobile && DetailActive ? "hide" : ""}>
               <div
                 id="FirstScreen"
                 className={ChangeView ? "hide" : "padd0 col-md-12"}

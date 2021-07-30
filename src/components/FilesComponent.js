@@ -35,16 +35,21 @@ export default function FilesComponent() {
                 text="Dökümanlar"
                 isVisible={FilesVisible}
               />
-              {Files.length === 0 ? " Dosya Eklenmemiş" : null}
               <div className={FilesVisible ? "effect" : "hide"}>
                 <div className="col-md-12 text-center">
-                  <MenuItem
-                    click={toggleVtype.bind(this, dispatch)}
-                    icon="FullScreen"
-                    text=""
-                    symbol=""
-                    iconclassname="icon-144s"
-                  />
+                  <div className="col-md-12 text-center">
+                    {Files.length === 0 ? (
+                      " Dosya Eklenmemiş"
+                    ) : (
+                      <MenuItem
+                        click={toggleVtype.bind(this, dispatch)}
+                        icon="FullScreen"
+                        text=""
+                        symbol=""
+                        iconclassname="icon-144s"
+                      />
+                    )}
+                  </div>
                 </div>
                 {Vtype ? (
                   <div>
@@ -128,18 +133,7 @@ export default function FilesComponent() {
                   </div>
                 ) : (
                   <div className="od-ItemContent-list">
-                    <div className="css-53 ms-DetailsHeader root-76">
-                      <div className="root-109 cellName-112 flex_half"></div>
-                      <div className="root-109 cellName-112 flex_fold">
-                        Dosya Adı
-                      </div>
-                      <div className="root-109 cellName-112 flex_one">
-                        Tarih
-                      </div>
-                      <div className="root-109 cellName-112 flex_half">
-                        İndir
-                      </div>
-                    </div>
+                    {Files.length === 0 ? null : ListViewHeader()}
                     {Files.map((file) => (
                       <div key={file.id} className="effect   ms-DetailsRow">
                         <div className="displayflex">
@@ -191,6 +185,16 @@ export default function FilesComponent() {
           );
         }}
       </SevkConsumer>
+    </div>
+  );
+}
+function ListViewHeader() {
+  return (
+    <div className="css-53 ms-DetailsHeader root-76">
+      <div className="root-109 cellName-112 flex_half"></div>
+      <div className="root-109 cellName-112 flex_fold">Dosya Adı</div>
+      <div className="root-109 cellName-112 flex_one">Tarih</div>
+      <div className="root-109 cellName-112 flex_half">İndir</div>
     </div>
   );
 }
