@@ -70,7 +70,7 @@ export default function TopBar() {
               name="UploadArea[]"
               onChange={() => uploadFile}
               multiple
-            ></input>
+            />
           </div>
         );
       }}
