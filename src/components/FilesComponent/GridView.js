@@ -22,7 +22,7 @@ function RenderPicture(pictures) {
     <div>
       <h2 className="padd0 col-xs-12">Resimler</h2>
       {pictures.map((File) => (
-        <ThumbsPicture File={File} />
+        <ThumbsPicture key={File.id} File={File} />
       ))}
     </div>
   );
@@ -32,7 +32,7 @@ function RenderDocument(documents) {
     <div>
       <h2 className="padd0 col-xs-12">Belgeler</h2>
       {documents.map((File) => (
-        <ThumbsDocument File={File} />
+        <ThumbsDocument key={File.id}  File={File} />
       ))}
     </div>
   );

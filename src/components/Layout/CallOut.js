@@ -53,7 +53,7 @@ export default function Callout() {
                 </div>
                 {waybillPiece === 0 ? null : (
                   <table className="table padd0">
-                    {TableHead}
+                    {TableHead()}
                     <tbody>
                       {OneWaybill.map((w) => (
                         <tr key={w.id}>

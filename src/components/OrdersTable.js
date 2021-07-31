@@ -32,7 +32,7 @@ export default function OrdersTable() {
             <table
               className={OrderVisible ? "pointer table table-hover" : "hide"}
             >
-              {TableHead}
+              {TableHead()}
               <tbody aria-live="polite">
                 {Orders.map((o) => (
                   <tr key={o.id} id={"Order" + o.id}>

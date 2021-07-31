@@ -28,7 +28,7 @@ export default function WayBillList() {
                 WayBillVisible ? "MotionDetails table table-hover " : "hide"
               }
             >
-              {TableHead}
+              {TableHead()}
               <tbody aria-live="polite">
                 {Waybill.map((w) => (
                   <tr key={w.id}>
