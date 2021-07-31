@@ -2,7 +2,7 @@ import React from "react";
 import CreateArticelModal from "./components/CreateArticelModal";
 import DocumentPreview from "./components/Layout/DocumentPreview";
 import PicturePreview from "./components/Layout/PicturePreview";
-import FilesComponent from "./components/FilesComponent";
+import FilesComponent from "./components/FilesComponent/index";
 import ProgressBar from "./components/Tools/ProgressBar";
 import ArticelsTable from "./components/ArticelsTable";
 import EditModal from "./components/ProductModal/Edit";

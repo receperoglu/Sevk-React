@@ -3,6 +3,8 @@ import ProgressBar from "../Tools/ProgressBar";
 import CancelBtn from "../Tools/CancelBtn";
 import BlueButton from "../Tools/BlueButton";
 import SevkConsumer from "../../store/context";
+import CreateOption from "../Tools/CreateOption";
+import CreateInput from "../Tools/CreateInput"
 export default function Edit() {
   return (
     <SevkConsumer>
@@ -17,16 +19,7 @@ export default function Edit() {
             type: "toggleEdit",
             payload: { statu: false, Order: [] },
           });
-        };
-        const SelectChange = (e) => {                         
-          dispatch({ type:"Change"+ e.target.name, payload: e.target.value });
-        };
-        const InputChange = (e) => {        
-          dispatch({
-            type: "Change" + e.target.name,
-            payload: e.target.value,
-          });
-        };
+        };         
         return ShowProductEdit ? (
           <div className="ms-Layer ms-Layer--fixed effect layer-351">
             <div className="root-345">
@@ -38,53 +31,33 @@ export default function Edit() {
                     <span>Adet</span>
                   </div>
                   <div className="col-md-10 fleft">
-                    <input
+                    <CreateInput
                       type="number"
                       name="Piece"
                       value={Order.Piece}
-                      className="Piece ms-TextField-field"
-                      onChange={InputChange}
                     />
                   </div>
                   <div className="col-md-2 fleft">
                     <span>Ölçü</span>
                   </div>
                   <div className="col-md-10 fleft">
-                    <input
-                      type="text"
-                      name="Dimensions"
-                      defaultValue={Order.Dimensions}
-                      onChange={InputChange}
-                      className="Dim ms-TextField-field"
-                    />
+                    <CreateInput name="Dimensions" value={Order.Dimensions} />
                   </div>
                   <div className="col-md-2 fleft">
                     <span>Renk</span>
                   </div>
                   <div className="col-md-10 fleft">
-                    <input
-                      type="text"
-                      name="Color"
-                      defaultValue={Order.Color}
-                      onChange={InputChange}
-                      className="Color ms-TextField-field"
-                    />
+                    <CreateInput name="Color" value={Order.Color} />
                   </div>
                   <div className="col-md-2 fleft">
                     <span>Tip</span>
                   </div>
-                  <select
-                    className="ms-TextField-field"
+                  <CreateOption
                     name="ProductType"
-                    onChange={SelectChange}
+                    Json={ProductTypes}
                     value={Order.ProductTypeId}
-                  >
-                    {ProductTypes.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.Name}
-                      </option>
-                    ))}
-                  </select>
+                    defaultValue={Order.ProductTypeId}
+                  />
                   <div className="col-md-12 text-right fleft">
                     {Loading ? (
                       <ProgressBar isVisible={Loading} />

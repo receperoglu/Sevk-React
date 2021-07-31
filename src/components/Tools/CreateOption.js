@@ -1,18 +1,29 @@
 import React from "react";
-
-export default function CreateOption({ Json, change, value, name }) {
+import SevkConsumer from "../../store/context";
+export default function CreateOption({ Json, val, name, defaultValue }) {
   return (
-    <select
-      className="ms-TextField-field"
-      value={value}
-      name={name}
-      onChange={(e) => change(e.target.value)}
-    >
-      {Json.map((p) => (
-        <option key={p.id} value={p.id}>
-          {p.Name}
-        </option>
-      ))}
-    </select>
+    <SevkConsumer>
+      {(value) => {
+        const { dispatch } = value;
+        const SelectChange = (e) => {
+           dispatch({ type: "Change" + e.target.name, payload: e.target.value });
+        };
+        return (
+          <select
+            className="ms-TextField-field"
+            name={name}
+            onChange={SelectChange}
+            defaultValue={defaultValue}
+            value={val}
+          >
+            {Json.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.Name}
+              </option>
+            ))}
+          </select>
+        );
+      }}
+    </SevkConsumer>
   );
 }
