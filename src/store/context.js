@@ -54,6 +54,7 @@ export class SevkProvider extends Component {
       LoopCount: 0,
       SaleTypeId: 0,
       waybillPiece: 0,
+      waybillWeight:0,
       ActiveArticel: 0,
       ProductTypeId: 0,
       x: "",
@@ -156,16 +157,14 @@ export class SevkProvider extends Component {
             Vtype: !this.state.Vtype,
           };
         case "toggleEdit":
-          return {
-            ...state,
-            ShowProductEdit: action.payload.statu,
-            Order: action.payload.Order,
-          };
+          return this.OpenEdit(action.payload);
         default:
           return state;
       }
     };
+    this.OpenEdit = this.OpenEdit.bind(this);
     this.GetOrders = this.GetOrders.bind(this);
+    this.closeError=this.closeError.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
     this.fetchCorps = this.fetchCorps.bind(this);
     this.fetchNotes = this.fetchNotes.bind(this);
@@ -240,11 +239,13 @@ export class SevkProvider extends Component {
             var file = { Path: response[0].Path, RawPath: response[0].Path };
             this.setState({ File: file, ShowPicturePreview: true });
           } catch (error) {
-            this.setState({ isError: true });
+            this.setState({ isError: true,Error:"Bu irsaliyenin fotoğrafı eklenmemiş." });
+            this.closeError();
           }
         },
         (error) => {
-          this.setState({ isError: true });
+          this.setState({ isError: true ,Error:"Bu irsaliyenin fotoğrafı eklenmemiş." });
+          this.closeError();
         }
       );
   };
@@ -265,11 +266,22 @@ export class SevkProvider extends Component {
       "&SaleType=1&Articel=test";
     await this.UpdateOrAddOrder(url);
   };
+  OpenEdit = (Object) => {    
+    this.setState({
+      ShowProductEdit: !this.state.ShowProductEdit,
+      Order: Object.Order,
+      ProductTypeId: Object.Order.ProductTypeId,
+      Color: Object.Order.Color,
+      Piece: Object.Order.Piece,
+      Dimensions: Object.Order.Dimensions,
+      OrderId: Object.Order.id,
+    });
+  };
   PostOrderUpdate = async () => {
     this.setState({ Loading: true });
     var url =
       "abi/post/UpdateOrder.ashx?OrderId=" +
-      this.state.OrderId +
+      this.state.Order.id +
       "&ProductType=" +
       this.state.ProductTypeId +
       "&Dimensions=" +
@@ -500,8 +512,12 @@ export class SevkProvider extends Component {
       var data = await FetchFunc(url);
       this.setState({ OneWaybill: data });
       var totalpiece = 0;
-      data.map((w) => (totalpiece = +parseInt(w.Piece, 10)));
-      this.setState({ waybillPiece: totalpiece, LoopCount: data.length });
+      var totalweight = 0;
+
+      data.map((w) => (totalpiece += parseInt(w.Piece, 10)));
+      data.map((w) => (totalweight += parseInt(w.Weight, 10)));
+
+      this.setState({ waybillPiece: totalpiece,waybillWeight:totalweight, LoopCount: data.length });
     }
     this.setState({ Loading: false, ShowCallOut: true });
     document.getElementById(element).classList.remove("OrderProccessing");
@@ -526,8 +542,14 @@ export class SevkProvider extends Component {
         this.setState({ Loading: false });
       })
       .catch((error) => {
-        this.setState({ isError: false });
+        this.setState({Loading:false, isError: true,Error:"Bu irsaliyenin fotoğrafı eklenmemiş."  });
+        this.closeError();
       });
+  }
+  closeError(){
+    setTimeout(() => {
+      this.setState({isError:false})
+    }, 2500);
   }
   componentDidMount() {
     this.setState({ Loading: true });

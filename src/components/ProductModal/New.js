@@ -2,7 +2,6 @@ import React from "react";
 import ProgressBar from "../Tools/ProgressBar";
 import CancelBtn from "../Tools/CancelBtn";
 import BlueButton from "../Tools/BlueButton";
-import CreateOption from "../Tools/CreateOption";
 import SevkConsumer from "../../store/context";
 export default function New() {
   return (
@@ -15,17 +14,14 @@ export default function New() {
         const SaveOrder = () => {
           dispatch({ type: "SaveOrder", payload: null });
         };
-        const ChangePiece = (input) => {
-          dispatch({ type: "ChangePiece", payload: input.target.value });
+        const InputChange = (input) => {
+          dispatch({
+            type: "Change" + input.target.name,
+            payload: input.target.value,
+          });
         };
-        const ChangeDimensions = (input) => {
-          dispatch({ type: "ChangeDimensions", payload: input.target.value });
-        };
-        const ChangeColor = (input) => {
-          dispatch({ type: "ChangeColor", payload: input.target.value });
-        };
-        const ChangeProductType = (input) => {
-          dispatch({ type: "ChangeProductType", payload: input });
+        const SelectChange = (e) => {
+          dispatch({ type: "Change" + e.target.name, payload: e.target.value });
         };
         return NewProductShow ? (
           <div className="ms-Layer ms-Layer--fixed effect layer-351">
@@ -38,16 +34,24 @@ export default function New() {
                   <div className="col-md-12">
                     <div className="clearfix OrderRow">
                       <div className="col-xs-12 fleft">
-                        <CreateOption
-                          change={ChangeProductType}
-                          Json={ProductTypes}
-                        />
+                        <select
+                          className="ms-TextField-field"
+                          name="ProductType"
+                          onChange={SelectChange}
+                        >
+                          {ProductTypes.map((p) => (
+                            <option key={p.id} value={p.id}>
+                              {p.Name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                       <div className="col-xs-12 fleft">
                         <span>Adet</span>
                         <input
                           type="number"
-                          onChange={ChangePiece}
+                          name="Piece"
+                          onChange={InputChange}
                           className="Piece ms-TextField-field"
                         />
                       </div>
@@ -55,7 +59,8 @@ export default function New() {
                         <span>Ölçü</span>
                         <input
                           type="text"
-                          onChange={ChangeDimensions}
+                          name="Dimensions"
+                          onChange={InputChange}
                           className="Dim ms-TextField-field"
                         />
                       </div>
@@ -63,7 +68,8 @@ export default function New() {
                         <span>Renk</span>
                         <input
                           type="text"
-                          onChange={ChangeColor}
+                          name="Color"
+                          onChange={InputChange}
                           className="Color ms-TextField-field"
                         />
                       </div>

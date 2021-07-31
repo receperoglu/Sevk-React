@@ -27,7 +27,6 @@ export default function MainPage() {
           DetailActive,
           toggleVtype,
           Vtype,
-          isError,
         } = value;
         return (
           <div className="padd0 col-md-12">
@@ -62,7 +61,7 @@ export default function MainPage() {
             <EditModal />
             <OutModal />
             <CallOut />
-            <Error isError={isError} />
+            <Error />
             <PicturePreview />
             <DocumentPreview />
           </div>

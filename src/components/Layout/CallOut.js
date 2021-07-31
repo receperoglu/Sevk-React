@@ -1,108 +1,93 @@
-import React, { Component } from "react";
+import React from "react";
 import CancelBtn from "../Tools/CancelBtn";
 import SevkConsumer from "../../store/context";
-export class Callout extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      OrderVisible: true,
-    };
-    this.toggleOrderList = this.toggleOrderList.bind(this);
-  }
-  toggleOrderList = () => {
-    this.setState({ OrderVisible: !this.state.OrderVisible });
-  };
-  render() {
-    const GetWayBillPhoto = (dispatch, Path) => {
-      dispatch({
-        type: "GetWayBillPhoto",
-        payload: Path,
-      });
-    };
-    const CancelCallOut = (dispatch) => {
-      dispatch({
-        type: "CancelCallOut",
-        payload: null,
-      });
-    };
-    return (
-      <SevkConsumer>
-        {(value) => {
-          const {
-            OneWaybill,
-            Order,
-            ShowCallOut,
-            x,
-            y,
-            waybillPiece,
-            LoopCount,
-            dispatch,
-          } = value;
-          return ShowCallOut ? (
-            <div
-              style={{ top: x, left: y }}
-              className="ms-ContextualHost effect is-positioned ms-ContextualHost--arrowLeft is-open "
-            >
-              <div className="ms-ContextualHost-main">
-                <div className="ms-Callout  ms-Callout--OOBE">
-                  <CancelBtn
-                    cssclass="CallOutClose"
-                    click={CancelCallOut.bind(this, dispatch)}
-                  />
-                  <div className="ms-Callout-header">
-                    <div className="ms-Callout-title">
-                      {waybillPiece === 0 ? (
-                        "Henüz Sevkiyat Yapılmamış"
-                      ) : (
-                        <span>
-                          {waybillPiece} Adet.
-                          {LoopCount} Kez Sevk Edildi.
-                          <br />
-                          {Order.Dimensions} {Order.Color} <br />
-                          {Order.ProductTypeName}
-                        </span>
-                      )}
-                    </div>
+export default function Callout() {
+  return (
+    <SevkConsumer>
+      {(value) => {
+        const {
+          OneWaybill,
+          Order,
+          ShowCallOut,
+          x,
+          y,
+          waybillPiece,
+          waybillWeight,
+          LoopCount,
+          dispatch,
+        } = value;
+        const GetWayBillPhoto = (Path) => {
+          dispatch({
+            type: "GetWayBillPhoto",
+            payload: Path,
+          });
+        };
+        const CancelCallOut = () => {
+          dispatch({
+            type: "CancelCallOut",
+            payload: null,
+          });
+        };
+        return ShowCallOut ? (
+          <div style={{ top: x, left: y }} className="ms-ContextualHost ">
+            <div className="ms-ContextualHost-main">
+              <div className="ms-Callout  ms-Callout--OOBE">
+                <CancelBtn cssclass="CallOutClose" click={CancelCallOut} />
+                <div className="ms-Callout-header">
+                  <div className="ms-Callout-title">
+                    {waybillPiece === 0 ? (
+                      "Henüz Sevkiyat Yapılmamış"
+                    ) : (
+                      <span>
+                        {LoopCount} Kez Sevk Edildi.
+                        <br />
+                        {waybillPiece} Adet.
+                        <br />
+                        {waybillWeight} KG
+                        <br />
+                        {Order.Dimensions} {Order.Color} <br />
+                        {Order.ProductTypeName}
+                      </span>
+                    )}
                   </div>
-                  {waybillPiece === 0 ? null : (
-                    <table className="table padd0">
-                      <thead>
-                        <tr className=" ms-DetailsHeader-cellName cellName-112">
-                          <td>Adet</td>
-                          <td>Ağırlık</td>
-                          <td>Tarih</td>
-                          <td>İrsaliye</td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {OneWaybill.map((w) => (
-                          <tr key={w.id}>
-                            <td>
-                              <b> {w.Piece}</b>
-                            </td>
-                            <td>{w.Weight} KG </td>
-                            <td> {w.CreatedDate} </td>
-                            <td
-                              onClick={GetWayBillPhoto.bind(
-                                this,
-                                dispatch,
-                                w.WayBillId
-                              )}
-                            >
-                              {w.WayBillId}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  )}
                 </div>
+                {waybillPiece === 0 ? null : (
+                  <table className="table padd0">
+                    {TableHead}
+                    <tbody>
+                      {OneWaybill.map((w) => (
+                        <tr key={w.id}>
+                          <td>{w.Piece} AD</td>
+                          <td>{w.Weight} KG </td>
+                          <td> {w.CreatedDate} </td>
+                          <td
+                            className="cpointer"
+                            onClick={() => GetWayBillPhoto(w.WayBillId)}
+                          >
+                            {w.WayBillId}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
               </div>
             </div>
-          ) : null;
-        }}
-      </SevkConsumer>
-    );
-  }
+          </div>
+        ) : null;
+      }}
+    </SevkConsumer>
+  );
 }
-export default Callout;
+function TableHead() {
+  return (
+    <thead>
+      <tr className=" ms-DetailsHeader-cellName cellName-112">
+        <td>Adet</td>
+        <td>Ağırlık</td>
+        <td>Tarih</td>
+        <td>İrsaliye</td>
+      </tr>
+    </thead>
+  );
+}

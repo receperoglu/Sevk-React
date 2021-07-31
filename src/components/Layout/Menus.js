@@ -10,10 +10,7 @@ export default function () {
       CorpName;
     const newWindow = window.open(PrintUrl, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
-  };
-  const chooseFile = (dispatch,type) => {
-    dispatch({ type: "chooseFile", payload: type });
-  };
+  }; 
   return (
     <SevkConsumer>
       {(value) => {
@@ -52,6 +49,9 @@ export default function () {
         };
         const toggleOut = () => {
           dispatch({ type: "toggleOut", payload: { statu: true, Order: [] } });
+        };
+        const chooseFile = (type) => {
+          dispatch({ type: "chooseFile", payload: type });
         };
         return ShowTopBar ? (
           <div className="fright padd0">
@@ -111,14 +111,14 @@ export default function () {
                   iconclassname="ButtonIcon icon-93"
                 />
                 <MenuItem
-                  click={chooseFile.bind(this,dispatch,"Document")}
+                  click={()=>chooseFile("Document")}
                   icon="Attach"
                   text="Belge Ekle"
                   symbol=""
                   iconclassname=" ms-Button-icon  Paylas"
                 />
                 <MenuItem
-                  click={chooseFile.bind(this,dispatch,"Picture")}
+                  click={()=>chooseFile("Picture")}
                   icon="Photo2Add"
                   text="Resim Ekle"
                   symbol=""

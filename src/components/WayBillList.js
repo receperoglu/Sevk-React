@@ -28,16 +28,7 @@ export default function WayBillList() {
                 WayBillVisible ? "MotionDetails table table-hover " : "hide"
               }
             >
-              <thead>
-                <tr className=" ms-DetailsHeader-cellName cellName-112">
-                  <td>Adet</td>
-                  <td>KG</td>
-                  <td>Ölçü</td>
-                  <td>Renk</td>
-                  <td>Tarih</td>
-                  <td className={isMobile ? "hide" : ""}>İrsaliye</td>
-                </tr>
-              </thead>
+              {TableHead}
               <tbody aria-live="polite">
                 {Waybill.map((w) => (
                   <tr key={w.id}>
@@ -79,5 +70,19 @@ export default function WayBillList() {
         );
       }}
     </SevkConsumer>
+  );
+}
+function TableHead(isMobile) {
+  return (
+    <thead>
+      <tr className=" ms-DetailsHeader-cellName cellName-112">
+        <td>Adet</td>
+        <td>KG</td>
+        <td>Ölçü</td>
+        <td>Renk</td>
+        <td>Tarih</td>
+        <td className={isMobile ? "hide" : ""}>İrsaliye</td>
+      </tr>
+    </thead>
   );
 }

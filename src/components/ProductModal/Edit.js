@@ -18,17 +18,14 @@ export default function Edit() {
             payload: { statu: false, Order: [] },
           });
         };
-        const ChangePiece = (input) => {
-          dispatch({ type: "ChangePiece", payload: input.target.value });
+        const SelectChange = (e) => {                         
+          dispatch({ type:"Change"+ e.target.name, payload: e.target.value });
         };
-        const ChangeDimensions = (input) => {
-          dispatch({ type: "ChangeDimensions", payload: input.target.value });
-        };
-        const ChangeColor = (input) => {
-          dispatch({ type: "ChangeColor", payload: input.target.value });
-        };
-        const ChangeProductType = (input) => {
-          dispatch({ type: "ChangeProductType", payload: input });
+        const InputChange = (e) => {        
+          dispatch({
+            type: "Change" + e.target.name,
+            payload: e.target.value,
+          });
         };
         return ShowProductEdit ? (
           <div className="ms-Layer ms-Layer--fixed effect layer-351">
@@ -43,9 +40,10 @@ export default function Edit() {
                   <div className="col-md-10 fleft">
                     <input
                       type="number"
+                      name="Piece"
                       value={Order.Piece}
                       className="Piece ms-TextField-field"
-                      onChange={ChangePiece}
+                      onChange={InputChange}
                     />
                   </div>
                   <div className="col-md-2 fleft">
@@ -54,8 +52,9 @@ export default function Edit() {
                   <div className="col-md-10 fleft">
                     <input
                       type="text"
+                      name="Dimensions"
                       defaultValue={Order.Dimensions}
-                      onChange={ChangeDimensions}
+                      onChange={InputChange}
                       className="Dim ms-TextField-field"
                     />
                   </div>
@@ -65,8 +64,9 @@ export default function Edit() {
                   <div className="col-md-10 fleft">
                     <input
                       type="text"
+                      name="Color"
                       defaultValue={Order.Color}
-                      onChange={ChangeColor}
+                      onChange={InputChange}
                       className="Color ms-TextField-field"
                     />
                   </div>
@@ -75,7 +75,8 @@ export default function Edit() {
                   </div>
                   <select
                     className="ms-TextField-field"
-                    onChange={ChangeProductType}
+                    name="ProductType"
+                    onChange={SelectChange}
                     value={Order.ProductTypeId}
                   >
                     {ProductTypes.map((p) => (
