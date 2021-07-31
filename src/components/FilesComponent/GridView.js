@@ -4,32 +4,36 @@ import ThumbsPicture from "./ThumbsPicture";
 import ThumbsDocument from "./ThumbsDocument";
 export default function GridView() {
   return (
+    <SevkConsumer>
+      {(value) => {
+        const { pictures, documents } = value;
+        return (
+          <div>
+            {RenderPicture(pictures)}
+            {RenderDocument(documents)}
+          </div>
+        );
+      }}
+    </SevkConsumer>
+  );
+}
+function RenderPicture(pictures) {
+  return pictures.length === 0 ? null : (
     <div>
-      <SevkConsumer>
-        {(value) => {
-          const { pictures, documents } = value;
-          return (
-            <div>
-              {pictures.length === 0 ? null : (
-                <div>
-                  <h2 className="padd0 col-xs-12">Resimler</h2>
-                  {pictures.map((File) => (
-                    <ThumbsPicture File={File} />
-                  ))}
-                </div>
-              )}
-              {document.length === 0 ? null : (
-                <div>
-                  <h2 className="padd0 col-xs-12">Belgeler</h2>
-                  {documents.map((File) => (
-                    <ThumbsDocument File={File} />
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        }}
-      </SevkConsumer>
+      <h2 className="padd0 col-xs-12">Resimler</h2>
+      {pictures.map((File) => (
+        <ThumbsPicture File={File} />
+      ))}
+    </div>
+  );
+}
+function RenderDocument(documents) {
+  return documents.length === 0 ? null : (
+    <div>
+      <h2 className="padd0 col-xs-12">Belgeler</h2>
+      {documents.map((File) => (
+        <ThumbsDocument File={File} />
+      ))}
     </div>
   );
 }
