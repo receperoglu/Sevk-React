@@ -1,18 +1,10 @@
 import React from "react";
 import CreateArticelModal from "./components/CreateArticelModal";
-import DocumentPreview from "./components/Layout/DocumentPreview";
-import PicturePreview from "./components/Layout/PicturePreview";
-import FilesComponent from "./components/FilesComponent/index";
+
 import ProgressBar from "./components/Tools/ProgressBar";
 import ArticelsTable from "./components/ArticelsTable";
-import EditModal from "./components/ProductModal/Edit";
 import NewModal from "./components/ProductModal/New";
-import OutModal from "./components/ProductModal/Out";
-import LayoutRight from "./components/LayoutRight";
 import OrdersTable from "./components/OrdersTable";
-import WayBillList from "./components/WayBillList";
-import LayoutNote from "./components/LayoutNotes";
-import CallOut from "./components/Layout/CallOut";
 import TopBar from "./components/Layout/TopBar";
 import Error from "./components/Layout/Error";
 import SevkConsumer from "./store/context";
@@ -25,8 +17,7 @@ export default function MainPage() {
           isMobile,
           ChangeView,
           DetailActive,
-          toggleVtype,
-          Vtype,
+         
         } = value;
         return (
           <div className="padd0 col-md-12">
@@ -50,20 +41,11 @@ export default function MainPage() {
                   : "col-md-8 padd0"
               }
             >
-              <OrdersTable />
-              <FilesComponent toggleVtype={toggleVtype} Vtype={Vtype} />
-              <WayBillList />
+              <OrdersTable />              
             </div>
-            <LayoutRight />
-            <LayoutNote />
             <CreateArticelModal />
             <NewModal />
-            <EditModal />
-            <OutModal />
-            <CallOut />
             <Error />
-            <PicturePreview />
-            <DocumentPreview />
           </div>
         );
       }}
