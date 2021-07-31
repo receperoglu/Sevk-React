@@ -1,25 +1,20 @@
 import React from "react";
 import SevkConsumer from "../../store/context";
+import BlueButton from "./../Tools/BlueButton";
 export default function LeftNav() {
-  const CreateArticelShow = (dispatch) => {
-    dispatch({ type: "CreateArticelShow", payload: true });
-  };
   return (
     <SevkConsumer>
       {(value) => {
         const { dispatch, Menu } = value;
+        const CreateArticelShow = () => {
+          dispatch({ type: "CreateArticelShow", payload: true });
+        };
         return Menu ? (
           <nav className="od-BasePage-leftNav">
             <div className="LeftNav-fadient text-center">
               <br />
-              <span className="Transfer TransferBTN ms-Button ms-Button--primary">
-                <span
-                  onClick={() => CreateArticelShow.bind(this, dispatch)}
-                  className="transfersavetext"
-                >
-                  + Sipariş Oluştur
-                </span>
-              </span>
+
+              <BlueButton click={CreateArticelShow} text=" + Sipariş Oluştur" />
             </div>
             <div className="LeftNav-linkGroupContainer">
               <a className="LeftNav-subLink ms-font-m activelink" href="/">

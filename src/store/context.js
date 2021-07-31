@@ -54,7 +54,7 @@ export class SevkProvider extends Component {
       LoopCount: 0,
       SaleTypeId: 0,
       waybillPiece: 0,
-      waybillWeight:0,
+      waybillWeight: 0,
       ActiveArticel: 0,
       ProductTypeId: 0,
       x: "",
@@ -109,6 +109,8 @@ export class SevkProvider extends Component {
           return { ...state, ShowLayoutNote: action.payload };
         case "toggleShare":
           return { ...state, ShowLayoutRight: action.payload };
+        case "CreateArticelShow":
+          return { ...state, CreateArticelShow: true };
         case "toggleView":
           return this.toggleView();
         case "ToggleMenu":
@@ -164,7 +166,7 @@ export class SevkProvider extends Component {
     };
     this.OpenEdit = this.OpenEdit.bind(this);
     this.GetOrders = this.GetOrders.bind(this);
-    this.closeError=this.closeError.bind(this);
+    this.closeError = this.closeError.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
     this.fetchCorps = this.fetchCorps.bind(this);
     this.fetchNotes = this.fetchNotes.bind(this);
@@ -211,8 +213,8 @@ export class SevkProvider extends Component {
       method: "GET",
     });
     var CorpsJson = await response.json();
-    this.setState({ Corps: CorpsJson });
     localStorage.setItem("Corps", JSON.stringify(CorpsJson));
+    this.setState({ Corps: CorpsJson });
   }
   async fetchArticels() {
     var data = await FetchFunc(apiBase + "Articels");
@@ -225,9 +227,9 @@ export class SevkProvider extends Component {
     this.setState({ ProductTypes: data });
   }
   async fetchSalesTypes() {
-    var saletypes = await FetchFunc("abi/post/SaleType.ashx");
-    this.setState(saletypes);
+    var saletypes = await FetchFunc("abi/post/SaleType.ashx");    
     localStorage.setItem("SalesTypes", JSON.stringify(saletypes));
+    this.setState({ SalesTypes: saletypes });
   }
   GetWayBillPhoto = async (WayBillId) => {
     var PhotoUrl = "abi/post/WayBillPhoto.ashx?WayBillId=" + WayBillId;
@@ -239,12 +241,18 @@ export class SevkProvider extends Component {
             var file = { Path: response[0].Path, RawPath: response[0].Path };
             this.setState({ File: file, ShowPicturePreview: true });
           } catch (error) {
-            this.setState({ isError: true,Error:"Bu irsaliyenin fotoğrafı eklenmemiş." });
+            this.setState({
+              isError: true,
+              Error: "Bu irsaliyenin fotoğrafı eklenmemiş.",
+            });
             this.closeError();
           }
         },
         (error) => {
-          this.setState({ isError: true ,Error:"Bu irsaliyenin fotoğrafı eklenmemiş." });
+          this.setState({
+            isError: true,
+            Error: "Bu irsaliyenin fotoğrafı eklenmemiş.",
+          });
           this.closeError();
         }
       );
@@ -266,7 +274,7 @@ export class SevkProvider extends Component {
       "&SaleType=1&Articel=test";
     await this.UpdateOrAddOrder(url);
   };
-  OpenEdit = (Object) => {    
+  OpenEdit = (Object) => {
     this.setState({
       ShowProductEdit: !this.state.ShowProductEdit,
       Order: Object.Order,
@@ -517,7 +525,11 @@ export class SevkProvider extends Component {
       data.map((w) => (totalpiece += parseInt(w.Piece, 10)));
       data.map((w) => (totalweight += parseInt(w.Weight, 10)));
 
-      this.setState({ waybillPiece: totalpiece,waybillWeight:totalweight, LoopCount: data.length });
+      this.setState({
+        waybillPiece: totalpiece,
+        waybillWeight: totalweight,
+        LoopCount: data.length,
+      });
     }
     this.setState({ Loading: false, ShowCallOut: true });
     document.getElementById(element).classList.remove("OrderProccessing");
@@ -542,13 +554,17 @@ export class SevkProvider extends Component {
         this.setState({ Loading: false });
       })
       .catch((error) => {
-        this.setState({Loading:false, isError: true,Error:"Bu irsaliyenin fotoğrafı eklenmemiş."  });
+        this.setState({
+          Loading: false,
+          isError: true,
+          Error: "Bu irsaliyenin fotoğrafı eklenmemiş.",
+        });
         this.closeError();
       });
   }
-  closeError(){
+  closeError() {
     setTimeout(() => {
-      this.setState({isError:false})
+      this.setState({ isError: false });
     }, 2500);
   }
   componentDidMount() {
@@ -568,6 +584,11 @@ export class SevkProvider extends Component {
       this.setState({ Articels: LocalStore.get("Articels") });
     } else {
       this.fetchArticels();
+    }
+    if (LocalStore.check("Corps")) {
+      this.setState({ Corps: LocalStore.get("Corps") });
+    } else {
+      this.fetchCorps();
     }
     this.setState({ Loading: false });
     window.addEventListener("resize", this.updateDimensions);

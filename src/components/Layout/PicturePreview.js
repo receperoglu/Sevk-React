@@ -1,13 +1,12 @@
 import React from "react";
-import ProgressBar from "./../Tools/ProgressBar";
 import CancelBtn from "./../Tools/CancelBtn";
 import SevkConsumer, { BaseUrl } from "../../store/context";
 export default function PicturePreview() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { ShowPicturePreview, Path, ArticelName, File } = value;
-        const hidePicturePreview = (dispatch) => {
+        const { ShowPicturePreview, Path, ArticelName, File, dispatch } = value;
+        const hidePicturePreview = () => {
           dispatch({
             type: "hidePicturePreview",
             payload: null,
@@ -15,7 +14,6 @@ export default function PicturePreview() {
         };
         return ShowPicturePreview ? (
           <div className="ma5-imgbox PicturePreview">
-            <ProgressBar isVisible={this.state.isRotating} />
             <img
               id="FullScreen"
               src={BaseUrl + File.Path}
@@ -75,7 +73,7 @@ function RightBar(ArticelName, Path, hidePicturePreview) {
         <div className="groupable-buttons__more-button-wrap">
           <span className="hover-dropdown">
             <div className="hover-tooltip__tooltip-anchor">
-              <CancelBtn click={() => hidePicturePreview} />
+              <CancelBtn click={ hidePicturePreview} />
             </div>
           </span>
         </div>

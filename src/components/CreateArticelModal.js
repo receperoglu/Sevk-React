@@ -9,7 +9,7 @@ export default function CreateArticelModal() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { SalesTypes, Corps, NewArticelCreate, dispatch, Loading } =
+        const { SalesTypes, Corps, CreateArticelShow, dispatch, Loading } =
           value;
         const toggleCreateArticel = (dispatch) => {
           dispatch({ type: "toggleCreateArticel", payload: false });
@@ -17,7 +17,7 @@ export default function CreateArticelModal() {
         const SaveArticel = () => {
           dispatch({ type: "SaveArticel", payload: null });
         };
-        return NewArticelCreate ? (
+        return CreateArticelShow ? (
           <div id="ProductModal" className="ms-Layer ms-Layer--fixed layer-351">
             <div className="root-345">
               <div className="ms-Dialog-main  main-412">
@@ -30,8 +30,7 @@ export default function CreateArticelModal() {
                     <span> Tipi</span>
                     <CreateOption name="SalesTypes" Json={SalesTypes} />
                   </div>
-                  <CreateOption name="SalesTypes" Json={SalesTypes} />
-                </div>
+                 </div>
                 <div className="padd0 col-xs-12 ">
                   <span>Artikel </span>
                   <CreateInput name="ArticelName" />

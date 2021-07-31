@@ -6,13 +6,14 @@ export default function TopBar() {
   const ToggleMenu = (dispatch) => {
     dispatch({ type: "ToggleMenu", payload: true });
   };
-  const uploadFile = (dispatch) => {
-    dispatch({ type: "uploadFile", payload: null });
-  };
+
   return (
     <SevkConsumer>
       {(value) => {
         const { ShowTopBar, dispatch } = value;
+        const uploadFile = () => {
+          dispatch({ type: "uploadFile", payload: null });
+        };
         return (
           <div className="od-BasePage-suiteNav od-BasePage-suiteNav--reactShell">
             <div className="od-SuiteNav od-SuiteNav-react">
@@ -67,8 +68,7 @@ export default function TopBar() {
               id="FileNew"
               className="hide hidden opaq0"
               name="UploadArea[]"
-              onChange={uploadFile.bind(this, dispatch)}
-              className="MultipleNew hide"
+              onChange={() => uploadFile}
               multiple
             ></input>
           </div>
