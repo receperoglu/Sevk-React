@@ -3,13 +3,12 @@ import HeadSection from "./Layout/HeadSection";
 import SevkConsumer from "../store/context";
 import PicturePreview from "./Layout/PicturePreview";
 import DocumentPreview from "./Layout/DocumentPreview";
-import FilesComponent from "./FilesComponent/index";
+import FilesComponent from "./FilesComponent/Index";
 import WayBillList from "./WayBillList";
 import Edit from "./ProductModal/Edit";
 import LayoutRight from "./LayoutRight";
 import LayoutNotes from "./LayoutNotes";
 import Out from "./ProductModal/Out";
-import Callout from "./Layout/CallOut";
 export default function OrdersTable() {
   const [OrderVisible, setOrderVisible] = useState(true);
   const toggleOrderList = () => {
@@ -85,7 +84,7 @@ export default function OrdersTable() {
             <LayoutRight />
             <LayoutNotes />
             <Out />
-            <Callout />
+       
           </div>
         ) : null;
       }}

@@ -394,8 +394,7 @@ export class SevkProvider extends Component {
     }
   };
   SaveArticel = async () => {
-    this.setState({ CreateArticelShow: true });
-    this.PostArticelsave();
+    this.setState({ CreateArticelShow: true });   
     var url =
       "abi/post/AddArticel.ashx?CorpId=" +
       this.state.CorpId +

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,Fragment } from "react";
 import HeadSection from "../Layout/HeadSection";
 import MenuItem from "../Layout/MenuItem";
 import SevkConsumer from "../../store/context";
 import GridView from "./GridView";
 import ListViewBody from "./ListViewBody";
 import ListViewHeader from "./ListViewHeader";
-export default function index() {
+export default function Index() {
   const [FilesVisible, setFilesVisible] = useState(true);
   const toggleView = () => {
     setFilesVisible(!FilesVisible);
@@ -47,9 +47,9 @@ export default function index() {
                 ) : (
                   <div className="od-ItemContent-list">
                     {Files.length === 0 ? null : (
-                      <div>
+                     <Fragment>
                         <ListViewHeader /> <ListViewBody />
-                      </div>
+                      </Fragment>
                     )}
                   </div>
                 )}

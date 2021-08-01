@@ -4,7 +4,7 @@ import CancelBtn from "./Tools/CancelBtn";
 import BlueButton from "./Tools/BlueButton";
 import SevkConsumer from "../store/context";
 import CreateOption from "./Tools/CreateOption";
-import CreateInput from "./Tools/CreateOption";
+import CreateInput from "./Tools/CreateInput";
 export default function CreateArticelModal() {
   return (
     <SevkConsumer>

@@ -1,5 +1,6 @@
 import React from "react";
 import CreateArticelModal from "./components/CreateArticelModal";
+import Callout from "./components/Layout/CallOut";
 
 import ProgressBar from "./components/Tools/ProgressBar";
 import ArticelsTable from "./components/ArticelsTable";
@@ -12,13 +13,7 @@ export default function MainPage() {
   return (
     <SevkConsumer>
       {(value) => {
-        const {
-          Loading,
-          isMobile,
-          ChangeView,
-          DetailActive,
-         
-        } = value;
+        const { Loading, isMobile, ChangeView, DetailActive } = value;
         return (
           <div className="padd0 col-md-12">
             <TopBar />
@@ -40,10 +35,12 @@ export default function MainPage() {
                   ? "col-md-12 padd0"
                   : "col-md-8 padd0"
               }
-            >
-              <OrdersTable />              
+            >            
+              
+              <OrdersTable />
             </div>
             <CreateArticelModal />
+            <Callout />
             <NewModal />
             <Error />
           </div>

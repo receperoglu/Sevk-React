@@ -1,21 +1,14 @@
 import React from "react";
-import { icoUrl } from "../../store/context";
-import SevkConsumer from "../../store/context";
-export default function ListImage({ File }) {
+import SevkConsumer, { icoUrl } from "../../store/context";
+ export default function ListImage({ File }) {
   return (
     <div>
       <SevkConsumer>
         {(value) => {
-          const {  dispatch } = value;
-          const showPicturePreview = (File) => {
+          const { dispatch } = value;
+          const showPreview = (File, type) => {
             dispatch({
-              type: "showPicturePreview",
-              payload: File,
-            });
-          };
-          const showDocumentPreview = (File) => {
-            dispatch({
-              type: "showDocumentPreview",
+              type: "show" + type + "Preview",
               payload: File,
             });
           };
@@ -23,11 +16,7 @@ export default function ListImage({ File }) {
             <img
               className="FileTypeIcon-icon"
               alt=""
-              onClick={() =>
-                File.FileType === "Picture"
-                  ? showPicturePreview(File)
-                  : showDocumentPreview(File)
-              }
+              onClick={() => showPreview(File, File.FileType)}
               src={
                 File.FileType === "Picture"
                   ? `${icoUrl}/photo.png`
