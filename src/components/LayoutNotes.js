@@ -33,7 +33,7 @@ export default function LayoutNotes() {
                   onChange={UpdateArticelNote}
                   style={{ width: "100%", height: "250px" }}
                   className="NotesArea  ms-TextField-field"
-                  multiple={true}
+                  multiple
                 />
                 <BlueButton text="Güncelle" click={SaveNotes} />
               </div>
