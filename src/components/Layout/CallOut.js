@@ -1,6 +1,18 @@
 import React from "react";
 import CancelBtn from "../Tools/CancelBtn";
 import SevkConsumer from "../../store/context";
+function TableHead() {
+  return (
+    <thead>
+      <tr className=" ms-DetailsHeader-cellName cellName-112">
+        <td>Adet</td>
+        <td>Ağırlık</td>
+        <td>Tarih</td>
+        <td>İrsaliye</td>
+      </tr>
+    </thead>
+  );
+}
 export default function Callout() {
   return (
     <SevkConsumer>
@@ -79,15 +91,4 @@ export default function Callout() {
     </SevkConsumer>
   );
 }
-function TableHead() {
-  return (
-    <thead>
-      <tr className=" ms-DetailsHeader-cellName cellName-112">
-        <td>Adet</td>
-        <td>Ağırlık</td>
-        <td>Tarih</td>
-        <td>İrsaliye</td>
-      </tr>
-    </thead>
-  );
-}
+

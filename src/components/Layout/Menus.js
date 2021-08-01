@@ -1,7 +1,7 @@
 import React from "react";
 import MenuItem from "./MenuItem";
 import SevkConsumer from "../../store/context";
-export default function () {
+export default function Menus () {
   const PrintNow = (ArticelId, CorpName) => {
     var PrintUrl =
       "https://recep.space/abi/js/PrintOrder.html?ArticelId=" +

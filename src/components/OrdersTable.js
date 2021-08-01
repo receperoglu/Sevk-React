@@ -9,6 +9,19 @@ import Edit from "./ProductModal/Edit";
 import LayoutRight from "./LayoutRight";
 import LayoutNotes from "./LayoutNotes";
 import Out from "./ProductModal/Out";
+function TableHead() {
+  return (
+    <thead>
+      <tr className="ms-DetailsHeader-cellName cellName-112">
+        <td>Adet</td>
+        <td>Ölçü</td>
+        <td>Renk</td>
+        <td>Tip</td>
+        <td>#</td>
+      </tr>
+    </thead>
+  );
+}
 export default function OrdersTable() {
   const [OrderVisible, setOrderVisible] = useState(true);
   const toggleOrderList = () => {
@@ -89,18 +102,5 @@ export default function OrdersTable() {
         ) : null;
       }}
     </SevkConsumer>
-  );
-}
-function TableHead() {
-  return (
-    <thead>
-      <tr className="ms-DetailsHeader-cellName cellName-112">
-        <td>Adet</td>
-        <td>Ölçü</td>
-        <td>Renk</td>
-        <td>Tip</td>
-        <td>#</td>
-      </tr>
-    </thead>
   );
 }

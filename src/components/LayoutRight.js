@@ -1,6 +1,16 @@
 import React from "react";
 import LayoutHead from "./Layout/LayoutHead";
 import SevkConsumer from "../store/context";
+function CreateShareBtn(icon, text) {
+  return (
+    <span className="BaseDriveContainer">
+      <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}></span>
+      <div className="DriveTextContainer">
+        <span>{text}</span>
+      </div>
+    </span>
+  );
+}
 export default function LayoutRight() {
   const toggleShare = (dispatch) => {
     dispatch({
@@ -26,15 +36,5 @@ export default function LayoutRight() {
         ) : null;
       }}
     </SevkConsumer>
-  );
-}
-function CreateShareBtn(icon, text) {
-  return (
-    <span className="BaseDriveContainer">
-      <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}></span>
-      <div className="DriveTextContainer">
-        <span>{text}</span>
-      </div>
-    </span>
   );
 }

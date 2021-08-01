@@ -1,6 +1,20 @@
 import React, { useState } from "react";
 import HeadSection from "./Layout/HeadSection";
 import SevkConsumer from "../store/context";
+function TableHead(isMobile) {
+  return (
+    <thead>
+      <tr className=" ms-DetailsHeader-cellName cellName-112">
+        <td>Adet</td>
+        <td>KG</td>
+        <td>Ölçü</td>
+        <td>Renk</td>
+        <td>Tarih</td>
+        <td className={isMobile ? "hide" : ""}>İrsaliye</td>
+      </tr>
+    </thead>
+  );
+}
 export default function WayBillList() {
   const [WayBillVisible, setWayBillVisible] = useState(true);
   const toggleWayBillList = () => {
@@ -70,19 +84,5 @@ export default function WayBillList() {
         );
       }}
     </SevkConsumer>
-  );
-}
-function TableHead(isMobile) {
-  return (
-    <thead>
-      <tr className=" ms-DetailsHeader-cellName cellName-112">
-        <td>Adet</td>
-        <td>KG</td>
-        <td>Ölçü</td>
-        <td>Renk</td>
-        <td>Tarih</td>
-        <td className={isMobile ? "hide" : ""}>İrsaliye</td>
-      </tr>
-    </thead>
   );
 }

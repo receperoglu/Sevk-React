@@ -1,5 +1,23 @@
 import React from "react";
 import SevkConsumer from "../store/context";
+function TableHead(isMobile) {
+  return (
+    <thead className=" cellName-112">
+      {isMobile ? (
+        <tr>
+          <td className="col-md-12">
+            Firma<br></br>Articel / Sipariş
+          </td>
+        </tr>
+      ) : (
+        <tr className="flex_one">
+          <td className="flex_one">Firma</td>
+          <td className="flex_one">Articel / Sipariş</td>
+        </tr>
+      )}
+    </thead>
+  );
+}
 export default function ArticelsTable() {
   return (
     <SevkConsumer>
@@ -47,21 +65,4 @@ export default function ArticelsTable() {
     </SevkConsumer>
   );
 }
-function TableHead(isMobile) {
-  return (
-    <thead className=" cellName-112">
-      {isMobile ? (
-        <tr>
-          <td className="col-md-12">
-            Firma<br></br>Articel / Sipariş
-          </td>
-        </tr>
-      ) : (
-        <tr className="flex_one">
-          <td className="flex_one">Firma</td>
-          <td className="flex_one">Articel / Sipariş</td>
-        </tr>
-      )}
-    </thead>
-  );
-}
+

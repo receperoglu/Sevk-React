@@ -2,11 +2,33 @@ import React from "react";
 import LeftNav from "./LeftNav";
 import Menus from "./Menus";
 import SevkConsumer from "../../store/context";
+function SearchArea(ShowTopBar) {
+  return ShowTopBar ? null : (
+    <div className="od-TopBar-item od-TopBar-search od-BasePage-search fleft">
+      <div className="od-Search">
+        <div className="od-SearchBox">
+          <span style={{ width: "200px" }} className="od-SearchBox-search">
+            <input
+              className="SearchInput"
+              type="text"
+              placeholder="Her şeyi ara"
+            />
+            <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
+              <span className="Icon SearchIcon css-42"></span>
+            </span>
+          </span>
+          <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
+            <span className="Icon SearchIcon css-43"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 export default function TopBar() {
   const ToggleMenu = (dispatch) => {
     dispatch({ type: "ToggleMenu", payload: true });
   };
-
   return (
     <SevkConsumer>
       {(value) => {
@@ -75,28 +97,5 @@ export default function TopBar() {
         );
       }}
     </SevkConsumer>
-  );
-}
-function SearchArea(ShowTopBar) {
-  return ShowTopBar ? null : (
-    <div className="od-TopBar-item od-TopBar-search od-BasePage-search fleft">
-      <div className="od-Search">
-        <div className="od-SearchBox">
-          <span style={{ width: "200px" }} className="od-SearchBox-search">
-            <input
-              className="SearchInput"
-              type="text"
-              placeholder="Her şeyi ara"
-            />
-            <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
-              <span className="Icon SearchIcon css-42"></span>
-            </span>
-          </span>
-          <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
-            <span className="Icon SearchIcon css-43"></span>
-          </span>
-        </div>
-      </div>
-    </div>
   );
 }
