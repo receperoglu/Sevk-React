@@ -6,7 +6,9 @@ function TableHead(isMobile) {
       {isMobile ? (
         <tr>
           <td className="col-md-12">
-            Firma<br></br>Articel / Sipariş
+            Firma
+            <br />
+            Articel / Sipariş
           </td>
         </tr>
       ) : (
@@ -40,7 +42,7 @@ export default function ArticelsTable() {
                   {isMobile ? (
                     <td className="break-spaces">
                       {a.CustomerName}
-                      <br></br>
+                      <br />
                       <span className="ArticelId">AT-{a.id}</span>
                       {a.ArticelName}
                     </td>

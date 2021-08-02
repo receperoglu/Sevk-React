@@ -27,7 +27,7 @@ function Btn(text, url, icon) {
         <div className="button2" type="button">
           <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
             <div className="BaseDrive fleft">
-              <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}></span>
+              <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}/>
             </div>
           </span>
           <span className="button2__text">{text}</span>
