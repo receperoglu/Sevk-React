@@ -5,7 +5,7 @@ import SevkConsumer from "../../store/context";
 import GridView from "./GridView";
 import ListViewBody from "./ListViewBody";
 import ListViewHeader from "./ListViewHeader";
-export default function Index() {
+export default function ComponentFiles() {
   const [FilesVisible, setFilesVisible] = useState(true);
   const toggleView = () => {
     setFilesVisible(!FilesVisible);
