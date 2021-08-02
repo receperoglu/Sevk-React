@@ -1,22 +1,22 @@
 import React from "react";
 import CancelBtn from "../Tools/CancelBtn";
 import SevkConsumer from "../../store/context";
-import { Url,DocUrl } from "../Urls";
+import { Url, DocUrl } from "../Urls";
 export default function DocumentPreview() {
-  const cancelDocument = (dispatch) => {
-    dispatch({
-      type: "cancelDocument",
-      payload: null,
-    });
-  };
   return (
     <SevkConsumer>
       {(value) => {
         const { dispatch, File, ShowDocumentPreview } = value;
+        const cancelDocument = () => {
+          dispatch({
+            type: "cancelDocument",
+            payload: null,
+          });
+        };
         return ShowDocumentPreview ? (
           <div className="ma5-imgbox ">
             <div className="DocumentPreview">
-              <CancelBtn click={cancelDocument.bind(this, dispatch)} />
+              <CancelBtn click={cancelDocument} />
             </div>
             <iframe
               title="title"
@@ -28,7 +28,7 @@ export default function DocumentPreview() {
                   ? Url + File.Path
                   : DocUrl + File.Path
               }
-            ></iframe>
+            />
           </div>
         ) : null;
       }}

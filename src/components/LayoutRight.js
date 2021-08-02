@@ -4,7 +4,7 @@ import SevkConsumer from "../store/context";
 function CreateShareBtn(icon, text) {
   return (
     <span className="BaseDriveContainer">
-      <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}></span>
+      <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}/>
       <div className="DriveTextContainer">
         <span>{text}</span>
       </div>

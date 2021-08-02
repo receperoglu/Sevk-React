@@ -1,6 +1,6 @@
 import React from "react";
 import CancelBtn from "./../Tools/CancelBtn";
-import SevkConsumer  from "../../store/context";
+import SevkConsumer from "../../store/context";
 import CreateIcon from "../Tools/CreateIcon";
 import { Url } from "../Urls";
 function Rotate() {
@@ -9,7 +9,7 @@ function Rotate() {
       <div className="hover-tooltip__tooltip-anchor">
         <button className="button2   " type="button">
           <span className="ufo-icon   icon  ">
-            <i className="fa fa-repeat"></i>
+            <i className="fa fa-repeat" />
           </span>
           <span className="button2__text">Döndür</span>
         </button>
@@ -27,7 +27,7 @@ function Btn(text, url, icon) {
         <div className="button2" type="button">
           <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
             <div className="BaseDrive fleft">
-              <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}/>
+              <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`} />
             </div>
           </span>
           <span className="button2__text">{text}</span>
@@ -54,9 +54,9 @@ function RightBar(ArticelName, Path, hidePicturePreview) {
           <span className="hover-dropdown">
             <div className="hover-tooltip__tooltip-anchor">
               <button className="button2 " type="button">
-                <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">                   
-                  <CreateIcon symbol="" iconname="Delete"/>
-                 </span>
+                <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
+                  <CreateIcon symbol="" iconname="Delete" />
+                </span>
                 <span className="button2__text">Sil</span>
               </button>
             </div>
@@ -66,7 +66,7 @@ function RightBar(ArticelName, Path, hidePicturePreview) {
         <div className="groupable-buttons__more-button-wrap">
           <span className="hover-dropdown">
             <div className="hover-tooltip__tooltip-anchor">
-              <CancelBtn click={ hidePicturePreview} />
+              <CancelBtn click={hidePicturePreview} />
             </div>
           </span>
         </div>
@@ -96,9 +96,9 @@ export default function PicturePreview() {
             <div className="resources-action-bar">
               <div className="resources-action-bar__body">
                 <div className="resources-action-bar__side-left">
-                  <div className="resources-info-dropdown">                    
-                    <CreateIcon symbol="" iconname="Info"/>
-                     <div className="resources-info-dropdown__text-wrap">
+                  <div className="resources-info-dropdown">
+                    <CreateIcon symbol="" iconname="Info" />
+                    <div className="resources-info-dropdown__text-wrap">
                       <span className="clamped-text">{ArticelName}</span>
                     </div>
                   </div>
