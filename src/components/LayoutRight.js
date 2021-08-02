@@ -9,28 +9,29 @@ function CreateShareBtn(icon, text) {
         <span>{text}</span>
       </div>
     </span>
-  )
+  );
 }
-export default function LayoutRight() {
-  const toggleShare = (dispatch) => {
-    dispatch({
-      type: "toggleShare",
-      payload: false,
-    })
-  }
+export default function LayoutRight() {  
   return (
     <SevkConsumer>
       {(value) => {
-        const { ShowLayoutRight,dispatch } = value;
+        const { ShowLayoutRight, dispatch } = value;
+        const toggleShare = () => {
+          dispatch({
+            type: "toggleShare",
+            payload: false,
+          });
+        };
         return ShowLayoutRight ? (
           <div className="BaseDrive effect RightLayout">
-            <LayoutHead click={toggleShare.bind(this,dispatch)} text="Paylaş" />
+            <LayoutHead
+              click={toggleShare}
+              text="Paylaş"
+            />
             <div className="col-md-12 fleft">
-              <div className="LayoutType">
-                {CreateShareBtn("OutlookLogo", "E-posta Gönder")}
-                {CreateShareBtn("OneDrive", "Kaydet")}
-                {CreateShareBtn("WordLogo", "WhatsApp ile Gönder")}
-              </div>
+              {CreateShareBtn("OutlookLogo", "E-posta Gönder")}
+              {CreateShareBtn("OneDrive", "Kaydet")}
+              {CreateShareBtn("WordLogo", "WhatsApp ile Gönder")}
             </div>
           </div>
         ) : null;

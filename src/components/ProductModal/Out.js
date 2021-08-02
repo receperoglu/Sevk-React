@@ -18,8 +18,7 @@ export default function Out() {
           <div className="ms-Layer ms-Layer--fixed effect layer-351">
             <div className="root-345">
               <div className="ms-Dialog-main  main-412">
-                <CancelBtn click={toggleOut} />
-                <div className="col-xs-12">
+                <CancelBtn click={toggleOut} />               
                   {Orders[0].id === 0 ? (
                     <h1>Sipariş boş bu işlem tamamlanamaz</h1>
                   ) : (
@@ -44,8 +43,7 @@ export default function Out() {
                         </div>
                       ))}
                     </div>
-                  )}
-                </div>
+                  )}               
               </div>
             </div>
           </div>

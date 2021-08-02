@@ -4,7 +4,7 @@ import SevkConsumer from "../../store/context";
 function TableHead() {
   return (
     <thead>
-      <tr className=" ms-DetailsHeader-cellName cellName-112">
+      <tr className="  cellName-112">
         <td>Adet</td>
         <td>Ağırlık</td>
         <td>Tarih</td>

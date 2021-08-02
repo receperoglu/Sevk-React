@@ -84,7 +84,7 @@ export class SevkProvider extends Component {
         case "chooseFile":
           return this.chooseFile(action.payload);
         case "SaveProductOut":
-          return this.SaveProductOut();
+          return this.SaveProductOut(action.payload);
         case "SaveNotes":
           return this.SaveNotes();
         case "SaveArticel":

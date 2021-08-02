@@ -13,7 +13,7 @@ import CreateIcon from "./Tools/CreateIcon";
 function TableHead() {
   return (
     <thead>
-      <tr className="ms-DetailsHeader-cellName cellName-112">
+      <tr className=" cellName-112">
         <td>Adet</td>
         <td>Ölçü</td>
         <td>Renk</td>
@@ -59,14 +59,12 @@ export default function OrdersTable() {
               text={ArticelName}
               isVisible={OrderVisible}
             />
-            <table
-              className={OrderVisible ? "table table-hover cpointer" : "hide"}
-            >
+            <table className={OrderVisible ? "table table-hover" : "hide"}>
               {TableHead()}
-              <tbody aria-live="polite">
+              <tbody>
                 {Orders.map((o) => (
                   <tr key={o.id} id={"Order" + o.id}>
-                    <td onClick={(e) => Mouse_Position(e, o)}>
+                    <td className="cpointer" onClick={(e) => Mouse_Position(e, o)}>
                       {o.Piece} {o.Metrics}
                     </td>
                     <td>{o.Dimensions}</td>
@@ -82,11 +80,11 @@ export default function OrdersTable() {
             <FilesComponent toggleVtype={toggleVtype} Vtype={Vtype} />
             <WayBillList />
             <PicturePreview />
-            <DocumentPreview />
-            <Edit />
-            <Out />
+            <DocumentPreview />           
             <LayoutRight />
             <LayoutNotes />
+            <Edit />
+            <Out />
           </div>
         ) : null;
       }}

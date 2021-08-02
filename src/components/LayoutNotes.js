@@ -25,17 +25,13 @@ export default function LayoutNotes() {
         return ShowLayoutNote ? (
           <div className="effect RightLayout">
             <LayoutHead click={toggleNote} text="Notlar" />
-            <div className="col-md-12 fleft">
-              <div className="LayoutType">
-                <textarea                  
-                  onChange={UpdateArticelNote}                 
-                  className="NotesArea  ms-TextField-field"
-                >
-                  {ArticelNotes}
-                </textarea>
-                <BlueButton text="Güncelle" click={SaveNotes} />
-              </div>
-            </div>
+            <textarea
+              onChange={UpdateArticelNote}
+              className="NotesArea  ms-TextField-field"
+            >
+              {ArticelNotes}
+            </textarea>
+            <BlueButton text="Güncelle" click={SaveNotes} />
           </div>
         ) : null;
       }}
