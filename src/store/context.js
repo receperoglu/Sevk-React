@@ -218,8 +218,20 @@ export class SevkProvider extends Component {
   }
   async fetchArticels() {
     var data = await FetchFunc(apiBase + "Articels");
-    localStorage.setItem("Articels", JSON.stringify(data));
-    this.setState({ Articels: data });
+    if (!data.error) {
+      this.setState({ Articels: data,isError:false });
+      localStorage.setItem("Articels", JSON.stringify(data));
+    } else {
+      this.closeTopBar();
+      this.setState({
+        isError: true,
+        Loading: false,
+        Error:
+          "Hizmete Ulaşamıyoruz, İnternet bağlantınızın olduğundan emin olun",
+      });
+      document.getElementsByClassName("od-BasePage-topBar")[0].classList.add("hidden");
+      document.getElementById("FirstScreen").classList.add("hidden");
+    }
   }
   async fetchProductTypes() {
     var data = await FetchFunc("abi/post/ProductType.ashx");
@@ -227,7 +239,7 @@ export class SevkProvider extends Component {
     this.setState({ ProductTypes: data });
   }
   async fetchSalesTypes() {
-    var saletypes = await FetchFunc("abi/post/SaleType.ashx");    
+    var saletypes = await FetchFunc("abi/post/SaleType.ashx");
     localStorage.setItem("SalesTypes", JSON.stringify(saletypes));
     this.setState({ SalesTypes: saletypes });
   }
@@ -324,8 +336,11 @@ export class SevkProvider extends Component {
     document.getElementById("SecondScreen").classList.add("hide");
     document.getElementById("FirstScreen").classList.add("col-md-12");
     document.getElementById("FirstScreen").classList.remove("col-md-4");
-    var selectedId = "Articel" + this.state.ActiveArticel;
-    document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+    try {
+      var selectedId = "Articel" + this.state.ActiveArticel;
+      document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+    } catch (error) {}
+
     this.setState({
       ActiveArticel: 0,
     });
@@ -394,7 +409,7 @@ export class SevkProvider extends Component {
     }
   };
   SaveArticel = async () => {
-    this.setState({ CreateArticelShow: true });   
+    this.setState({ CreateArticelShow: true });
     var url =
       "abi/post/AddArticel.ashx?CorpId=" +
       this.state.CorpId +
@@ -449,7 +464,6 @@ export class SevkProvider extends Component {
   GetOrders = async (Articel) => {
     this.setState({
       Loading: true,
-      ShowTopBar: true,
       Orders: [],
       document: [],
       pictures: [],
@@ -460,12 +474,7 @@ export class SevkProvider extends Component {
       CorpName: Articel.CustomerName,
       Articel: Articel,
     });
-    document.getElementById("SecondScreen").classList.remove("hide");
-    document.getElementById("SecondScreen").classList.add("col-md-8");
-    document.getElementById("FirstScreen").classList.add("col-md-4");
-    document.getElementById("FirstScreen").classList.remove("col-md-12");
-    this.fetchNotes(Articel.id);
-    this.fetchFiles(Articel.id);
+
     if (this.state.ActiveArticel === 0) {
       this.setState({ ActiveArticel: Articel.id });
       try {
@@ -486,21 +495,34 @@ export class SevkProvider extends Component {
     }
     var FullUrl = apiBase + "Orders&ArticelId=" + Articel.id;
     var data = await FetchFunc(FullUrl);
-    this.setState({
-      Orders: data,
-
-      ShowTopBar: true,
-    });
-    this.setState({
-      Loading: false,
-      ShowLayoutNote: false,
-      ShowLayoutRight: false,
-      ShowCallOut: false,
-      DetailActive: true,
-      showOrder: true,
-      CorpId: 0,
-    });
-    await this.fetchWaybill(Articel.id);
+    if (!data.error) {
+      this.setState({
+        Orders: data,
+        ShowTopBar: true,
+        Loading: false,
+        ShowLayoutNote: false,
+        ShowLayoutRight: false,
+        ShowCallOut: false,
+        DetailActive: true,
+        showOrder: true,
+        CorpId: 0,
+      });
+      await this.fetchWaybill(Articel.id);
+      this.fetchNotes(Articel.id);
+      this.fetchFiles(Articel.id);
+      document.getElementById("SecondScreen").classList.remove("hide");
+      document.getElementById("SecondScreen").classList.add("col-md-8");
+      document.getElementById("FirstScreen").classList.add("col-md-4");
+      document.getElementById("FirstScreen").classList.remove("col-md-12");
+    } else {
+      this.closeTopBar();
+      this.setState({
+        isError: true,
+        Loading: false,
+        Error:
+          "Hizmete Ulaşamıyoruz, İnternet bağlantınızın olduğundan emin olun",
+      });
+    }
   };
   CallOutonMouseMove = async (e) => {
     this.setState({ x: e.x, y: e.y });
@@ -568,6 +590,11 @@ export class SevkProvider extends Component {
   }
   componentDidMount() {
     this.setState({ Loading: true });
+    if (LocalStore.check("Articels")) {
+      this.setState({ Articels: LocalStore.get("Articels") });
+    } else {
+      this.fetchArticels();
+    }
     if (LocalStore.check("ProductTypes")) {
       var types = LocalStore.get("ProductTypes");
       this.setState({ ProductTypes: types });
@@ -579,11 +606,7 @@ export class SevkProvider extends Component {
     } else {
       this.fetchSalesTypes();
     }
-    if (LocalStore.check("Articels")) {
-      this.setState({ Articels: LocalStore.get("Articels") });
-    } else {
-      this.fetchArticels();
-    }
+
     if (LocalStore.check("Corps")) {
       this.setState({ Corps: LocalStore.get("Corps") });
     } else {

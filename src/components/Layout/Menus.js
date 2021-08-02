@@ -1,7 +1,7 @@
 import React from "react";
 import MenuItem from "./MenuItem";
 import SevkConsumer from "../../store/context";
-export default function Menus () {
+export default function Menus() {
   const PrintNow = (ArticelId, CorpName) => {
     var PrintUrl =
       "https://recep.space/abi/js/PrintOrder.html?ArticelId=" +
@@ -10,7 +10,7 @@ export default function Menus () {
       CorpName;
     const newWindow = window.open(PrintUrl, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
-  }; 
+  };
   return (
     <SevkConsumer>
       {(value) => {
@@ -22,7 +22,6 @@ export default function Menus () {
           CorpName,
           dispatch,
         } = value;
-       
         const toggleView = () => {
           dispatch({ type: "toggleView", payload: null });
         };
@@ -111,14 +110,14 @@ export default function Menus () {
                   iconclassname="ButtonIcon icon-93"
                 />
                 <MenuItem
-                  click={()=>chooseFile("Document")}
+                  click={() => chooseFile("Document")}
                   icon="Attach"
                   text="Belge Ekle"
                   symbol=""
                   iconclassname=" ms-Button-icon  Paylas"
                 />
                 <MenuItem
-                  click={()=>chooseFile("Picture")}
+                  click={() => chooseFile("Picture")}
                   icon="Photo2Add"
                   text="Resim Ekle"
                   symbol=""
