@@ -31,15 +31,7 @@ export default function OrdersTable() {
   return (
     <SevkConsumer>
       {(value) => {
-        const {
-          Orders,
-          DetailActive,
-          ArticelName,
-          isMobile,
-          dispatch,
-          toggleVtype,
-          Vtype,
-        } = value;
+        const { Orders,DetailActive,ArticelName,isMobile,dispatch,toggleVtype,Vtype,} = value;
         const toggleEdit = (Order) => {
           dispatch({
             type: "toggleEdit",

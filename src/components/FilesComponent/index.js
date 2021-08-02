@@ -26,8 +26,7 @@ export default function Index() {
                 text="Dökümanlar"
                 isVisible={FilesVisible}
               />
-              <div className={FilesVisible ? "effect" : "hide"}>
-                <div className="col-md-12 text-center">
+              <div className={FilesVisible ? "effect" : "hide"}>              
                   <div className="col-md-12 text-center">
                     {Files.length === 0 ? (
                       " Dosya Eklenmemiş"
@@ -39,8 +38,7 @@ export default function Index() {
                         iconclassname="FabricMDL2Icons-0"
                       />
                     )}
-                  </div>
-                </div>
+                  </div>               
                 {Vtype ? (
                   <GridView />
                 ) : (

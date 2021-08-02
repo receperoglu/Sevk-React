@@ -1,11 +1,10 @@
-import React from "react";
+import React, { Fragment } from "react";
 import LeftNav from "./LeftNav";
 import Menus from "./Menus";
 import SevkConsumer from "../../store/context";
 function SearchArea(ShowTopBar) {
   return ShowTopBar ? null : (
-    <div className="od-TopBar-item od-TopBar-search od-BasePage-search fleft">
-      <div className="od-Search">
+    <div className="od-TopBar-item od-TopBar-search  fleft">     
         <div className="od-SearchBox">
           <span style={{ width: "200px" }} className="od-SearchBox-search">
             <input
@@ -20,50 +19,46 @@ function SearchArea(ShowTopBar) {
           <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
             <span className="Icon SearchIcon css-43"></span>
           </span>
-        </div>
-      </div>
+        </div>     
     </div>
   );
 }
 export default function TopBar() {
-  const ToggleMenu = (dispatch) => {
-    dispatch({ type: "ToggleMenu", payload: true });
-  };
   return (
     <SevkConsumer>
       {(value) => {
         const { ShowTopBar, dispatch } = value;
+        const ToggleMenu = () => {
+          dispatch({ type: "ToggleMenu", payload: true });
+        };
         const uploadFile = () => {
           dispatch({ type: "uploadFile", payload: null });
         };
         return (
-          <div className="od-BasePage-suiteNav od-BasePage-suiteNav--reactShell">
+          <Fragment>
             <div className="od-SuiteNav od-SuiteNav-react">
               <span className="od-SuiteNav-reactShell-diamond Icon css-41"></span>
-              <div className="ThemeBase o365cst o365spo o365sx-navbar o365sx-search">
+              <div className="ThemeBase o365sx-navbar o365sx-search">
                 <div className="_2kc0c9nP-qti6fefMCFonk">
                   <div className="Mm _3FLRgiFtGLuaFraVW49btd">
                     <button
-                      onClick={ToggleMenu.bind(this, dispatch)}
+                      onClick={ToggleMenu}
                       className="riRHDuln2VrIU8dSpyxJ2 o365sx-button  o365sx-waffle"
                       type="button"
                     >
-                      <span className="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
+                      <span className="menuicons ms-Icon--WaffleOffice365"></span>
                     </button>
                   </div>
-                  <div
-                    onClick={ToggleMenu.bind(this, dispatch)}
-                    className="Mobiles"
-                  >
+                  <div onClick={ToggleMenu} className="Mobiles">
                     <button
-                      className="MenuSlicer MainMenu o365sx-button o365sx-highContrastButton"
+                      className="MenuSlicer   o365sx-button "
                       type="button"
                     >
-                      <span className="menuicons ms-Icon--WaffleOffice365 ms-icon-font-size-16"></span>
+                      <span className="menuicons ms-Icon--WaffleOffice365"></span>
                     </button>
                   </div>
                   <div className="">
-                    <span className="_3oXfC-h0HSTdxztdO_F4_A o365sx-appName o365cs-o365logo Mm _3FLRgiFtGLuaFraVW49btd _3odjF_1ZcGTHwuaL30ia2J"></span>
+                    <span className="_3oXfC-h0HSTdxztdO_F4_A o365sx-appName  Mm _3FLRgiFtGLuaFraVW49btd _3odjF_1ZcGTHwuaL30ia2J"></span>
                     <a
                       className="m5-kje_HEdyN8cPiq-Sp0 o365sx-appName"
                       href="/"
@@ -93,7 +88,7 @@ export default function TopBar() {
               onChange={() => uploadFile}
               multiple
             />
-          </div>
+          </Fragment>
         );
       }}
     </SevkConsumer>

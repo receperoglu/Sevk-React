@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import HeadSection from "./Layout/HeadSection";
 import SevkConsumer from "../store/context";
 function TableHead() {
@@ -30,7 +30,7 @@ export default function WayBillList() {
           });
         };
         return Waybill.length === 0 ? null : (
-          <div>
+          <Fragment>
             <HeadSection
               click={toggleWayBillList}
               text="İrsaliyeler"
@@ -55,7 +55,7 @@ export default function WayBillList() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </Fragment>
         );
       }}
     </SevkConsumer>

@@ -17,17 +17,7 @@ export default function Callout() {
   return (
     <SevkConsumer>
       {(value) => {
-        const {
-          OneWaybill,
-          Order,
-          ShowCallOut,
-          x,
-          y,
-          waybillPiece,
-          waybillWeight,
-          LoopCount,
-          dispatch,
-        } = value;
+        const {OneWaybill,Order,ShowCallOut,x,y,waybillPiece,waybillWeight,LoopCount,dispatch} = value;
         const GetWayBillPhoto = (Path) => {
           dispatch({
             type: "GetWayBillPhoto",
@@ -44,9 +34,8 @@ export default function Callout() {
           <div style={{ top: x, left: y }} className="ms-ContextualHost ">
             <div className="ms-ContextualHost-main">
               <div className="ms-Callout  ms-Callout--OOBE">
-                <CancelBtn cssclass="CallOutClose" click={CancelCallOut} />
-                <div className="ms-Callout-header">
-                  <div className="ms-Callout-title">
+                <CancelBtn cssclass="CallOutClose" click={CancelCallOut} />                
+                  <div className="ms-Callout-header ms-Callout-title">
                     {waybillPiece === 0 ? (
                       "Henüz Sevkiyat Yapılmamış"
                     ) : (
@@ -60,8 +49,7 @@ export default function Callout() {
                         {Order.Dimensions} {Order.Color} <br />
                         {Order.ProductTypeName}
                       </span>
-                    )}
-                  </div>
+                    )}                 
                 </div>
                 {waybillPiece === 0 ? null : (
                   <table className="table padd0">
