@@ -7,34 +7,34 @@ export default function LayoutNotes() {
     <SevkConsumer>
       {(value) => {
         const { ShowLayoutNote, ArticelNotes, dispatch } = value;
-        const UpdateArticelNote = (input) => {
-          dispatch({ type: "UpdateArticelNote", payload: input })
-        }
+        const UpdateArticelNote = (e) => {
+          dispatch({ type: "UpdateArticelNote", payload: e.target.value });
+        };
         const toggleNote = () => {
           dispatch({
             type: "toggleNote",
             payload: false,
-          })
-        }
+          });
+        };
         const SaveNotes = () => {
           dispatch({
             type: "SaveNotes",
             payload: false,
-          })
-        }
+          });
+        };
         return ShowLayoutNote ? (
           <div className="effect RightLayout">
             <LayoutHead click={toggleNote} text="Notlar" />
             <div className="col-md-12 fleft">
               <div className="LayoutType">
-                <input
+                <textarea
                   type="text"
-                  defaultValue={ArticelNotes}
                   onChange={UpdateArticelNote}
                   style={{ width: "100%", height: "250px" }}
                   className="NotesArea  ms-TextField-field"
-                  multiple={true}
-                />
+                >
+                  {ArticelNotes}
+                </textarea>
                 <BlueButton text="Güncelle" click={SaveNotes} />
               </div>
             </div>

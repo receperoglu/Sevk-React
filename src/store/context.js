@@ -341,7 +341,9 @@ export class SevkProvider extends Component {
     try {
       var selectedId = "Articel" + this.state.ActiveArticel;
       document.getElementById(selectedId).classList.remove("ActiveArticelRow");
-    } catch (error) {}
+    } catch (error) {
+      this.setState({ isError: true, Error: error });
+    }
 
     this.setState({
       ActiveArticel: 0,
@@ -461,7 +463,9 @@ export class SevkProvider extends Component {
 
         return true;
       })
-      .catch((err) => {});
+      .catch((err) => {
+        this.setState({ isError: true, Error: err });
+      });
   };
   GetOrders = async (Articel) => {
     this.setState({
@@ -580,7 +584,7 @@ export class SevkProvider extends Component {
         this.setState({
           Loading: false,
           isError: true,
-          Error: "Bu irsaliyenin fotoğrafı eklenmemiş.",
+          Error: "Bu irsaliyenin fotoğrafı eklenmemiş." + error,
         });
         this.closeError();
       });

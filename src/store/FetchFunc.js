@@ -18,7 +18,6 @@ export const FetchFunc = async (Url) => {
           response = { error: true };
         } else {
           response = result.json();
-          
         }
       })
       .then((error) => {
@@ -27,6 +26,11 @@ export const FetchFunc = async (Url) => {
           response = { error: true };
         }
       });
-  } catch (error) {}
+  } catch (error) {
+    var statuscode = error.status;
+    if (statuscode === 500) {
+      response = { error: true };
+    }
+  }
   return response;
 };

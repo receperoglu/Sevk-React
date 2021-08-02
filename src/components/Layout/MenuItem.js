@@ -1,13 +1,13 @@
 import React from "react";
-export default function MenuItem({ click, icon, symbol, text, iconclassname }) {
+export default function MenuItem({ click, symbol, text, iconclassname }) {
   return (
     <button
       type="button"
       onClick={() => click()}
-      className="ms-Button--commandBar"
+      className="commandBtn"
     >
       <i className={iconclassname}>{symbol}</i>
-      <div className="ms-Button-textContainer ">
+      <div className="textContainer">
         <div>{text}</div>
       </div>
     </button>
