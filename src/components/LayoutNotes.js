@@ -8,20 +8,20 @@ export default function LayoutNotes() {
       {(value) => {
         const { ShowLayoutNote, ArticelNotes, dispatch } = value;
         const UpdateArticelNote = (input) => {
-          dispatch({ type: "UpdateArticelNote", payload: input });
-        };
+          dispatch({ type: "UpdateArticelNote", payload: input })
+        }
         const toggleNote = () => {
           dispatch({
             type: "toggleNote",
             payload: false,
-          });
-        };
+          })
+        }
         const SaveNotes = () => {
           dispatch({
             type: "SaveNotes",
             payload: false,
-          });
-        };
+          })
+        }
         return ShowLayoutNote ? (
           <div className="effect RightLayout">
             <LayoutHead click={toggleNote} text="Notlar" />

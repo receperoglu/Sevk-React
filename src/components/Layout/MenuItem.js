@@ -6,9 +6,7 @@ export default function MenuItem({ click, icon, symbol, text, iconclassname }) {
       onClick={() => click()}
       className="ms-Button--commandBar"
     >
-      <i data-icon-name={icon} className={iconclassname}>
-        {symbol}
-      </i>
+      <i className={iconclassname}>{symbol}</i>
       <div className="ms-Button-textContainer ">
         <div>{text}</div>
       </div>

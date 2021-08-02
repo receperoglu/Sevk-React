@@ -11,7 +11,7 @@ export default function CreateArticelModal() {
       {(value) => {
         const { SalesTypes, Corps, CreateArticelShow, dispatch, Loading } =
           value;
-        const toggleCreateArticel = (dispatch) => {
+        const toggleCreateArticel = () => {
           dispatch({ type: "toggleCreateArticel", payload: false });
         };
         const SaveArticel = () => {
@@ -30,7 +30,7 @@ export default function CreateArticelModal() {
                     <span> Tipi</span>
                     <CreateOption name="SalesTypes" Json={SalesTypes} />
                   </div>
-                 </div>
+                </div>
                 <div className="padd0 col-xs-12 ">
                   <span>Artikel </span>
                   <CreateInput name="ArticelName" />

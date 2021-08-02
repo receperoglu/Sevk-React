@@ -109,8 +109,8 @@ export class SevkProvider extends Component {
           return { ...state, ShowLayoutNote: action.payload };
         case "toggleShare":
           return { ...state, ShowLayoutRight: action.payload };
-        case "CreateArticelShow":
-          return { ...state, CreateArticelShow: true };
+        case "toggleCreateArticel":
+          return { ...state, CreateArticelShow: action.payload };
         case "toggleView":
           return this.toggleView();
         case "ToggleMenu":
@@ -219,7 +219,7 @@ export class SevkProvider extends Component {
   async fetchArticels() {
     var data = await FetchFunc(apiBase + "Articels");
     if (!data.error) {
-      this.setState({ Articels: data,isError:false });
+      this.setState({ Articels: data, isError: false });
       localStorage.setItem("Articels", JSON.stringify(data));
     } else {
       this.closeTopBar();
@@ -229,7 +229,9 @@ export class SevkProvider extends Component {
         Error:
           "Hizmete Ulaşamıyoruz, İnternet bağlantınızın olduğundan emin olun",
       });
-      document.getElementsByClassName("od-BasePage-topBar")[0].classList.add("hidden");
+      document
+        .getElementsByClassName("od-BasePage-topBar")[0]
+        .classList.add("hidden");
       document.getElementById("FirstScreen").classList.add("hidden");
     }
   }

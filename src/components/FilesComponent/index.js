@@ -1,4 +1,4 @@
-import React, { useState,Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import HeadSection from "../Layout/HeadSection";
 import MenuItem from "../Layout/MenuItem";
 import SevkConsumer from "../../store/context";
@@ -34,10 +34,9 @@ export default function Index() {
                     ) : (
                       <MenuItem
                         click={toggleVtype}
-                        icon="FullScreen"
                         text=""
                         symbol=""
-                        iconclassname="icon-144s"
+                        iconclassname="FabricMDL2Icons-0"
                       />
                     )}
                   </div>
@@ -47,7 +46,7 @@ export default function Index() {
                 ) : (
                   <div className="od-ItemContent-list">
                     {Files.length === 0 ? null : (
-                     <Fragment>
+                      <Fragment>
                         <ListViewHeader /> <ListViewBody />
                       </Fragment>
                     )}

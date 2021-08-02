@@ -9,6 +9,7 @@ import Edit from "./ProductModal/Edit";
 import LayoutRight from "./LayoutRight";
 import LayoutNotes from "./LayoutNotes";
 import Out from "./ProductModal/Out";
+import CreateIcon from "./Tools/CreateIcon";
 function TableHead() {
   return (
     <thead>
@@ -59,31 +60,20 @@ export default function OrdersTable() {
               isVisible={OrderVisible}
             />
             <table
-              className={OrderVisible ? "pointer table table-hover" : "hide"}
+              className={OrderVisible ? "table table-hover cpointer" : "hide"}
             >
               {TableHead()}
               <tbody aria-live="polite">
                 {Orders.map((o) => (
                   <tr key={o.id} id={"Order" + o.id}>
-                    <td>
-                      <div onClick={(e) => Mouse_Position(e, o)}>
-                        {o.Piece} {o.Metrics}
-                      </div>
+                    <td onClick={(e) => Mouse_Position(e, o)}>
+                      {o.Piece} {o.Metrics}
                     </td>
                     <td>{o.Dimensions}</td>
                     <td className={isMobile ? "minifont" : ""}>{o.Color}</td>
                     <td>{o.ProductTypeName}</td>
                     <td>
-                      <i
-                        onClick={() => {
-                          toggleEdit(o);
-                        }}
-                        data-icon-name="Edit"
-                        role="presentation"
-                        className="ms-Button-icon fleft icon-73"
-                      >
-                        
-                      </i>
+                      <CreateIcon click={() => toggleEdit(o)} symbol="" />
                     </td>
                   </tr>
                 ))}
@@ -94,10 +84,9 @@ export default function OrdersTable() {
             <PicturePreview />
             <DocumentPreview />
             <Edit />
+            <Out />
             <LayoutRight />
             <LayoutNotes />
-            <Out />
-       
           </div>
         ) : null;
       }}

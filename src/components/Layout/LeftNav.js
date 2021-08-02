@@ -1,5 +1,6 @@
 import React from "react";
 import SevkConsumer from "../../store/context";
+import CreateIcon from "../Tools/CreateIcon";
 import BlueButton from "./../Tools/BlueButton";
 export default function LeftNav() {
   return (
@@ -7,29 +8,24 @@ export default function LeftNav() {
       {(value) => {
         const { dispatch, Menu } = value;
         const CreateArticelShow = () => {
-          dispatch({ type: "CreateArticelShow", payload: true });
+          dispatch({ type: "toggleCreateArticel", payload: true });
         };
         return Menu ? (
           <nav className="od-BasePage-leftNav">
             <div className="LeftNav-fadient text-center">
               <br />
-
               <BlueButton click={CreateArticelShow} text=" + Sipariş Oluştur" />
             </div>
             <div className="LeftNav-linkGroupContainer">
               <a className="LeftNav-subLink ms-font-m activelink" href="/">
                 <span className="LeftNav-fadient">
-                  <i data-icon-name="Inbox" className="controlicon">
-                    
-                  </i>
+                  <CreateIcon symbol="" iconname="Inbox" />
                   Siparişler
                 </span>
               </a>
               <a className="LeftNav-subLink ms-font-m " href="firmalar.aspx">
                 <span className="LeftNav-fadient">
-                  <i data-icon-name="Archive" className="controlicon">
-                    
-                  </i>
+                  <CreateIcon symbol="" iconname="Archive" />
                   Firmalar
                 </span>
               </a>

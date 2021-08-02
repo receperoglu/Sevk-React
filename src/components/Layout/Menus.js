@@ -22,6 +22,7 @@ export default function Menus() {
           CorpName,
           dispatch,
         } = value;
+
         const toggleView = () => {
           dispatch({ type: "toggleView", payload: null });
         };
@@ -59,76 +60,65 @@ export default function Menus() {
                 {isMobile ? null : (
                   <MenuItem
                     click={toggleView}
-                    icon="FullScreen"
-                    text=""
                     symbol=""
-                    iconclassname="icon-144s"
+                    iconclassname="FabricMDL2Icons-0"
                   />
                 )}
                 <MenuItem
                   click={toggleAddProduct}
-                  icon="Add"
                   text="Ekle"
                   symbol=""
-                  iconclassname="ButtonIcon icon-93"
+                  iconclassname="FabricMDL2Icons"
                 />
                 <MenuItem
                   click={() => {
                     PrintNow(ActiveArticel, CorpName);
                   }}
-                  icon="Print"
                   text="Yazdır"
                   symbol=""
-                  iconclassname="ms-Button-icon icon-144s"
+                  iconclassname="FabricMDL2Icons-0"
                 />
                 <MenuItem
                   click={toggleShare}
-                  icon="Share"
                   text="Paylaş"
                   symbol=""
-                  iconclassname="ButtonIcon icon-93"
+                  iconclassname="FabricMDL2Icons"
                 />
                 <MenuItem
                   click={toggleNote}
-                  icon="StackIndicator"
                   text="Notlar"
                   symbol=""
-                  iconclassname="nott fleft icon-68"
+                  iconclassname="FabricMDL2Icons-1"
                 />
                 <MenuItem
                   click={LayoutNoteShow}
-                  icon="OpenInNewWindow"
                   text="Yeni Sekme"
                   symbol=""
-                  iconclassname="ms-Button-icon fleft   iconnewWindow"
+                  iconclassname="controlIcons"
                 />
                 <MenuItem
                   click={toggleOut}
-                  icon="Tag"
                   text="Çıkış Yap"
                   symbol=""
-                  iconclassname="ButtonIcon icon-93"
+                  iconclassname="FabricMDL2Icons"
                 />
                 <MenuItem
                   click={() => chooseFile("Document")}
-                  icon="Attach"
                   text="Belge Ekle"
                   symbol=""
-                  iconclassname=" ms-Button-icon  Paylas"
+                  iconclassname="FabricMDL2Icons"
                 />
                 <MenuItem
                   click={() => chooseFile("Picture")}
-                  icon="Photo2Add"
                   text="Resim Ekle"
                   symbol=""
-                  iconclassname="ms-Button-icon FabricMDL2Icons-13"
+                  iconclassname="FabricMDL2Icons-13"
                 />
                 <MenuItem
                   click={closeTopBar}
-                  icon="Cancel"
                   text="Kapat"
                   symbol=""
-                  iconclassname="ms-Button-icon FabricMDL2Icons"
+                  iconclassname="FabricMDL2Icons"
                 />
               </div>
             </div>

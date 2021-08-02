@@ -9,15 +9,15 @@ function CreateShareBtn(icon, text) {
         <span>{text}</span>
       </div>
     </span>
-  );
+  )
 }
 export default function LayoutRight() {
   const toggleShare = (dispatch) => {
     dispatch({
       type: "toggleShare",
       payload: false,
-    });
-  };
+    })
+  }
   return (
     <SevkConsumer>
       {(value) => {

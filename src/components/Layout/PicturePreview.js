@@ -1,6 +1,7 @@
 import React from "react";
 import CancelBtn from "./../Tools/CancelBtn";
 import SevkConsumer, { BaseUrl } from "../../store/context";
+import CreateIcon from "../Tools/CreateIcon";
 
 function RightBar(ArticelName, Path, hidePicturePreview) {
   return (
@@ -20,11 +21,9 @@ function RightBar(ArticelName, Path, hidePicturePreview) {
           <span className="hover-dropdown">
             <div className="hover-tooltip__tooltip-anchor">
               <button className="button2 " type="button">
-                <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-                  <i data-icon-name="Delete" className="FabricMDL2Icons">
-                    
-                  </i>
-                </span>
+                <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">                   
+                  <CreateIcon symbol="" iconname="Delete"/>
+                 </span>
                 <span className="button2__text">Sil</span>
               </button>
             </div>
@@ -97,11 +96,9 @@ export default function PicturePreview() {
             <div className="resources-action-bar">
               <div className="resources-action-bar__body">
                 <div className="resources-action-bar__side-left">
-                  <div className="resources-info-dropdown">
-                    <i data-icon-name="Info" className="FabricMDL2Icons">
-                      
-                    </i>
-                    <div className="resources-info-dropdown__text-wrap">
+                  <div className="resources-info-dropdown">                    
+                    <CreateIcon symbol="" iconname="Info"/>
+                     <div className="resources-info-dropdown__text-wrap">
                       <span className="clamped-text">{ArticelName}</span>
                     </div>
                   </div>
