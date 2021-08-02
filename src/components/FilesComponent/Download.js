@@ -1,8 +1,8 @@
 import React from "react";
-import { BaseUrl } from "../../store/context";
+ import { Url } from "../Urls";
 export default function Download({ File }) {
   return (
-    <a href={BaseUrl+File.Path} target="blank">
+    <a href={Url+File.Path} target="blank">
       <i data-icon-name="Download" className="FabricMDL2Icons">
         
       </i>

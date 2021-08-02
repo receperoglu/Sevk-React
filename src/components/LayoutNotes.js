@@ -27,10 +27,8 @@ export default function LayoutNotes() {
             <LayoutHead click={toggleNote} text="Notlar" />
             <div className="col-md-12 fleft">
               <div className="LayoutType">
-                <textarea
-                  type="text"
-                  onChange={UpdateArticelNote}
-                  style={{ width: "100%", height: "250px" }}
+                <textarea                  
+                  onChange={UpdateArticelNote}                 
                   className="NotesArea  ms-TextField-field"
                 >
                   {ArticelNotes}

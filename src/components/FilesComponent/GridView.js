@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
-import SevkConsumer, { ThumbUrl, icoUrl } from "../../store/context";
+import React from "react";
+import SevkConsumer  from "../../store/context";
+import { ico, Thumb } from "../Urls";
 import Download from "./Download";
-
 export default function GridView() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { pictures, documents, dispatch } = value;
+        const { Files, dispatch } = value;
         const showPreview = (File, type) => {
           dispatch({
             type: "show" + type + "Preview",
@@ -14,55 +14,41 @@ export default function GridView() {
           });
         };
         return (
-          <Fragment>
-            <h2 className="padd0 col-xs-12">Resimler</h2>
-            {pictures.map((File) => (
-              <div
-                key={File.id}
-                className="DocumentContainerDiv effect col-md-2 col-xs-4"
-              >
-                <div className="FileBorder">
+          <div className="col-md-12">
+            {Files.map((F) => (
+              <div key={F.id} className="FileContainer col-md-2 col-xs-4">
+                {F.FileType === "Picture" ? (
                   <div
-                    onClick={() => showPreview(File, "Picture")}
-                    style={{
-                      backgroundImage: `url(${ThumbUrl + File.Path})`,
-                    }}
                     className="PictureDiv"
-                  ></div>
-                  <Download File={File} />
-                  <span className="FileLink ">
-                    {File.FileName.substring(0, 12)}
-                  </span>
-                </div>
-              </div>
-            ))}
-            <h2 className="padd0 col-xs-12">Belgeler</h2>
-            {documents.map((File) => (
-              <div
-                key={File.id}
-                className="DocumentContainerDiv effect col-md-2 col-xs-4"
-              >
-                <div className="FileBorder">
+                    onClick={() => showPreview(F, "Picture")}
+                    style={{ backgroundImage: `url(${Thumb + F.Path})` }}
+                  >
+                    <Download File={File} />
+                    <span className="FileLink ">
+                      {F.FileName.substring(0, 12)}
+                    </span>
+                  </div>
+                ) : (
                   <div
-                    className="padd0 filepreview"
+                    className="filepreview"
                     style={{
                       backgroundImage: `url(${
-                        icoUrl + File.ext.substring(1)
+                        ico + F.ext.substring(1)
                       }.png)`,
                     }}
                   >
-                    <Download File={File} />
+                    <Download File={F} />
                     <span
-                      className="FileLink "
-                      onClick={() => showPreview(File, "Document")}
+                      className="FileLink"
+                      onClick={() => showPreview(F, "Document")}
                     >
-                      {File.FileName.substring(0, 12)}
+                      {F.FileName.substring(0, 12)}
                     </span>
                   </div>
-                </div>
+                )}
               </div>
             ))}
-          </Fragment>
+          </div>
         );
       }}
     </SevkConsumer>

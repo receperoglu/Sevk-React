@@ -1,8 +1,41 @@
 import React from "react";
 import CancelBtn from "./../Tools/CancelBtn";
-import SevkConsumer, { BaseUrl } from "../../store/context";
+import SevkConsumer  from "../../store/context";
 import CreateIcon from "../Tools/CreateIcon";
-
+import { Url } from "../Urls";
+function Rotate() {
+  return (
+    <span className="hover-dropdown">
+      <div className="hover-tooltip__tooltip-anchor">
+        <button className="button2   " type="button">
+          <span className="ufo-icon   icon  ">
+            <i className="fa fa-repeat"></i>
+          </span>
+          <span className="button2__text">Döndür</span>
+        </button>
+      </div>
+    </span>
+  );
+}
+function Btn(text, url, icon) {
+  return (
+    <span>
+      <a
+        className="BaseDriveContainer fleft  col-xs-4 col-md-4 ShareMail"
+        href={url}
+      >
+        <div className="button2" type="button">
+          <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
+            <div className="BaseDrive fleft">
+              <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}></span>
+            </div>
+          </span>
+          <span className="button2__text">{text}</span>
+        </div>
+      </a>
+    </span>
+  );
+}
 function RightBar(ArticelName, Path, hidePicturePreview) {
   return (
     <div className="resources-action-bar__side-right">
@@ -41,39 +74,6 @@ function RightBar(ArticelName, Path, hidePicturePreview) {
     </div>
   );
 }
-function Rotate() {
-  return (
-    <span className="hover-dropdown">
-      <div className="hover-tooltip__tooltip-anchor">
-        <button className="button2   " type="button">
-          <span className="ufo-icon   icon  ">
-            <i className="fa fa-repeat"></i>
-          </span>
-          <span className="button2__text">Döndür</span>
-        </button>
-      </div>
-    </span>
-  );
-}
-function Btn(text, url, icon) {
-  return (
-    <span>
-      <a
-        className="BaseDriveContainer fleft  col-xs-4 col-md-4 ShareMail"
-        href={url}
-      >
-        <div className="button2" type="button">
-          <span className="ufo-icon ufo-icon_size_n icon button2__icon button2__icon_side_left">
-            <div className="BaseDrive fleft">
-              <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}></span>
-            </div>
-          </span>
-          <span className="button2__text">{text}</span>
-        </div>
-      </a>
-    </span>
-  );
-}
 export default function PicturePreview() {
   return (
     <SevkConsumer>
@@ -89,7 +89,7 @@ export default function PicturePreview() {
           <div className="ma5-imgbox PicturePreview">
             <img
               id="FullScreen"
-              src={BaseUrl + File.Path}
+              src={Url + File.Path}
               width="100"
               alt="Resim"
             />

@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import LocalStore from "../components/Tools/LocalStore";
 import { FetchFunc } from "./FetchFunc";
 const apiBase = "StartApi.ashx?Platform=Android&ProcessType=";
-export const BaseUrl = "https://recep.space/abi/dosyalar/";
-export const DocumentViewUrl =
-  "https://view.officeapps.live.com/op/embed.aspx?src=https://recep.space/abi/dosyalar/";
-export const ThumbUrl = "https://recep.space/thumbs/";
-export const icoUrl =
-  "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/64/";
 const SevkContext = React.createContext();
 export class SevkProvider extends Component {
   constructor(props) {
@@ -20,8 +14,6 @@ export class SevkProvider extends Component {
       Orders: [],
       Waybill: [],
       Articels: [],
-      pictures: [],
-      documents: [],
       OneWaybill: [],
       SalesTypes: [],
       ProductTypes: [],
@@ -203,10 +195,6 @@ export class SevkProvider extends Component {
   async fetchFiles(ArticelId) {
     var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
     this.setState({ Files: await FetchFunc(url) });
-    this.setState({
-      documents: this.state.Files.filter((f) => f.FileType === "Document"),
-      pictures: this.state.Files.filter((f) => f.FileType === "Picture"),
-    });
   }
   async fetchCorps() {
     const response = await fetch("abi/post/CorpList.ashx", {
@@ -446,7 +434,7 @@ export class SevkProvider extends Component {
       "&SaleType=1&Comment=9&WayBillId=" +
       this.state.WayBillId +
       "&ArticelId=" +
-      this.state.ArticelId;
+      this.state.ActiveArticel;
     await FetchFunc(url);
   }
   UpdateOrAddOrder = async (url) => {
@@ -471,8 +459,6 @@ export class SevkProvider extends Component {
     this.setState({
       Loading: true,
       Orders: [],
-      document: [],
-      pictures: [],
       Files: [],
       Waybill: [],
       CorpId: Articel.CorpId,

@@ -1,6 +1,7 @@
 import React from "react";
 import CancelBtn from "../Tools/CancelBtn";
-import SevkConsumer, { BaseUrl, DocumentViewUrl } from "../../store/context";
+import SevkConsumer from "../../store/context";
+import { Url,DocUrl } from "../Urls";
 export default function DocumentPreview() {
   const cancelDocument = (dispatch) => {
     dispatch({
@@ -22,10 +23,10 @@ export default function DocumentPreview() {
               className="Iframe"
               src={
                 File.ext.substring(1) === "pdf"
-                  ? BaseUrl + File.Path
+                  ? Url + File.Path
                   : File.ext.substring(1) === "txt"
-                  ? BaseUrl + File.Path
-                  : DocumentViewUrl + File.Path
+                  ? Url + File.Path
+                  : DocUrl + File.Path
               }
             ></iframe>
           </div>

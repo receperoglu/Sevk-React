@@ -1,6 +1,6 @@
 import React from "react";
 import SevkConsumer from "../../store/context";
-export default function CreateOption({ val, name, type }) {
+export default function CreateInput({ val, name, type }) {
   return (
     <SevkConsumer>
       {(value) => {

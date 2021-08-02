@@ -2,6 +2,7 @@ import React from "react";
 import BlueButton from "../Tools/BlueButton";
 import CancelBtn from "../Tools/CancelBtn";
 import SevkConsumer from "../../store/context";
+import CreateInput from "./../Tools/CreateInput"
 export default function Out() {
   return (
     <SevkConsumer>
@@ -12,13 +13,7 @@ export default function Out() {
         };
         const SaveProductOut = (input) => {
           dispatch({ type: "SaveProductOut", payload: input });
-        };
-        const InputChange = (input) => {
-          dispatch({
-            type: "Change" + input.target.name,
-            payload: input.target.value,
-          });
-        };
+        };        
         return ShowProductOut ? (
           <div className="ms-Layer ms-Layer--fixed effect layer-351">
             <div className="root-345">
@@ -30,13 +25,7 @@ export default function Out() {
                   ) : (
                     <div>
                       <h4>Ürün Çıkışı</h4>
-                      <input
-                        type="text"
-                        name="WayBillId"
-                        onChange={InputChange}
-                        placeholder="İrsaliye No"
-                        className="irsaliyeno col-xs-1 paddleft2 ms-TextField-field"
-                      />
+                      <CreateInput type="number" name="WayBillId" />
                       {Orders.map((o) => (
                         <div key={o.id} className="col-xs-12 padd0 OrderRow">
                           <div className="col-xs-6 padd0 padd0 fleft">
@@ -44,25 +33,13 @@ export default function Out() {
                             {o.ProductTypeName}
                           </div>
                           <div className="col-xs-2 padd0 fleft">
-                            <input
-                              type="text"
-                              placeholder="Adet"
-                              name="Piece"
-                              onChange={InputChange}
-                              className="Piece ms-TextField-field w60"
-                            />
+                            <CreateInput type="number" name="Piece" />
                           </div>
                           <div className="col-xs-2 padd0 fleft">
-                            <input
-                              type="text"
-                              placeholder="KG"
-                              name="Weight"
-                              onChange={InputChange}
-                              className="Weight ms-TextField-field w60"
-                            />
+                            <CreateInput type="number" name="Weight" />
                           </div>
                           <div className="col-xs-2 padd0 text-center fleft">
-                            <BlueButton click={SaveProductOut} text="Kaydet" />
+                            <BlueButton click={()=>SaveProductOut(o.id)} text="Kaydet" />
                           </div>
                         </div>
                       ))}

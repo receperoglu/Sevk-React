@@ -2,7 +2,7 @@ import React from "react";
 import SevkConsumer from "../store/context";
 function TableHead(isMobile) {
   return (
-    <thead className=" cellName-112">
+    <thead className="cellName-112">
       {isMobile ? (
         <tr>
           <td className="col-md-12">
@@ -38,17 +38,14 @@ export default function ArticelsTable() {
                   onClick={() => GetOrder(a)}
                 >
                   {isMobile ? (
-                    <td style={{ whiteSpace: "break-spaces" }}>
+                    <td className="break-spaces">
                       {a.CustomerName}
                       <br></br>
                       <span className="ArticelId">AT-{a.id}</span>
                       {a.ArticelName}
                     </td>
                   ) : (
-                    <td
-                      className="flex_one"
-                      style={{ whiteSpace: "break-spaces" }}
-                    >
+                    <td className="flex_one break-spaces">
                       <div className="flex_one">{a.CustomerName}</div>
                       <div className="flex_one">
                         <span className="ArticelId">AT-{a.id}</span>
