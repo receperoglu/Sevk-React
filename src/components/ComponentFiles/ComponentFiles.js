@@ -11,8 +11,7 @@ export default function ComponentFiles() {
     setFilesVisible(!FilesVisible);
   };
   return (
-    <div>
-      <SevkConsumer>
+       <SevkConsumer>
         {(value) => {
           const { Files, Vtype, dispatch } = value;
           const toggleVtype = () => {
@@ -20,7 +19,7 @@ export default function ComponentFiles() {
           };
 
           return (
-            <div className="col-xs-12 col-md-12">
+            <Fragment>
               <HeadSection
                 click={toggleView}
                 text="Dökümanlar"
@@ -51,10 +50,9 @@ export default function ComponentFiles() {
                   </div>
                 )}
               </div>
-            </div>
+            </Fragment>
           );
         }}
       </SevkConsumer>
-    </div>
-  );
+   );
 }

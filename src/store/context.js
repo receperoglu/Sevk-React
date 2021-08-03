@@ -380,7 +380,12 @@ export class SevkProvider extends Component {
     this.setState({ Rotating: false });
   };
   toggleView = () => {
-    if (this.showOrder) {
+    this.setState({
+      ShowLayoutNote: false,
+      ShowLayoutRight: false,
+      ShowCallOut: false,
+    });
+    if (this.state.showOrder) {
       if (this.state.ChangeView) {
         this.setState({ ChangeView: false });
       } else {

@@ -9,7 +9,7 @@ export default function ListViewBody() {
         {(value) => {
           const { Files } = value;
           return Files.map((File) => (
-            <div key={File.id} className="effect   ms-DetailsRow">
+            <div key={File.id} className="ms-DetailsRow">
               <div className="displayflex">
                 <div className="flex_half">
                   <ListImage key={File.id} File={File} />

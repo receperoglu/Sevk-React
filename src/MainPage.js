@@ -1,7 +1,6 @@
 import React from "react";
 import CreateArticelModal from "./components/CreateArticelModal";
 import Callout from "./components/Layout/CallOut";
-
 import ProgressBar from "./components/Tools/ProgressBar";
 import ArticelsTable from "./components/ArticelsTable";
 import NewModal from "./components/ProductModal/New";
@@ -21,7 +20,7 @@ export default function MainPage() {
             <div className={isMobile && DetailActive ? "hide" : ""}>
               <div
                 id="FirstScreen"
-                className={ChangeView ? "hide" : "padd0 col-md-12"}
+                className={ChangeView ? "hide" : "padd0 WizardArea col-md-12"}
               >
                 <ArticelsTable isMobile={isMobile} />
               </div>
@@ -30,13 +29,12 @@ export default function MainPage() {
               id="SecondScreen"
               className={
                 isMobile
-                  ? "col-xs-12 padd0"
+                  ? "col-xs-12 padd0 WizardArea"
                   : ChangeView
-                  ? "col-md-12 padd0"
-                  : "col-md-8 padd0"
+                  ? "col-md-12 padd0 WizardArea"
+                  : "col-md-8 padd0 WizardArea"
               }
-            >            
-              
+            >
               <OrdersTable />
             </div>
             <CreateArticelModal />

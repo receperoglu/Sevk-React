@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import HeadSection from "./Layout/HeadSection";
 import SevkConsumer from "../store/context";
 import PicturePreview from "./Layout/PicturePreview";
@@ -31,7 +31,7 @@ export default function OrdersTable() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { Orders,DetailActive,ArticelName,isMobile,dispatch,toggleVtype,Vtype,} = value;
+        const { Orders,DetailActive,ArticelName,isMobile,dispatch} = value;
         const toggleEdit = (Order) => {
           dispatch({
             type: "toggleEdit",
@@ -45,7 +45,7 @@ export default function OrdersTable() {
           });
         };
         return DetailActive ? (
-          <div>
+          <Fragment>
             <HeadSection
               click={toggleOrderList}
               text={ArticelName}
@@ -77,7 +77,7 @@ export default function OrdersTable() {
             <LayoutNotes />
             <Edit />
             <Out />
-          </div>
+          </Fragment>
         ) : null;
       }}
     </SevkConsumer>
