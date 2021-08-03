@@ -21,12 +21,7 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "devDependencies": {
-    "@vercel/node": "^1.9.0",
-    "purgecss": "^4.0.3",
-    "purify-css": "^1.1.9"
-  },
+  },  
   "browserslist": {
     "production": [
       ">0.2%",
