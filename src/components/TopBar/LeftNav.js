@@ -1,7 +1,7 @@
 import React from "react";
 import SevkConsumer from "../../store/context";
 import CreateIcon from "../Tools/CreateIcon";
-import BlueButton from "./../Tools/BlueButton";
+import BlueButton from "../Tools/BlueButton";
 export default function LeftNav() {
   return (
     <SevkConsumer>
