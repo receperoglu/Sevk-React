@@ -23,7 +23,8 @@ export default function LayoutRight() {
           });
         };
         return ShowLayoutRight ? (
-          <div className="BaseDrive effect RightLayout">
+          <div className="ms-Layer ms-Layer--fixed effect layer-351" >
+            <div className="BaseDrive effect RightLayout">
             <LayoutHead
               click={toggleShare}
               text="Paylaş"
@@ -33,7 +34,7 @@ export default function LayoutRight() {
               {CreateShareBtn("OneDrive", "Kaydet")}
               {CreateShareBtn("WordLogo", "WhatsApp ile Gönder")}
             </div>
-          </div>
+          </div></div>
         ) : null;
       }}
     </SevkConsumer>

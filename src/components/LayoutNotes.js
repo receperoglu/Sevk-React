@@ -23,6 +23,7 @@ export default function LayoutNotes() {
           });
         };
         return ShowLayoutNote ? (
+          <div className="ms-Layer ms-Layer--fixed effect layer-351" >
           <div className="effect RightLayout">
             <LayoutHead click={toggleNote} text="Notlar" />
             <textarea
@@ -32,7 +33,7 @@ export default function LayoutNotes() {
               {ArticelNotes}
             </textarea>
             <BlueButton text="Güncelle" click={SaveNotes} />
-          </div>
+          </div></div>
         ) : null;
       }}
     </SevkConsumer>
