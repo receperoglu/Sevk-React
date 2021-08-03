@@ -8,6 +8,10 @@ import OrdersTable from "./components/OrdersTable";
 import TopBar from "./components/Layout/TopBar";
 import Error from "./components/Layout/Error";
 import SevkConsumer from "./store/context";
+import Edit from "./components/ProductModal/Edit";
+import LayoutRight from "./components/LayoutRight";
+import LayoutNotes from "./components/LayoutNotes";
+import Out from "./components/ProductModal/Out";
 import PicturePreview from "./components/Layout/PicturePreview";
 import DocumentPreview from "./components/Layout/DocumentPreview";
 export default function MainPage() {
@@ -44,7 +48,11 @@ export default function MainPage() {
             <NewModal />
             <Error />
             <PicturePreview />
-            <DocumentPreview />         
+            <DocumentPreview />     
+            <LayoutRight />
+            <LayoutNotes />
+            <Edit />
+            <Out />    
           </div>
         );
       }}

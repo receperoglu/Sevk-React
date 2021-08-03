@@ -3,10 +3,6 @@ import HeadSection from "./Layout/HeadSection";
 import SevkConsumer from "../store/context";
 import FilesComponent from "./ComponentFiles/ComponentFiles";
 import WayBillList from "./WayBillList";
-import Edit from "./ProductModal/Edit";
-import LayoutRight from "./LayoutRight";
-import LayoutNotes from "./LayoutNotes";
-import Out from "./ProductModal/Out";
 import CreateIcon from "./Tools/CreateIcon";
 function TableHead() {
   return (
@@ -68,11 +64,7 @@ export default function OrdersTable() {
               </tbody>
             </table>
             <FilesComponent/>
-            <WayBillList />            
-            <LayoutRight />
-            <LayoutNotes />
-            <Edit />
-            <Out />
+            <WayBillList />
           </Fragment>
         ) : null;
       }}
