@@ -8,6 +8,8 @@ import OrdersTable from "./components/OrdersTable";
 import TopBar from "./components/Layout/TopBar";
 import Error from "./components/Layout/Error";
 import SevkConsumer from "./store/context";
+import PicturePreview from "./components/Layout/PicturePreview";
+import DocumentPreview from "./components/Layout/DocumentPreview";
 export default function MainPage() {
   return (
     <SevkConsumer>
@@ -41,6 +43,8 @@ export default function MainPage() {
             <Callout />
             <NewModal />
             <Error />
+            <PicturePreview />
+            <DocumentPreview />         
           </div>
         );
       }}

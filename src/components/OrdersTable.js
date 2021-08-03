@@ -1,8 +1,6 @@
 import React, { Fragment, useState } from "react";
 import HeadSection from "./Layout/HeadSection";
 import SevkConsumer from "../store/context";
-import PicturePreview from "./Layout/PicturePreview";
-import DocumentPreview from "./Layout/DocumentPreview";
 import FilesComponent from "./ComponentFiles/ComponentFiles";
 import WayBillList from "./WayBillList";
 import Edit from "./ProductModal/Edit";
@@ -70,9 +68,7 @@ export default function OrdersTable() {
               </tbody>
             </table>
             <FilesComponent/>
-            <WayBillList />
-            <PicturePreview />
-            <DocumentPreview />           
+            <WayBillList />            
             <LayoutRight />
             <LayoutNotes />
             <Edit />
