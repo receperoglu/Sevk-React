@@ -1,6 +1,6 @@
 import React from "react";
 import SevkConsumer from "../../store/context";
-export default function CreateOption({ Json, val, name, defaultValue }) {
+export default function CreateOption({ Json, val, name}) {
   return (
     <SevkConsumer>
       {(value) => {
@@ -12,10 +12,9 @@ export default function CreateOption({ Json, val, name, defaultValue }) {
           <select
             className="ms-TextField-field"
             name={name}
-            onChange={SelectChange}
-            defaultValue={defaultValue}
             value={val}
-          >
+            onChange={SelectChange}           
+           >
             {Json.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.Name}

@@ -26,10 +26,10 @@ export default function OrdersTable() {
     <SevkConsumer>
       {(value) => {
         const { Orders, DetailActive, ArticelName, isMobile, dispatch } = value;
-        const toggleEdit = (Order) => {
+        const toggleEdit = (Order) => {        
           dispatch({
             type: "toggleEdit",
-            payload: { statu: true, Order: Order },
+            payload: Order,
           });
         };
         const MP = (e, Order) => {

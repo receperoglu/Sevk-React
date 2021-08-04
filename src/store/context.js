@@ -305,16 +305,20 @@ export class SevkProvider extends Component {
       "&SaleType=1&Articel=test";
     await this.UpdateOrAddOrder(url);
   };
-  OpenEdit = (Object) => {
-    this.setState({
-      ShowProductEdit: !this.state.ShowProductEdit,
-      Order: Object.Order,
-      ProductTypeId: Object.Order.ProductTypeId,
-      Color: Object.Order.Color,
-      Piece: Object.Order.Piece,
-      Dimensions: Object.Order.Dimensions,
-      OrderId: Object.Order.id,
-    });
+  OpenEdit = (Order) => {
+    this.setState({ ShowProductEdit: !this.state.ShowProductEdit });
+    try {
+      this.setState({
+        Order: Order,
+        ProductTypeId: Order.Typeid,
+        Color: Order.Color,
+        Piece: Order.Piece,
+        Dimensions: Order.Dimensions,
+        OrderId: Order.id,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
   SaveArticel = async () => {
     this.setState({ CreateArticelShow: true });
