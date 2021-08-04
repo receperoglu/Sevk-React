@@ -16,7 +16,7 @@ export default function GridView() {
         return (
           <div className="col-md-12">
             {Files.map((F) => (
-              <div key={F.id} className="FileContainer col-md-2 col-xs-4">
+              <div key={F.id} className="FileContainer col-md-3 col-xs-3">
                 {F.FileType === "Picture" ? (
                   <div
                     className="PictureDiv"
