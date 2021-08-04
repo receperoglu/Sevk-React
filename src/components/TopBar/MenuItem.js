@@ -4,7 +4,7 @@ export default function MenuItem({ click, symbol, text, iconclassname }) {
     <button
       type="button"
       onClick={() => click()}
-      className="commandBtn effect"
+      className="commandBtn"
     >
       <i className={iconclassname}>{symbol}</i>
       <div className="textContainer">
