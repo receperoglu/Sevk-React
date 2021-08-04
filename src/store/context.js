@@ -520,7 +520,19 @@ export class SevkProvider extends Component {
       method: "POST",
       body: formData,
     })
-      .then((response) => this.setState({ Loading: false }))
+      .then((response) => {
+        setTimeout(() => {
+          this.setState({
+            ShowLayoutNote: false,
+            Loading: false,
+            isError: true,
+            Error: "Güncelleme Tamamlandı",
+          });
+          setTimeout(() => {
+            this.setState({ ShowLayoutNote: true });
+          }, 1500);
+        }, 2500);
+      })
       .then((data) => console.log(data));
   };
   UpdateOrder = () => {
