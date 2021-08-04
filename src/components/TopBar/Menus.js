@@ -14,14 +14,8 @@ export default function Menus() {
   return (
     <SevkConsumer>
       {(value) => {
-        const {
-          ShowTopBar,
-          isMobile,
-          LayoutNoteShow,
-          ActiveArticel,
-          CorpName,
-          dispatch,
-        } = value;
+        const { ShowTopBar, isMobile, ActiveArticel, CorpName, dispatch } =
+          value;
 
         const toggleView = () => {
           dispatch({ type: "toggleView", payload: null });
@@ -29,20 +23,16 @@ export default function Menus() {
         const closeTopBar = () => {
           dispatch({
             type: "closeTopBar",
-            payload: null,
           });
         };
-        const toggleNote = () => {
+        const toggleLayout = (Type) => {
           dispatch({
-            type: "toggleNote",
+            type: "toggle" + Type,
             payload: true,
           });
         };
-        const toggleShare = () => {
-          dispatch({
-            type: "toggleShare",
-            payload: true,
-          });
+        const Delete = () => {
+          dispatch({ type: "ConfirmToggle", payload: true });
         };
         const toggleAddProduct = () => {
           dispatch({ type: "toggleAddProduct", payload: true });
@@ -79,19 +69,19 @@ export default function Menus() {
                   iconclassname="FabricMDL2Icons-0"
                 />
                 <MenuItem
-                  click={toggleShare}
+                  click={() => toggleLayout("Share")}
                   text="Paylaş"
                   symbol=""
                   iconclassname="FabricMDL2Icons"
                 />
                 <MenuItem
-                  click={toggleNote}
+                  click={() => toggleLayout("Note")}
                   text="Notlar"
                   symbol=""
                   iconclassname="FabricMDL2Icons-1"
                 />
                 <MenuItem
-                  click={LayoutNoteShow}
+                  click={PrintNow}
                   text="Yeni Sekme"
                   symbol=""
                   iconclassname="controlIcons"
@@ -113,6 +103,12 @@ export default function Menus() {
                   text="Resim Ekle"
                   symbol=""
                   iconclassname="FabricMDL2Icons-13"
+                />
+                <MenuItem
+                  click={  Delete}
+                  text="Sil"
+                  symbol=""
+                  iconclassname="controlIcons"
                 />
                 <MenuItem
                   click={closeTopBar}

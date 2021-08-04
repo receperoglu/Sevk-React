@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import LocalStore from "../components/Tools/LocalStore";
 import { FetchFunc } from "./FetchFunc";
+import LocalStore from "../components/Tools/LocalStore";
 const apiBase = "StartApi.ashx?Platform=Android&ProcessType=";
 const SevkContext = React.createContext();
 export class SevkProvider extends Component {
@@ -27,6 +27,7 @@ export class SevkProvider extends Component {
       showOrder: false,
       ShowTopBar: false,
       ChangeView: false,
+      ShowConfirm: false,
       ShowCallOut: false,
       DetailActive: false,
       ShowProductOut: false,
@@ -65,6 +66,13 @@ export class SevkProvider extends Component {
     };
     const reducer = (state, action) => {
       switch (action.type) {
+        case "ConfirmAccept":
+          return this.ConfirmAccept();
+        case "ConfirmToggle":
+          return {
+            ...state,
+            ShowConfirm: action.payload,
+          };
         case "cancelDocument":
           return { ...state, ShowDocumentPreview: false, File: [] };
         case "Get_Order":
@@ -166,6 +174,7 @@ export class SevkProvider extends Component {
     this.toggleView = this.toggleView.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
     this.CheckMobile = this.CheckMobile.bind(this);
+    this.ConfirmAccept = this.ConfirmAccept.bind(this);
     this.SaveArticel = this.SaveArticel.bind(this);
     this.fetchWaybill = this.fetchWaybill.bind(this);
     this.fetchArticels = this.fetchArticels.bind(this);
@@ -233,6 +242,26 @@ export class SevkProvider extends Component {
     localStorage.setItem("SalesTypes", JSON.stringify(saletypes));
     this.setState({ SalesTypes: saletypes });
   }
+  ConfirmAccept = async () => {
+    this.setState({ Loading: true});
+    setTimeout(() => {
+      this.setState({ Loading: true, ShowConfirm: false });
+      var DeleteUrl =
+        apiBase + "DeleteArticel&ArticelId=" + this.state.ActiveArticel;
+      var data = FetchFunc(DeleteUrl);
+      console.log(data)
+      setTimeout(() => {
+        this.setState({
+          Loading: false,
+          isError: true,
+          Error: "Silme işlemi tamamlandı.",
+        });
+        this.closeTopBar();
+        LocalStore.remove("Articels");
+        this.fetchArticels();
+      }, 1300);
+    }, 2500);
+  };
   GetWayBillPhoto = async (WayBillId) => {
     var PhotoUrl = "abi/post/WayBillPhoto.ashx?WayBillId=" + WayBillId;
     fetch(PhotoUrl)
@@ -286,6 +315,154 @@ export class SevkProvider extends Component {
       Dimensions: Object.Order.Dimensions,
       OrderId: Object.Order.id,
     });
+  };
+  SaveArticel = async () => {
+    this.setState({ CreateArticelShow: true });
+    var url =
+      "abi/post/AddArticel.ashx?CorpId=" +
+      this.state.CorpId +
+      "&Articel=" +
+      this.state.ArticelName +
+      "&SaleType=" +
+      this.state.SaleTypeId;
+    const response = await fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      mode: "cors",
+    });
+    let articelid = response.json();
+    this.setState({
+      ArticelId: articelid,
+      NewProductShow: true,
+      CreateArticelShow: false,
+    });
+  };
+  PostProductOutSave = async () => {
+    var url =
+      "abi/post/AddWayBill.ashx?CorpId=" +
+      this.state.CorpId +
+      "&Piece=" +
+      this.state.Piece +
+      "&OrderId=" +
+      this.state.OrderId +
+      "&Weight=" +
+      this.state.Weight +
+      "&SaleType=1&Comment=9&WayBillId=" +
+      this.state.WayBillId +
+      "&ArticelId=" +
+      this.state.ActiveArticel;
+    await FetchFunc(url);
+  };
+  UpdateOrAddOrder = async (url) => {
+    fetch(url, {
+      method: "GET",
+    })
+      .then((response) => {
+        this.GetOrders(this.state.Articel);
+        this.setState({
+          ShowProductEdit: false,
+          NewProductShow: false,
+          Loading: false,
+        });
+
+        return true;
+      })
+      .catch((err) => {
+        this.setState({ isError: true, Error: err });
+      });
+  };
+  GetOrders = async (Articel) => {
+    this.setState({
+      Loading: true,
+      Orders: [],
+      Files: [],
+      Waybill: [],
+      CorpId: Articel.CorpId,
+      ArticelName: Articel.ArticelName,
+      CorpName: Articel.CustomerName,
+      Articel: Articel,
+    });
+
+    if (this.state.ActiveArticel === 0) {
+      this.setState({ ActiveArticel: Articel.id });
+      try {
+        var FirstClicked = "Articel" + Articel.id;
+        document.getElementById(FirstClicked).classList.add("ActiveArticelRow");
+      } catch (error) {}
+    } else {
+      try {
+        var PrevClicked = "Articel" + this.state.ActiveArticel;
+        document
+          .getElementById(PrevClicked)
+          .classList.remove("ActiveArticelRow");
+        this.setState({ ActiveArticel: Articel.id });
+
+        var Clicked = "Articel" + Articel.id;
+        document.getElementById(Clicked).classList.add("ActiveArticelRow");
+      } catch (error) {}
+    }
+
+    var FullUrl = apiBase + "Orders&ArticelId=" + Articel.id;
+    var data = await FetchFunc(FullUrl);
+    if (!data.error) {
+      this.setState({
+        Orders: data,
+        ShowTopBar: true,
+        Loading: false,
+        ShowLayoutNote: false,
+        ShowLayoutRight: false,
+        ShowCallOut: false,
+        DetailActive: true,
+        showOrder: true,
+        CorpId: 0,
+      });
+      await this.fetchWaybill(Articel.id);
+      this.fetchNotes(Articel.id);
+      this.fetchFiles(Articel.id);
+      document.getElementById("SecondScreen").classList.remove("hide");
+      document.getElementById("SecondScreen").classList.add("col-md-8");
+      document.getElementById("FirstScreen").classList.add("col-md-4");
+      document.getElementById("FirstScreen").classList.remove("col-md-12");
+    } else {
+      this.closeTopBar();
+      this.setState({
+        isError: true,
+        Loading: false,
+        Error:
+          "Hizmete Ulaşamıyoruz, İnternet bağlantınızın olduğundan emin olun",
+      });
+    }
+  };
+  CallOutonMouseMove = async (e) => {
+    this.setState({ x: e.x, y: e.y });
+    var element = "Order" + e.Order.id;
+    document.getElementById(element).classList.add("OrderProccessing");
+    this.setState({
+      Dimensions: e.Order.Dimensions,
+      OneWaybill: [],
+      Color: e.Order.Color,
+      ProductTypeName: e.Order.ProductTypeName,
+      Loading: true,
+      Order: e.Order,
+    });
+    if (e.Order.id !== 0) {
+      var url = apiBase + "Motion&MotionType=One&OrderId=" + e.Order.id;
+      var data = await FetchFunc(url);
+      this.setState({ OneWaybill: data });
+      var totalpiece = 0;
+      var totalweight = 0;
+
+      data.map((w) => (totalpiece += parseInt(w.Piece, 10)));
+      data.map((w) => (totalweight += parseInt(w.Weight, 10)));
+
+      this.setState({
+        waybillPiece: totalpiece,
+        waybillWeight: totalweight,
+        LoopCount: data.length,
+      });
+    }
+    this.setState({ Loading: false, ShowCallOut: true });
+    document.getElementById(element).classList.remove("OrderProccessing");
   };
   PostOrderUpdate = async () => {
     this.setState({ Loading: true });
@@ -404,153 +581,6 @@ export class SevkProvider extends Component {
     } else {
       this.setState({ isMobile: false });
     }
-  };
-  SaveArticel = async () => {
-    this.setState({ CreateArticelShow: true });
-    var url =
-      "abi/post/AddArticel.ashx?CorpId=" +
-      this.state.CorpId +
-      "&Articel=" +
-      this.state.ArticelName +
-      "&SaleType=" +
-      this.state.SaleTypeId;
-    const response = await fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      mode: "cors",
-    });
-    let articelid = response.json();
-    this.setState({
-      ArticelId: articelid,
-      NewProductShow: true,
-      CreateArticelShow: false,
-    });
-  };
-  async PostProductOutSave() {
-    var url =
-      "abi/post/AddWayBill.ashx?CorpId=" +
-      this.state.CorpId +
-      "&Piece=" +
-      this.state.Piece +
-      "&OrderId=" +
-      this.state.OrderId +
-      "&Weight=" +
-      this.state.Weight +
-      "&SaleType=1&Comment=9&WayBillId=" +
-      this.state.WayBillId +
-      "&ArticelId=" +
-      this.state.ActiveArticel;
-    await FetchFunc(url);
-  }
-  UpdateOrAddOrder = async (url) => {
-    fetch(url, {
-      method: "GET",
-    })
-      .then((response) => {
-        this.GetOrders(this.state.Articel);
-        this.setState({
-          ShowProductEdit: false,
-          NewProductShow: false,
-          Loading: false,
-        });
-
-        return true;
-      })
-      .catch((err) => {
-        this.setState({ isError: true, Error: err });
-      });
-  };
-  GetOrders = async (Articel) => {
-    this.setState({
-      Loading: true,
-      Orders: [],
-      Files: [],
-      Waybill: [],
-      CorpId: Articel.CorpId,
-      ArticelName: Articel.ArticelName,
-      CorpName: Articel.CustomerName,
-      Articel: Articel,
-    });
-
-    if (this.state.ActiveArticel === 0) {
-      this.setState({ ActiveArticel: Articel.id });
-      try {
-        var FirstClicked = "Articel" + Articel.id;
-        document.getElementById(FirstClicked).classList.add("ActiveArticelRow");
-      } catch (error) {}
-    } else {
-      try {
-        var PrevClicked = "Articel" + this.state.ActiveArticel;
-        document
-          .getElementById(PrevClicked)
-          .classList.remove("ActiveArticelRow");
-        this.setState({ ActiveArticel: Articel.id });
-
-        var Clicked = "Articel" + Articel.id;
-        document.getElementById(Clicked).classList.add("ActiveArticelRow");
-      } catch (error) {}
-    }
-    var FullUrl = apiBase + "Orders&ArticelId=" + Articel.id;
-    var data = await FetchFunc(FullUrl);
-    if (!data.error) {
-      this.setState({
-        Orders: data,
-        ShowTopBar: true,
-        Loading: false,
-        ShowLayoutNote: false,
-        ShowLayoutRight: false,
-        ShowCallOut: false,
-        DetailActive: true,
-        showOrder: true,
-        CorpId: 0,
-      });
-      await this.fetchWaybill(Articel.id);
-      this.fetchNotes(Articel.id);
-      this.fetchFiles(Articel.id);
-      document.getElementById("SecondScreen").classList.remove("hide");
-      document.getElementById("SecondScreen").classList.add("col-md-8");
-      document.getElementById("FirstScreen").classList.add("col-md-4");
-      document.getElementById("FirstScreen").classList.remove("col-md-12");
-    } else {
-      this.closeTopBar();
-      this.setState({
-        isError: true,
-        Loading: false,
-        Error:
-          "Hizmete Ulaşamıyoruz, İnternet bağlantınızın olduğundan emin olun",
-      });
-    }
-  };
-  CallOutonMouseMove = async (e) => {
-    this.setState({ x: e.x, y: e.y });
-    var element = "Order" + e.Order.id;
-    document.getElementById(element).classList.add("OrderProccessing");
-    this.setState({
-      Dimensions: e.Order.Dimensions,
-      OneWaybill: [],
-      Color: e.Order.Color,
-      ProductTypeName: e.Order.ProductTypeName,
-      Loading: true,
-      Order: e.Order,
-    });
-    if (e.Order.id !== 0) {
-      var url = apiBase + "Motion&MotionType=One&OrderId=" + e.Order.id;
-      var data = await FetchFunc(url);
-      this.setState({ OneWaybill: data });
-      var totalpiece = 0;
-      var totalweight = 0;
-
-      data.map((w) => (totalpiece += parseInt(w.Piece, 10)));
-      data.map((w) => (totalweight += parseInt(w.Weight, 10)));
-
-      this.setState({
-        waybillPiece: totalpiece,
-        waybillWeight: totalweight,
-        LoopCount: data.length,
-      });
-    }
-    this.setState({ Loading: false, ShowCallOut: true });
-    document.getElementById(element).classList.remove("OrderProccessing");
   };
   uploadFile() {
     this.setState({ Loading: true });

@@ -8,6 +8,7 @@ import OrdersTable from "./components/OrdersTable";
 import TopBar from "./components/TopBar/TopBar";
 import Error from "./components/Layout/Error";
 import SevkConsumer from "./store/context";
+import Confirm from "./components/Layout/Confirm";
 import Edit from "./components/ProductModal/Edit";
 import LayoutRight from "./components/LayoutRight";
 import LayoutNotes from "./components/LayoutNotes";
@@ -53,6 +54,7 @@ export default function MainPage() {
             <LayoutNotes />
             <Edit />
             <Out />    
+            <Confirm/>
           </div>
         );
       }}
