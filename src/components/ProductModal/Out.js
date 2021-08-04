@@ -28,8 +28,10 @@ export default function Out() {
                     {Orders.map((o) => (
                       <div key={o.id} className="col-xs-12 padd0 OrderRow">
                         <div className="col-xs-6 padd0  fleft">
+                          <span  className={isMobile ? "minifont" : ""}>
                           <b> {o.Piece} AD</b> {o.Dimensions} {o.Color}
                           {o.ProductTypeName}
+                          </span>
                         </div>
                         <div className="col-xs-2 padd0 fleft">
                           <CreateInput type="number" name="Piece" />
