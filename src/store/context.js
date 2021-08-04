@@ -420,9 +420,9 @@ export class SevkProvider extends Component {
         showOrder: true,
         CorpId: 0,
       });
+      this.fetchFiles(Articel.id);
       await this.fetchWaybill(Articel.id);
       this.fetchNotes(Articel.id);
-      this.fetchFiles(Articel.id);
       document.getElementById("SecondScreen").classList.remove("hide");
       document.getElementById("SecondScreen").classList.add("col-md-8");
       document.getElementById("FirstScreen").classList.add("col-md-4");
@@ -482,17 +482,6 @@ export class SevkProvider extends Component {
       "&Piece=" +
       this.state.Piece;
     await this.UpdateOrAddOrder(url);
-  };
-  GetOrderEdit = (id, dimensions, color, piece, typeName, TypeId) => {
-    this.setState({
-      OrderId: id,
-      Piece: piece,
-      Dimensions: dimensions,
-      Color: color,
-      ProductTypeName: typeName,
-      ProductTypeId: TypeId,
-      ShowProductEdit: true,
-    });
   };
   updateDimensions = () => {
     this.setState({ ShowCallOut: false });

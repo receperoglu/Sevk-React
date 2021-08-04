@@ -55,6 +55,7 @@ export default function Edit() {
                     <CreateInput name="Color" val={Order.Color} />
                   </div>
                   <div className="col-md-12 text-center fleft">
+                  <br/>
                     {Loading ? (
                       <ProgressBar isVisible={Loading} />
                     ) : (

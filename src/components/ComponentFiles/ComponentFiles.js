@@ -35,12 +35,14 @@ export default function ComponentFiles() {
                     Dosya Eklenmemiş
                   </div>
                 ) : (
-                  <MenuItem
-                    click={toggleVtype}
-                    text=""
-                    symbol=""
-                    iconclassname="FabricMDL2Icons-0"
-                  />
+                  <span className="margin10 changeview">
+                    <MenuItem
+                      click={toggleVtype}
+                      text="Görünümü Değiştir"
+                      symbol=""
+                      iconclassname=" FabricMDL2Icons-0"
+                    />
+                  </span>
                 )}
               </div>
               {Vtype ? (
