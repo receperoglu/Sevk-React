@@ -2,7 +2,6 @@ import React from "react";
 import SevkConsumer from "../../store/context";
 import BlueButton from "../Tools/BlueButton";
 import ProgressBar from "../Tools/ProgressBar";
-import "./Confirm.css";
 export default function Confirm() {
   return (
     <SevkConsumer>
