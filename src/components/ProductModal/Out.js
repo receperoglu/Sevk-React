@@ -7,7 +7,7 @@ export default function Out() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { Orders, dispatch, ShowProductOut } = value;
+        const { Orders, dispatch, ShowProductOut,isMobile } = value;
         const toggleOut = () => {
           dispatch({ type: "toggleOut", payload: { statu: false, Order: [] } });
         };
