@@ -26,35 +26,35 @@ export default function Edit() {
                 <CancelBtn click={toggleEdit} />
                 <h4>Ürün Düzenleme</h4>
                 <div className="clearfix OrderRow">
-                  <div className="col-md-2 fleft">
+                  <div className="col-md-12 fleft">
                     <span>Tip</span>
                   </div>
-                  <div className="col-md-10 fleft">
+                  <div className="col-md-12 fleft">
                     <CreateOption
                       Json={ProductTypes}
                       name="ProductType"
                       val={ProductTypeId}
                      />
                   </div>
-                  <div className="col-md-2 fleft">
+                  <div className="col-md-12 fleft">
                     <span>Adet</span>
                   </div>
-                  <div className="col-md-10 fleft">
+                  <div className="col-md-12 fleft">
                     <CreateInput type="number" name="Piece" val={Order.Piece} />
                   </div>
-                  <div className="col-md-2 fleft">
+                  <div className="col-md-12 fleft">
                     <span>Ölçü</span>
                   </div>
-                  <div className="col-md-10 fleft">
+                  <div className="col-md-12 fleft">
                     <CreateInput name="Dimensions" val={Order.Dimensions} />
                   </div>
-                  <div className="col-md-2 fleft">
+                  <div className="col-md-12 fleft">
                     <span>Renk</span>
                   </div>
-                  <div className="col-md-10 fleft">
+                  <div className="col-md-12 fleft">
                     <CreateInput name="Color" val={Order.Color} />
                   </div>
-                  <div className="col-md-10 text-center fleft">
+                  <div className="col-md-12 text-center fleft">
                     {Loading ? (
                       <ProgressBar isVisible={Loading} />
                     ) : (
