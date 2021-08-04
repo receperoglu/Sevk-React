@@ -243,13 +243,13 @@ export class SevkProvider extends Component {
     this.setState({ SalesTypes: saletypes });
   }
   ConfirmAccept = async () => {
-    this.setState({ Loading: true});
+    this.setState({ Loading: true });
     setTimeout(() => {
       this.setState({ Loading: true, ShowConfirm: false });
       var DeleteUrl =
         apiBase + "DeleteArticel&ArticelId=" + this.state.ActiveArticel;
       var data = FetchFunc(DeleteUrl);
-      console.log(data)
+      console.log(data);
       setTimeout(() => {
         this.setState({
           Loading: false,

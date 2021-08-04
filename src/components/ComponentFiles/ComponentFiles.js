@@ -11,48 +11,53 @@ export default function ComponentFiles() {
     setFilesVisible(!FilesVisible);
   };
   return (
-       <SevkConsumer>
-        {(value) => {
-          const { Files, Vtype, dispatch } = value;
-          const toggleVtype = () => {
-            dispatch({ type: "toggleVtype", payload: null });
-          };
+    <SevkConsumer>
+      {(value) => {
+        const { Files, Vtype, dispatch } = value;
+        const toggleVtype = () => {
+          dispatch({ type: "toggleVtype", payload: null });
+        };
 
-          return (
-            <Fragment>
-              <HeadSection
-                click={toggleView}
-                text="Dökümanlar"
-                isVisible={FilesVisible}
-              />
-              <div className={FilesVisible ? "effect" : "hide"}>              
-                  <div className="col-md-12 text-center">
-                    {Files.length === 0 ? (
-                      " Dosya Eklenmemiş"
-                    ) : (
-                      <MenuItem
-                        click={toggleVtype}
-                        text=""
-                        symbol=""
-                        iconclassname="FabricMDL2Icons-0"
-                      />
-                    )}
-                  </div>               
-                {Vtype ? (
-                  <GridView />
-                ) : (
-                  <div className="od-ItemContent-list">
-                    {Files.length === 0 ? null : (
-                      <Fragment>
-                        <ListViewHeader /> <ListViewBody />
-                      </Fragment>
-                    )}
+        return (
+          <Fragment>
+            <HeadSection
+              click={toggleView}
+              text="Dökümanlar"
+              isVisible={FilesVisible}
+            />
+            <div className={FilesVisible ? "effect" : "hide"}>
+              <div className="col-md-12 text-center">
+                {Files.length === 0 ? (
+                  <div className="padd10 fleft">
+                    <i data-icon-name="Info" role="presentation">
+                      
+                    </i>
+                    Dosya Eklenmemiş
                   </div>
+                ) : (
+                  <MenuItem
+                    click={toggleVtype}
+                    text=""
+                    symbol=""
+                    iconclassname="FabricMDL2Icons-0"
+                  />
                 )}
               </div>
-            </Fragment>
-          );
-        }}
-      </SevkConsumer>
-   );
+              {Vtype ? (
+                <GridView />
+              ) : (
+                <div className="od-ItemContent-list">
+                  {Files.length === 0 ? null : (
+                    <Fragment>
+                      <ListViewHeader /> <ListViewBody />
+                    </Fragment>
+                  )}
+                </div>
+              )}
+            </div>
+          </Fragment>
+        );
+      }}
+    </SevkConsumer>
+  );
 }

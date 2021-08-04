@@ -25,14 +25,14 @@ export default function OrdersTable() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { Orders,DetailActive,ArticelName,isMobile,dispatch} = value;
+        const { Orders, DetailActive, ArticelName, isMobile, dispatch } = value;
         const toggleEdit = (Order) => {
           dispatch({
             type: "toggleEdit",
             payload: { statu: true, Order: Order },
           });
         };
-        const Mouse_Position = (e, Order) => {
+        const MP = (e, Order) => {
           dispatch({
             type: "Mouse_Position",
             payload: { x: e.pageY + "px", y: e.pageX + "px", Order: Order },
@@ -50,7 +50,7 @@ export default function OrdersTable() {
               <tbody>
                 {Orders.map((o) => (
                   <tr key={o.id} id={"Order" + o.id}>
-                    <td className="cpointer" onClick={(e) => Mouse_Position(e, o)}>
+                    <td className="cpointer" onClick={(e) => MP(e, o)}>
                       {o.Piece} {o.Metrics}
                     </td>
                     <td>{o.Dimensions}</td>
@@ -63,7 +63,7 @@ export default function OrdersTable() {
                 ))}
               </tbody>
             </table>
-            <FilesComponent/>
+            <FilesComponent />
             <WayBillList />
           </Fragment>
         ) : null;
