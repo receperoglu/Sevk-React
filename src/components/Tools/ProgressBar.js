@@ -3,7 +3,7 @@ export default function ProgressBar({ isVisible }) {
   return (
     <div
       className={
-        isVisible ? "show ProgressSpinnerFlat" : "opaq0 ProgressSpinnerFlat"
+        isVisible ? "ProgressSpinnerFlat" : "opaq0 ProgressSpinnerFlat"
       }
       role="progressbar"
     >

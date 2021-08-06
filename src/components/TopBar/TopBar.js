@@ -2,37 +2,20 @@ import React, { Fragment } from "react";
 import LeftNav from "./LeftNav";
 import Menus from "./Menus";
 import SevkConsumer from "../../store/context";
-function SearchArea(ShowTopBar) {
-  return ShowTopBar ? null : (
-    <div className="od-TopBar-item od-TopBar-search  fleft">
-      <div className="od-SearchBox">
-        <span style={{ width: "200px" }} className="od-SearchBox-search">
-          <input
-            className="SearchInput"
-            type="text"
-            placeholder="Her şeyi ara"
-          />
-          <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
-            <span className="Icon SearchIcon css-42" />
-          </span>
-        </span>
-        <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
-          <span className="Icon SearchIcon css-43" />
-        </span>
-      </div>
-    </div>
-  );
-}
+
 export default function TopBar() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { ShowTopBar, dispatch } = value;
+        const { ShowTopBar, dispatch, Articels } = value;
         const ToggleMenu = () => {
           dispatch({ type: "ToggleMenu", payload: true });
         };
         const uploadFile = () => {
           dispatch({ type: "uploadFile", payload: null });
+        };
+        const Search = (e) => {
+          dispatch({ type: "Search", payload: e });
         };
         return (
           <Fragment>
@@ -73,7 +56,38 @@ export default function TopBar() {
             </div>
             <div className="od-BasePage-topBar">
               <div className="od-TopBar">
-                {SearchArea(ShowTopBar)}
+                <div
+                  className={
+                    ShowTopBar
+                      ? "hide"
+                      : "od-TopBar-item od-TopBar-search  fleft"
+                  }
+                >
+                  <div className="od-SearchBox">
+                    <span
+                      style={{ width: "100%" }}
+                      className="od-SearchBox-search"
+                    >
+                      <input
+                        className="SearchInput"
+                        type="text"
+                        onChange={(e) => Search(e.target.value)}
+                        placeholder="Her şeyi ara"
+                      />
+                      <div
+                        className={Articels.length === 0 ? "noresult" : "hide"}
+                      >
+                        Sonuç Yok
+                      </div>
+                      <span className="od-SearchBox-iconWrapper od-SearchBox-iconArrowWrapper">
+                        <span className="Icon SearchIcon css-42" />
+                      </span>
+                    </span>
+                    <span className="od-SearchBox-iconWrapper od-SearchBox-iconSearchWrapper">
+                      <span className="Icon SearchIcon css-43" />
+                    </span>
+                  </div>
+                </div>
                 <div className="od-TopBar-item od-TopBar-commandBar od-BasePage-commandBar">
                   <Menus />
                 </div>

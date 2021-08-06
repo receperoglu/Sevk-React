@@ -1,23 +1,6 @@
 import React, { Component } from "react";
 import { FetchFunc } from "./FetchFunc";
-import {
-  ProductTypeUrl,
-  DeleteArticelUrl,
-  SalesTypeUrl,
-  getFilesUrl,
-  PhotoUrl,
-  MultiMotionUrl,
-  AddUrl,
-  DocumentUploadUrl,
-  SaveUrl,
-  NoteUrl,
-  ProductOutUrl,
-  GetOrderUrl,
-  OneMotionUrl,
-  UpdateOrderUrl,
-  SaveNoteUrl,
-  RotateUrl,
-} from "./../components/Urls";
+import {ProductTypeUrl,DeleteArticelUrl,SalesTypeUrl,getFilesUrl,PhotoUrl,MultiMotionUrl,AddUrl,DocumentUploadUrl,SaveUrl,NoteUrl,ProductOutUrl,GetOrderUrl,OneMotionUrl,UpdateOrderUrl,SaveNoteUrl,RotateUrl} from "./../components/Urls";
 import LocalStore from "../components/Tools/LocalStore";
 const SevkContext = React.createContext();
 export class SevkProvider extends Component {
@@ -35,6 +18,7 @@ export class SevkProvider extends Component {
       OneWaybill: [],
       SalesTypes: [],
       ProductTypes: [],
+      FilteredArticels: [],
       Menu: false,
       Vtype: false,
       isError: false,
@@ -177,10 +161,13 @@ export class SevkProvider extends Component {
           };
         case "toggleEdit":
           return this.OpenEdit(action.payload);
+        case "Search":
+          return this.Search(action.payload);
         default:
           return state;
       }
     };
+    this.Search = this.Search.bind(this);
     this.OpenEdit = this.OpenEdit.bind(this);
     this.GetOrders = this.GetOrders.bind(this);
     this.closeError = this.closeError.bind(this);
@@ -230,7 +217,7 @@ export class SevkProvider extends Component {
   async fetchArticels() {
     var data = await FetchFunc("Articels");
     if (!data.error) {
-      this.setState({ Articels: data, isError: false });
+      this.setState({ Articels: data, FilteredArticels: data, isError: false });
       localStorage.setItem("Articels", JSON.stringify(data));
     } else {
       this.closeTopBar();
@@ -493,6 +480,17 @@ export class SevkProvider extends Component {
       this.state.Piece;
     await this.UpdateOrAddOrder(url);
   }
+  Search(word) {
+    if (word.length >= 3) {
+      let input = word.toLowerCase();
+      const result = LocalStore.get("Articels").filter((articel) => {
+        return articel.ArticelName.toLowerCase().indexOf(input) !== -1;
+      });
+      this.setState({ Articels: result });
+    } else {
+      this.setState({ Articels: LocalStore.get("Articels") });
+    }
+  }
   updateDimensions = () => {
     this.setState({ ShowCallOut: false });
     this.CheckMobile();
@@ -510,8 +508,8 @@ export class SevkProvider extends Component {
     Fs.classList.add("col-md-12");
     Fs.classList.remove("col-md-4");
     try {
-      var selectedId = "Articel" + this.state.ActiveArticel;
-      document.getElementById(selectedId).classList.remove("ActiveArticelRow");
+      var id = "Articel" + this.state.ActiveArticel;
+      document.getElementById(id).classList.remove("ActiveArticelRow");
     } catch (error) {
       this.setState({ isError: true, Error: error });
     }
@@ -635,7 +633,10 @@ export class SevkProvider extends Component {
   componentDidMount() {
     this.setState({ Loading: true });
     if (LocalStore.check("Articels")) {
-      this.setState({ Articels: LocalStore.get("Articels") });
+      this.setState({
+        Articels: LocalStore.get("Articels"),
+        FilteredArticels: LocalStore.get("Articels"),
+      });
     } else {
       this.fetchArticels();
     }
