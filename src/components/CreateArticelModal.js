@@ -18,7 +18,7 @@ export default function CreateArticelModal() {
           dispatch({ type: "SaveArticel", payload: null });
         };
         return CreateArticelShow ? (
-          <div id="ProductModal" className="ms-Layer ms-Layer--fixed layer-351">
+          <div id="ProductModal" className="ms-Layer animate ms-Layer--fixed layer-351">
             <div className="root-345">
               <div className="ms-Dialog-main  main-412">
                 <CancelBtn click={toggleCreateArticel} />

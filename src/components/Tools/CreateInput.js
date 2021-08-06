@@ -1,6 +1,6 @@
 import React from "react";
 import SevkConsumer from "../../store/context";
-export default function CreateInput({ val, name, type }) {
+export default function CreateInput({ val, name, type,placeholder }) {
   return (
     <SevkConsumer>
       {(value) => {
@@ -18,6 +18,7 @@ export default function CreateInput({ val, name, type }) {
             value={val}
             onChange={InputChange}
             className="ms-TextField-field"
+            placeholder={placeholder}
           />
         );
       }}

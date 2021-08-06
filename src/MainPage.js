@@ -1,4 +1,5 @@
 import React from "react";
+import SevkConsumer from "./store/context";
 import CreateArticelModal from "./components/CreateArticelModal";
 import Callout from "./components/Layout/CallOut";
 import ProgressBar from "./components/Tools/ProgressBar";
@@ -7,7 +8,6 @@ import NewModal from "./components/ProductModal/New";
 import OrdersTable from "./components/OrdersTable";
 import TopBar from "./components/TopBar/TopBar";
 import Error from "./components/Layout/Error";
-import SevkConsumer from "./store/context";
 import Confirm from "./components/Layout/Confirm";
 import Edit from "./components/ProductModal/Edit";
 import LayoutRight from "./components/LayoutRight";

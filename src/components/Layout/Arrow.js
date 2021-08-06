@@ -1,7 +1,7 @@
 import React from "react";
 function getIcon(name, symbol) {
   return (
-    <i data-icon-name={name} className="FabricMDL2Icons fright">
+    <i data-icon-name={name} className="cwhite FabricMDL2Icons fright">
       {symbol}
     </i>
   );

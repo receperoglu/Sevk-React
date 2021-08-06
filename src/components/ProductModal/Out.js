@@ -15,7 +15,7 @@ export default function Out() {
           dispatch({ type: "SaveProductOut", payload: input });
         };
         return ShowProductOut ? (
-          <div className="ms-Layer ms-Layer--fixed effect layer-351">
+          <div className="ms-Layer animate ms-Layer--fixed effect layer-351">
             <div className="root-345">
               <div className="ms-Dialog-main  main-412">
                 <CancelBtn click={toggleOut} />

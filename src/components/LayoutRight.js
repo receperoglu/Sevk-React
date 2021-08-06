@@ -1,17 +1,7 @@
 import React from "react";
 import LayoutHead from "./Layout/LayoutHead";
 import SevkConsumer from "../store/context";
-function CreateShareBtn(icon, text) {
-  return (
-    <span className="BaseDriveContainer">
-      <span className={`DriveIcon ms-svg-Icon ms-Icon--${icon}`}/>
-      <div className="DriveTextContainer">
-        <span>{text}</span>
-      </div>
-    </span>
-  );
-}
-export default function LayoutRight() {  
+export default function LayoutRight() {
   return (
     <SevkConsumer>
       {(value) => {
@@ -22,19 +12,27 @@ export default function LayoutRight() {
             payload: false,
           });
         };
+        const Share = [
+          { ico: "OutlookLogo", text: "E-posta Gönder" },
+          { ico: "OneDrive", text: "Kaydet" },
+          { ico: "WordLogo", text: "Whatsapp ile Gönder" },
+        ];
         return ShowLayoutRight ? (
-          <div className="ms-Layer ms-Layer--fixed effect layer-351" >
+          <div className="ms-Layer  animate  ms-Layer--fixed effect layer-351">
             <div className="BaseDrive effect RightLayout">
-            <LayoutHead
-              click={toggleShare}
-              text="Paylaş"
-            />
-            <div className="col-md-12 fleft">
-              {CreateShareBtn("OutlookLogo", "E-posta Gönder")}
-              {CreateShareBtn("OneDrive", "Kaydet")}
-              {CreateShareBtn("WordLogo", "WhatsApp ile Gönder")}
+              <LayoutHead click={toggleShare} text="Paylaş" />
+              {Share.map((item) => (
+                <span className="BaseDriveContainer">
+                  <span
+                    className={`DriveIcon ms-svg-Icon ms-Icon--${item.ico}`}
+                  />
+                  <div className="DriveTextContainer">
+                    <span>{item.text}</span>
+                  </div>
+                </span>
+              ))}
             </div>
-          </div></div>
+          </div>
         ) : null;
       }}
     </SevkConsumer>

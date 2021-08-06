@@ -2,6 +2,7 @@ import React from "react";
 import SevkConsumer from "../../store/context";
 import BlueButton from "../Tools/BlueButton";
 import ProgressBar from "../Tools/ProgressBar";
+import CreateIcon from  "./../Tools/CreateIcon"
 export default function Confirm() {
   return (
     <SevkConsumer>
@@ -16,12 +17,13 @@ export default function Confirm() {
           dispatch({ type: "ConfirmToggle", payload: false });
         };
         return ShowConfirm ? (
-          <div className="ms-Layer ms-Layer--fixed effect layer-351">
+          <div className="ms-Layer  ms-Layer--fixed effect layer-351">
             <div className="root-345">
               <div className="ms-Dialog-main  main-412">
                 <div className="ms-Dialog-header header-390">
                   <div className="ms-Dialog-title title-393">
-                    Emin misiniz ?
+                  <CreateIcon attr="FabricMDL2Icons-0"  symbol="" />
+                   Emin misiniz ?
                   </div>
                 </div>
                 <div className="ms-Dialog-inner inner-391">

@@ -24,7 +24,7 @@ export default function LayoutNotes() {
           });
         };
         return ShowLayoutNote ? (
-          <div className="ms-Layer ms-Layer--fixed effect layer-351">
+          <div className="ms-Layer animate  ms-Layer--fixed effect layer-351">
             <div className="effect RightLayout">
               <LayoutHead click={toggleNote} text="Notlar" />
 

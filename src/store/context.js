@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FetchFunc } from "./FetchFunc";
+import {ProductTypeUrl,DeleteArticelUrl,SalesTypeUrl,getFilesUrl,PhotoUrl,MultiMotionUrl,AddUrl,DocumentUploadUrl,SaveUrl,NoteUrl,ProductOutUrl,GetOrderUrl,OneMotionUrl,UpdateOrderUrl,SaveNoteUrl,RotateUrl,} from "./../components/Urls";
 import LocalStore from "../components/Tools/LocalStore";
-const apiBase = "StartApi.ashx?Platform=Android&ProcessType=";
 const SevkContext = React.createContext();
 export class SevkProvider extends Component {
   constructor(props) {
@@ -13,11 +13,11 @@ export class SevkProvider extends Component {
       Files: [],
       Orders: [],
       Waybill: [],
+      Articel: [],
       Articels: [],
       OneWaybill: [],
       SalesTypes: [],
       ProductTypes: [],
-      Articel: [],
       Menu: false,
       Vtype: false,
       isError: false,
@@ -174,10 +174,10 @@ export class SevkProvider extends Component {
     this.toggleView = this.toggleView.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
     this.CheckMobile = this.CheckMobile.bind(this);
-    this.ConfirmAccept = this.ConfirmAccept.bind(this);
     this.SaveArticel = this.SaveArticel.bind(this);
     this.fetchWaybill = this.fetchWaybill.bind(this);
     this.fetchArticels = this.fetchArticels.bind(this);
+    this.ConfirmAccept = this.ConfirmAccept.bind(this);
     this.fetchSalesTypes = this.fetchSalesTypes.bind(this);
     this.UpdateOrAddOrder = this.UpdateOrAddOrder.bind(this);
     this.fetchProductTypes = this.fetchProductTypes.bind(this);
@@ -185,7 +185,7 @@ export class SevkProvider extends Component {
     this.PostProductOutSave = this.PostProductOutSave.bind(this);
   }
   async fetchNotes(ArticelId) {
-    fetch("abi/post/ArticelNotes.ashx?ArticelId=" + ArticelId)
+    fetch(NoteUrl + ArticelId)
       .then((response) => response.text())
       .then((response) => {
         this.setState({ ArticelNotes: response });
@@ -195,15 +195,12 @@ export class SevkProvider extends Component {
   async fetchWaybill(ArticelId) {
     this.setState({ Waybill: [], Loading: true });
     this.setState({
-      Waybill: await FetchFunc(
-        apiBase + "Motion&MotionType=Multi&OrderId=" + ArticelId
-      ),
+      Waybill: await FetchFunc(MultiMotionUrl + ArticelId),
       Loading: false,
     });
   }
   async fetchFiles(ArticelId) {
-    var url = "/abi/post/OrderPictures.ashx?ArticelId=" + ArticelId;
-    this.setState({ Files: await FetchFunc(url) });
+    this.setState({ Files: await FetchFunc(getFilesUrl + ArticelId) });
   }
   async fetchCorps() {
     const response = await fetch("abi/post/CorpList.ashx", {
@@ -214,7 +211,7 @@ export class SevkProvider extends Component {
     this.setState({ Corps: CorpsJson });
   }
   async fetchArticels() {
-    var data = await FetchFunc(apiBase + "Articels");
+    var data = await FetchFunc("Articels");
     if (!data.error) {
       this.setState({ Articels: data, isError: false });
       localStorage.setItem("Articels", JSON.stringify(data));
@@ -233,22 +230,20 @@ export class SevkProvider extends Component {
     }
   }
   async fetchProductTypes() {
-    var data = await FetchFunc("abi/post/ProductType.ashx");
+    var data = await FetchFunc(ProductTypeUrl);
     localStorage.setItem("ProductTypes", JSON.stringify(data));
     this.setState({ ProductTypes: data });
   }
   async fetchSalesTypes() {
-    var saletypes = await FetchFunc("abi/post/SaleType.ashx");
+    var saletypes = await FetchFunc(SalesTypeUrl);
     localStorage.setItem("SalesTypes", JSON.stringify(saletypes));
     this.setState({ SalesTypes: saletypes });
   }
-  ConfirmAccept = async () => {
+  async ConfirmAccept() {
     this.setState({ Loading: true });
     setTimeout(() => {
       this.setState({ Loading: true, ShowConfirm: false });
-      var DeleteUrl =
-        apiBase + "DeleteArticel&ArticelId=" + this.state.ActiveArticel;
-      var data = FetchFunc(DeleteUrl);
+      var data = FetchFunc(DeleteArticelUrl + this.state.ActiveArticel);
       console.log(data);
       setTimeout(() => {
         this.setState({
@@ -261,10 +256,9 @@ export class SevkProvider extends Component {
         this.fetchArticels();
       }, 1300);
     }, 2500);
-  };
-  GetWayBillPhoto = async (WayBillId) => {
-    var PhotoUrl = "abi/post/WayBillPhoto.ashx?WayBillId=" + WayBillId;
-    fetch(PhotoUrl)
+  }
+  async GetWayBillPhoto(WayBillId) {
+    fetch(PhotoUrl + WayBillId)
       .then((res) => res.json())
       .then(
         (response) => {
@@ -287,10 +281,10 @@ export class SevkProvider extends Component {
           this.closeError();
         }
       );
-  };
-  PostOrdersave = async () => {
+  }
+  async PostOrdersave() {
     var url =
-      "abi/post/AddOrder.ashx?ArticelId=" +
+      AddUrl +
       this.state.ActiveArticel +
       "&ProductType=" +
       this.state.ProductTypeId +
@@ -304,8 +298,8 @@ export class SevkProvider extends Component {
       this.state.Piece +
       "&SaleType=1&Articel=test";
     await this.UpdateOrAddOrder(url);
-  };
-  OpenEdit = (Order) => {
+  }
+  OpenEdit(Order) {
     this.setState({ ShowProductEdit: !this.state.ShowProductEdit });
     try {
       this.setState({
@@ -319,11 +313,11 @@ export class SevkProvider extends Component {
     } catch (e) {
       console.log(e);
     }
-  };
-  SaveArticel = async () => {
+  }
+  async SaveArticel() {
     this.setState({ CreateArticelShow: true });
     var url =
-      "abi/post/AddArticel.ashx?CorpId=" +
+      SaveUrl +
       this.state.CorpId +
       "&Articel=" +
       this.state.ArticelName +
@@ -340,10 +334,10 @@ export class SevkProvider extends Component {
       NewProductShow: true,
       CreateArticelShow: false,
     });
-  };
-  PostProductOutSave = async () => {
+  }
+  async PostProductOutSave() {
     var url =
-      "abi/post/AddWayBill.ashx?CorpId=" +
+      ProductOutUrl +
       this.state.CorpId +
       "&Piece=" +
       this.state.Piece +
@@ -356,8 +350,8 @@ export class SevkProvider extends Component {
       "&ArticelId=" +
       this.state.ActiveArticel;
     await FetchFunc(url);
-  };
-  UpdateOrAddOrder = async (url) => {
+  }
+  async UpdateOrAddOrder(url) {
     fetch(url, {
       method: "GET",
     })
@@ -374,8 +368,8 @@ export class SevkProvider extends Component {
       .catch((err) => {
         this.setState({ isError: true, Error: err });
       });
-  };
-  GetOrders = async (Articel) => {
+  }
+  async GetOrders(Articel) {
     this.setState({
       Loading: true,
       Orders: [],
@@ -386,7 +380,6 @@ export class SevkProvider extends Component {
       CorpName: Articel.CustomerName,
       Articel: Articel,
     });
-
     if (this.state.ActiveArticel === 0) {
       this.setState({ ActiveArticel: Articel.id });
       try {
@@ -405,8 +398,14 @@ export class SevkProvider extends Component {
         document.getElementById(Clicked).classList.add("ActiveArticelRow");
       } catch (error) {}
     }
-
-    var FullUrl = apiBase + "Orders&ArticelId=" + Articel.id;
+    var Fs = document.getElementById("FirstScreen");
+    var Ss = document.getElementById("SecondScreen");
+    Ss.classList.remove("hide");
+    Ss.classList.add("col-md-8");
+    Ss.classList.add("padd0");
+    Fs.classList.add("col-md-4");
+    Fs.classList.remove("col-md-12");
+    var FullUrl = GetOrderUrl + Articel.id;
     var data = await FetchFunc(FullUrl);
     if (!data.error) {
       this.setState({
@@ -423,10 +422,6 @@ export class SevkProvider extends Component {
       this.fetchFiles(Articel.id);
       await this.fetchWaybill(Articel.id);
       this.fetchNotes(Articel.id);
-      document.getElementById("SecondScreen").classList.remove("hide");
-      document.getElementById("SecondScreen").classList.add("col-md-8");
-      document.getElementById("FirstScreen").classList.add("col-md-4");
-      document.getElementById("FirstScreen").classList.remove("col-md-12");
     } else {
       this.closeTopBar();
       this.setState({
@@ -436,8 +431,8 @@ export class SevkProvider extends Component {
           "Hizmete Ulaşamıyoruz, İnternet bağlantınızın olduğundan emin olun",
       });
     }
-  };
-  CallOutonMouseMove = async (e) => {
+  }
+  async CallOutonMouseMove(e) {
     this.setState({ x: e.x, y: e.y });
     var element = "Order" + e.Order.id;
     document.getElementById(element).classList.add("OrderProccessing");
@@ -450,15 +445,13 @@ export class SevkProvider extends Component {
       Order: e.Order,
     });
     if (e.Order.id !== 0) {
-      var url = apiBase + "Motion&MotionType=One&OrderId=" + e.Order.id;
+      var url = OneMotionUrl + e.Order.id;
       var data = await FetchFunc(url);
       this.setState({ OneWaybill: data });
       var totalpiece = 0;
       var totalweight = 0;
-
       data.map((w) => (totalpiece += parseInt(w.Piece, 10)));
       data.map((w) => (totalweight += parseInt(w.Weight, 10)));
-
       this.setState({
         waybillPiece: totalpiece,
         waybillWeight: totalweight,
@@ -467,11 +460,11 @@ export class SevkProvider extends Component {
     }
     this.setState({ Loading: false, ShowCallOut: true });
     document.getElementById(element).classList.remove("OrderProccessing");
-  };
-  PostOrderUpdate = async () => {
+  }
+  async PostOrderUpdate() {
     this.setState({ Loading: true });
     var url =
-      "abi/post/UpdateOrder.ashx?OrderId=" +
+      UpdateOrderUrl +
       this.state.Order.id +
       "&ProductType=" +
       this.state.ProductTypeId +
@@ -482,7 +475,7 @@ export class SevkProvider extends Component {
       "&Piece=" +
       this.state.Piece;
     await this.UpdateOrAddOrder(url);
-  };
+  }
   updateDimensions = () => {
     this.setState({ ShowCallOut: false });
     this.CheckMobile();
@@ -493,16 +486,17 @@ export class SevkProvider extends Component {
       ShowTopBar: false,
       DetailActive: false,
     });
-    document.getElementById("SecondScreen").classList.add("hide");
-    document.getElementById("FirstScreen").classList.add("col-md-12");
-    document.getElementById("FirstScreen").classList.remove("col-md-4");
+    var Fs = document.getElementById("FirstScreen");
+    var Ss = document.getElementById("SecondScreen");
+    Ss.classList.add("hide");
+    Fs.classList.add("col-md-12");
+    Fs.classList.remove("col-md-4");
     try {
       var selectedId = "Articel" + this.state.ActiveArticel;
       document.getElementById(selectedId).classList.remove("ActiveArticelRow");
     } catch (error) {
       this.setState({ isError: true, Error: error });
     }
-
     this.setState({
       ActiveArticel: 0,
     });
@@ -516,7 +510,7 @@ export class SevkProvider extends Component {
     var formData = new FormData();
     formData.append("ArticelId", this.state.ActiveArticel);
     formData.append("Notes", this.state.ArticelNotes);
-    fetch("abi/post/AddNotes.ashx", {
+    fetch(SaveNoteUrl, {
       method: "POST",
       body: formData,
     })
@@ -529,7 +523,7 @@ export class SevkProvider extends Component {
             Error: "Güncelleme Tamamlandı",
           });
           setTimeout(() => {
-            this.setState({ ShowLayoutNote: true });
+            this.setState({ ShowLayoutNote: true, isError: false });
           }, 1500);
         }, 2500);
       })
@@ -549,7 +543,7 @@ export class SevkProvider extends Component {
     formData.append("Path", "/dosyalar/" + this.state.RawPath);
     formData.append("PictureName", this.state.Path);
     formData.append("PictureId", 0);
-    fetch("abi/post/DosyaSistem/ResimDondur.ashx", {
+    fetch(RotateUrl, {
       method: "POST",
       processData: false,
       body: formData,
@@ -595,7 +589,7 @@ export class SevkProvider extends Component {
     formData.append("ArticelId", this.state.ActiveArticel);
     formData.append("FileType", this.state.FileType);
     formData.append("UploadArea[0]", fileList[0], fileList[0].name);
-    fetch("abi/post/UploadWayBillOrder.ashx", {
+    fetch(DocumentUploadUrl, {
       method: "POST",
       contentType: "application/json",
       processData: false,
@@ -638,7 +632,6 @@ export class SevkProvider extends Component {
     } else {
       this.fetchSalesTypes();
     }
-
     if (LocalStore.check("Corps")) {
       this.setState({ Corps: LocalStore.get("Corps") });
     } else {
