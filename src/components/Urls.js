@@ -12,6 +12,7 @@ export const UpdateOrderUrl = "abi/post/UpdateOrder.ashx?OrderId=";
 export const SaveNoteUrl = "abi/post/AddNotes.ashx";
 export const RotateUrl = "abi/post/DosyaSistem/ResimDondur.ashx";
 export const DocumentUploadUrl = "abi/post/UploadWayBillOrder.ashx";
+export const getArticelsUrl = apiBase+"Articels"
 export const MultiMotionUrl = apiBase + "Motion&MotionType=Multi&OrderId=";
 export const GetOrderUrl = apiBase + "Orders&ArticelId=";
 export const OneMotionUrl = apiBase + "Motion&MotionType=One&OrderId=";

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FetchFunc } from "./FetchFunc";
-import {ProductTypeUrl,DeleteArticelUrl,SalesTypeUrl,getFilesUrl,PhotoUrl,MultiMotionUrl,AddUrl,DocumentUploadUrl,SaveUrl,NoteUrl,ProductOutUrl,GetOrderUrl,OneMotionUrl,UpdateOrderUrl,SaveNoteUrl,RotateUrl} from "./../components/Urls";
+import {getArticelsUrl,ProductTypeUrl,DeleteArticelUrl,SalesTypeUrl,getFilesUrl,PhotoUrl,MultiMotionUrl,AddUrl,DocumentUploadUrl,SaveUrl,NoteUrl,ProductOutUrl,GetOrderUrl,OneMotionUrl,UpdateOrderUrl,SaveNoteUrl,RotateUrl} from "./../components/Urls";
 import LocalStore from "../components/Tools/LocalStore";
 const SevkContext = React.createContext();
 export class SevkProvider extends Component {
@@ -215,7 +215,7 @@ export class SevkProvider extends Component {
     this.setState({ Corps: CorpsJson });
   }
   async fetchArticels() {
-    var data = await FetchFunc("Articels");
+    var data = await FetchFunc(getArticelsUrl);
     if (!data.error) {
       this.setState({ Articels: data, FilteredArticels: data, isError: false });
       localStorage.setItem("Articels", JSON.stringify(data));
