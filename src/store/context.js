@@ -1,6 +1,23 @@
 import React, { Component } from "react";
 import { FetchFunc } from "./FetchFunc";
-import {ProductTypeUrl,DeleteArticelUrl,SalesTypeUrl,getFilesUrl,PhotoUrl,MultiMotionUrl,AddUrl,DocumentUploadUrl,SaveUrl,NoteUrl,ProductOutUrl,GetOrderUrl,OneMotionUrl,UpdateOrderUrl,SaveNoteUrl,RotateUrl,} from "./../components/Urls";
+import {
+  ProductTypeUrl,
+  DeleteArticelUrl,
+  SalesTypeUrl,
+  getFilesUrl,
+  PhotoUrl,
+  MultiMotionUrl,
+  AddUrl,
+  DocumentUploadUrl,
+  SaveUrl,
+  NoteUrl,
+  ProductOutUrl,
+  GetOrderUrl,
+  OneMotionUrl,
+  UpdateOrderUrl,
+  SaveNoteUrl,
+  RotateUrl,
+} from "./../components/Urls";
 import LocalStore from "../components/Tools/LocalStore";
 const SevkContext = React.createContext();
 export class SevkProvider extends Component {
@@ -482,6 +499,7 @@ export class SevkProvider extends Component {
   };
   closeTopBar = () => {
     this.setState({
+      showOrder: false,
       ShowCallOut: false,
       ShowTopBar: false,
       DetailActive: false,

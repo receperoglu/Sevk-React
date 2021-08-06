@@ -1,9 +1,9 @@
 import React from "react";
 import SevkConsumer from "../store/context";
-function TableHead(isMobile) {
+function TableHead(showOrder, isMobile) {
   return (
     <thead className="cellName-112">
-      {isMobile ? (
+      {isMobile | showOrder ? (
         <tr>
           <td className="col-md-12">
             Firma
@@ -24,13 +24,13 @@ export default function ArticelsTable() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { Articels, isMobile, dispatch } = value;
+        const { Articels, showOrder, isMobile, dispatch } = value;
         const GetOrder = (Order) => {
           dispatch({ type: "Get_Order", payload: Order });
         };
         return (
           <table className="Articels table table-hover">
-            {TableHead(isMobile)}
+            {TableHead(showOrder, isMobile)}
             <tbody>
               {Articels.map((a) => (
                 <tr
@@ -39,7 +39,7 @@ export default function ArticelsTable() {
                   key={a.id}
                   onClick={() => GetOrder(a)}
                 >
-                  {isMobile ? (
+                  {showOrder | isMobile ? (
                     <td className="break-spaces">
                       {a.CustomerName}
                       <br />
