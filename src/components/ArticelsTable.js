@@ -5,10 +5,8 @@ function TableHead(showOrder, isMobile) {
     <thead className="cellName-112">
       {isMobile | showOrder ? (
         <tr>
-          <td className="col-md-12">
-            Firma
-            <br />
-            Articel / Sipariş
+          <td className="col-md-12 text-center">
+            Firma Articel / Sipariş
           </td>
         </tr>
       ) : (
