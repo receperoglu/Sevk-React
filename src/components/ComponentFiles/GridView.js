@@ -18,33 +18,37 @@ export default function GridView() {
             {Files.map((F) => (
               <div key={F.id} className="FileContainer col-md-3 col-xs-3">
                 {F.FileType === "Picture" ? (
+                      <React.Fragment>
                   <div
-                    className="PictureDiv"
+                    className="PreviewDiv"
                     onClick={() => showPreview(F, "Picture")}
                     style={{ backgroundImage: `url(${Thumb + F.Path})` }}
                   >
-                    <Download File={File} />
-                    <span className="FileLink ">
-                      {F.FileName.substring(0, 12)}
-                    </span>
+                    <Download File={F} />                   
                   </div>
+                   <span className="FileLink ">
+                   {F.FileName.substring(0, 12)}
+                 </span>
+                 </React.Fragment>
                 ) : (
+                  <React.Fragment>
                   <div
-                    className="filepreview"
+                    className="PreviewDiv"
                     style={{
                       backgroundImage: `url(${
                         ico + F.ext.substring(1)
                       }.png)`,
                     }}
                   >
-                    <Download File={F} />
-                    <span
-                      className="FileLink"
-                      onClick={() => showPreview(F, "Document")}
-                    >
-                      {F.FileName.substring(0, 12)}
-                    </span>
+                    <Download File={F} />                    
                   </div>
+                  <span
+                  className="FileLink"
+                  onClick={() => showPreview(F, "Document")}
+                >
+                  {F.FileName.substring(0, 12)}
+                </span>
+                </React.Fragment>
                 )}
               </div>
             ))}

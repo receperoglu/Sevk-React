@@ -25,8 +25,7 @@ export default function ComponentFiles() {
               text="Dökümanlar"
               isVisible={FilesVisible}
             />
-            <div className={FilesVisible ? "effect" : "hide"}>
-              <div className="col-md-12 text-center">
+            <div className={FilesVisible ? "effect FilesArea col-xs-12 text-center" : "hide"}>             
                 {Files.length === 0 ? (
                   <div className="padd10 fleft">
                     <i data-icon-name="Info" role="presentation">
@@ -44,7 +43,7 @@ export default function ComponentFiles() {
                     />
                   </span>
                 )}
-              </div>
+               
               {Vtype ? (
                 <GridView />
               ) : (

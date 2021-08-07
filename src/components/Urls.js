@@ -2,7 +2,7 @@ export const Url = "https://recep.space/abi/dosyalar/";
 export const Thumb = "https://recep.space/thumbs/";
 const apiBase = "StartApi.ashx?Platform=Android&ProcessType=";
 export const DocUrl =  "https://view.officeapps.live.com/op/embed.aspx?src=https://recep.space/abi/dosyalar/";
-export const ico =  "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/64/";
+export const ico =  "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/256/";
 export const PhotoUrl = "abi/post/WayBillPhoto.ashx?WayBillId=";
 export const NoteUrl = "abi/post/ArticelNotes.ashx?ArticelId=";
 export const AddUrl = "abi/post/AddOrder.ashx?ArticelId=";
