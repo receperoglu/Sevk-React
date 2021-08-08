@@ -17,10 +17,19 @@ export default function TopBar() {
         const Search = (e) => {
           dispatch({ type: "Search", payload: e });
         };
+        const toggleTheme = () => {
+          dispatch({ type: "toggleTheme" ,payload:null});
+        };
         return (
           <Fragment>
             <div className="od-SuiteNav od-SuiteNav-react">
-              <span className="od-SuiteNav-reactShell-diamond Icon css-41" />
+              <span
+                onClick={ toggleTheme}
+                role="presentation"
+                class="settings"
+              >
+                
+              </span>
               <div className="ThemeBase o365sx-navbar o365sx-search">
                 <div className="_2kc0c9nP-qti6fefMCFonk">
                   <div className="Mm _3FLRgiFtGLuaFraVW49btd">

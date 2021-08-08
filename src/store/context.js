@@ -1,7 +1,38 @@
 import React, { Component } from "react";
 import { FetchFunc } from "./FetchFunc";
-import {getArticelsUrl,ProductTypeUrl,DeleteArticelUrl,SalesTypeUrl,getFilesUrl,PhotoUrl,MultiMotionUrl,AddUrl,DocumentUploadUrl,SaveUrl,NoteUrl,ProductOutUrl,GetOrderUrl,OneMotionUrl,UpdateOrderUrl,SaveNoteUrl,RotateUrl} from "./../components/Urls";
+import {
+  getArticelsUrl,
+  ProductTypeUrl,
+  DeleteArticelUrl,
+  SalesTypeUrl,
+  getFilesUrl,
+  PhotoUrl,
+  MultiMotionUrl,
+  AddUrl,
+  DocumentUploadUrl,
+  SaveUrl,
+  NoteUrl,
+  ProductOutUrl,
+  GetOrderUrl,
+  OneMotionUrl,
+  UpdateOrderUrl,
+  SaveNoteUrl,
+  RotateUrl,
+} from "./../components/Urls";
 import LocalStore from "../components/Tools/LocalStore";
+const greenTheme =
+  "--themeDarker: #002412; --themeDark: #004A26; --themeDarkAlt: #004A26; --themePrimary: #007239; --themeSecondary: #267F4F; --themeTertiary: #66AA88; --themeLight: #9EC6B1; --themeLighter: #CBEFDA; --themeLighterAlt: #E9FBF1;";
+const orangeTheme =
+  "--themeDarker: #AA2D12; --themeDark: #CC3716; --themeDarkAlt: #CC3716; --themePrimary: #E64524; --themeSecondary: #E75943; --themeTertiary: #EF9082; --themeLight: #F4B5AB; --themeLighter: #FADAD5; --themeLighterAlt: #FDF2F0;";
+const blueTheme =
+  "--themeDarker: #004578; --themeDark: #005A9E; --themeDarkAlt: #106EBE; --themePrimary: #0078d4; --themeSecondary: #2B88D8; --themeTertiary: #71AFE5; --themeLight: #C7E0F4; --themeLighter: #DEECF9; --themeLighterAlt: #EFF6FC;";
+const opaqblueTheme =
+  "--themeDarker: #0000B1; --themeDark: #0000D7; --themeDarkAlt: #0000D7; --themePrimary: #0001FF; --themeSecondary: #5D5EE5; --themeTertiary: #BEBFEC; --themeLight: #E6E7FF; --themeLighter: #E6E7FF; --themeLighterAlt: #E6E7FF;";
+const navyTheme =
+  "--themeDarker: #050811; --themeDark: #0D152F; --themeDarkAlt: #0D152F; --themePrimary: #17234E; --themeSecondary: #3D496A; --themeTertiary: #8B92A6; --themeLight: #B1B6C3; --themeLighter: #D8DBE1; --themeLighterAlt: #F1F2F4;";
+const purpleTheme =
+  "--themeDarker: #180C1F; --themeDark: #2D163B; --themeDarkAlt: #2D163B; --themePrimary: #432158; --themeSecondary: #624F6E; --themeTertiary: #A195A8; --themeLight: #C0B9C5; --themeLighter: #E0DCE2; --themeLighterAlt: #F4F3F5;";
+
 const SevkContext = React.createContext();
 export class SevkProvider extends Component {
   constructor(props) {
@@ -33,6 +64,7 @@ export class SevkProvider extends Component {
       DetailActive: false,
       ShowProductOut: false,
       NewProductShow: false,
+      ShowLayoutTheme: false,
       ShowLayoutNote: false,
       ShowProductEdit: false,
       ShowLayoutRight: false,
@@ -161,15 +193,22 @@ export class SevkProvider extends Component {
           };
         case "toggleEdit":
           return this.OpenEdit(action.payload);
+        case "toggleTheme":
+          return { ...state, ShowLayoutTheme: !this.state.ShowLayoutTheme };
+        case "changeTheme":
+          return this.changeTheme(action.payload);
         case "Search":
           return this.Search(action.payload);
         default:
           return state;
       }
     };
+
     this.Search = this.Search.bind(this);
     this.OpenEdit = this.OpenEdit.bind(this);
     this.GetOrders = this.GetOrders.bind(this);
+    this.changeTheme = this.changeTheme.bind(this);
+    this.themeSet = this.themeSet.bind(this);
     this.closeError = this.closeError.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
     this.fetchCorps = this.fetchCorps.bind(this);
@@ -630,7 +669,39 @@ export class SevkProvider extends Component {
       this.setState({ isError: false });
     }, 2500);
   }
+  themeSet(color) {
+    var page = document.getElementById("page");
+    page.setAttribute("style", color);
+    localStorage.setItem("Theme", color);
+  }
+  changeTheme(color) {
+    if (color === "blue") {
+      this.themeSet(blueTheme);
+    } else if (color === "orange") {
+      this.themeSet(orangeTheme);
+    } else if (color === "opaqblue") {
+      this.themeSet(opaqblueTheme);
+    } else if (color === "navy") {
+      this.themeSet(navyTheme);
+    } else if (color === "opaqorange") {
+      this.themeSet(orangeTheme);
+    } else if (color === "green") {
+      this.themeSet(greenTheme);
+    }
+  }
   componentDidMount() {
+    try {
+      var page = document.getElementById("page");
+      var themeColor = LocalStore.get("Theme");
+      if (themeColor === "") {
+        page.setAttribute("style", blueTheme);
+      } else {
+        page.setAttribute("style", themeColor);
+      }
+    } catch (error) {
+      page.setAttribute("style", blueTheme);
+    }
+
     this.setState({ Loading: true });
     if (LocalStore.check("Articels")) {
       this.setState({

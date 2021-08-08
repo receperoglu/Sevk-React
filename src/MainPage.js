@@ -12,11 +12,12 @@ import Confirm from "./components/Layout/Confirm";
 import Edit from "./components/ProductModal/Edit";
 import LayoutRight from "./components/LayoutRight";
 import LayoutNotes from "./components/LayoutNotes";
+import LayoutTheme from "./components/LayoutTheme";
 import Out from "./components/ProductModal/Out";
 import PicturePreview from "./components/Layout/PicturePreview";
 import DocumentPreview from "./components/Layout/DocumentPreview";
 export default function MainPage() {
-  return (
+return (
     <SevkConsumer>
       {(value) => {
         const { Loading, isMobile, ChangeView, DetailActive } = value;
@@ -52,6 +53,7 @@ export default function MainPage() {
             <DocumentPreview />     
             <LayoutRight />
             <LayoutNotes />
+            <LayoutTheme />
             <Edit />
             <Out />    
             <Confirm/>
