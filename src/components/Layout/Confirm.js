@@ -44,7 +44,7 @@ export default function Confirm() {
                   </div>
                   <ProgressBar isVisible={Loading} />
                   {Loading ? null : (
-                    <div className="actionsRight-397">
+                    <div className="text-center">
                       <span className="action-396">
                         <BlueButton text="Evet" click={ConfirmAccept} />
                       </span>
