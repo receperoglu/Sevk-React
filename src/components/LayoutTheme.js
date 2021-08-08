@@ -23,30 +23,39 @@ export default function LayoutTheme() {
             <div className="BaseDrive effect RightLayout">
               <LayoutHead click={toggleTheme} text="Tema Seçin" />
               <div className="themeContainer">
+                <div onClick={() => changeTheme("blue")} className=" col-xs-4">
+                  <div className="blue"></div>
+                </div>
                 <div
-                  onClick={()=>changeTheme("blue")}
-                  className="blue col-xs-2"
-                ></div>
+                  onClick={() => changeTheme("opaqblue")}
+                  className=" col-xs-4"
+                >
+                  <div className="opaqblue"></div>
+                </div>
+                <div onClick={() => changeTheme("navy")} className=" col-xs-4">
+                  <div className="navy"></div>
+                </div>
                 <div
-                  onClick={()=>changeTheme("opaqblue")}
-                  className="opaqblue col-xs-2"
-                ></div>
+                  onClick={() => changeTheme("orange")}
+                  className=" col-xs-4"
+                >
+                  <div className="orange"></div>
+                </div>
                 <div
-                  onClick={()=>changeTheme("navy")}
-                  className="navy col-xs-2"
-                ></div>
+                  onClick={() => changeTheme("opaqorange")}
+                  className=" col-xs-4"
+                >
+                  <div className="opaqorange"></div>
+                </div>
                 <div
-                  onClick={()=>changeTheme("orange")}
-                  className="orange col-xs-2"
-                ></div>
-                <div
-                  onClick={()=>changeTheme("opaqorange")}
-                  className="opaqorange col-xs-2"
-                ></div>
-                <div
-                  onClick={()=>changeTheme("green")}
-                  className="green col-xs-2"
-                ></div>
+                  onClick={() => changeTheme("purple")}
+                  className=" col-xs-4"
+                >
+                  <div className="purple"></div>
+                </div>
+                <div onClick={() => changeTheme("green")} className=" col-xs-4">
+                  <div className="green"></div>
+                </div>
               </div>
             </div>
           </div>

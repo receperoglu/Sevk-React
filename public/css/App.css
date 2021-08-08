@@ -6,9 +6,14 @@ body {
   font-family: Segoe UI WestEuropean, Segoe UI, -apple-system,
     BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
 }
-.themeContainer>div{
-    height: 50px;
-    border-radius: 50%;
+.themeContainer>.col-xs-4>div{
+  height: 50px;
+  border-radius: 50%;
+  width: 50px;
+  margin: 10px;
+}
+.purple{
+  background-color: #432158;
 }
 .blue{
     background-color: #0078d4;

@@ -22,8 +22,10 @@ import {
 import LocalStore from "../components/Tools/LocalStore";
 const greenTheme =
   "--themeDarker: #002412; --themeDark: #004A26; --themeDarkAlt: #004A26; --themePrimary: #007239; --themeSecondary: #267F4F; --themeTertiary: #66AA88; --themeLight: #9EC6B1; --themeLighter: #CBEFDA; --themeLighterAlt: #E9FBF1;";
-const orangeTheme =
+const opaqorangeTheme =
   "--themeDarker: #AA2D12; --themeDark: #CC3716; --themeDarkAlt: #CC3716; --themePrimary: #E64524; --themeSecondary: #E75943; --themeTertiary: #EF9082; --themeLight: #F4B5AB; --themeLighter: #FADAD5; --themeLighterAlt: #FDF2F0;";
+const orangeTheme =
+  "--themeDarker: #AB1713; --themeDark: #BA2A1D; --themeDarkAlt: #C13422; --themePrimary: #D24726; --themeSecondary: #D7634D; --themeTertiary: #E39182; --themeLight: #EFBFB6; --themeLighter: #F6DAD5; --themeLighterAlt: #FAECEA;";
 const blueTheme =
   "--themeDarker: #004578; --themeDark: #005A9E; --themeDarkAlt: #106EBE; --themePrimary: #0078d4; --themeSecondary: #2B88D8; --themeTertiary: #71AFE5; --themeLight: #C7E0F4; --themeLighter: #DEECF9; --themeLighterAlt: #EFF6FC;";
 const opaqblueTheme =
@@ -675,7 +677,9 @@ export class SevkProvider extends Component {
     localStorage.setItem("Theme", color);
   }
   changeTheme(color) {
-    if (color === "blue") {
+    if (color === "purple") {
+      this.themeSet(purpleTheme);
+    } else if (color === "blue") {
       this.themeSet(blueTheme);
     } else if (color === "orange") {
       this.themeSet(orangeTheme);
@@ -684,23 +688,22 @@ export class SevkProvider extends Component {
     } else if (color === "navy") {
       this.themeSet(navyTheme);
     } else if (color === "opaqorange") {
-      this.themeSet(orangeTheme);
+      this.themeSet(opaqorangeTheme);
     } else if (color === "green") {
       this.themeSet(greenTheme);
     }
   }
   componentDidMount() {
-    try {
+    setTimeout(() => {
       var page = document.getElementById("page");
-      var themeColor = LocalStore.get("Theme");
-      if (themeColor === "") {
-        page.setAttribute("style", blueTheme);
-      } else {
+      if (localStorage.getItem("Theme")) {
+        var themeColor = localStorage.getItem("Theme");
+        console.log(themeColor);
         page.setAttribute("style", themeColor);
+      } else {
+        page.setAttribute("style", blueTheme);
       }
-    } catch (error) {
-      page.setAttribute("style", blueTheme);
-    }
+    }, 5);
 
     this.setState({ Loading: true });
     if (LocalStore.check("Articels")) {
