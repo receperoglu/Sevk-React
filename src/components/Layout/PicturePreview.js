@@ -2,7 +2,7 @@ import React from "react";
 import CancelBtn from "./../Tools/CancelBtn";
 import SevkConsumer from "../../store/context";
 import CreateIcon from "../Tools/CreateIcon";
-import { Url } from "../Urls";
+import { Url } from "../../components/Tools/Urls";
 function Rotate() {
   return (
     <span className="hover-dropdown">

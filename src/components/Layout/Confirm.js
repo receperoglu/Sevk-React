@@ -7,10 +7,10 @@ export default function Confirm() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { Loading, dispatch, ShowConfirm } = value;
+        const { Loading, dispatch, ShowConfirm,Error } = value;
         const ConfirmAccept = () => {
           dispatch({
-            type: "ConfirmAccept",
+            type: "ConfirmAccept"
           });
         };
         const ConfirmToggle = () => {
@@ -33,11 +33,7 @@ export default function Confirm() {
                         <span>Lütfen Bekleyin</span>
                       ) : (
                         <span>
-                          Bu artikel/sipariş silinecek.
-                          <br />
-                          İşlem geri alınamaz! <br />
-                          Notlar,ürünler,irsaliyeler ve sipariş dosyaları da
-                          silinecek.
+                        {Error}
                         </span>
                       )}
                     </p>

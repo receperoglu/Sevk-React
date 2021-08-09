@@ -14,11 +14,17 @@ export default function Menus() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { ShowTopBar, isMobile, ActiveArticel, CorpName, dispatch } =
-          value;
+        const {
+          ShowTopBar,
+          isMobile,
+          ChangeView,
+          ActiveArticel,
+          CorpName,
+          dispatch,
+        } = value;
 
         const toggleView = () => {
-          dispatch({ type: "toggleView", payload: null });
+          dispatch({ type: "toggleView" });
         };
         const closeTopBar = () => {
           dispatch({
@@ -50,6 +56,7 @@ export default function Menus() {
                 {isMobile ? null : (
                   <MenuItem
                     click={toggleView}
+                    text={ChangeView ? "Küçük Görünüm" : "Tam Ekran"}
                     symbol=""
                     iconclassname="FabricMDL2Icons-0"
                   />
@@ -105,7 +112,7 @@ export default function Menus() {
                   iconclassname="FabricMDL2Icons-13"
                 />
                 <MenuItem
-                  click={  Delete}
+                  click={Delete}
                   text="Sil"
                   symbol=""
                   iconclassname="controlIcons"

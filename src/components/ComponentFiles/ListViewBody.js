@@ -15,7 +15,7 @@ export default function ListViewBody() {
             <div className="flex_fold">
               <span className="flex1">{File.FileName}</span>
             </div>
-            <div className="flex1">{File.CreatedDate}</div>
+            <div className="flex1">{File.CreatedDate.substring(0,11)}</div>
             <div className="flex_half text-center">
               <Download key={File.id} File={File} />
             </div>

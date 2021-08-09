@@ -18,22 +18,25 @@ import {
   UpdateOrderUrl,
   SaveNoteUrl,
   RotateUrl,
-} from "./../components/Urls";
-import LocalStore from "../components/Tools/LocalStore";
-const greenTheme =
-  "--themeDarker: #002412; --themeDark: #004A26; --themeDarkAlt: #004A26; --themePrimary: #007239; --themeSecondary: #267F4F; --themeTertiary: #66AA88; --themeLight: #9EC6B1; --themeLighter: #CBEFDA; --themeLighterAlt: #E9FBF1;";
-const opaqorangeTheme =
-  "--themeDarker: #AA2D12; --themeDark: #CC3716; --themeDarkAlt: #CC3716; --themePrimary: #E64524; --themeSecondary: #E75943; --themeTertiary: #EF9082; --themeLight: #F4B5AB; --themeLighter: #FADAD5; --themeLighterAlt: #FDF2F0;";
-const orangeTheme =
-  "--themeDarker: #AB1713; --themeDark: #BA2A1D; --themeDarkAlt: #C13422; --themePrimary: #D24726; --themeSecondary: #D7634D; --themeTertiary: #E39182; --themeLight: #EFBFB6; --themeLighter: #F6DAD5; --themeLighterAlt: #FAECEA;";
-const blueTheme =
-  "--themeDarker: #004578; --themeDark: #005A9E; --themeDarkAlt: #106EBE; --themePrimary: #0078d4; --themeSecondary: #2B88D8; --themeTertiary: #71AFE5; --themeLight: #C7E0F4; --themeLighter: #DEECF9; --themeLighterAlt: #EFF6FC;";
-const opaqblueTheme =
-  "--themeDarker: #0000B1; --themeDark: #0000D7; --themeDarkAlt: #0000D7; --themePrimary: #0001FF; --themeSecondary: #5D5EE5; --themeTertiary: #BEBFEC; --themeLight: #E6E7FF; --themeLighter: #E6E7FF; --themeLighterAlt: #E6E7FF;";
-const navyTheme =
-  "--themeDarker: #050811; --themeDark: #0D152F; --themeDarkAlt: #0D152F; --themePrimary: #17234E; --themeSecondary: #3D496A; --themeTertiary: #8B92A6; --themeLight: #B1B6C3; --themeLighter: #D8DBE1; --themeLighterAlt: #F1F2F4;";
-const purpleTheme =
-  "--themeDarker: #180C1F; --themeDark: #2D163B; --themeDarkAlt: #2D163B; --themePrimary: #432158; --themeSecondary: #624F6E; --themeTertiary: #A195A8; --themeLight: #C0B9C5; --themeLighter: #E0DCE2; --themeLighterAlt: #F4F3F5;";
+} from "./../components/Tools/Urls";
+import {
+  greenTheme,
+  opaqorangeTheme,
+  orangeTheme,
+  blueTheme,
+  opaqblueTheme,
+  navyTheme,
+  purpleTheme,
+} from "./../components/Tools/ThemeColors";
+import LocalStore from "./../components/Tools/LocalStore";
+import {
+  NoInternetConnection,
+  NotWaybillPhoto,
+  FileDeleteInfo,
+  DeleteOk,
+  UpdateOk,
+  ArticelDeleteInfo,
+} from "../components/Tools/InfoWords";
 
 const SevkContext = React.createContext();
 export class SevkProvider extends Component {
@@ -74,6 +77,7 @@ export class SevkProvider extends Component {
       CreateArticelShow: false,
       ShowPicturePreview: false,
       ShowDocumentPreview: false,
+      FileId: 0,
       Piece: 0,
       Weight: 0,
       CorpId: 0,
@@ -95,6 +99,7 @@ export class SevkProvider extends Component {
       Dimensions: "",
       ArticelName: "",
       ArticelNotes: "",
+      ConfirmType: "",
       dispatch: (action) => {
         this.setState((state) => reducer(state, action));
       },
@@ -104,10 +109,7 @@ export class SevkProvider extends Component {
         case "ConfirmAccept":
           return this.ConfirmAccept();
         case "ConfirmToggle":
-          return {
-            ...state,
-            ShowConfirm: action.payload,
-          };
+          return this.ShowConfirm();
         case "cancelDocument":
           return { ...state, ShowDocumentPreview: false, File: [] };
         case "Get_Order":
@@ -201,12 +203,15 @@ export class SevkProvider extends Component {
           return this.changeTheme(action.payload);
         case "Search":
           return this.Search(action.payload);
+        case "DeleteFile":
+          return this.DeleteFile(action.payload);
         default:
           return state;
       }
     };
 
     this.Search = this.Search.bind(this);
+    this.DeleteFile = this.DeleteFile.bind(this);
     this.OpenEdit = this.OpenEdit.bind(this);
     this.GetOrders = this.GetOrders.bind(this);
     this.changeTheme = this.changeTheme.bind(this);
@@ -218,6 +223,7 @@ export class SevkProvider extends Component {
     this.fetchFiles = this.fetchFiles.bind(this);
     this.toggleView = this.toggleView.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
+    this.ShowConfirm = this.ShowConfirm.bind(this);
     this.CheckMobile = this.CheckMobile.bind(this);
     this.SaveArticel = this.SaveArticel.bind(this);
     this.fetchWaybill = this.fetchWaybill.bind(this);
@@ -265,8 +271,7 @@ export class SevkProvider extends Component {
       this.setState({
         isError: true,
         Loading: false,
-        Error:
-          "Hizmete Ulaşamıyoruz, İnternet bağlantınızın olduğundan emin olun",
+        Error: NoInternetConnection,
       });
       document
         .getElementsByClassName("od-BasePage-topBar")[0]
@@ -286,21 +291,40 @@ export class SevkProvider extends Component {
   }
   async ConfirmAccept() {
     this.setState({ Loading: true });
-    setTimeout(() => {
-      this.setState({ Loading: true, ShowConfirm: false });
-      var data = FetchFunc(DeleteArticelUrl + this.state.ActiveArticel);
-      console.log(data);
+    if (this.state.ConfirmType === "Articel") {
       setTimeout(() => {
-        this.setState({
-          Loading: false,
-          isError: true,
-          Error: "Silme işlemi tamamlandı.",
+        this.setState({ Loading: true, ShowConfirm: false });
+        var data = FetchFunc(DeleteArticelUrl + this.state.ActiveArticel);
+        console.log(data);
+        setTimeout(() => {
+          this.setState({
+            Loading: false,
+            isError: true,
+            Error: DeleteOk,
+          });
+          this.closeTopBar();
+          LocalStore.remove("Articels");
+          this.fetchArticels();
+        }, 1300);
+      }, 2500);
+    } else if (this.state.ConfirmType === "File") {
+      fetch(this.state.FileId, {
+        method: "GET",
+      })
+        .then((response) => {
+          this.fetchFiles(this.state.ActiveArticel);
+          this.setState({
+            isError: true,
+            Error: DeleteOk,
+            Loading: false,
+          });
+
+          return true;
+        })
+        .catch((err) => {
+          this.setState({ isError: true, Error: err });
         });
-        this.closeTopBar();
-        LocalStore.remove("Articels");
-        this.fetchArticels();
-      }, 1300);
-    }, 2500);
+    }
   }
   async GetWayBillPhoto(WayBillId) {
     fetch(PhotoUrl + WayBillId)
@@ -313,7 +337,7 @@ export class SevkProvider extends Component {
           } catch (error) {
             this.setState({
               isError: true,
-              Error: "Bu irsaliyenin fotoğrafı eklenmemiş.",
+              Error: NotWaybillPhoto,
             });
             this.closeError();
           }
@@ -321,7 +345,7 @@ export class SevkProvider extends Component {
         (error) => {
           this.setState({
             isError: true,
-            Error: "Bu irsaliyenin fotoğrafı eklenmemiş.",
+            Error: NotWaybillPhoto,
           });
           this.closeError();
         }
@@ -472,8 +496,7 @@ export class SevkProvider extends Component {
       this.setState({
         isError: true,
         Loading: false,
-        Error:
-          "Hizmete Ulaşamıyoruz, İnternet bağlantınızın olduğundan emin olun",
+        Error: NoInternetConnection,
       });
     }
   }
@@ -520,6 +543,27 @@ export class SevkProvider extends Component {
       "&Piece=" +
       this.state.Piece;
     await this.UpdateOrAddOrder(url);
+  }
+  async DeleteFile(FileId) {
+    this.setState({
+      ShowProductEdit: false,
+      FileId: FileId,
+      ConfirmType: "File",
+      NewProductShow: false,
+      ShowConfirm: true,
+      Loading: false,
+      Error: FileDeleteInfo,
+    });
+    console.log(this.state.ConfirmType);
+  }
+
+  ShowConfirm() {
+    this.setState({
+      ShowConfirm: !this.state.ShowConfirm,
+      ConfirmType: "Articel",
+      Error: ArticelDeleteInfo,
+    });
+    console.log(this.state.ConfirmType);
   }
   Search(word) {
     if (word.length >= 3) {
@@ -577,7 +621,7 @@ export class SevkProvider extends Component {
             ShowLayoutNote: false,
             Loading: false,
             isError: true,
-            Error: "Güncelleme Tamamlandı",
+            Error: UpdateOk,
           });
           setTimeout(() => {
             this.setState({ ShowLayoutNote: true, isError: false });
@@ -662,7 +706,7 @@ export class SevkProvider extends Component {
           this.setState({
             Loading: false,
             isError: true,
-            Error: "Bu irsaliyenin fotoğrafı eklenmemiş." + error,
+            Error: NotWaybillPhoto + error,
           });
           this.closeError();
         });

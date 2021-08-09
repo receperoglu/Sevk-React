@@ -49,7 +49,7 @@ export default function WayBillList() {
                       className="text-center cpointer"
                       onClick={() => GetWayBillPhoto(w.WayBillId)}
                     >
-                      {w.CreatedDate} <b> {w.WayBillId}</b>
+                      {w.CreatedDate.substring(0,15)} <b> {w.WayBillId}</b>
                     </td>
                   </tr>
                 ))}

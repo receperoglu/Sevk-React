@@ -1,6 +1,6 @@
 import React from "react";
 import SevkConsumer from "../../store/context";
-import { ico } from "../Urls";
+import { ico } from "./../../components/Tools/Urls";
 export default function ListImage({ File }) {
   return (
     <SevkConsumer>

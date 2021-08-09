@@ -1,7 +1,7 @@
 import React from "react";
 import CancelBtn from "../Tools/CancelBtn";
 import SevkConsumer from "../../store/context";
-import { Url, DocUrl } from "../Urls";
+import { Url, DocUrl } from "./../Tools/Urls";
 export default function DocumentPreview() {
   return (
     <SevkConsumer>
