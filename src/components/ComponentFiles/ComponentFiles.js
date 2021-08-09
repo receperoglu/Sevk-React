@@ -25,35 +25,34 @@ export default function ComponentFiles() {
               text="Dökümanlar"
               isVisible={FilesVisible}
             />
-            <div className={FilesVisible ? "effect FilesArea col-xs-12 text-center" : "hide"}>             
-                {Files.length === 0 ? (
-                  <div className="padd10 fleft">
-                    <i data-icon-name="Info" role="presentation">
-                      
-                    </i>
-                    Dosya Eklenmemiş
-                  </div>
-                ) : (
-                  <span className="margin10 changeview">
-                    <MenuItem
-                      click={toggleVtype}
-                      text="Görünümü Değiştir"
-                      symbol=""
-                      iconclassname=" FabricMDL2Icons-0"
-                    />
-                  </span>
-                )}
-               
+            <div className={FilesVisible ? "FilesArea col-xs-12 " : "hide"}>
+              {Files.length === 0 ? (
+                <div className="padd10 fleft">
+                  <i data-icon-name="Info" role="presentation">
+                    
+                  </i>
+                  Dosya Eklenmemiş
+                </div>
+              ) : (
+                <span className="margin10 changeview">
+                  <MenuItem
+                    click={toggleVtype}
+                    text="Görünümü Değiştir"
+                    symbol=""
+                    iconclassname=" FabricMDL2Icons-0"
+                  />
+                </span>
+              )}
               {Vtype ? (
                 <GridView />
               ) : (
-                <div className="od-ItemContent-list">
+                <Fragment>
                   {Files.length === 0 ? null : (
-                    <Fragment>
+                    <div className="ListViewContainer">
                       <ListViewHeader /> <ListViewBody />
-                    </Fragment>
+                    </div>
                   )}
-                </div>
+                </Fragment>
               )}
             </div>
           </Fragment>
