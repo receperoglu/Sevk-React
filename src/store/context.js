@@ -639,32 +639,34 @@ export class SevkProvider extends Component {
     }
   };
   uploadFile() {
-    this.setState({ Loading: true });
-    var FilesCollection = document.getElementById("FileNew");
-    var fileList = FilesCollection.files;
-    var formData = new FormData();
-    formData.append("ArticelId", this.state.ActiveArticel);
-    formData.append("FileType", this.state.FileType);
-    formData.append("UploadArea[0]", fileList[0], fileList[0].name);
-    fetch(DocumentUploadUrl, {
-      method: "POST",
-      contentType: "application/json",
-      processData: false,
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        this.GetOrders(this.state.Articel);
-        this.setState({ Loading: false });
+    try {
+      this.setState({ Loading: true });
+      var FilesCollection = document.getElementById("FileNew");
+      var fileList = FilesCollection.files;
+      var formData = new FormData();
+      formData.append("ArticelId", this.state.ActiveArticel);
+      formData.append("FileType", this.state.FileType);
+      formData.append("UploadArea[0]", fileList[0], fileList[0].name);
+      fetch(DocumentUploadUrl, {
+        method: "POST",
+        contentType: "application/json",
+        processData: false,
+        body: formData,
       })
-      .catch((error) => {
-        this.setState({
-          Loading: false,
-          isError: true,
-          Error: "Bu irsaliyenin fotoğrafı eklenmemiş." + error,
+        .then((response) => response.json())
+        .then((result) => {
+          this.GetOrders(this.state.Articel);
+          this.setState({ Loading: false });
+        })
+        .catch((error) => {
+          this.setState({
+            Loading: false,
+            isError: true,
+            Error: "Bu irsaliyenin fotoğrafı eklenmemiş." + error,
+          });
+          this.closeError();
         });
-        this.closeError();
-      });
+    } catch (e) {}
   }
   closeError() {
     setTimeout(() => {
@@ -698,13 +700,11 @@ export class SevkProvider extends Component {
       var page = document.getElementById("page");
       if (localStorage.getItem("Theme")) {
         var themeColor = localStorage.getItem("Theme");
-        console.log(themeColor);
         page.setAttribute("style", themeColor);
       } else {
         page.setAttribute("style", blueTheme);
       }
     }, 5);
-
     this.setState({ Loading: true });
     if (LocalStore.check("Articels")) {
       this.setState({

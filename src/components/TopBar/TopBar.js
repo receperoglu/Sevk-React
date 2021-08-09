@@ -26,7 +26,7 @@ export default function TopBar() {
               <span
                 onClick={ toggleTheme}
                 role="presentation"
-                class="settings"
+                className="settings"
               >
                 
               </span>
@@ -108,7 +108,7 @@ export default function TopBar() {
               id="FileNew"
               className="hide hidden opaq0"
               name="UploadArea[]"
-              onChange={() => uploadFile}
+              onChange={uploadFile}
               multiple
             />
           </Fragment>
