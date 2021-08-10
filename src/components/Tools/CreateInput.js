@@ -6,6 +6,7 @@ export default function CreateInput({ val, name, type,placeholder }) {
       {(value) => {
         const { dispatch } = value;
         const InputChange = (input) => {
+          console.log(input.target.value)
           dispatch({
             type: "Change" + input.target.name,
             payload: input.target.value,
@@ -15,7 +16,7 @@ export default function CreateInput({ val, name, type,placeholder }) {
           <input
             type={type ? type : "text"}
             name={name}
-            value={val}
+            defaultValue={val}
             onChange={InputChange}
             className="ms-TextField-field"
             placeholder={placeholder}
