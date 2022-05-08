@@ -11,7 +11,7 @@ function TableHead(showOrder, isMobile) {
         </tr>
       ) : (
         <tr className="flex_one">
-          <td className="flex_one">Firma</td>
+          <td className="flex_one">Firma Adı</td>
           <td className="flex_one">Articel / Sipariş</td>
         </tr>
       )}
