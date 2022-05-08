@@ -6,7 +6,7 @@ function TableHead(showOrder, isMobile) {
       {isMobile | showOrder ? (
         <tr>
           <td className="col-md-12 text-center">
-            Firma Articel / Sipariş
+            Firma Articel / Sipariş 
           </td>
         </tr>
       ) : (
