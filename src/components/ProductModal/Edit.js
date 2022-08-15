@@ -55,12 +55,11 @@ export default function Edit() {
                     <CreateInput name="Color" val={Order.Color} />
                   </div>
                   <div className="col-md-12 text-center fleft">
-                  <br/>
-                    {Loading ? (
-                      <ProgressBar isVisible={Loading} />
-                    ) : (
+                    <br />
+                    <ProgressBar isVisible={Loading} />
+                    {!Loading &&
                       <BlueButton text="Güncelle" click={UpdateOrder} />
-                    )}
+                    }
                   </div>
                 </div>
                 <hr />

@@ -7,7 +7,7 @@ export default function TopBar() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { ShowTopBar, dispatch, Articels } = value;
+        const { ShowTopBar, dispatch,Loading, Articels } = value;
         const ToggleMenu = () => {
           dispatch({ type: "ToggleMenu", payload: true });
         };
@@ -84,7 +84,7 @@ export default function TopBar() {
                         placeholder="Her şeyi ara"
                       />
                       <div
-                        className={Articels.length === 0 ? "noresult" : "hide"}
+                        className={ !Loading && Articels.length === 0 ? "noresult" : "hide"}
                       >
                         Sonuç Yok
                       </div>

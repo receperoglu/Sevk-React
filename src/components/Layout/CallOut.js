@@ -36,10 +36,8 @@ export default function Callout() {
               <div className="ms-Callout  ms-Callout--OOBE">
                 <CancelBtn cssclass="CallOutClose" click={CancelCallOut} />
                 <div className="ms-Callout-header ms-Callout-title">
-                  {waybillPiece === 0 ? (
-                    "Henüz Sevkiyat Yapılmamış"
-                  ) : (
-                    <Fragment>
+                  {waybillPiece === 0 && "Henüz Sevkiyat Yapılmamış"}
+                  {waybillPiece !== 0 && <Fragment>
                       {LoopCount} Kez Sevk Edildi.
                       <br />
                       {waybillPiece} Adet.
@@ -49,9 +47,9 @@ export default function Callout() {
                       {Order.Dimensions} {Order.Color} <br />
                       {Order.ProductTypeName}
                     </Fragment>
-                  )}
+                  }
                 </div>
-                {waybillPiece === 0 ? null : (
+                {!waybillPiece === 0 &&
                   <table className="table padd0">
                     {TableHead()}
                     <tbody>
@@ -60,7 +58,7 @@ export default function Callout() {
                       ))}
                     </tbody>
                   </table>
-                )}
+                }
               </div>
             </div>
           </div>

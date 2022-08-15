@@ -43,9 +43,9 @@ export default function ComponentFiles() {
                   />
                 </span>
               )}
-              {Vtype ? (
-                <GridView />
-              ) : (
+              {Vtype &&
+                <GridView />} 
+                {!Vtype  &&
                 <Fragment>
                   {Files.length === 0 ? null : (
                     <div className="ListViewContainer">
@@ -53,7 +53,7 @@ export default function ComponentFiles() {
                     </div>
                   )}
                 </Fragment>
-              )}
+               }
             </div>
           </Fragment>
         );

@@ -53,14 +53,14 @@ export default function Menus() {
           <div className="fright padd0">
             <div className="css-74 ms-CommandBar root-79">
               <div className="TopBarCommandLeft">
-                {isMobile ? null : (
+                {!isMobile &&
                   <MenuItem
                     click={toggleView}
                     text={ChangeView ? "Küçük Görünüm" : "Tam Ekran"}
                     symbol=""
                     iconclassname="FabricMDL2Icons-0"
                   />
-                )}
+                }
                 <MenuItem
                   click={toggleAddProduct}
                   text="Ekle"

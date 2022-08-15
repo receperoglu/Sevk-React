@@ -37,9 +37,7 @@ export default function CreateArticelModal() {
                 </div>
                 <div className="padd0 col-xs-12 text-right fleft">
                   <ProgressBar isVisible={Loading} />
-                  {Loading ? null : (
-                    <BlueButton click={SaveArticel} text="Kaydet" />
-                  )}
+                  {!Loading  && <BlueButton click={SaveArticel} text="Kaydet" /> }
                 </div>
                 <hr />
               </div>

@@ -36,7 +36,7 @@ export default function WayBillList() {
               text="İrsaliyeler"
               isVisible={WayBillVisible}
             />
-            <table className={WayBillVisible ? "table table-hover " : "hide"}>
+            <table className={WayBillVisible && "table table-hover "}>
               {TableHead()}
               <tbody aria-live="polite">
                 {Waybill.map((w) => (

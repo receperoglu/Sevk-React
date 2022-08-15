@@ -45,7 +45,7 @@ export default function OrdersTable() {
               text={ArticelName}
               isVisible={OrderVisible}
             />
-            <table className={OrderVisible ? "table table-hover" : "hide"}>
+            <table className={OrderVisible && "table table-hover"}>
               {TableHead()}
               <tbody>
                 {Orders.map((o) => (
@@ -54,7 +54,7 @@ export default function OrdersTable() {
                       {o.Piece} {o.Metrics}
                     </td>
                     <td>{o.Dimensions}</td>
-                    <td className={isMobile ? "minifont" : ""}>{o.Color}</td>
+                    <td className={isMobile && "minifont" }>{o.Color}</td>
                     <td>{o.ProductTypeName}</td>
                     <td>
                       <CreateIcon click={() => toggleEdit(o)} symbol="" />

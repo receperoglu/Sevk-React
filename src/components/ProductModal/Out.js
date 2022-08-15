@@ -19,9 +19,13 @@ export default function Out() {
             <div className="root-345">
               <div className="ms-Dialog-main  main-412">
                 <CancelBtn click={toggleOut} />
-                {Orders[0].id === 0 ? (
+
+                {Orders[0].id === 0 &&
                   <h1>Sipariş boş bu işlem tamamlanamaz</h1>
-                ) : (
+                }
+
+
+                {Orders[0].id !== 0 &&
                   <div>
                     <h4>Ürün Çıkışı</h4>
                     <CreateInput type="number" name="WayBillId" />
@@ -48,7 +52,7 @@ export default function Out() {
                       </div>
                     ))}
                   </div>
-                )}
+                }
               </div>
             </div>
           </div>

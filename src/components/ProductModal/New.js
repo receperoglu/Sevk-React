@@ -42,9 +42,9 @@ export default function New() {
                         <CreateInput name="Color" />
                       </div>
                       <ProgressBar isVisible={Loading} />
-                      {Loading ? null : (
+                      {!Loading &&
                         <BlueButton text="Kaydet" click={SaveOrder} />
-                      )}
+                      }
                     </div>
                     <hr />
                   </div>

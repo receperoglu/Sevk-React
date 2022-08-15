@@ -39,14 +39,14 @@ export default function GridView() {
     <SevkConsumer>
       {(value) => {
         const { Files, dispatch } = value;
-        const showDelete = (id) => {
-          var id = "Delete" + id;
-          var deletebtn = document.getElementById(id);
+        const showDelete = (identity) => {
+          let id = "Delete" + identity;
+          let deletebtn = document.getElementById(id);
           deletebtn.style.display = "block";
         };
-        const hideDelete = (id) => {
-          var id = "Delete" + id;
-          var deletebtn = document.getElementById(id);
+        const hideDelete = (identity) => {
+          let id = "Delete" + identity;
+          let deletebtn = document.getElementById(id);
           deletebtn.style.display = "none";
         };
         const showPreview = (File, type) => {
