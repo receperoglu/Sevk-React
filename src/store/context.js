@@ -236,7 +236,7 @@ export class SevkProvider extends Component {
     this.PostProductOutSave = this.PostProductOutSave.bind(this);
   }
   async fetchNotes(ArticelId) {
-    fetch(NoteUrl + ArticelId)
+   await FetchFunc(NoteUrl + ArticelId)
       .then((response) => response.text())
       .then((response) => {
         this.setState({ ArticelNotes: response });
@@ -308,7 +308,7 @@ export class SevkProvider extends Component {
         }, 1300);
       }, 2500);
     } else if (this.state.ConfirmType === "File") {
-      fetch(this.state.FileId, {
+      FetchFunc(this.state.FileId, {
         method: "GET",
       })
         .then((response) => {
@@ -327,7 +327,7 @@ export class SevkProvider extends Component {
     }
   }
   async GetWayBillPhoto(WayBillId) {
-    fetch(PhotoUrl + WayBillId)
+  await  FetchFunc(PhotoUrl + WayBillId)
       .then((res) => res.json())
       .then(
         (response) => {
@@ -392,7 +392,7 @@ export class SevkProvider extends Component {
       this.state.ArticelName +
       "&SaleType=" +
       this.state.SaleTypeId;
-    const response = await fetch(url, {
+    const response = await FetchFunc(url, {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
@@ -421,7 +421,7 @@ export class SevkProvider extends Component {
     await FetchFunc(url);
   }
   async UpdateOrAddOrder(url) {
-    fetch(url, {
+   await FetchFunc(url, {
       method: "GET",
     })
       .then((response) => {
@@ -606,12 +606,12 @@ export class SevkProvider extends Component {
     this.setState({ OrderId: orderid });
     setTimeout(() => this.PostProductOutSave(), 5000);
   };
-  SaveNotes = () => {
+  SaveNotes = async () => {
     this.setState({ Loading: true });
     var formData = new FormData();
     formData.append("ArticelId", this.state.ActiveArticel);
     formData.append("Notes", this.state.ArticelNotes);
-    fetch(SaveNoteUrl, {
+   await FetchFunc(SaveNoteUrl, {
       method: "POST",
       body: formData,
     })
@@ -637,14 +637,14 @@ export class SevkProvider extends Component {
     this.setState({ Loading: true });
     this.PostOrdersave();
   };
-  RotatePicture = () => {
+  RotatePicture = async () => {
     this.setState({ Rotating: true });
     var formData = new FormData();
     formData.append("Rotate", "Left");
     formData.append("Path", "/dosyalar/" + this.state.RawPath);
     formData.append("PictureName", this.state.Path);
     formData.append("PictureId", 0);
-    fetch(RotateUrl, {
+   await  FetchFunc(RotateUrl, {
       method: "POST",
       processData: false,
       body: formData,
@@ -682,7 +682,7 @@ export class SevkProvider extends Component {
       this.setState({ isMobile: false });
     }
   };
-  uploadFile() {
+  async uploadFile() {
     try {
       this.setState({ Loading: true });
       var FilesCollection = document.getElementById("FileNew");
@@ -691,7 +691,7 @@ export class SevkProvider extends Component {
       formData.append("ArticelId", this.state.ActiveArticel);
       formData.append("FileType", this.state.FileType);
       formData.append("UploadArea[0]", fileList[0], fileList[0].name);
-      fetch(DocumentUploadUrl, {
+    await  FetchFunc(DocumentUploadUrl, {
         method: "POST",
         contentType: "application/json",
         processData: false,
