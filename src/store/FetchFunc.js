@@ -1,15 +1,13 @@
 export const FetchFunc = async (Url) => {
   var response = "";
   try {
-    response = await fetch(Url, {
+    response = await fetch("https://recep.space/"+Url, {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        "access-control-allow-credentials": false,
-        "Access-Control-Allow-Origin": Url,
-        Authorization: "bearer ",
+      
       },
     })
       .then((result) => {

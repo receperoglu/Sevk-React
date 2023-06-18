@@ -1,11 +1,9 @@
 {
   "homepage": "https://receperoglu.github.io/SevkReactYeni-main",
   "name": "sevkreactyeni",
-  "proxy": "https://recep.space/",
   "version": "0.1.0",
   "private": true,
-  "vercell":"CI= npm run build",
-  "SERVER_URI":"https://recep.space/",
+  "vercell": "CI= npm run build",
   "dependencies": {
     "cors": "^2.8.5",
     "js-cookie": "^2.2.1",
@@ -19,12 +17,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
-  },  
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -36,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
