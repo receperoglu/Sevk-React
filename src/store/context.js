@@ -254,7 +254,7 @@ export class SevkProvider extends Component {
     this.setState({ Files: await FetchFunc(getFilesUrl + ArticelId) });
   }
   async fetchCorps() {
-    const response = await fetch("abi/post/CorpList.ashx", {
+    const response = await FetchFunc("abi/post/CorpList.ashx", {
       method: "GET",
     });
     var CorpsJson = await response.json();
