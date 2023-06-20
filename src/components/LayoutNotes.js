@@ -33,7 +33,7 @@ export default function LayoutNotes() {
                 className="NotesArea  ms-TextField-field"
                 defaultValue={ArticelNotes}
               >
-                {ArticelNotes}
+           
               </textarea>
               <ProgressBar isVisible={Loading} />
               {!Loading && <BlueButton text="Güncelle" click={SaveNotes} />}
