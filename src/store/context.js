@@ -236,12 +236,10 @@ export class SevkProvider extends Component {
     this.PostProductOutSave = this.PostProductOutSave.bind(this);
   }
   async fetchNotes(ArticelId) {
-   await FetchFunc(NoteUrl + ArticelId)
-      .then((response) => response.text())
-      .then((response) => {
-        this.setState({ ArticelNotes: response });
-      })
-      .catch((err) => console.log(err));
+   const response = await fetch(NoteUrl + ArticelId);
+
+  this.setState({ ArticelNotes: await response.text() });
+     
   }
   async fetchWaybill(ArticelId) {
     this.setState({ Waybill: [], Loading: true });
@@ -253,11 +251,10 @@ export class SevkProvider extends Component {
   async fetchFiles(ArticelId) {
     this.setState({ Files: await FetchFunc(getFilesUrl + ArticelId) });
   }
-  async fetchCorps() {
-    const response = await FetchFunc("abi/post/CorpList.ashx", {
-      method: "GET",
-    });
-    var CorpsJson = await response.json();
+  async   fetchCorps() {
+    const response = await FetchFunc("abi/post/CorpList.ashx");
+    var CorpsJson = await response;
+    console.log(CorpsJson)
     localStorage.setItem("Corps", JSON.stringify(CorpsJson));
     this.setState({ Corps: CorpsJson });
   }

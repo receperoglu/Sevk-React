@@ -1,13 +1,15 @@
 export const FetchFunc = async (Url) => {
+  Url = "https://recep.space/" + Url
+  console.log(Url);
   var response = "";
   try {
-    response = await fetch("https://recep.space/"+Url, {
+    response = await fetch(Url, {
       method: "POST",
       cache: "no-cache",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-      
+
       },
     })
       .then((result) => {
@@ -15,7 +17,14 @@ export const FetchFunc = async (Url) => {
         if (statuscode === 500) {
           response = { error: true };
         } else {
-          response = result.json();
+          try {
+            response = result.json();
+
+          }
+          catch (e) {
+            response = result;
+
+          }
         }
       })
       .then((error) => {

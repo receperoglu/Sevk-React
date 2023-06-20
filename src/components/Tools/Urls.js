@@ -4,7 +4,7 @@ const apiBase = "StartApi.ashx?Platform=Android&ProcessType=";
 export const DocUrl =  "https://view.officeapps.live.com/op/embed.aspx?src=https://recep.space/abi/dosyalar/";
 export const ico =  "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/256/";
 export const PhotoUrl = "abi/post/WayBillPhoto.ashx?WayBillId=";
-export const NoteUrl = "abi/post/ArticelNotes.ashx?ArticelId=";
+export const NoteUrl = "https://recep.space/abi/post/ArticelNotes.ashx?ArticelId=";
 export const AddUrl = "abi/post/AddOrder.ashx?ArticelId=";
 export const SaveUrl = "abi/post/AddArticel.ashx?CorpId=";
 export const ProductOutUrl = "abi/post/AddWayBill.ashx?CorpId=";
