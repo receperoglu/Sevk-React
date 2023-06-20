@@ -26,7 +26,7 @@ export default function OrdersTable() {
     <SevkConsumer>
       {(value) => {
         const { Orders, DetailActive, ArticelName, isMobile, dispatch } = value;
-        const toggleEdit = (Order) => {        
+        const toggleEdit = (Order) => {
           dispatch({
             type: "toggleEdit",
             payload: Order,
@@ -45,7 +45,7 @@ export default function OrdersTable() {
               text={ArticelName}
               isVisible={OrderVisible}
             />
-            <table className={OrderVisible && "table table-hover"}>
+            {OrderVisible && <table className="table table-hover">
               {TableHead()}
               <tbody>
                 {Orders.map((o) => (
@@ -54,7 +54,7 @@ export default function OrdersTable() {
                       {o.Piece} {o.Metrics}
                     </td>
                     <td>{o.Dimensions}</td>
-                    <td className={isMobile && "minifont" }>{o.Color}</td>
+                    <td className={isMobile && "minifont"}>{o.Color}</td>
                     <td>{o.ProductTypeName}</td>
                     <td>
                       <CreateIcon click={() => toggleEdit(o)} symbol="" />
@@ -62,7 +62,7 @@ export default function OrdersTable() {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table>}
             <FilesComponent />
             <WayBillList />
           </Fragment>

@@ -36,25 +36,27 @@ export default function WayBillList() {
               text="İrsaliyeler"
               isVisible={WayBillVisible}
             />
-            <table className={WayBillVisible && "table table-hover "}>
-              {TableHead()}
-              <tbody aria-live="polite">
-                {Waybill.map((w) => (
-                  <tr key={w.id}>
-                    <td> {w.Piece} </td>
-                    <td> {w.Weight} </td>
-                    <td> {w.Dimensions} </td>
-                    <td className={isMobile ? "minifont " : ""}>{w.Color}</td>
-                    <td
-                      className="text-center cpointer"
-                      onClick={() => GetWayBillPhoto(w.WayBillId)}
-                    >
-                      {w.CreatedDate.substring(0,15)} <b> {w.WayBillId}</b>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {
+              WayBillVisible && <table className="table table-hover">
+                {TableHead()}
+                <tbody aria-live="polite">
+                  {Waybill.map((w) => (
+                    <tr key={w.id}>
+                      <td> {w.Piece} </td>
+                      <td> {w.Weight} </td>
+                      <td> {w.Dimensions} </td>
+                      <td className={isMobile ? "minifont " : ""}>{w.Color}</td>
+                      <td
+                        className="text-center cpointer"
+                        onClick={() => GetWayBillPhoto(w.WayBillId)}
+                      >
+                        {w.CreatedDate.substring(0, 15)} <b> {w.WayBillId}</b>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            }
           </Fragment>
         );
       }}
