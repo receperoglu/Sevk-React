@@ -1,16 +1,15 @@
 export const FetchFunc = async (Url) => {
-  Url = "https://recep.space/" + Url
+  // Url = "http:/localhost:8000/" + Url
   console.log(Url);
   var response = "";
   try {
     response = await fetch(Url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       mode: "cors",
       headers: {
-        "Content-Type": "application/json",
-
-      },
+        "Content-Type": "application/json"
+      }
     })
       .then((result) => {
         var statuscode = result.status;

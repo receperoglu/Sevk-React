@@ -16,6 +16,7 @@ import ProgressBar from "./components/Tools/ProgressBar";
  import PicturePreview from "./components/Layout/PicturePreview";
 import CreateArticelModal from "./components/CreateArticelModal";
 import DocumentPreview from "./components/Layout/DocumentPreview";
+import ShippmentModal from "./components/ShippmentModal";
 export default function MainPage() {
   return (
     <SevkConsumer>
@@ -57,6 +58,7 @@ export default function MainPage() {
             <Edit />
             <Out />
             <Confirm />
+            <ShippmentModal/>
           </div>
         );
       }}

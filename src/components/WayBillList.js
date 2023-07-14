@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import HeadSection from "./Layout/HeadSection";
 import SevkConsumer from "../store/context";
+import moment from "moment/moment";
 function TableHead() {
   return (
     <thead>
@@ -42,7 +43,7 @@ export default function WayBillList() {
                 <tbody aria-live="polite">
                   {Waybill.map((w) => (
                     <tr key={w.id}>
-                      <td> {w.Piece} </td>
+                      <td> {w.SendEdPiece} </td>
                       <td> {w.Weight} </td>
                       <td> {w.Dimensions} </td>
                       <td className={isMobile ? "minifont " : ""}>{w.Color}</td>
@@ -50,7 +51,9 @@ export default function WayBillList() {
                         className="text-center cpointer"
                         onClick={() => GetWayBillPhoto(w.WayBillId)}
                       >
-                        {w.CreatedDate.substring(0, 15)} <b> {w.WayBillId}</b>
+                        {
+                          moment(w.CreatedDate).format('d.mm.yy hh:mm')
+                        } <b> {w.id} <i className="controlIcons"></i></b>
                       </td>
                     </tr>
                   ))}

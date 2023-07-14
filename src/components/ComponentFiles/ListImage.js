@@ -16,11 +16,11 @@ export default function ListImage({ File }) {
           <img
             className="FileTypeIcon-icon"
             alt=""
-            onClick={() => showPreview(File, File.FileType)}
+            onClick={() => showPreview(File, File.Type)}
             src={
-              File.FileType === "Picture"
+              File.Type === "Picture"
                 ? `${ico}/photo.png`
-                : `${ico + File.ext.substring(1)}.png`
+                : `${ico + File.ext}.png`
             }
           />
         );

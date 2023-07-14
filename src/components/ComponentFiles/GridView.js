@@ -2,12 +2,13 @@ import React from "react";
 import SevkConsumer from "../../store/context";
 import {  ico, Thumb } from "./../Tools/Urls";
 import Download from "./Download";
+import moment from "moment";
 
 function Grid(Delete, hideDelete, showDelete, F, showPreview, url, Type) {
   return (
     <div
-      onMouseOut={() => hideDelete(F.id)}
-      onMouseOver={() => showDelete(F.id)}
+      onMouseOut={() => hideDelete(F.Id)}
+      onMouseOver={() => showDelete(F.Id)}
       className="Container_grid"
     >
       <div onClick={() => showPreview(F, Type)} className="Grid_Detail">
@@ -19,13 +20,15 @@ function Grid(Delete, hideDelete, showDelete, F, showPreview, url, Type) {
             <span>{F.FileName}</span>
           </span>
           <span className="DateContainer">
-            {F.CreatedDate.substring(0, 11)}
+            {
+            moment( F.CreatedDate).format('d.mm.yy hh:mm')
+            }
           </span>
         </a>
       </div>
       <i
-        id={`Delete${F.id}`}
-        onClick={() => Delete(F.id)}
+        id={`Delete${F.Id}`}
+        onClick={() => Delete(F.Id)}
         className="Delete controlIcons"
       >
         
@@ -64,8 +67,9 @@ export default function GridView() {
         return (
           <div className="col-md-12">
             {Files.map((F) => (
-              <div key={F.id} className="col-md-3 col-lg-2 col-xs-4 padd0">
-                {F.FileType === "Picture"
+            
+              <div key={F.Id} className="col-md-3 col-lg-2 col-xs-4 padd0">
+                {F.Type === "Picture"
                   ? Grid(
                       Delete,
                       hideDelete,
@@ -81,7 +85,7 @@ export default function GridView() {
                       showDelete,
                       F,
                       showPreview,
-                      `${ico + F.ext.substring(1)}.png`,
+                      `${ico + F.ext}.png`,
                       "Document"
                     )}
               </div>

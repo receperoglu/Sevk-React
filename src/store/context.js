@@ -6,18 +6,18 @@ import {
   DeleteArticelUrl,
   SalesTypeUrl,
   getFilesUrl,
-  PhotoUrl,
+  WayBillPhoto,
+  waybillphotosave,
   MultiMotionUrl,
-  AddUrl,
   DocumentUploadUrl,
   SaveUrl,
   NoteUrl,
-  ProductOutUrl,
+
   GetOrderUrl,
   OneMotionUrl,
   UpdateOrderUrl,
   SaveNoteUrl,
-  RotateUrl,
+  RotateUrl, apiBase
 } from "./../components/Tools/Urls";
 import {
   greenTheme,
@@ -48,6 +48,7 @@ export class SevkProvider extends Component {
       Order: [],
       Files: [],
       Orders: [],
+      OutOrders: [],
       Waybill: [],
       Articel: [],
       Articels: [],
@@ -72,6 +73,7 @@ export class SevkProvider extends Component {
       ShowLayoutTheme: false,
       ShowLayoutNote: false,
       ShowProductEdit: false,
+      ShowShippmentModal: false,
       ShowLayoutRight: false,
       NewArticelCreate: false,
       CreateArticelShow: false,
@@ -132,6 +134,8 @@ export class SevkProvider extends Component {
           return this.SaveProductOut(action.payload);
         case "SaveNotes":
           return this.SaveNotes();
+        case "saveWayBill":
+          return this.saveWayBill();
         case "SaveArticel":
           return this.SaveArticel();
         case "SaveOrder":
@@ -152,6 +156,8 @@ export class SevkProvider extends Component {
           return this.toggleView();
         case "ToggleMenu":
           return { ...state, Menu: !this.state.Menu };
+        case "toggleShippment":
+          return { ...state, ShowShippmentModal: action.payload };
         case "ChangeCorpId":
           return { ...state, CorpId: action.payload };
         case "ChangeArticelName":
@@ -170,6 +176,8 @@ export class SevkProvider extends Component {
           return { ...state, WayBillId: action.payload };
         case "ChangeWeight":
           return { ...state, Weight: action.payload };
+        case "handleOut":
+          return this.handleOut(action.payload)
         case "showDocumentPreview":
           return {
             ...state,
@@ -234,12 +242,14 @@ export class SevkProvider extends Component {
     this.fetchProductTypes = this.fetchProductTypes.bind(this);
     this.CallOutonMouseMove = this.CallOutonMouseMove.bind(this);
     this.PostProductOutSave = this.PostProductOutSave.bind(this);
+    this.saveWayBill = this.saveWayBill.bind(this);
+    this.handleOut = this.handleOut.bind(this);
   }
   async fetchNotes(ArticelId) {
-   const response = await fetch(NoteUrl + ArticelId);
+    const response = await fetch(NoteUrl + ArticelId);
 
-  this.setState({ ArticelNotes: await response.text() });
-     
+    this.setState({ ArticelNotes: await response.text() });
+
   }
   async fetchWaybill(ArticelId) {
     this.setState({ Waybill: [], Loading: true });
@@ -251,8 +261,8 @@ export class SevkProvider extends Component {
   async fetchFiles(ArticelId) {
     this.setState({ Files: await FetchFunc(getFilesUrl + ArticelId) });
   }
-  async   fetchCorps() {
-    const response = await FetchFunc("abi/post/CorpList.ashx");
+  async fetchCorps() {
+    const response = await FetchFunc(apiBase + "corps");
     var CorpsJson = await response;
     console.log(CorpsJson)
     localStorage.setItem("Corps", JSON.stringify(CorpsJson));
@@ -324,13 +334,61 @@ export class SevkProvider extends Component {
     }
   }
   async GetWayBillPhoto(WayBillId) {
-  await  FetchFunc(PhotoUrl + WayBillId)
-      .then((res) => res.json())
+    console.log("burda")
+
+    await FetchFunc(WayBillPhoto + WayBillId)
       .then(
         (response) => {
           try {
-            var file = { Path: response[0].Path, RawPath: response[0].Path };
-            this.setState({ File: file, ShowPicturePreview: true });
+            var file = { Path: response.path, RawPath: response.path };
+            console.log(file);
+            this.setState({ File: file, ShowPicturePreview: true, ShowShippmentModal: false });
+          } catch (error) {
+            this.setState({
+             
+              ShowShippmentModal: true, WayBillId: WayBillId
+            });
+           
+          }
+        },
+        (error) => {
+          console.log(error)
+          this.setState({
+             
+            ShowShippmentModal: true, WayBillId: WayBillId
+          });
+          this.closeError();
+        }
+      );
+
+
+
+  }
+
+  async saveWayBill() {
+    try {
+
+
+      this.setState({ Loading: true });
+      var FilesCollection = document.getElementById("FileWayBill");
+      var fileList = FilesCollection.files;
+      var formData = new FormData();
+      formData.append("ArticelId", this.state.ActiveArticel);
+      formData.append("WayBillId", this.state.WayBillId)
+      formData.append("file", fileList[0], fileList[0].name);
+      await fetch(waybillphotosave, {
+        method: "POST",
+        contentType: "application/json",
+        processData: false,
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((response) => {
+
+          try {
+            var file = { Path: response.path, RawPath: response.path };
+            console.log(file);
+            this.setState({ File: file, ShowPicturePreview: true, ShowShippmentModal: false });
           } catch (error) {
             this.setState({
               isError: true,
@@ -338,32 +396,46 @@ export class SevkProvider extends Component {
             });
             this.closeError();
           }
-        },
-        (error) => {
+          this.setState({ Loading: false });
+        })
+        .catch((error) => {
           this.setState({
+            Loading: false,
             isError: true,
-            Error: NotWaybillPhoto,
+            Error: NotWaybillPhoto + error,
           });
           this.closeError();
-        }
-      );
+        });
+    } catch (e) { }
   }
   async PostOrdersave() {
-    var url =
-      AddUrl +
-      this.state.ActiveArticel +
-      "&ProductType=" +
-      this.state.ProductTypeId +
-      "&Dimensions=" +
-      this.state.Dimensions +
-      "&CorpId=" +
-      this.state.CorpId +
-      "&Color=" +
-      this.state.Color +
-      "&Piece=" +
-      this.state.Piece +
-      "&SaleType=1&Articel=test";
-    await this.UpdateOrAddOrder(url);
+    console.log(this.state.OutOrders);
+    // var url =
+    //   AddUrl +
+    //   this.state.ActiveArticel +
+    //   "&ProductType=" +
+    //   this.state.ProductTypeId +
+    //   "&Dimensions=" +
+    //   this.state.Dimensions +
+    //   "&CorpId=" +
+    //   this.state.CorpId +
+    //   "&Color=" +
+    //   this.state.Color +
+    //   "&Piece=" +
+    //   this.state.Piece +
+    //   "&SaleType=1&Articel=test";
+    // await this.UpdateOrAddOrder(url);
+  }
+
+  handleOut(data) {
+    const updatedState = this.state.OutOrders.map(item => {
+      if (item.id === data.id) {
+        return { ...item, [data.name]: data.value };
+      }
+      return item;
+    });
+
+    this.setState({ OutOrders: updatedState });
   }
   OpenEdit(Order) {
     this.setState({ ShowProductEdit: !this.state.ShowProductEdit });
@@ -402,23 +474,27 @@ export class SevkProvider extends Component {
     });
   }
   async PostProductOutSave() {
-    var url =
-      ProductOutUrl +
-      this.state.CorpId +
-      "&Piece=" +
-      this.state.Piece +
-      "&OrderId=" +
-      this.state.OrderId +
-      "&Weight=" +
-      this.state.Weight +
-      "&SaleType=1&Comment=9&WayBillId=" +
-      this.state.WayBillId +
-      "&ArticelId=" +
-      this.state.ActiveArticel;
-    await FetchFunc(url);
+
+    console.log(this.state.OutOrders);
+
+    this.setState({ Loading: true })
+
+
+    await fetch(apiBase + "ShipmentSave", {
+      method: "POST",
+      body: JSON.stringify({ "waybillid": this.state.WayBillId, data: this.state.OutOrders }),
+    })
+      .then((response) => {
+        this.setState({ Loading: false })
+      })
+      .then((data) => console.log(data));
+
+
   }
+
+
   async UpdateOrAddOrder(url) {
-   await FetchFunc(url, {
+    await FetchFunc(url, {
       method: "GET",
     })
       .then((response) => {
@@ -439,6 +515,7 @@ export class SevkProvider extends Component {
     this.setState({
       Loading: true,
       Orders: [],
+      OutOrders: [],
       Files: [],
       Waybill: [],
       CorpId: Articel.CorpId,
@@ -451,7 +528,7 @@ export class SevkProvider extends Component {
       try {
         var FirstClicked = "Articel" + Articel.id;
         document.getElementById(FirstClicked).classList.add("ActiveArticelRow");
-      } catch (error) {}
+      } catch (error) { }
     } else {
       try {
         var PrevClicked = "Articel" + this.state.ActiveArticel;
@@ -462,7 +539,7 @@ export class SevkProvider extends Component {
 
         var Clicked = "Articel" + Articel.id;
         document.getElementById(Clicked).classList.add("ActiveArticelRow");
-      } catch (error) {}
+      } catch (error) { }
     }
     var Fs = document.getElementById("FirstScreen");
     var Ss = document.getElementById("SecondScreen");
@@ -476,6 +553,7 @@ export class SevkProvider extends Component {
     if (!data.error) {
       this.setState({
         Orders: data,
+        OutOrders: data,
         ShowTopBar: true,
         Loading: false,
         ShowLayoutNote: false,
@@ -515,7 +593,7 @@ export class SevkProvider extends Component {
       this.setState({ OneWaybill: data });
       var totalpiece = 0;
       var totalweight = 0;
-      data.map((w) => (totalpiece += parseInt(w.Piece, 10)));
+      data.map((w) => (totalpiece += parseInt(w.ReelPiece, 10)));
       data.map((w) => (totalweight += parseInt(w.Weight, 10)));
       this.setState({
         waybillPiece: totalpiece,
@@ -599,16 +677,15 @@ export class SevkProvider extends Component {
       ActiveArticel: 0,
     });
   };
-  SaveProductOut = (orderid) => {
-    this.setState({ OrderId: orderid });
-    setTimeout(() => this.PostProductOutSave(), 5000);
+  SaveProductOut = () => {
+    this.PostProductOutSave()
   };
   SaveNotes = async () => {
     this.setState({ Loading: true });
     var formData = new FormData();
     formData.append("ArticelId", this.state.ActiveArticel);
     formData.append("Notes", this.state.ArticelNotes);
-   await FetchFunc(SaveNoteUrl, {
+    await fetch(SaveNoteUrl, {
       method: "POST",
       body: formData,
     })
@@ -641,7 +718,7 @@ export class SevkProvider extends Component {
     formData.append("Path", "/dosyalar/" + this.state.RawPath);
     formData.append("PictureName", this.state.Path);
     formData.append("PictureId", 0);
-   await  FetchFunc(RotateUrl, {
+    await FetchFunc(RotateUrl, {
       method: "POST",
       processData: false,
       body: formData,
@@ -681,14 +758,15 @@ export class SevkProvider extends Component {
   };
   async uploadFile() {
     try {
+
       this.setState({ Loading: true });
       var FilesCollection = document.getElementById("FileNew");
       var fileList = FilesCollection.files;
       var formData = new FormData();
       formData.append("ArticelId", this.state.ActiveArticel);
       formData.append("FileType", this.state.FileType);
-      formData.append("UploadArea[0]", fileList[0], fileList[0].name);
-    await  FetchFunc(DocumentUploadUrl, {
+      formData.append("file", fileList[0], fileList[0].name);
+      await fetch(DocumentUploadUrl, {
         method: "POST",
         contentType: "application/json",
         processData: false,
@@ -707,7 +785,7 @@ export class SevkProvider extends Component {
           });
           this.closeError();
         });
-    } catch (e) {}
+    } catch (e) { }
   }
   closeError() {
     setTimeout(() => {
