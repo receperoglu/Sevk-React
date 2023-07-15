@@ -1,6 +1,6 @@
 import React from "react";
 import SevkConsumer from "../../store/context";
-import {  ico, Thumb } from "./../Tools/Urls";
+import { ico, Thumb } from "./../Tools/Urls";
 import Download from "./Download";
 import moment from "moment";
 
@@ -21,7 +21,7 @@ function Grid(Delete, hideDelete, showDelete, F, showPreview, url, Type) {
           </span>
           <span className="DateContainer">
             {
-            moment( F.CreatedDate).format('d.mm.yy hh:mm')
+              moment(F.CreatedDate).format('d.mm.yy hh:mm')
             }
           </span>
         </a>
@@ -41,7 +41,7 @@ export default function GridView() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { Files, dispatch } = value;
+        const { Files, Loading, dispatch } = value;
         const showDelete = (identity) => {
           let id = "Delete" + identity;
           let deletebtn = document.getElementById(id);
@@ -66,28 +66,30 @@ export default function GridView() {
         };
         return (
           <div className="col-md-12">
+
+            {Loading && Files.length === 0 && gridDivSkeleton()}
             {Files.map((F) => (
-            
+
               <div key={F.Id} className="col-md-3 col-lg-2 col-xs-4 padd0">
                 {F.Type === "Picture"
                   ? Grid(
-                      Delete,
-                      hideDelete,
-                      showDelete,
-                      F,
-                      showPreview,
-                      Thumb + F.Path,
-                      "Picture"
-                    )
+                    Delete,
+                    hideDelete,
+                    showDelete,
+                    F,
+                    showPreview,
+                    Thumb + F.Path,
+                    "Picture"
+                  )
                   : Grid(
-                      Delete,
-                      hideDelete,
-                      showDelete,
-                      F,
-                      showPreview,
-                      `${ico + F.ext}.png`,
-                      "Document"
-                    )}
+                    Delete,
+                    hideDelete,
+                    showDelete,
+                    F,
+                    showPreview,
+                    `${ico + F.ext}.png`,
+                    "Document"
+                  )}
               </div>
             ))}
           </div>
@@ -95,4 +97,37 @@ export default function GridView() {
       }}
     </SevkConsumer>
   );
+}
+
+function gridDivSkeleton() {
+  const numItems = 5; // Toplam öğe sayısı
+
+  const skeletonItems = Array.from({ length: numItems }, (_, index) => (
+    <div key={index} className="col-md-3 col-lg-2 col-xs-4 padd0 loadingData">
+      <div className="Container_grid">
+        <div className="Grid_Detail">
+          <a className="LinkContainer">
+            <div className="FileTypeIcon ImageContainer">
+              <img
+                className="FileTypeIcon-icon"
+                alt=""
+                src="https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/256/pdf.png"
+              />
+            </div>
+            <span className="FileNameContainer blur-text">
+              <span>Teknolojik Degisim ve Baskinin Ustesinden Gelmek</span>
+            </span>
+            <span className="DateContainer blur-text">5.06.2023 07:06</span>
+          </a>
+        </div>
+        <a href="#" target="blank">
+          <i data-icon-name="Download" className="FabricMDL2Icons">
+            
+          </i>
+        </a>
+      </div>
+    </div>
+  ));
+
+  return <React.Fragment>{skeletonItems}</React.Fragment>;
 }

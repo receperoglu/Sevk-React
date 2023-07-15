@@ -4,6 +4,7 @@ import SevkConsumer from "../store/context";
 import FilesComponent from "./ComponentFiles/ComponentFiles";
 import WayBillList from "./WayBillList";
 import CreateIcon from "./Tools/CreateIcon";
+import Skeleton from "./Tools/Skeleton";
 function TableHead() {
   return (
     <thead>
@@ -25,7 +26,7 @@ export default function OrdersTable() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { Orders, DetailActive, ArticelName, isMobile, dispatch } = value;
+        const { Orders, DetailActive, ArticelName, isMobile, Loading, dispatch } = value;
         const toggleEdit = (Order) => {
           dispatch({
             type: "toggleEdit",
@@ -61,6 +62,8 @@ export default function OrdersTable() {
                     </td>
                   </tr>
                 ))}
+                {(Loading && Orders.length === 0) && <Skeleton icons={[{ order: 5, icon: "edit" }]} rowCount="5" columnCount="5" />}
+
               </tbody>
             </table>}
             <FilesComponent />

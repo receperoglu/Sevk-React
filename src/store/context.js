@@ -512,6 +512,13 @@ export class SevkProvider extends Component {
       });
   }
   async GetOrders(Articel) {
+    var Fs = document.getElementById("FirstScreen");
+    var Ss = document.getElementById("SecondScreen");
+    Ss.classList.remove("hide");
+    Ss.classList.add("col-md-8");
+    Ss.classList.add("padd0");
+    Fs.classList.add("col-md-4");
+    Fs.classList.remove("col-md-12");
     this.setState({
       Loading: true,
       Orders: [],
@@ -522,6 +529,8 @@ export class SevkProvider extends Component {
       ArticelName: Articel.ArticelName,
       CorpName: Articel.CustomerName,
       Articel: Articel,
+      DetailActive: true,
+        showOrder: true,
     });
     if (this.state.ActiveArticel === 0) {
       this.setState({ ActiveArticel: Articel.id });
@@ -541,13 +550,7 @@ export class SevkProvider extends Component {
         document.getElementById(Clicked).classList.add("ActiveArticelRow");
       } catch (error) { }
     }
-    var Fs = document.getElementById("FirstScreen");
-    var Ss = document.getElementById("SecondScreen");
-    Ss.classList.remove("hide");
-    Ss.classList.add("col-md-8");
-    Ss.classList.add("padd0");
-    Fs.classList.add("col-md-4");
-    Fs.classList.remove("col-md-12");
+ 
     var FullUrl = GetOrderUrl + Articel.id;
     var data = await FetchFunc(FullUrl);
     if (!data.error) {
@@ -559,8 +562,7 @@ export class SevkProvider extends Component {
         ShowLayoutNote: false,
         ShowLayoutRight: false,
         ShowCallOut: false,
-        DetailActive: true,
-        showOrder: true,
+        
         CorpId: 0,
       });
       this.fetchFiles(Articel.id);

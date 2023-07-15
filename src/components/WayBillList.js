@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import HeadSection from "./Layout/HeadSection";
 import SevkConsumer from "../store/context";
 import moment from "moment/moment";
+import Skeleton from "./Tools/Skeleton";
 function TableHead() {
   return (
     <thead>
@@ -23,14 +24,14 @@ export default function WayBillList() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { isMobile, Waybill, dispatch } = value;
+        const { isMobile, Waybill,Loading, dispatch } = value;
         const GetWayBillPhoto = (Path) => {
           dispatch({
             type: "GetWayBillPhoto",
             payload: Path,
           });
         };
-        return Waybill.length === 0 ? null : (
+        return  (
           <Fragment>
             <HeadSection
               click={toggleWayBillList}
@@ -38,7 +39,7 @@ export default function WayBillList() {
               isVisible={WayBillVisible}
             />
             {
-              WayBillVisible && <table className="table table-hover">
+              <table className="table table-hover">
                 {TableHead()}
                 <tbody aria-live="polite">
                   {Waybill.map((w) => (
@@ -57,6 +58,9 @@ export default function WayBillList() {
                       </td>
                     </tr>
                   ))}
+
+{(Loading && Waybill.length === 0) && <Skeleton icons={[{ order: 6, icon: "photo" }]} rowCount="5" columnCount="6" />}
+
                 </tbody>
               </table>
             }
