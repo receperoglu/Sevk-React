@@ -1,5 +1,5 @@
-export const apiBase = "http://localhost:8000/api/";
-export const Thumb =  "http://localhost:8000/files/";
+export const apiBase = "https://www.sevkapi.meetwithdigi.com/public/api/";
+export const Thumb =  "https://www.sevkapi.meetwithdigi.com/public/files/";
 
 export const Url = Thumb;
 export const DocUrl =  "https://view.officeapps.live.com/op/embed.aspx?src=https://recep.space/abi/dosyalar/";
