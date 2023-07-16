@@ -120,11 +120,11 @@ function gridDivSkeleton() {
             <span className="DateContainer blur-text">5.06.2023 07:06</span>
           </a>
         </div>
-        <a href="#" target="blank">
+       
           <i data-icon-name="Download" className="FabricMDL2Icons">
             
           </i>
-        </a>
+      
       </div>
     </div>
   ));
