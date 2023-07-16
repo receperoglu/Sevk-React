@@ -22,9 +22,9 @@ export default function DocumentPreview() {
               title="title"
               className="Iframe"
               src={
-                File.ext.substring(1) === "pdf"
+                File.ext === "pdf"
                   ? Url + File.Path
-                  : File.ext.substring(1) === "txt"
+                  : File.ext === "txt"
                   ? Url + File.Path
                   : DocUrl + File.Path
               }
