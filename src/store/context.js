@@ -595,7 +595,7 @@ export class SevkProvider extends Component {
       this.setState({ OneWaybill: data });
       var totalpiece = 0;
       var totalweight = 0;
-      data.map((w) => (totalpiece += parseInt(w.ReelPiece, 10)));
+      data.map((w) => (totalpiece += parseInt(w.SendEdPiece, 10)));
       data.map((w) => (totalweight += parseInt(w.Weight, 10)));
       this.setState({
         waybillPiece: totalpiece,
