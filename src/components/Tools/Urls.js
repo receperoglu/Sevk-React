@@ -2,7 +2,7 @@ export const apiBase = "https://www.sevkapi.meetwithdigi.com/public/api/";
 export const Thumb =  "https://www.sevkapi.meetwithdigi.com/public/files/";
 
 export const Url = Thumb;
-export const DocUrl =  "https://view.officeapps.live.com/op/embed.aspx?src=https://recep.space/abi/dosyalar/";
+export const DocUrl =  "https://view.officeapps.live.com/op/embed.aspx?src"+Thumb;
 export const ico =  "https://spoprod-a.akamaihd.net/files/fabric-cdn-prod_20201207.001/assets/item-types/256/";
 export const WayBillPhoto = apiBase+ "waybillphoto/";
 export const waybillphotosave = apiBase+ "waybillphotosave";
