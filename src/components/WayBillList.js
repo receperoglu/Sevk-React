@@ -24,14 +24,14 @@ export default function WayBillList() {
   return (
     <SevkConsumer>
       {(value) => {
-        const { isMobile, Waybill,Loading, dispatch } = value;
+        const { isMobile, Waybill, Loading, dispatch } = value;
         const GetWayBillPhoto = (Path) => {
           dispatch({
             type: "GetWayBillPhoto",
             payload: Path,
           });
         };
-        return  (
+        return (
           <Fragment>
             <HeadSection
               click={toggleWayBillList}
@@ -59,7 +59,7 @@ export default function WayBillList() {
                     </tr>
                   ))}
 
-{(Loading && Waybill.length === 0) && <Skeleton icons={[{ order: 6, icon: "photo" }]} rowCount="5" columnCount="6" />}
+                  {(Loading && Waybill.length === 0) && <Skeleton icons={[{ order: 6, icon: "photo" }]} rowCount="5" columnCount="6" />}
 
                 </tbody>
               </table>

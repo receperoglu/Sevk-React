@@ -2,18 +2,14 @@ import React from "react";
 import BlueButton from "./Tools/BlueButton";
 import CancelBtn from "./Tools/CancelBtn";
 import SevkConsumer from "../store/context";
- import ProgressBar from "./Tools/ProgressBar";
+import ProgressBar from "./Tools/ProgressBar";
 export default function ShippmentModal() {
   return (
     <SevkConsumer>
       {(value) => {
         const { dispatch, ShowShippmentModal, Loading } = value;
-        const toggleOut = () => {
-          dispatch({ type: "toggleShippment", payload: false });
-        };
-        const saveWayBill = () => {
-          dispatch({ type: "saveWayBill" });
-        };
+        const toggleOut = () => dispatch({ type: "toggleShippment", payload: false })
+        const saveWayBill = () => dispatch({ type: "saveWayBill" });
         return ShowShippmentModal ? (
           <div className="ms-Layer animate ms-Layer--fixed effect layer-351">
             <div className="root-345">

@@ -13,7 +13,7 @@ import Callout from "./components/Layout/CallOut";
 import NewModal from "./components/ProductModal/New";
 import ArticelsTable from "./components/ArticelsTable";
 import ProgressBar from "./components/Tools/ProgressBar";
- import PicturePreview from "./components/Layout/PicturePreview";
+import PicturePreview from "./components/Layout/PicturePreview";
 import CreateArticelModal from "./components/CreateArticelModal";
 import DocumentPreview from "./components/Layout/DocumentPreview";
 import ShippmentModal from "./components/ShippmentModal";
@@ -40,8 +40,8 @@ export default function MainPage() {
                 isMobile
                   ? "col-xs-12 padd0 WizardArea"
                   : ChangeView
-                  ? "col-md-12 padd0 WizardArea"
-                  : "col-md-8 padd0 WizardArea"
+                    ? "col-md-12 padd0 WizardArea"
+                    : "col-md-8 padd0 WizardArea"
               }
             >
               <OrdersTable />
@@ -58,8 +58,10 @@ export default function MainPage() {
             <Edit />
             <Out />
             <Confirm />
-            <ShippmentModal/>
+            <ShippmentModal />
+
           </div>
+
         );
       }}
     </SevkConsumer>
