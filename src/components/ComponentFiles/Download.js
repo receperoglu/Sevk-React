@@ -4,7 +4,7 @@ export default function Download({ File }) {
 
   const download = async () => {
     try {
-      const response = await fetch(Url + File.Path);
+      const response = await fetch(Url + File.Path, { mode: 'no-cors' });
       const blob = await response.blob();
 
       // Dosyayı indirmek için bir URL nesnesi oluşturun
